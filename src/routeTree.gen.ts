@@ -15,7 +15,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRoute } from './routes/__root'
 import { Route as AuthIndexImport } from './routes/auth/index'
 import { Route as protectedAppImport } from './routes/(protected)/_app'
-import { Route as protectedAppTransactionsIndexImport } from './routes/(protected)/_app/transactions/index'
+import { Route as protectedAppTransactIndexImport } from './routes/(protected)/_app/transact/index'
 import { Route as protectedAppDashboardIndexImport } from './routes/(protected)/_app/dashboard/index'
 import { Route as protectedAppBudgetIndexImport } from './routes/(protected)/_app/budget/index'
 import { Route as protectedAppAnalyticsIndexImport } from './routes/(protected)/_app/analytics/index'
@@ -42,11 +42,10 @@ const protectedAppRoute = protectedAppImport.update({
   getParentRoute: () => protectedRoute,
 } as any)
 
-const protectedAppTransactionsIndexRoute =
-  protectedAppTransactionsIndexImport.update({
-    path: '/transactions/',
-    getParentRoute: () => protectedAppRoute,
-  } as any)
+const protectedAppTransactIndexRoute = protectedAppTransactIndexImport.update({
+  path: '/transact/',
+  getParentRoute: () => protectedAppRoute,
+} as any)
 
 const protectedAppDashboardIndexRoute = protectedAppDashboardIndexImport.update(
   {
@@ -125,11 +124,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof protectedAppDashboardIndexImport
       parentRoute: typeof protectedAppImport
     }
-    '/(protected)/_app/transactions/': {
-      id: '/(protected)/_app/transactions/'
-      path: '/transactions'
-      fullPath: '/transactions'
-      preLoaderRoute: typeof protectedAppTransactionsIndexImport
+    '/(protected)/_app/transact/': {
+      id: '/(protected)/_app/transact/'
+      path: '/transact'
+      fullPath: '/transact'
+      preLoaderRoute: typeof protectedAppTransactIndexImport
       parentRoute: typeof protectedAppImport
     }
   }
@@ -142,7 +141,7 @@ interface protectedAppRouteChildren {
   protectedAppAnalyticsIndexRoute: typeof protectedAppAnalyticsIndexRoute
   protectedAppBudgetIndexRoute: typeof protectedAppBudgetIndexRoute
   protectedAppDashboardIndexRoute: typeof protectedAppDashboardIndexRoute
-  protectedAppTransactionsIndexRoute: typeof protectedAppTransactionsIndexRoute
+  protectedAppTransactIndexRoute: typeof protectedAppTransactIndexRoute
 }
 
 const protectedAppRouteChildren: protectedAppRouteChildren = {
@@ -150,7 +149,7 @@ const protectedAppRouteChildren: protectedAppRouteChildren = {
   protectedAppAnalyticsIndexRoute: protectedAppAnalyticsIndexRoute,
   protectedAppBudgetIndexRoute: protectedAppBudgetIndexRoute,
   protectedAppDashboardIndexRoute: protectedAppDashboardIndexRoute,
-  protectedAppTransactionsIndexRoute: protectedAppTransactionsIndexRoute,
+  protectedAppTransactIndexRoute: protectedAppTransactIndexRoute,
 }
 
 const protectedAppRouteWithChildren = protectedAppRoute._addFileChildren(
@@ -176,7 +175,7 @@ export interface FileRoutesByFullPath {
   '/analytics': typeof protectedAppAnalyticsIndexRoute
   '/budget': typeof protectedAppBudgetIndexRoute
   '/dashboard': typeof protectedAppDashboardIndexRoute
-  '/transactions': typeof protectedAppTransactionsIndexRoute
+  '/transact': typeof protectedAppTransactIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -186,7 +185,7 @@ export interface FileRoutesByTo {
   '/analytics': typeof protectedAppAnalyticsIndexRoute
   '/budget': typeof protectedAppBudgetIndexRoute
   '/dashboard': typeof protectedAppDashboardIndexRoute
-  '/transactions': typeof protectedAppTransactionsIndexRoute
+  '/transact': typeof protectedAppTransactIndexRoute
 }
 
 export interface FileRoutesById {
@@ -198,7 +197,7 @@ export interface FileRoutesById {
   '/(protected)/_app/analytics/': typeof protectedAppAnalyticsIndexRoute
   '/(protected)/_app/budget/': typeof protectedAppBudgetIndexRoute
   '/(protected)/_app/dashboard/': typeof protectedAppDashboardIndexRoute
-  '/(protected)/_app/transactions/': typeof protectedAppTransactionsIndexRoute
+  '/(protected)/_app/transact/': typeof protectedAppTransactIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -210,7 +209,7 @@ export interface FileRouteTypes {
     | '/analytics'
     | '/budget'
     | '/dashboard'
-    | '/transactions'
+    | '/transact'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -219,7 +218,7 @@ export interface FileRouteTypes {
     | '/analytics'
     | '/budget'
     | '/dashboard'
-    | '/transactions'
+    | '/transact'
   id:
     | '__root__'
     | '/(protected)'
@@ -229,7 +228,7 @@ export interface FileRouteTypes {
     | '/(protected)/_app/analytics/'
     | '/(protected)/_app/budget/'
     | '/(protected)/_app/dashboard/'
-    | '/(protected)/_app/transactions/'
+    | '/(protected)/_app/transact/'
   fileRoutesById: FileRoutesById
 }
 
@@ -273,7 +272,7 @@ export const routeTree = rootRoute
         "/(protected)/_app/analytics/",
         "/(protected)/_app/budget/",
         "/(protected)/_app/dashboard/",
-        "/(protected)/_app/transactions/"
+        "/(protected)/_app/transact/"
       ]
     },
     "/auth/": {
@@ -295,8 +294,8 @@ export const routeTree = rootRoute
       "filePath": "(protected)/_app/dashboard/index.tsx",
       "parent": "/(protected)/_app"
     },
-    "/(protected)/_app/transactions/": {
-      "filePath": "(protected)/_app/transactions/index.tsx",
+    "/(protected)/_app/transact/": {
+      "filePath": "(protected)/_app/transact/index.tsx",
       "parent": "/(protected)/_app"
     }
   }

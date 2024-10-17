@@ -5,55 +5,63 @@ import { SVGProps } from "react";
 import { JSX } from "react/jsx-runtime";
 
 export function Navbar() {
+  const isSignedIn = true;
   return (
-    <nav className="bg-primary text-white p-4 text-background">
+    <nav className="bg-slate-50 p-4">
       <div className="container mx-auto flex items-center justify-between">
-        <Link href="/dashboard" className="text-2xl font-semibold">
+        <Link to="/dashboard" className="text-xl font-semibold">
           Spendaro
         </Link>
-        <div className="hidden md:flex space-x-6">
-          <NavLink href="/dashboard" active>
-            Dashboard
-          </NavLink>
-          <NavLink href="/budget">Budget</NavLink>
-          <NavLink href="/transactions">Transactions</NavLink>
-          <NavLink href="/analytics">Analytics</NavLink>
-        </div>
-        <div className="flex items-center space-x-4">
-          <span className="hidden md:inline">Tanner Barcelos</span>
-          <Avatar>
-            <AvatarImage
-              src="https://avatars.githubusercontent.com/u/41309200?v=4"
-              alt="Tanner Barcelos"
-            />
-            <AvatarFallback>TB</AvatarFallback>
-          </Avatar>
-          <Button variant="ghost" size="icon" className="md:hidden">
-            <MenuIcon className="h-6 w-6" />
-            <span className="sr-only">Toggle menu</span>
-          </Button>
-        </div>
+        {isSignedIn && (
+          <>
+            <div className="hidden md:flex space-x-6">
+              <Link
+                to="/dashboard"
+                className="text-sm [&.active]:bg-purple-700 [&.active]:text-slate-50 [&.active]:rounded-full flex items-center p-3"
+                activeOptions={{ exact: true }}
+              >
+                Dashboard
+              </Link>
+              <Link
+                to="/budget"
+                className="text-sm [&.active]:bg-purple-700 [&.active]:text-slate-50 [&.active]:rounded-full  flex items-center p-3"
+                activeOptions={{ exact: true }}
+              >
+                Budget
+              </Link>
+              <Link
+                to="/transact"
+                className="text-sm [&.active]:bg-purple-700 [&.active]:text-slate-50 [&.active]:rounded-full  flex items-center p-3"
+                activeOptions={{ exact: true }}
+              >
+                Transact
+              </Link>
+              <Link
+                to="/analytics"
+                className="text-sm [&.active]:bg-purple-700 [&.active]:text-slate-50 [&.active]:rounded-full  flex items-center p-3"
+                activeOptions={{ exact: true }}
+              >
+                Analytics
+              </Link>
+            </div>
+            <div className="flex items-center space-x-4 ">
+              <span className="hidden md:inline text-sm">Tanner Barcelos</span>
+              <Avatar>
+                <AvatarImage
+                  src="https://avatars.githubusercontent.com/u/41309200?v=4"
+                  alt="Tanner Barcelos"
+                />
+                <AvatarFallback>TB</AvatarFallback>
+              </Avatar>
+              <Button variant="ghost" size="icon" className="md:hidden">
+                <MenuIcon className="h-6 w-6" />
+                <span className="sr-only">Toggle menu</span>
+              </Button>
+            </div>
+          </>
+        )}
       </div>
     </nav>
-  );
-}
-
-interface NavLinkProps {
-  href: string;
-  children: React.ReactNode;
-  active?: boolean;
-}
-
-function NavLink({ href, children, active = false }: NavLinkProps) {
-  return (
-    <Link
-      href={href}
-      className={`hover:text-green-400 transition-colors ${
-        active ? "text-green-400" : ""
-      }`}
-    >
-      {children}
-    </Link>
   );
 }
 

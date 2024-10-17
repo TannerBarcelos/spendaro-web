@@ -1,8 +1,9 @@
+import { greetTimeOfDay } from "@/lib/utils";
+
 export function DashboardPage() {
   return (
-    <div>
-      <h1 className="text-2xl">Dashboard</h1>
-      <p>This is the dashboard page.</p>
+    <div className="mt-4">
+      <h1 className="text-3xl font-semibold">{greetTimeOfDay()}</h1>
     </div>
   );
 }

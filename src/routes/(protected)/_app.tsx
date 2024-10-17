@@ -1,15 +1,13 @@
-import { Navbar } from '@/components/navbar'
-import { createFileRoute, Outlet } from '@tanstack/react-router'
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/(protected)/_app')({
+export const Route = createFileRoute("/(protected)/_app")({
   component: () => <Layout />,
-})
+});
 
 function Layout() {
   return (
-    <>
-      <Navbar />
+    <div className="container mx-auto pt-4">
       <Outlet />
-    </>
-  )
+    </div>
+  );
 }

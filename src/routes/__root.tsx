@@ -1,3 +1,4 @@
+import { Navbar } from "@/components/navbar";
 import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 
@@ -5,8 +6,11 @@ import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 export const Route = createRootRoute({
   component: () => (
     <>
-      <Outlet />
-      <TanStackRouterDevtools />
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-50 ">
+        <Navbar />
+        <Outlet />
+        <TanStackRouterDevtools />
+      </div>
     </>
   ),
 });

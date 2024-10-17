@@ -1,4 +1,4 @@
-export function TransactionsPage() {
+export function TransactPage() {
   return (
     <div>
       <h1 className="text-2xl">Transactions</h1>
