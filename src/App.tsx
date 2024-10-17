@@ -1,11 +1,5 @@
-import { LoginSignupComponent } from "./components/login-signup";
-
 function App() {
-  return (
-    <>
-      <LoginSignupComponent />
-    </>
-  );
+  return <></>;
 }
 
 export default App;

@@ -1,8 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute("/dashboard/")({
+export const Route = createFileRoute('/(protected)/_layout/dashboard/')({
   component: () => <Dashboard />,
-});
+})
 
 function Dashboard() {
   return (
@@ -10,5 +10,5 @@ function Dashboard() {
       <h1 className="text-2xl">Dashboard</h1>
       <p>This is the dashboard page.</p>
     </div>
-  );
+  )
 }
