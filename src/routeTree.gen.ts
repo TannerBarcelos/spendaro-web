@@ -14,11 +14,12 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as AuthIndexImport } from './routes/auth/index'
-import { Route as protectedLayoutImport } from './routes/(protected)/_layout'
-import { Route as protectedLayoutTransactionsIndexImport } from './routes/(protected)/_layout/transactions/index'
-import { Route as protectedLayoutDashboardIndexImport } from './routes/(protected)/_layout/dashboard/index'
-import { Route as protectedLayoutBudgetIndexImport } from './routes/(protected)/_layout/budget/index'
-import { Route as protectedLayoutAnalyticsIndexImport } from './routes/(protected)/_layout/analytics/index'
+import { Route as protectedAppImport } from './routes/(protected)/_app'
+import { Route as protectedAppTransactionsIndexImport } from './routes/(protected)/_app/transactions/index'
+import { Route as protectedAppDashboardIndexImport } from './routes/(protected)/_app/dashboard/index'
+import { Route as protectedAppBudgetIndexImport } from './routes/(protected)/_app/budget/index'
+import { Route as protectedAppAnalyticsIndexImport } from './routes/(protected)/_app/analytics/index'
+import { Route as protectedAppBudgetCreateImport } from './routes/(protected)/_app/budget/create'
 
 // Create Virtual Routes
 
@@ -36,35 +37,40 @@ const AuthIndexRoute = AuthIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const protectedLayoutRoute = protectedLayoutImport.update({
-  id: '/_layout',
+const protectedAppRoute = protectedAppImport.update({
+  id: '/_app',
   getParentRoute: () => protectedRoute,
 } as any)
 
-const protectedLayoutTransactionsIndexRoute =
-  protectedLayoutTransactionsIndexImport.update({
+const protectedAppTransactionsIndexRoute =
+  protectedAppTransactionsIndexImport.update({
     path: '/transactions/',
-    getParentRoute: () => protectedLayoutRoute,
+    getParentRoute: () => protectedAppRoute,
   } as any)
 
-const protectedLayoutDashboardIndexRoute =
-  protectedLayoutDashboardIndexImport.update({
-    path: '/dashboard/',
-    getParentRoute: () => protectedLayoutRoute,
-  } as any)
-
-const protectedLayoutBudgetIndexRoute = protectedLayoutBudgetIndexImport.update(
+const protectedAppDashboardIndexRoute = protectedAppDashboardIndexImport.update(
   {
-    path: '/budget/',
-    getParentRoute: () => protectedLayoutRoute,
+    path: '/dashboard/',
+    getParentRoute: () => protectedAppRoute,
   } as any,
 )
 
-const protectedLayoutAnalyticsIndexRoute =
-  protectedLayoutAnalyticsIndexImport.update({
+const protectedAppBudgetIndexRoute = protectedAppBudgetIndexImport.update({
+  path: '/budget/',
+  getParentRoute: () => protectedAppRoute,
+} as any)
+
+const protectedAppAnalyticsIndexRoute = protectedAppAnalyticsIndexImport.update(
+  {
     path: '/analytics/',
-    getParentRoute: () => protectedLayoutRoute,
-  } as any)
+    getParentRoute: () => protectedAppRoute,
+  } as any,
+)
+
+const protectedAppBudgetCreateRoute = protectedAppBudgetCreateImport.update({
+  path: '/budget/create',
+  getParentRoute: () => protectedAppRoute,
+} as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -77,11 +83,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof protectedImport
       parentRoute: typeof rootRoute
     }
-    '/(protected)/_layout': {
-      id: '/(protected)/_layout'
+    '/(protected)/_app': {
+      id: '/(protected)/_app'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof protectedLayoutImport
+      preLoaderRoute: typeof protectedAppImport
       parentRoute: typeof protectedRoute
     }
     '/auth/': {
@@ -91,63 +97,72 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthIndexImport
       parentRoute: typeof rootRoute
     }
-    '/(protected)/_layout/analytics/': {
-      id: '/(protected)/_layout/analytics/'
+    '/(protected)/_app/budget/create': {
+      id: '/(protected)/_app/budget/create'
+      path: '/budget/create'
+      fullPath: '/budget/create'
+      preLoaderRoute: typeof protectedAppBudgetCreateImport
+      parentRoute: typeof protectedAppImport
+    }
+    '/(protected)/_app/analytics/': {
+      id: '/(protected)/_app/analytics/'
       path: '/analytics'
       fullPath: '/analytics'
-      preLoaderRoute: typeof protectedLayoutAnalyticsIndexImport
-      parentRoute: typeof protectedLayoutImport
+      preLoaderRoute: typeof protectedAppAnalyticsIndexImport
+      parentRoute: typeof protectedAppImport
     }
-    '/(protected)/_layout/budget/': {
-      id: '/(protected)/_layout/budget/'
+    '/(protected)/_app/budget/': {
+      id: '/(protected)/_app/budget/'
       path: '/budget'
       fullPath: '/budget'
-      preLoaderRoute: typeof protectedLayoutBudgetIndexImport
-      parentRoute: typeof protectedLayoutImport
+      preLoaderRoute: typeof protectedAppBudgetIndexImport
+      parentRoute: typeof protectedAppImport
     }
-    '/(protected)/_layout/dashboard/': {
-      id: '/(protected)/_layout/dashboard/'
+    '/(protected)/_app/dashboard/': {
+      id: '/(protected)/_app/dashboard/'
       path: '/dashboard'
       fullPath: '/dashboard'
-      preLoaderRoute: typeof protectedLayoutDashboardIndexImport
-      parentRoute: typeof protectedLayoutImport
+      preLoaderRoute: typeof protectedAppDashboardIndexImport
+      parentRoute: typeof protectedAppImport
     }
-    '/(protected)/_layout/transactions/': {
-      id: '/(protected)/_layout/transactions/'
+    '/(protected)/_app/transactions/': {
+      id: '/(protected)/_app/transactions/'
       path: '/transactions'
       fullPath: '/transactions'
-      preLoaderRoute: typeof protectedLayoutTransactionsIndexImport
-      parentRoute: typeof protectedLayoutImport
+      preLoaderRoute: typeof protectedAppTransactionsIndexImport
+      parentRoute: typeof protectedAppImport
     }
   }
 }
 
 // Create and export the route tree
 
-interface protectedLayoutRouteChildren {
-  protectedLayoutAnalyticsIndexRoute: typeof protectedLayoutAnalyticsIndexRoute
-  protectedLayoutBudgetIndexRoute: typeof protectedLayoutBudgetIndexRoute
-  protectedLayoutDashboardIndexRoute: typeof protectedLayoutDashboardIndexRoute
-  protectedLayoutTransactionsIndexRoute: typeof protectedLayoutTransactionsIndexRoute
+interface protectedAppRouteChildren {
+  protectedAppBudgetCreateRoute: typeof protectedAppBudgetCreateRoute
+  protectedAppAnalyticsIndexRoute: typeof protectedAppAnalyticsIndexRoute
+  protectedAppBudgetIndexRoute: typeof protectedAppBudgetIndexRoute
+  protectedAppDashboardIndexRoute: typeof protectedAppDashboardIndexRoute
+  protectedAppTransactionsIndexRoute: typeof protectedAppTransactionsIndexRoute
 }
 
-const protectedLayoutRouteChildren: protectedLayoutRouteChildren = {
-  protectedLayoutAnalyticsIndexRoute: protectedLayoutAnalyticsIndexRoute,
-  protectedLayoutBudgetIndexRoute: protectedLayoutBudgetIndexRoute,
-  protectedLayoutDashboardIndexRoute: protectedLayoutDashboardIndexRoute,
-  protectedLayoutTransactionsIndexRoute: protectedLayoutTransactionsIndexRoute,
+const protectedAppRouteChildren: protectedAppRouteChildren = {
+  protectedAppBudgetCreateRoute: protectedAppBudgetCreateRoute,
+  protectedAppAnalyticsIndexRoute: protectedAppAnalyticsIndexRoute,
+  protectedAppBudgetIndexRoute: protectedAppBudgetIndexRoute,
+  protectedAppDashboardIndexRoute: protectedAppDashboardIndexRoute,
+  protectedAppTransactionsIndexRoute: protectedAppTransactionsIndexRoute,
 }
 
-const protectedLayoutRouteWithChildren = protectedLayoutRoute._addFileChildren(
-  protectedLayoutRouteChildren,
+const protectedAppRouteWithChildren = protectedAppRoute._addFileChildren(
+  protectedAppRouteChildren,
 )
 
 interface protectedRouteChildren {
-  protectedLayoutRoute: typeof protectedLayoutRouteWithChildren
+  protectedAppRoute: typeof protectedAppRouteWithChildren
 }
 
 const protectedRouteChildren: protectedRouteChildren = {
-  protectedLayoutRoute: protectedLayoutRouteWithChildren,
+  protectedAppRoute: protectedAppRouteWithChildren,
 }
 
 const protectedRouteWithChildren = protectedRoute._addFileChildren(
@@ -155,32 +170,35 @@ const protectedRouteWithChildren = protectedRoute._addFileChildren(
 )
 
 export interface FileRoutesByFullPath {
-  '/': typeof protectedLayoutRouteWithChildren
+  '/': typeof protectedAppRouteWithChildren
   '/auth': typeof AuthIndexRoute
-  '/analytics': typeof protectedLayoutAnalyticsIndexRoute
-  '/budget': typeof protectedLayoutBudgetIndexRoute
-  '/dashboard': typeof protectedLayoutDashboardIndexRoute
-  '/transactions': typeof protectedLayoutTransactionsIndexRoute
+  '/budget/create': typeof protectedAppBudgetCreateRoute
+  '/analytics': typeof protectedAppAnalyticsIndexRoute
+  '/budget': typeof protectedAppBudgetIndexRoute
+  '/dashboard': typeof protectedAppDashboardIndexRoute
+  '/transactions': typeof protectedAppTransactionsIndexRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof protectedLayoutRouteWithChildren
+  '/': typeof protectedAppRouteWithChildren
   '/auth': typeof AuthIndexRoute
-  '/analytics': typeof protectedLayoutAnalyticsIndexRoute
-  '/budget': typeof protectedLayoutBudgetIndexRoute
-  '/dashboard': typeof protectedLayoutDashboardIndexRoute
-  '/transactions': typeof protectedLayoutTransactionsIndexRoute
+  '/budget/create': typeof protectedAppBudgetCreateRoute
+  '/analytics': typeof protectedAppAnalyticsIndexRoute
+  '/budget': typeof protectedAppBudgetIndexRoute
+  '/dashboard': typeof protectedAppDashboardIndexRoute
+  '/transactions': typeof protectedAppTransactionsIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/(protected)': typeof protectedRouteWithChildren
-  '/(protected)/_layout': typeof protectedLayoutRouteWithChildren
+  '/(protected)/_app': typeof protectedAppRouteWithChildren
   '/auth/': typeof AuthIndexRoute
-  '/(protected)/_layout/analytics/': typeof protectedLayoutAnalyticsIndexRoute
-  '/(protected)/_layout/budget/': typeof protectedLayoutBudgetIndexRoute
-  '/(protected)/_layout/dashboard/': typeof protectedLayoutDashboardIndexRoute
-  '/(protected)/_layout/transactions/': typeof protectedLayoutTransactionsIndexRoute
+  '/(protected)/_app/budget/create': typeof protectedAppBudgetCreateRoute
+  '/(protected)/_app/analytics/': typeof protectedAppAnalyticsIndexRoute
+  '/(protected)/_app/budget/': typeof protectedAppBudgetIndexRoute
+  '/(protected)/_app/dashboard/': typeof protectedAppDashboardIndexRoute
+  '/(protected)/_app/transactions/': typeof protectedAppTransactionsIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -188,21 +206,30 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/budget/create'
     | '/analytics'
     | '/budget'
     | '/dashboard'
     | '/transactions'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/analytics' | '/budget' | '/dashboard' | '/transactions'
+  to:
+    | '/'
+    | '/auth'
+    | '/budget/create'
+    | '/analytics'
+    | '/budget'
+    | '/dashboard'
+    | '/transactions'
   id:
     | '__root__'
     | '/(protected)'
-    | '/(protected)/_layout'
+    | '/(protected)/_app'
     | '/auth/'
-    | '/(protected)/_layout/analytics/'
-    | '/(protected)/_layout/budget/'
-    | '/(protected)/_layout/dashboard/'
-    | '/(protected)/_layout/transactions/'
+    | '/(protected)/_app/budget/create'
+    | '/(protected)/_app/analytics/'
+    | '/(protected)/_app/budget/'
+    | '/(protected)/_app/dashboard/'
+    | '/(protected)/_app/transactions/'
   fileRoutesById: FileRoutesById
 }
 
@@ -235,37 +262,42 @@ export const routeTree = rootRoute
     "/(protected)": {
       "filePath": "(protected)",
       "children": [
-        "/(protected)/_layout"
+        "/(protected)/_app"
       ]
     },
-    "/(protected)/_layout": {
-      "filePath": "(protected)/_layout.tsx",
+    "/(protected)/_app": {
+      "filePath": "(protected)/_app.tsx",
       "parent": "/(protected)",
       "children": [
-        "/(protected)/_layout/analytics/",
-        "/(protected)/_layout/budget/",
-        "/(protected)/_layout/dashboard/",
-        "/(protected)/_layout/transactions/"
+        "/(protected)/_app/budget/create",
+        "/(protected)/_app/analytics/",
+        "/(protected)/_app/budget/",
+        "/(protected)/_app/dashboard/",
+        "/(protected)/_app/transactions/"
       ]
     },
     "/auth/": {
       "filePath": "auth/index.tsx"
     },
-    "/(protected)/_layout/analytics/": {
-      "filePath": "(protected)/_layout/analytics/index.tsx",
-      "parent": "/(protected)/_layout"
+    "/(protected)/_app/budget/create": {
+      "filePath": "(protected)/_app/budget/create.tsx",
+      "parent": "/(protected)/_app"
     },
-    "/(protected)/_layout/budget/": {
-      "filePath": "(protected)/_layout/budget/index.tsx",
-      "parent": "/(protected)/_layout"
+    "/(protected)/_app/analytics/": {
+      "filePath": "(protected)/_app/analytics/index.tsx",
+      "parent": "/(protected)/_app"
     },
-    "/(protected)/_layout/dashboard/": {
-      "filePath": "(protected)/_layout/dashboard/index.tsx",
-      "parent": "/(protected)/_layout"
+    "/(protected)/_app/budget/": {
+      "filePath": "(protected)/_app/budget/index.tsx",
+      "parent": "/(protected)/_app"
     },
-    "/(protected)/_layout/transactions/": {
-      "filePath": "(protected)/_layout/transactions/index.tsx",
-      "parent": "/(protected)/_layout"
+    "/(protected)/_app/dashboard/": {
+      "filePath": "(protected)/_app/dashboard/index.tsx",
+      "parent": "/(protected)/_app"
+    },
+    "/(protected)/_app/transactions/": {
+      "filePath": "(protected)/_app/transactions/index.tsx",
+      "parent": "/(protected)/_app"
     }
   }
 }

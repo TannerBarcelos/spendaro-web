@@ -1,7 +1,7 @@
 import { Navbar } from '@/components/navbar'
 import { createFileRoute, Outlet } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/(protected)/_layout')({
+export const Route = createFileRoute('/(protected)/_app')({
   component: () => <Layout />,
 })
 
