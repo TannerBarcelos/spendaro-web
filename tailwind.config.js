@@ -12,6 +12,9 @@ export default {
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
   		},
+		backgroundColor: {
+			primary: '#2C00AB',
+		},
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
@@ -53,8 +56,11 @@ export default {
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
   			}
-  		}
-  	}
+  		},
+  	},
+	colors: {
+		'purple-primary': "#2C00AB"
+	}
   },
   plugins: [require("tailwindcss-animate")],
 }
