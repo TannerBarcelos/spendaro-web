@@ -58,9 +58,6 @@ export default {
   			}
   		},
   	},
-	colors: {
-		'purple-primary': "#2C00AB"
-	}
   },
   plugins: [require("tailwindcss-animate")],
 }

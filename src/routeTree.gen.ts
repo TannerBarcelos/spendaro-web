@@ -14,6 +14,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as TransactionsIndexImport } from './routes/transactions/index'
 import { Route as DashboardIndexImport } from './routes/dashboard/index'
 import { Route as BudgetIndexImport } from './routes/budget/index'
+import { Route as AuthIndexImport } from './routes/auth/index'
 import { Route as AnalyticsIndexImport } from './routes/analytics/index'
 
 // Create/Update Routes
@@ -33,6 +34,11 @@ const BudgetIndexRoute = BudgetIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const AuthIndexRoute = AuthIndexImport.update({
+  path: '/auth/',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const AnalyticsIndexRoute = AnalyticsIndexImport.update({
   path: '/analytics/',
   getParentRoute: () => rootRoute,
@@ -47,6 +53,13 @@ declare module '@tanstack/react-router' {
       path: '/analytics'
       fullPath: '/analytics'
       preLoaderRoute: typeof AnalyticsIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/auth/': {
+      id: '/auth/'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthIndexImport
       parentRoute: typeof rootRoute
     }
     '/budget/': {
@@ -77,6 +90,7 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/analytics': typeof AnalyticsIndexRoute
+  '/auth': typeof AuthIndexRoute
   '/budget': typeof BudgetIndexRoute
   '/dashboard': typeof DashboardIndexRoute
   '/transactions': typeof TransactionsIndexRoute
@@ -84,6 +98,7 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/analytics': typeof AnalyticsIndexRoute
+  '/auth': typeof AuthIndexRoute
   '/budget': typeof BudgetIndexRoute
   '/dashboard': typeof DashboardIndexRoute
   '/transactions': typeof TransactionsIndexRoute
@@ -92,6 +107,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/analytics/': typeof AnalyticsIndexRoute
+  '/auth/': typeof AuthIndexRoute
   '/budget/': typeof BudgetIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/transactions/': typeof TransactionsIndexRoute
@@ -99,15 +115,22 @@ export interface FileRoutesById {
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/analytics' | '/budget' | '/dashboard' | '/transactions'
+  fullPaths: '/analytics' | '/auth' | '/budget' | '/dashboard' | '/transactions'
   fileRoutesByTo: FileRoutesByTo
-  to: '/analytics' | '/budget' | '/dashboard' | '/transactions'
-  id: '__root__' | '/analytics/' | '/budget/' | '/dashboard/' | '/transactions/'
+  to: '/analytics' | '/auth' | '/budget' | '/dashboard' | '/transactions'
+  id:
+    | '__root__'
+    | '/analytics/'
+    | '/auth/'
+    | '/budget/'
+    | '/dashboard/'
+    | '/transactions/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   AnalyticsIndexRoute: typeof AnalyticsIndexRoute
+  AuthIndexRoute: typeof AuthIndexRoute
   BudgetIndexRoute: typeof BudgetIndexRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
   TransactionsIndexRoute: typeof TransactionsIndexRoute
@@ -115,6 +138,7 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   AnalyticsIndexRoute: AnalyticsIndexRoute,
+  AuthIndexRoute: AuthIndexRoute,
   BudgetIndexRoute: BudgetIndexRoute,
   DashboardIndexRoute: DashboardIndexRoute,
   TransactionsIndexRoute: TransactionsIndexRoute,
@@ -133,6 +157,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/analytics/",
+        "/auth/",
         "/budget/",
         "/dashboard/",
         "/transactions/"
@@ -140,6 +165,9 @@ export const routeTree = rootRoute
     },
     "/analytics/": {
       "filePath": "analytics/index.tsx"
+    },
+    "/auth/": {
+      "filePath": "auth/index.tsx"
     },
     "/budget/": {
       "filePath": "budget/index.tsx"
