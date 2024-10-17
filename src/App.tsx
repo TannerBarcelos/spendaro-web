@@ -1,7 +1,9 @@
+import { LoginSignupComponent } from "./components/login-signup";
+
 function App() {
   return (
     <>
-      <h1 className="font-bold text-2xl">Spendaro</h1>
+      <LoginSignupComponent />
     </>
   );
 }
