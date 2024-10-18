@@ -1,6 +1,6 @@
 import { greetTimeOfDay } from "@/lib/utils";
 import { UnassignedBalanceWidget } from "./widgets/unassigned-balance";
-import { LatestTransactions } from "./widgets/latest-transactions";
+import { LatestTransactionsWidget } from "./widgets/latest-transactions";
 import { ActiveBudgetsWidget } from "./widgets/active-budgets";
 import { FavoriteCategoriesWidget } from "./widgets/favorite-categories";
 import { PerformanceWidget } from "./widgets/performance";
@@ -12,15 +12,13 @@ export function DashboardPage() {
         {greetTimeOfDay()}
       </h1>
       <div className="flex-grow grid grid-cols-1 lg:grid-cols-4 grid-rows-4 lg:gap-6 mb-6">
-        <LatestTransactions />
-        <div className="col-span-3 row-span-1 grid lg:grid-cols-3 grid-cols-1 gap-6">
+        <LatestTransactionsWidget />
+        <div className="grid grid-cols-1 row-span-1 col-span-3 gap-6 my-6 lg:grid-cols-2 lg:my-0">
           <UnassignedBalanceWidget />
           <ActiveBudgetsWidget />
-          <FavoriteCategoriesWidget />
+          {/* <FavoriteCategoriesWidget /> */}
         </div>
-        <div className="bg-white rounded-2xl col-span-3 row-span-3">
-          <PerformanceWidget />
-        </div>
+        <PerformanceWidget />
       </div>
     </div>
   );

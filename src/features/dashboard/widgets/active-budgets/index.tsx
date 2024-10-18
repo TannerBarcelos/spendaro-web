@@ -1,22 +1,20 @@
-import DropdownMenu from "@/components/DropdownMenu";
-import { Ellipsis } from "lucide-react";
+import { SpendaroCard } from "@/components/Card";
+import { Eye } from "lucide-react";
+
+const menuItems = [
+  {
+    link: "/budget",
+    name: "View Your Budgets",
+    linkIcon: <Eye />,
+  },
+];
 
 export function ActiveBudgetsWidget() {
   return (
-    <div className="bg-white rounded-2xl">
-      <div className="flex flex-row p-4 items-center justify-between">
-        <h2 className="text-md font-medium">Active Budgets</h2>
-        <DropdownMenu
-          menuItems={[
-            "My Account",
-            "Profile",
-            "Billing",
-            "Team",
-            "Subscription",
-          ]}
-          trigger={<Ellipsis className="ml-auto" size={20} />}
-        />
-      </div>
-    </div>
+    <SpendaroCard
+      title="Active Budgets"
+      info="A list of all your active budgets"
+      menuItems={menuItems}
+    />
   );
 }

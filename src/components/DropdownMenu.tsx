@@ -5,12 +5,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Link } from "@tanstack/react-router";
-import { MoveUpRight } from "lucide-react";
 import { Button } from "./ui/button";
 
 export type MenuItem = {
   name: string;
   link?: string;
+  linkIcon?: JSX.Element;
 };
 
 type DropdownMenuProps = {
@@ -29,12 +29,14 @@ function DropdownMenu({ trigger, menuItems }: DropdownMenuProps) {
           return (
             <>
               {item.link ? (
-                <DropdownMenuItem key={idx}>
+                <DropdownMenuItem
+                  key={idx}
+                  className="flex items-center justify-between"
+                >
                   <Link to={item.link}>
-                    <span className="flex items-center justify-evenly">
-                      {item.name} <MoveUpRight color="grey" className="ml-2" />
-                    </span>
+                    <span>{item.name}</span>
                   </Link>
+                  {item.linkIcon}
                 </DropdownMenuItem>
               ) : (
                 <DropdownMenuItem key={idx}>{item.name}</DropdownMenuItem>

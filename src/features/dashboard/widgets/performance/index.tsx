@@ -1,22 +1,21 @@
-import DropdownMenu from "@/components/DropdownMenu";
-import { Ellipsis } from "lucide-react";
+import { SpendaroCard } from "@/components/Card";
+import { Eye } from "lucide-react";
+
+const menuItems = [
+  {
+    link: "/budget",
+    name: "View Your Budgets",
+    linkIcon: <Eye />,
+  },
+];
 
 export function PerformanceWidget() {
   return (
-    <div className="bg-white rounded-2xl">
-      <div className="flex flex-row p-4 items-center justify-between">
-        <h2 className="text-md font-medium">Budget Performance</h2>
-        <DropdownMenu
-          menuItems={[
-            "My Account",
-            "Profile",
-            "Billing",
-            "Team",
-            "Subscription",
-          ]}
-          trigger={<Ellipsis className="ml-auto" size={20} />}
-        />
-      </div>
-    </div>
+    <SpendaroCard
+      title="Budget Performance"
+      info="Detailed view over your budget performance."
+      menuItems={menuItems}
+      className="col-span-3 row-span-3"
+    />
   );
 }

@@ -6,6 +6,7 @@ import Info from "./Info";
 type MenuItem = {
   name: string;
   link: string;
+  linkIcon?: JSX.Element;
 };
 
 type SpendaroCardProps = {
@@ -13,6 +14,7 @@ type SpendaroCardProps = {
   info?: string;
   menuItems?: MenuItem[];
   children?: React.ReactNode;
+  className?: string;
 };
 
 export function SpendaroCard({
@@ -20,13 +22,14 @@ export function SpendaroCard({
   info,
   menuItems,
   children,
+  className,
 }: SpendaroCardProps) {
   return (
-    <Card className="row-span-4">
+    <Card className={className}>
       <CardHeader>
         <CardTitle className="text-lg font-medium flex flex-row items-center justify-between">
           <div className="flex items-center justify-between">
-            <h2 className="text-md font-medium">{title}</h2>
+            <h2 className="text-base lg:text-lg">{title}</h2>
             {info && <Info info={info} />}
           </div>
           {menuItems && (
