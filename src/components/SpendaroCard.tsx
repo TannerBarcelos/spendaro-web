@@ -1,4 +1,4 @@
-import { Ellipsis } from "lucide-react";
+import { EllipsisVertical } from "lucide-react";
 import DropdownMenu from "./DropdownMenu";
 import { Card, CardHeader, CardTitle, CardContent } from "./ui/card";
 import Info from "./Info";
@@ -36,7 +36,7 @@ export function SpendaroCard({
           {menuItems && (
             <DropdownMenu menuItems={menuItems}>
               <Button variant="ghost">
-                <Ellipsis className="ml-auto" />
+                <EllipsisVertical className="ml-auto" />
               </Button>
             </DropdownMenu>
           )}

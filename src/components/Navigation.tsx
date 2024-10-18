@@ -17,31 +17,31 @@ export function Navigation() {
             <div className="hidden md:flex space-x-6">
               <Link
                 to="/dashboard"
-                className="text-sm [&.active]:bg-purple-700 [&.active]:text-slate-50 [&.active]:rounded-full flex items-center p-3 hover:bg-purple-100 hover:rounded-full"
+                className="text-sm [&.active]:bg-primary [&.active]:text-slate-50 [&.active]:rounded-full flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
                 activeOptions={{ exact: true }}
               >
                 Dashboard
               </Link>
               <Link
                 to="/budget"
-                className="text-sm [&.active]:bg-purple-700 [&.active]:text-slate-50 [&.active]:rounded-full  flex items-center p-3 hover:bg-purple-100 hover:rounded-full"
+                className="text-sm [&.active]:bg-primary [&.active]:text-slate-50 [&.active]:rounded-full  flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
                 activeOptions={{ exact: true }}
               >
                 Budget
               </Link>
               <Link
-                to="/transact"
-                className="text-sm [&.active]:bg-purple-700 [&.active]:text-slate-50 [&.active]:rounded-full  flex items-center p-3 hover:bg-purple-100 hover:rounded-full"
+                to="/transactions"
+                className="text-sm [&.active]:bg-primary [&.active]:text-slate-50 [&.active]:rounded-full  flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
                 activeOptions={{ exact: true }}
               >
-                Transact
+                Transactions
               </Link>
               <Link
-                to="/analytics"
-                className="text-sm [&.active]:bg-purple-700 [&.active]:text-slate-50 [&.active]:rounded-full  flex items-center p-3 hover:bg-purple-100 hover:rounded-full"
+                to="/reporting"
+                className="text-sm [&.active]:bg-primary [&.active]:text-slate-50 [&.active]:rounded-full  flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
                 activeOptions={{ exact: true }}
               >
-                Analytics
+                Reporting
               </Link>
             </div>
             <div className="flex items-center space-x-4 ">
