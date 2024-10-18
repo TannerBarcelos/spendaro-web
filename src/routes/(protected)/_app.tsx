@@ -6,7 +6,7 @@ export const Route = createFileRoute("/(protected)/_app")({
 
 function Layout() {
   return (
-    <div className="container mx-auto pt-4 min-h-full">
+    <div className="container mx-auto min-h-full">
       <Outlet />
     </div>
   );
