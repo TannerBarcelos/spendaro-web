@@ -57,6 +57,7 @@ export default {
   				'5': 'hsl(var(--chart-5))'
   			}
   		},
+		spacing: {}
   	},
   },
   plugins: [require("tailwindcss-animate")],

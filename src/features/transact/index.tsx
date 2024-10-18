@@ -1,8 +1,9 @@
+import Page from "@/components/Page";
+
 export function TransactPage() {
   return (
-    <div>
-      <h1 className="text-2xl">Transactions</h1>
-      <p>This is the transactions page.</p>
-    </div>
+    <Page>
+      <h1 className="text-xl lg:text-2xl font-semibold">Transact</h1>
+    </Page>
   );
 }

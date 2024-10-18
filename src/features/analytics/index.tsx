@@ -1,8 +1,9 @@
+import Page from "@/components/Page";
+
 export function AnalyticsPage() {
   return (
-    <div>
-      <h1 className="text-2xl">Analytics</h1>
-      <p>This is the analytics page.</p>
-    </div>
+    <Page>
+      <h1 className="text-xl lg:text-2xl font-semibold">Analytics</h1>
+    </Page>
   );
 }

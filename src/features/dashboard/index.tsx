@@ -4,10 +4,11 @@ import { LatestTransactionsWidget } from "./widgets/latest-transactions";
 import { ActiveBudgetsWidget } from "./widgets/active-budgets";
 import { FavoriteCategoriesWidget } from "./widgets/favorite-categories";
 import { PerformanceWidget } from "./widgets/performance";
+import Page from "@/components/Page";
 
 export function DashboardPage() {
   return (
-    <div className="min-h-screen flex flex-col mx-4 lg:mx-0">
+    <Page>
       <h1 className="my-4 text-xl lg:text-2xl font-semibold">
         {greetTimeOfDay()}
       </h1>
@@ -20,6 +21,6 @@ export function DashboardPage() {
         </div>
         <PerformanceWidget />
       </div>
-    </div>
+    </Page>
   );
 }

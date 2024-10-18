@@ -1,8 +1,9 @@
+import Page from "@/components/Page";
+
 export function BudgetPage() {
   return (
-    <div>
-      <h1 className="text-2xl">Budget</h1>
-      <p>This is the budget page.</p>
-    </div>
+    <Page>
+      <h1 className="text-xl lg:text-2xl font-semibold">Budget</h1>
+    </Page>
   );
 }
