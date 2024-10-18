@@ -1,6 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Link } from "@tanstack/react-router";
+import { Zap } from "lucide-react";
 import { SVGProps } from "react";
 import { JSX } from "react/jsx-runtime";
 
@@ -9,9 +10,12 @@ export function Navigation() {
   return (
     <nav className="bg-slate-50 p-4">
       <div className="container mx-auto flex items-center justify-between">
-        <Link to="/dashboard" className="text-xl font-semibold">
-          Spendaro
-        </Link>
+        <div className="flex flex-row">
+          <Zap size={24} color="#006EFF" strokeWidth={2.5} className="mr-2" />
+          <Link to="/dashboard" className="text-xl font-semibold">
+            Spendaro
+          </Link>
+        </div>
         {isSignedIn && (
           <>
             <div className="hidden md:flex space-x-6">
@@ -23,7 +27,7 @@ export function Navigation() {
                 Dashboard
               </Link>
               <Link
-                to="/budget"
+                to="/budgeting"
                 className="text-sm [&.active]:bg-primary [&.active]:text-slate-50 [&.active]:rounded-full  flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
                 activeOptions={{ exact: true }}
               >

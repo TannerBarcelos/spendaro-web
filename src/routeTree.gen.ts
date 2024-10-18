@@ -18,11 +18,11 @@ import { Route as protectedAppImport } from './routes/(protected)/_app'
 import { Route as protectedAppTransactionsIndexImport } from './routes/(protected)/_app/transactions/index'
 import { Route as protectedAppReportingIndexImport } from './routes/(protected)/_app/reporting/index'
 import { Route as protectedAppDashboardIndexImport } from './routes/(protected)/_app/dashboard/index'
-import { Route as protectedAppBudgetIndexImport } from './routes/(protected)/_app/budget/index'
-import { Route as protectedAppBudgetNewImport } from './routes/(protected)/_app/budget/new'
-import { Route as protectedAppBudgetBudgetIdIndexImport } from './routes/(protected)/_app/budget/$budgetId/index'
-import { Route as protectedAppBudgetBudgetIdEditImport } from './routes/(protected)/_app/budget/$budgetId/edit'
-import { Route as protectedAppBudgetBudgetIdCategoriesImport } from './routes/(protected)/_app/budget/$budgetId/categories'
+import { Route as protectedAppBudgetingIndexImport } from './routes/(protected)/_app/budgeting/index'
+import { Route as protectedAppBudgetingNewImport } from './routes/(protected)/_app/budgeting/new'
+import { Route as protectedAppBudgetingBudgetIdIndexImport } from './routes/(protected)/_app/budgeting/$budgetId/index'
+import { Route as protectedAppBudgetingBudgetIdEditImport } from './routes/(protected)/_app/budgeting/$budgetId/edit'
+import { Route as protectedAppBudgetingBudgetIdCategoriesImport } from './routes/(protected)/_app/budgeting/$budgetId/categories'
 
 // Create Virtual Routes
 
@@ -65,31 +65,33 @@ const protectedAppDashboardIndexRoute = protectedAppDashboardIndexImport.update(
   } as any,
 )
 
-const protectedAppBudgetIndexRoute = protectedAppBudgetIndexImport.update({
-  path: '/budget/',
+const protectedAppBudgetingIndexRoute = protectedAppBudgetingIndexImport.update(
+  {
+    path: '/budgeting/',
+    getParentRoute: () => protectedAppRoute,
+  } as any,
+)
+
+const protectedAppBudgetingNewRoute = protectedAppBudgetingNewImport.update({
+  path: '/budgeting/new',
   getParentRoute: () => protectedAppRoute,
 } as any)
 
-const protectedAppBudgetNewRoute = protectedAppBudgetNewImport.update({
-  path: '/budget/new',
-  getParentRoute: () => protectedAppRoute,
-} as any)
-
-const protectedAppBudgetBudgetIdIndexRoute =
-  protectedAppBudgetBudgetIdIndexImport.update({
-    path: '/budget/$budgetId/',
+const protectedAppBudgetingBudgetIdIndexRoute =
+  protectedAppBudgetingBudgetIdIndexImport.update({
+    path: '/budgeting/$budgetId/',
     getParentRoute: () => protectedAppRoute,
   } as any)
 
-const protectedAppBudgetBudgetIdEditRoute =
-  protectedAppBudgetBudgetIdEditImport.update({
-    path: '/budget/$budgetId/edit',
+const protectedAppBudgetingBudgetIdEditRoute =
+  protectedAppBudgetingBudgetIdEditImport.update({
+    path: '/budgeting/$budgetId/edit',
     getParentRoute: () => protectedAppRoute,
   } as any)
 
-const protectedAppBudgetBudgetIdCategoriesRoute =
-  protectedAppBudgetBudgetIdCategoriesImport.update({
-    path: '/budget/$budgetId/categories',
+const protectedAppBudgetingBudgetIdCategoriesRoute =
+  protectedAppBudgetingBudgetIdCategoriesImport.update({
+    path: '/budgeting/$budgetId/categories',
     getParentRoute: () => protectedAppRoute,
   } as any)
 
@@ -118,18 +120,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthIndexImport
       parentRoute: typeof rootRoute
     }
-    '/(protected)/_app/budget/new': {
-      id: '/(protected)/_app/budget/new'
-      path: '/budget/new'
-      fullPath: '/budget/new'
-      preLoaderRoute: typeof protectedAppBudgetNewImport
+    '/(protected)/_app/budgeting/new': {
+      id: '/(protected)/_app/budgeting/new'
+      path: '/budgeting/new'
+      fullPath: '/budgeting/new'
+      preLoaderRoute: typeof protectedAppBudgetingNewImport
       parentRoute: typeof protectedAppImport
     }
-    '/(protected)/_app/budget/': {
-      id: '/(protected)/_app/budget/'
-      path: '/budget'
-      fullPath: '/budget'
-      preLoaderRoute: typeof protectedAppBudgetIndexImport
+    '/(protected)/_app/budgeting/': {
+      id: '/(protected)/_app/budgeting/'
+      path: '/budgeting'
+      fullPath: '/budgeting'
+      preLoaderRoute: typeof protectedAppBudgetingIndexImport
       parentRoute: typeof protectedAppImport
     }
     '/(protected)/_app/dashboard/': {
@@ -153,25 +155,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof protectedAppTransactionsIndexImport
       parentRoute: typeof protectedAppImport
     }
-    '/(protected)/_app/budget/$budgetId/categories': {
-      id: '/(protected)/_app/budget/$budgetId/categories'
-      path: '/budget/$budgetId/categories'
-      fullPath: '/budget/$budgetId/categories'
-      preLoaderRoute: typeof protectedAppBudgetBudgetIdCategoriesImport
+    '/(protected)/_app/budgeting/$budgetId/categories': {
+      id: '/(protected)/_app/budgeting/$budgetId/categories'
+      path: '/budgeting/$budgetId/categories'
+      fullPath: '/budgeting/$budgetId/categories'
+      preLoaderRoute: typeof protectedAppBudgetingBudgetIdCategoriesImport
       parentRoute: typeof protectedAppImport
     }
-    '/(protected)/_app/budget/$budgetId/edit': {
-      id: '/(protected)/_app/budget/$budgetId/edit'
-      path: '/budget/$budgetId/edit'
-      fullPath: '/budget/$budgetId/edit'
-      preLoaderRoute: typeof protectedAppBudgetBudgetIdEditImport
+    '/(protected)/_app/budgeting/$budgetId/edit': {
+      id: '/(protected)/_app/budgeting/$budgetId/edit'
+      path: '/budgeting/$budgetId/edit'
+      fullPath: '/budgeting/$budgetId/edit'
+      preLoaderRoute: typeof protectedAppBudgetingBudgetIdEditImport
       parentRoute: typeof protectedAppImport
     }
-    '/(protected)/_app/budget/$budgetId/': {
-      id: '/(protected)/_app/budget/$budgetId/'
-      path: '/budget/$budgetId'
-      fullPath: '/budget/$budgetId'
-      preLoaderRoute: typeof protectedAppBudgetBudgetIdIndexImport
+    '/(protected)/_app/budgeting/$budgetId/': {
+      id: '/(protected)/_app/budgeting/$budgetId/'
+      path: '/budgeting/$budgetId'
+      fullPath: '/budgeting/$budgetId'
+      preLoaderRoute: typeof protectedAppBudgetingBudgetIdIndexImport
       parentRoute: typeof protectedAppImport
     }
   }
@@ -180,26 +182,28 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface protectedAppRouteChildren {
-  protectedAppBudgetNewRoute: typeof protectedAppBudgetNewRoute
-  protectedAppBudgetIndexRoute: typeof protectedAppBudgetIndexRoute
+  protectedAppBudgetingNewRoute: typeof protectedAppBudgetingNewRoute
+  protectedAppBudgetingIndexRoute: typeof protectedAppBudgetingIndexRoute
   protectedAppDashboardIndexRoute: typeof protectedAppDashboardIndexRoute
   protectedAppReportingIndexRoute: typeof protectedAppReportingIndexRoute
   protectedAppTransactionsIndexRoute: typeof protectedAppTransactionsIndexRoute
-  protectedAppBudgetBudgetIdCategoriesRoute: typeof protectedAppBudgetBudgetIdCategoriesRoute
-  protectedAppBudgetBudgetIdEditRoute: typeof protectedAppBudgetBudgetIdEditRoute
-  protectedAppBudgetBudgetIdIndexRoute: typeof protectedAppBudgetBudgetIdIndexRoute
+  protectedAppBudgetingBudgetIdCategoriesRoute: typeof protectedAppBudgetingBudgetIdCategoriesRoute
+  protectedAppBudgetingBudgetIdEditRoute: typeof protectedAppBudgetingBudgetIdEditRoute
+  protectedAppBudgetingBudgetIdIndexRoute: typeof protectedAppBudgetingBudgetIdIndexRoute
 }
 
 const protectedAppRouteChildren: protectedAppRouteChildren = {
-  protectedAppBudgetNewRoute: protectedAppBudgetNewRoute,
-  protectedAppBudgetIndexRoute: protectedAppBudgetIndexRoute,
+  protectedAppBudgetingNewRoute: protectedAppBudgetingNewRoute,
+  protectedAppBudgetingIndexRoute: protectedAppBudgetingIndexRoute,
   protectedAppDashboardIndexRoute: protectedAppDashboardIndexRoute,
   protectedAppReportingIndexRoute: protectedAppReportingIndexRoute,
   protectedAppTransactionsIndexRoute: protectedAppTransactionsIndexRoute,
-  protectedAppBudgetBudgetIdCategoriesRoute:
-    protectedAppBudgetBudgetIdCategoriesRoute,
-  protectedAppBudgetBudgetIdEditRoute: protectedAppBudgetBudgetIdEditRoute,
-  protectedAppBudgetBudgetIdIndexRoute: protectedAppBudgetBudgetIdIndexRoute,
+  protectedAppBudgetingBudgetIdCategoriesRoute:
+    protectedAppBudgetingBudgetIdCategoriesRoute,
+  protectedAppBudgetingBudgetIdEditRoute:
+    protectedAppBudgetingBudgetIdEditRoute,
+  protectedAppBudgetingBudgetIdIndexRoute:
+    protectedAppBudgetingBudgetIdIndexRoute,
 }
 
 const protectedAppRouteWithChildren = protectedAppRoute._addFileChildren(
@@ -221,27 +225,27 @@ const protectedRouteWithChildren = protectedRoute._addFileChildren(
 export interface FileRoutesByFullPath {
   '/': typeof protectedAppRouteWithChildren
   '/auth': typeof AuthIndexRoute
-  '/budget/new': typeof protectedAppBudgetNewRoute
-  '/budget': typeof protectedAppBudgetIndexRoute
+  '/budgeting/new': typeof protectedAppBudgetingNewRoute
+  '/budgeting': typeof protectedAppBudgetingIndexRoute
   '/dashboard': typeof protectedAppDashboardIndexRoute
   '/reporting': typeof protectedAppReportingIndexRoute
   '/transactions': typeof protectedAppTransactionsIndexRoute
-  '/budget/$budgetId/categories': typeof protectedAppBudgetBudgetIdCategoriesRoute
-  '/budget/$budgetId/edit': typeof protectedAppBudgetBudgetIdEditRoute
-  '/budget/$budgetId': typeof protectedAppBudgetBudgetIdIndexRoute
+  '/budgeting/$budgetId/categories': typeof protectedAppBudgetingBudgetIdCategoriesRoute
+  '/budgeting/$budgetId/edit': typeof protectedAppBudgetingBudgetIdEditRoute
+  '/budgeting/$budgetId': typeof protectedAppBudgetingBudgetIdIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof protectedAppRouteWithChildren
   '/auth': typeof AuthIndexRoute
-  '/budget/new': typeof protectedAppBudgetNewRoute
-  '/budget': typeof protectedAppBudgetIndexRoute
+  '/budgeting/new': typeof protectedAppBudgetingNewRoute
+  '/budgeting': typeof protectedAppBudgetingIndexRoute
   '/dashboard': typeof protectedAppDashboardIndexRoute
   '/reporting': typeof protectedAppReportingIndexRoute
   '/transactions': typeof protectedAppTransactionsIndexRoute
-  '/budget/$budgetId/categories': typeof protectedAppBudgetBudgetIdCategoriesRoute
-  '/budget/$budgetId/edit': typeof protectedAppBudgetBudgetIdEditRoute
-  '/budget/$budgetId': typeof protectedAppBudgetBudgetIdIndexRoute
+  '/budgeting/$budgetId/categories': typeof protectedAppBudgetingBudgetIdCategoriesRoute
+  '/budgeting/$budgetId/edit': typeof protectedAppBudgetingBudgetIdEditRoute
+  '/budgeting/$budgetId': typeof protectedAppBudgetingBudgetIdIndexRoute
 }
 
 export interface FileRoutesById {
@@ -249,14 +253,14 @@ export interface FileRoutesById {
   '/(protected)': typeof protectedRouteWithChildren
   '/(protected)/_app': typeof protectedAppRouteWithChildren
   '/auth/': typeof AuthIndexRoute
-  '/(protected)/_app/budget/new': typeof protectedAppBudgetNewRoute
-  '/(protected)/_app/budget/': typeof protectedAppBudgetIndexRoute
+  '/(protected)/_app/budgeting/new': typeof protectedAppBudgetingNewRoute
+  '/(protected)/_app/budgeting/': typeof protectedAppBudgetingIndexRoute
   '/(protected)/_app/dashboard/': typeof protectedAppDashboardIndexRoute
   '/(protected)/_app/reporting/': typeof protectedAppReportingIndexRoute
   '/(protected)/_app/transactions/': typeof protectedAppTransactionsIndexRoute
-  '/(protected)/_app/budget/$budgetId/categories': typeof protectedAppBudgetBudgetIdCategoriesRoute
-  '/(protected)/_app/budget/$budgetId/edit': typeof protectedAppBudgetBudgetIdEditRoute
-  '/(protected)/_app/budget/$budgetId/': typeof protectedAppBudgetBudgetIdIndexRoute
+  '/(protected)/_app/budgeting/$budgetId/categories': typeof protectedAppBudgetingBudgetIdCategoriesRoute
+  '/(protected)/_app/budgeting/$budgetId/edit': typeof protectedAppBudgetingBudgetIdEditRoute
+  '/(protected)/_app/budgeting/$budgetId/': typeof protectedAppBudgetingBudgetIdIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -264,39 +268,39 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
-    | '/budget/new'
-    | '/budget'
+    | '/budgeting/new'
+    | '/budgeting'
     | '/dashboard'
     | '/reporting'
     | '/transactions'
-    | '/budget/$budgetId/categories'
-    | '/budget/$budgetId/edit'
-    | '/budget/$budgetId'
+    | '/budgeting/$budgetId/categories'
+    | '/budgeting/$budgetId/edit'
+    | '/budgeting/$budgetId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/auth'
-    | '/budget/new'
-    | '/budget'
+    | '/budgeting/new'
+    | '/budgeting'
     | '/dashboard'
     | '/reporting'
     | '/transactions'
-    | '/budget/$budgetId/categories'
-    | '/budget/$budgetId/edit'
-    | '/budget/$budgetId'
+    | '/budgeting/$budgetId/categories'
+    | '/budgeting/$budgetId/edit'
+    | '/budgeting/$budgetId'
   id:
     | '__root__'
     | '/(protected)'
     | '/(protected)/_app'
     | '/auth/'
-    | '/(protected)/_app/budget/new'
-    | '/(protected)/_app/budget/'
+    | '/(protected)/_app/budgeting/new'
+    | '/(protected)/_app/budgeting/'
     | '/(protected)/_app/dashboard/'
     | '/(protected)/_app/reporting/'
     | '/(protected)/_app/transactions/'
-    | '/(protected)/_app/budget/$budgetId/categories'
-    | '/(protected)/_app/budget/$budgetId/edit'
-    | '/(protected)/_app/budget/$budgetId/'
+    | '/(protected)/_app/budgeting/$budgetId/categories'
+    | '/(protected)/_app/budgeting/$budgetId/edit'
+    | '/(protected)/_app/budgeting/$budgetId/'
   fileRoutesById: FileRoutesById
 }
 
@@ -336,25 +340,25 @@ export const routeTree = rootRoute
       "filePath": "(protected)/_app.tsx",
       "parent": "/(protected)",
       "children": [
-        "/(protected)/_app/budget/new",
-        "/(protected)/_app/budget/",
+        "/(protected)/_app/budgeting/new",
+        "/(protected)/_app/budgeting/",
         "/(protected)/_app/dashboard/",
         "/(protected)/_app/reporting/",
         "/(protected)/_app/transactions/",
-        "/(protected)/_app/budget/$budgetId/categories",
-        "/(protected)/_app/budget/$budgetId/edit",
-        "/(protected)/_app/budget/$budgetId/"
+        "/(protected)/_app/budgeting/$budgetId/categories",
+        "/(protected)/_app/budgeting/$budgetId/edit",
+        "/(protected)/_app/budgeting/$budgetId/"
       ]
     },
     "/auth/": {
       "filePath": "auth/index.tsx"
     },
-    "/(protected)/_app/budget/new": {
-      "filePath": "(protected)/_app/budget/new.tsx",
+    "/(protected)/_app/budgeting/new": {
+      "filePath": "(protected)/_app/budgeting/new.tsx",
       "parent": "/(protected)/_app"
     },
-    "/(protected)/_app/budget/": {
-      "filePath": "(protected)/_app/budget/index.tsx",
+    "/(protected)/_app/budgeting/": {
+      "filePath": "(protected)/_app/budgeting/index.tsx",
       "parent": "/(protected)/_app"
     },
     "/(protected)/_app/dashboard/": {
@@ -369,16 +373,16 @@ export const routeTree = rootRoute
       "filePath": "(protected)/_app/transactions/index.tsx",
       "parent": "/(protected)/_app"
     },
-    "/(protected)/_app/budget/$budgetId/categories": {
-      "filePath": "(protected)/_app/budget/$budgetId/categories.tsx",
+    "/(protected)/_app/budgeting/$budgetId/categories": {
+      "filePath": "(protected)/_app/budgeting/$budgetId/categories.tsx",
       "parent": "/(protected)/_app"
     },
-    "/(protected)/_app/budget/$budgetId/edit": {
-      "filePath": "(protected)/_app/budget/$budgetId/edit.tsx",
+    "/(protected)/_app/budgeting/$budgetId/edit": {
+      "filePath": "(protected)/_app/budgeting/$budgetId/edit.tsx",
       "parent": "/(protected)/_app"
     },
-    "/(protected)/_app/budget/$budgetId/": {
-      "filePath": "(protected)/_app/budget/$budgetId/index.tsx",
+    "/(protected)/_app/budgeting/$budgetId/": {
+      "filePath": "(protected)/_app/budgeting/$budgetId/index.tsx",
       "parent": "/(protected)/_app"
     }
   }
