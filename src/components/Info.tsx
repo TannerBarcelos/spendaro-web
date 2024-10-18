@@ -14,7 +14,7 @@ function Info({ info }: InfoProps) {
   return (
     <Popover>
       <PopoverTrigger>
-        <Button variant="ghost" className="py-2 px-3 ml-2">
+        <Button variant="ghost" className="py-2 px-3 ml-1">
           <LucideInfo width={10} color="grey" />
         </Button>
       </PopoverTrigger>

@@ -29,7 +29,7 @@ export function SpendaroCard({
       <CardHeader>
         <CardTitle className="text-lg font-medium flex flex-row items-center justify-between">
           <div className="flex items-center justify-between">
-            <h2 className="text-base lg:text-lg">{title}</h2>
+            <h2 className="text-base lg:text-lg font-normal">{title}</h2>
             {info && <Info info={info} />}
           </div>
           {menuItems && (
