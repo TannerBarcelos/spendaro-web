@@ -55,7 +55,7 @@ function SigninTab() {
           type="submit"
           className="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-2.5 px-4 rounded-lg transition duration-300 flex items-center justify-center text-base"
         >
-          Login <ArrowRight className="ml-2 w-5 h-5" />
+          Signin <ArrowRight className="ml-2 w-5 h-5" />
         </Button>
       </form>
     </TabsContent>
