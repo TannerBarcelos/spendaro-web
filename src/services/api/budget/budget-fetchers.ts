@@ -1,5 +1,5 @@
 // services/budgetService.ts
-import axiosInstance from '../axios';
+import axiosInstance from '../../axios';
 
 export const getBudgets = async () => {
   const response = await axiosInstance.get('/budgets');
