@@ -7,10 +7,10 @@ import {
 } from "@/components/ui/popover";
 
 type InfoProps = {
-  context: string;
+  info: string;
 };
 
-function Info({ context }: InfoProps) {
+function Info({ info }: InfoProps) {
   return (
     <Popover>
       <PopoverTrigger>
@@ -18,7 +18,7 @@ function Info({ context }: InfoProps) {
           <LucideInfo width={10} color="grey" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent side="right">{context}</PopoverContent>
+      <PopoverContent side="right">{info}</PopoverContent>
     </Popover>
   );
 }
