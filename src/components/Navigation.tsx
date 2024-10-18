@@ -4,7 +4,7 @@ import { Link } from "@tanstack/react-router";
 import { SVGProps } from "react";
 import { JSX } from "react/jsx-runtime";
 
-export function Navbar() {
+export function Navigation() {
   const isSignedIn = true;
   return (
     <nav className="bg-slate-50 p-4">
