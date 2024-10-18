@@ -2,6 +2,7 @@ import { Ellipsis } from "lucide-react";
 import DropdownMenu from "./DropdownMenu";
 import { Card, CardHeader, CardTitle, CardContent } from "./ui/card";
 import Info from "./Info";
+import { Button } from "./ui/button";
 
 type MenuItem = {
   name: string;
@@ -33,10 +34,11 @@ export function SpendaroCard({
             {info && <Info info={info} />}
           </div>
           {menuItems && (
-            <DropdownMenu
-              menuItems={menuItems}
-              trigger={<Ellipsis className="ml-auto" />}
-            />
+            <DropdownMenu menuItems={menuItems}>
+              <Button variant="ghost">
+                <Ellipsis className="ml-auto" />
+              </Button>
+            </DropdownMenu>
           )}
         </CardTitle>
       </CardHeader>

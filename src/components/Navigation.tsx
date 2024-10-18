@@ -17,28 +17,28 @@ export function Navigation() {
             <div className="hidden md:flex space-x-6">
               <Link
                 to="/dashboard"
-                className="text-sm [&.active]:bg-purple-700 [&.active]:text-slate-50 [&.active]:rounded-full flex items-center p-3"
+                className="text-sm [&.active]:bg-purple-700 [&.active]:text-slate-50 [&.active]:rounded-full flex items-center p-3 hover:bg-purple-100 hover:rounded-full"
                 activeOptions={{ exact: true }}
               >
                 Dashboard
               </Link>
               <Link
                 to="/budget"
-                className="text-sm [&.active]:bg-purple-700 [&.active]:text-slate-50 [&.active]:rounded-full  flex items-center p-3"
+                className="text-sm [&.active]:bg-purple-700 [&.active]:text-slate-50 [&.active]:rounded-full  flex items-center p-3 hover:bg-purple-100 hover:rounded-full"
                 activeOptions={{ exact: true }}
               >
                 Budget
               </Link>
               <Link
                 to="/transact"
-                className="text-sm [&.active]:bg-purple-700 [&.active]:text-slate-50 [&.active]:rounded-full  flex items-center p-3"
+                className="text-sm [&.active]:bg-purple-700 [&.active]:text-slate-50 [&.active]:rounded-full  flex items-center p-3 hover:bg-purple-100 hover:rounded-full"
                 activeOptions={{ exact: true }}
               >
                 Transact
               </Link>
               <Link
                 to="/analytics"
-                className="text-sm [&.active]:bg-purple-700 [&.active]:text-slate-50 [&.active]:rounded-full  flex items-center p-3"
+                className="text-sm [&.active]:bg-purple-700 [&.active]:text-slate-50 [&.active]:rounded-full  flex items-center p-3 hover:bg-purple-100 hover:rounded-full"
                 activeOptions={{ exact: true }}
               >
                 Analytics

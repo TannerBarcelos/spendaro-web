@@ -5,7 +5,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Link } from "@tanstack/react-router";
-import { Button } from "./ui/button";
 
 export type MenuItem = {
   name: string;
@@ -15,15 +14,13 @@ export type MenuItem = {
 
 type DropdownMenuProps = {
   menuItems: MenuItem[];
-  trigger: JSX.Element;
+  children?: React.ReactNode;
 };
 
-function DropdownMenu({ trigger, menuItems }: DropdownMenuProps) {
+function DropdownMenu({ menuItems, children }: DropdownMenuProps) {
   return (
     <Menu>
-      <DropdownMenuTrigger>
-        <Button variant="ghost">{trigger}</Button>
-      </DropdownMenuTrigger>
+      <DropdownMenuTrigger>{children}</DropdownMenuTrigger>
       <DropdownMenuContent>
         {menuItems.map((item, idx) => {
           return (

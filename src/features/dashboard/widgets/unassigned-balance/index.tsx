@@ -1,4 +1,4 @@
-import { SpendaroCard } from "@/components/Card";
+import { SpendaroCard } from "@/components/SpendaroCard";
 import { Eye } from "lucide-react";
 
 const menuItems = [
@@ -14,7 +14,6 @@ export function UnassignedBalanceWidget() {
     <SpendaroCard
       title="Unassigned Balance"
       info="This is the total un-assigned dollar amount across all your accounts that have not been assigned a job"
-      menuItems={menuItems}
     />
   );
 }

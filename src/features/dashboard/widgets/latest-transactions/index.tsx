@@ -1,4 +1,4 @@
-import { SpendaroCard } from "@/components/Card";
+import { SpendaroCard } from "@/components/SpendaroCard";
 import { CirclePlus, Eye, Pencil } from "lucide-react";
 
 const menuItems = [
@@ -8,7 +8,7 @@ const menuItems = [
     linkIcon: <Eye />,
   },
   {
-    link: "/transact/create",
+    link: "/transact/new",
     name: "Add a Transaction",
     linkIcon: <CirclePlus />,
   },

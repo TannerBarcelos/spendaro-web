@@ -1,4 +1,4 @@
-import { SpendaroCard } from "@/components/Card";
+import { SpendaroCard } from "@/components/SpendaroCard";
 import { Eye } from "lucide-react";
 
 const menuItems = [
