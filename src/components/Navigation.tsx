@@ -27,7 +27,7 @@ export function Navigation() {
                 className="text-sm [&.active]:bg-primary [&.active]:text-slate-50 [&.active]:rounded-full  flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
                 activeOptions={{ exact: true }}
               >
-                Budget
+                Budgeting
               </Link>
               <Link
                 to="/transactions"
