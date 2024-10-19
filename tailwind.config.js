@@ -13,7 +13,7 @@ export default {
   			sm: 'calc(var(--radius) - 4px)'
   		},
 		backgroundColor: {
-			primary: '#006EFF',
+			primary: 'hsl(var(--primary))',
 			"nav-item-hover": "rgba(0,110,255,0.14)"
 		},
   		colors: {

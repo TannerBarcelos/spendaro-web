@@ -1,45 +1,48 @@
 import { EllipsisVertical } from "lucide-react";
-import DropdownMenu from "./DropdownMenu";
 import { Card, CardHeader, CardTitle, CardContent } from "./ui/card";
 import Info from "./Info";
 import { Button } from "./ui/button";
-
-type MenuItem = {
-  name: string;
-  link: string;
-  linkIcon?: JSX.Element;
-};
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
 type SpendaroCardProps = {
   title: string;
   info?: string;
-  menuItems?: MenuItem[];
-  children?: React.ReactNode;
   className?: string;
+  ellipsisMenuItems?: React.ReactNode;
+  children?: React.ReactNode;
 };
 
 export function SpendaroCard({
   title,
   info,
-  menuItems,
   children,
+  ellipsisMenuItems,
   className,
 }: SpendaroCardProps) {
   return (
     <Card className={className}>
       <CardHeader>
-        <CardTitle className="text-lg font-medium flex flex-row items-center justify-between">
+        <CardTitle className="flex flex-row items-center justify-between">
           <div className="flex items-center justify-between">
-            <h2 className="text-base lg:text-lg font-normal">{title}</h2>
+            <h2 className="text-base lg:text-md font-medium text-slate-950">
+              {title}
+            </h2>
             {info && <Info info={info} />}
           </div>
-          {menuItems && (
-            <DropdownMenu menuItems={menuItems}>
+          <DropdownMenu>
+            <DropdownMenuTrigger>
               <Button variant="ghost">
                 <EllipsisVertical className="ml-auto" />
               </Button>
-            </DropdownMenu>
-          )}
+            </DropdownMenuTrigger>
+            <DropdownMenuContent sideOffset={3}>
+              {ellipsisMenuItems}
+            </DropdownMenuContent>
+          </DropdownMenu>
         </CardTitle>
       </CardHeader>
       <CardContent>{children}</CardContent>

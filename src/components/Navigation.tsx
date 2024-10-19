@@ -1,14 +1,30 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Link } from "@tanstack/react-router";
-import { Zap } from "lucide-react";
+import {
+  HandCoins,
+  Plus,
+  Settings,
+  User,
+  WalletCards,
+  Zap,
+} from "lucide-react";
 import { SVGProps } from "react";
 import { JSX } from "react/jsx-runtime";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export function Navigation() {
   const isSignedIn = true;
+  const usersName = "Tanner Barcelos";
   return (
-    <nav className="bg-slate-50 p-4">
+    <nav className="p-4">
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex flex-row">
           <Zap size={24} color="#006EFF" strokeWidth={2.5} className="mr-2" />
@@ -18,49 +34,90 @@ export function Navigation() {
         </div>
         {isSignedIn && (
           <>
-            <div className="hidden md:flex space-x-6">
+            <div className="hidden md:flex space-x-6 p-2 bg-card rounded-full">
               <Link
                 to="/dashboard"
-                className="text-sm [&.active]:bg-primary [&.active]:text-slate-50 [&.active]:rounded-full flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
+                className="text-base [&.active]:bg-nav-item-hover [&.active]:rounded-full [&.active]:text-primary [&.active]:font-medium flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
                 activeOptions={{ exact: true }}
               >
                 Dashboard
               </Link>
               <Link
                 to="/budgeting"
-                className="text-sm [&.active]:bg-primary [&.active]:text-slate-50 [&.active]:rounded-full  flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
+                className="text-base [&.active]:bg-nav-item-hover [&.active]:rounded-full [&.active]:text-primary [&.active]:font-medium flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
                 activeOptions={{ exact: true }}
               >
                 Budgeting
               </Link>
               <Link
                 to="/transactions"
-                className="text-sm [&.active]:bg-primary [&.active]:text-slate-50 [&.active]:rounded-full  flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
+                className="text-base [&.active]:bg-nav-item-hover [&.active]:rounded-full [&.active]:text-primary [&.active]:font-medium flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
                 activeOptions={{ exact: true }}
               >
                 Transactions
               </Link>
               <Link
                 to="/reporting"
-                className="text-sm [&.active]:bg-primary [&.active]:text-slate-50 [&.active]:rounded-full  flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
+                className="text-base [&.active]:bg-nav-item-hover [&.active]:rounded-full [&.active]:text-primary [&.active]:font-medium flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
                 activeOptions={{ exact: true }}
               >
                 Reporting
               </Link>
             </div>
-            <div className="flex items-center space-x-4 ">
-              <span className="hidden md:inline text-sm">Tanner Barcelos</span>
-              <Avatar>
-                <AvatarImage
-                  src="https://avatars.githubusercontent.com/u/41309200?v=4"
-                  alt="Tanner Barcelos"
-                />
-                <AvatarFallback>TB</AvatarFallback>
-              </Avatar>
-              <Button variant="ghost" size="icon" className="md:hidden">
-                <MenuIcon className="h-6 w-6" />
-                <span className="sr-only">Toggle menu</span>
-              </Button>
+            <div className="flex items-center space-x-4">
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <Button className="text-sm w-10 h-10 rounded-full space-x-4">
+                    <Plus size={16} />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent sideOffset={5}>
+                  <DropdownMenuItem>
+                    <HandCoins />
+                    New Budget
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <WalletCards />
+                    Add Transaction
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+              <div className="flex items-center space-x-4 p-3 bg-card rounded-full">
+                <span className="hidden md:inline text-sm">{usersName}</span>
+                <DropdownMenu>
+                  <DropdownMenuTrigger>
+                    <Avatar>
+                      <AvatarImage
+                        src="https://avatars.githubusercontent.com/u/41309200?v=4"
+                        alt="users profile image"
+                      />
+                      <AvatarFallback>
+                        {usersName
+                          .split(" ")
+                          .map((name) => name[0])
+                          .join("")
+                          .toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent sideOffset={10} className="w-40">
+                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>
+                      <User />
+                      Profile
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Settings />
+                      Settings
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+                <Button variant="ghost" size="icon" className="md:hidden">
+                  <MenuIcon className="h-6 w-6" />
+                  <span className="sr-only">Toggle menu</span>
+                </Button>
+              </div>
             </div>
           </>
         )}
