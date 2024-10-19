@@ -37,7 +37,7 @@ const WidgetTitle = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent sideOffset={3}>
             <Link to={"/budgeting"}>
-              <DropdownMenuItem className="cursor-pointer">
+              <DropdownMenuItem>
                 <Plus />
                 View Unassigned Balance
               </DropdownMenuItem>

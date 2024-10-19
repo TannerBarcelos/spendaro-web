@@ -37,19 +37,19 @@ const WidgetTitle = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent sideOffset={3}>
             <Link to={"/budgeting"}>
-              <DropdownMenuItem className="cursor-pointer">
+              <DropdownMenuItem>
                 <Plus />
                 Add a Transaction
               </DropdownMenuItem>
             </Link>
             <Link to={"/budgeting"}>
-              <DropdownMenuItem className="cursor-pointer">
+              <DropdownMenuItem>
                 <EyeIcon />
                 View Latest Transactions
               </DropdownMenuItem>
             </Link>
             <Link to={"/budgeting"}>
-              <DropdownMenuItem className="cursor-pointer">
+              <DropdownMenuItem>
                 <Edit />
                 Edit a Transaction
               </DropdownMenuItem>

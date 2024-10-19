@@ -37,19 +37,19 @@ const WidgetTitle = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent sideOffset={3}>
             <Link to={"/reporting/new"}>
-              <DropdownMenuItem className="cursor-pointer">
+              <DropdownMenuItem>
                 <Plus />
                 Create a Report
               </DropdownMenuItem>
             </Link>
             <Link to={"/reporting"}>
-              <DropdownMenuItem className="cursor-pointer">
+              <DropdownMenuItem>
                 <EyeIcon />
                 View Performance
               </DropdownMenuItem>
             </Link>
             <Link to={"/reporting/manage"}>
-              <DropdownMenuItem className="cursor-pointer">
+              <DropdownMenuItem>
                 <ChartArea />
                 Manage Reports
               </DropdownMenuItem>
