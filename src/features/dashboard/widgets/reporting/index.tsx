@@ -48,7 +48,7 @@ const WidgetTitle = () => {
                 View Performance
               </DropdownMenuItem>
             </Link>
-            <Link to={"/budgeting"}>
+            <Link to={"/reporting/manage"}>
               <DropdownMenuItem className="cursor-pointer">
                 <ChartArea />
                 Manage Reports
