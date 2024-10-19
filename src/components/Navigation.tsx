@@ -72,14 +72,24 @@ export function Navigation() {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent sideOffset={5}>
-                  <DropdownMenuItem>
-                    <HandCoins />
-                    New Budget
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <WalletCards />
-                    Add Transaction
-                  </DropdownMenuItem>
+                  <Link to="/budgeting/new">
+                    <DropdownMenuItem>
+                      <HandCoins />
+                      Create a Budget
+                    </DropdownMenuItem>
+                  </Link>
+                  <Link to="/transactions">
+                    <DropdownMenuItem>
+                      <WalletCards />
+                      Add a Transaction
+                    </DropdownMenuItem>
+                  </Link>
+                  <Link to="/reporting/new">
+                    <DropdownMenuItem>
+                      <WalletCards />
+                      Create a Report
+                    </DropdownMenuItem>
+                  </Link>
                 </DropdownMenuContent>
               </DropdownMenu>
               <div className="flex items-center space-x-4 p-3 bg-card rounded-full">
@@ -103,14 +113,18 @@ export function Navigation() {
                   <DropdownMenuContent sideOffset={10} className="w-40">
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>
-                      <User />
-                      Profile
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Settings />
-                      Settings
-                    </DropdownMenuItem>
+                    <Link to="/profile">
+                      <DropdownMenuItem>
+                        <User />
+                        Profile
+                      </DropdownMenuItem>
+                    </Link>
+                    <Link to="/reporting/new">
+                      <DropdownMenuItem>
+                        <Settings />
+                        Settings
+                      </DropdownMenuItem>
+                    </Link>
                   </DropdownMenuContent>
                 </DropdownMenu>
                 <Button variant="ghost" size="icon" className="md:hidden">
