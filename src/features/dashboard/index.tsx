@@ -1,7 +1,7 @@
 import { UnassignedBalanceWidget } from "./widgets/unassigned-balance";
 import { LatestTransactionsWidget } from "./widgets/latest-transactions";
 import { ActiveBudgetsWidget } from "./widgets/active-budgets";
-import { PerformanceWidget } from "./widgets/performance";
+import { ReportingWidget } from "./widgets/reporting";
 import Page from "@/components/Page";
 import TopGreetingBar from "./_components/TopGreetingBar";
 
@@ -15,7 +15,7 @@ export function DashboardPage() {
           <UnassignedBalanceWidget />
           <ActiveBudgetsWidget />
         </div>
-        <PerformanceWidget />
+        <ReportingWidget />
       </div>
     </Page>
   );

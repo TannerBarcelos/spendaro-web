@@ -19,6 +19,7 @@ import { Route as protectedAppTransactionsIndexImport } from './routes/(protecte
 import { Route as protectedAppReportingIndexImport } from './routes/(protected)/_app/reporting/index'
 import { Route as protectedAppDashboardIndexImport } from './routes/(protected)/_app/dashboard/index'
 import { Route as protectedAppBudgetingIndexImport } from './routes/(protected)/_app/budgeting/index'
+import { Route as protectedAppReportingNewImport } from './routes/(protected)/_app/reporting/new'
 import { Route as protectedAppBudgetingNewImport } from './routes/(protected)/_app/budgeting/new'
 import { Route as protectedAppBudgetingBudgetIdIndexImport } from './routes/(protected)/_app/budgeting/$budgetId/index'
 import { Route as protectedAppBudgetingBudgetIdEditImport } from './routes/(protected)/_app/budgeting/$budgetId/edit'
@@ -71,6 +72,11 @@ const protectedAppBudgetingIndexRoute = protectedAppBudgetingIndexImport.update(
     getParentRoute: () => protectedAppRoute,
   } as any,
 )
+
+const protectedAppReportingNewRoute = protectedAppReportingNewImport.update({
+  path: '/reporting/new',
+  getParentRoute: () => protectedAppRoute,
+} as any)
 
 const protectedAppBudgetingNewRoute = protectedAppBudgetingNewImport.update({
   path: '/budgeting/new',
@@ -125,6 +131,13 @@ declare module '@tanstack/react-router' {
       path: '/budgeting/new'
       fullPath: '/budgeting/new'
       preLoaderRoute: typeof protectedAppBudgetingNewImport
+      parentRoute: typeof protectedAppImport
+    }
+    '/(protected)/_app/reporting/new': {
+      id: '/(protected)/_app/reporting/new'
+      path: '/reporting/new'
+      fullPath: '/reporting/new'
+      preLoaderRoute: typeof protectedAppReportingNewImport
       parentRoute: typeof protectedAppImport
     }
     '/(protected)/_app/budgeting/': {
@@ -183,6 +196,7 @@ declare module '@tanstack/react-router' {
 
 interface protectedAppRouteChildren {
   protectedAppBudgetingNewRoute: typeof protectedAppBudgetingNewRoute
+  protectedAppReportingNewRoute: typeof protectedAppReportingNewRoute
   protectedAppBudgetingIndexRoute: typeof protectedAppBudgetingIndexRoute
   protectedAppDashboardIndexRoute: typeof protectedAppDashboardIndexRoute
   protectedAppReportingIndexRoute: typeof protectedAppReportingIndexRoute
@@ -194,6 +208,7 @@ interface protectedAppRouteChildren {
 
 const protectedAppRouteChildren: protectedAppRouteChildren = {
   protectedAppBudgetingNewRoute: protectedAppBudgetingNewRoute,
+  protectedAppReportingNewRoute: protectedAppReportingNewRoute,
   protectedAppBudgetingIndexRoute: protectedAppBudgetingIndexRoute,
   protectedAppDashboardIndexRoute: protectedAppDashboardIndexRoute,
   protectedAppReportingIndexRoute: protectedAppReportingIndexRoute,
@@ -226,6 +241,7 @@ export interface FileRoutesByFullPath {
   '/': typeof protectedAppRouteWithChildren
   '/auth': typeof AuthIndexRoute
   '/budgeting/new': typeof protectedAppBudgetingNewRoute
+  '/reporting/new': typeof protectedAppReportingNewRoute
   '/budgeting': typeof protectedAppBudgetingIndexRoute
   '/dashboard': typeof protectedAppDashboardIndexRoute
   '/reporting': typeof protectedAppReportingIndexRoute
@@ -239,6 +255,7 @@ export interface FileRoutesByTo {
   '/': typeof protectedAppRouteWithChildren
   '/auth': typeof AuthIndexRoute
   '/budgeting/new': typeof protectedAppBudgetingNewRoute
+  '/reporting/new': typeof protectedAppReportingNewRoute
   '/budgeting': typeof protectedAppBudgetingIndexRoute
   '/dashboard': typeof protectedAppDashboardIndexRoute
   '/reporting': typeof protectedAppReportingIndexRoute
@@ -254,6 +271,7 @@ export interface FileRoutesById {
   '/(protected)/_app': typeof protectedAppRouteWithChildren
   '/auth/': typeof AuthIndexRoute
   '/(protected)/_app/budgeting/new': typeof protectedAppBudgetingNewRoute
+  '/(protected)/_app/reporting/new': typeof protectedAppReportingNewRoute
   '/(protected)/_app/budgeting/': typeof protectedAppBudgetingIndexRoute
   '/(protected)/_app/dashboard/': typeof protectedAppDashboardIndexRoute
   '/(protected)/_app/reporting/': typeof protectedAppReportingIndexRoute
@@ -269,6 +287,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/budgeting/new'
+    | '/reporting/new'
     | '/budgeting'
     | '/dashboard'
     | '/reporting'
@@ -281,6 +300,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/budgeting/new'
+    | '/reporting/new'
     | '/budgeting'
     | '/dashboard'
     | '/reporting'
@@ -294,6 +314,7 @@ export interface FileRouteTypes {
     | '/(protected)/_app'
     | '/auth/'
     | '/(protected)/_app/budgeting/new'
+    | '/(protected)/_app/reporting/new'
     | '/(protected)/_app/budgeting/'
     | '/(protected)/_app/dashboard/'
     | '/(protected)/_app/reporting/'
@@ -341,6 +362,7 @@ export const routeTree = rootRoute
       "parent": "/(protected)",
       "children": [
         "/(protected)/_app/budgeting/new",
+        "/(protected)/_app/reporting/new",
         "/(protected)/_app/budgeting/",
         "/(protected)/_app/dashboard/",
         "/(protected)/_app/reporting/",
@@ -355,6 +377,10 @@ export const routeTree = rootRoute
     },
     "/(protected)/_app/budgeting/new": {
       "filePath": "(protected)/_app/budgeting/new.tsx",
+      "parent": "/(protected)/_app"
+    },
+    "/(protected)/_app/reporting/new": {
+      "filePath": "(protected)/_app/reporting/new.tsx",
       "parent": "/(protected)/_app"
     },
     "/(protected)/_app/budgeting/": {

@@ -8,11 +8,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Link } from "@tanstack/react-router";
-import { Edit, EllipsisVertical, EyeIcon, Plus } from "lucide-react";
+import { ChartArea, EllipsisVertical, EyeIcon, Plus } from "lucide-react";
 
-export function LatestTransactionsWidget() {
+export function ReportingWidget() {
   return (
-    <Card className="row-span-4">
+    <Card className="col-span-3 row-span-3">
       <WidgetTitle />
       <CardContent></CardContent>
     </Card>
@@ -25,9 +25,9 @@ const WidgetTitle = () => {
       <CardTitle className="flex flex-row items-center justify-between">
         <div className="flex items-center justify-between">
           <h2 className="text-base lg:text-md font-medium text-slate-950">
-            Latest Transactions
+            Budget Performance
           </h2>
-          <Info info="A list of all your latest transactions across all your accounts and budgets" />
+          <Info info="Detailed view over your budget performance" />
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger>
@@ -36,22 +36,22 @@ const WidgetTitle = () => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent sideOffset={3}>
-            <Link to={"/budgeting"}>
+            <Link to={"/reporting/new"}>
               <DropdownMenuItem className="cursor-pointer">
                 <Plus />
-                Add a Transaction
+                Create a Report
               </DropdownMenuItem>
             </Link>
-            <Link to={"/budgeting"}>
+            <Link to={"/reporting"}>
               <DropdownMenuItem className="cursor-pointer">
                 <EyeIcon />
-                View Latest Transactions
+                View Performance
               </DropdownMenuItem>
             </Link>
             <Link to={"/budgeting"}>
               <DropdownMenuItem className="cursor-pointer">
-                <Edit />
-                Edit a Transaction
+                <ChartArea />
+                Manage Reports
               </DropdownMenuItem>
             </Link>
           </DropdownMenuContent>
