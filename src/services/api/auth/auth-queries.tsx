@@ -1,18 +1,17 @@
 // hooks/useSigninUser.ts
 import { useMutation } from "@tanstack/react-query";
 import { signin, signup } from "@/services/api/auth/auth-fetchers";
-
-// TODO: Move to schema in Zod
-type CandidateUser = { email: string; password: string };
+import { User } from "@/features/auth/_components/signin-tab";
+import { NewUser } from "@/features/auth/_components/signup-tab";
 
 export const useSigninUser = () => {
   return useMutation({
-    mutationFn: ({ email, password }: CandidateUser) => signin(email, password),
+    mutationFn: (user: User) => signin(user),
   });
 };
 
 export const useSignupUser = () => {
   return useMutation({
-    mutationFn: ({ email, password }: CandidateUser) => signup(email, password),
+    mutationFn: (newUser: NewUser) => signup(newUser),
   });
 };

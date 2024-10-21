@@ -14,7 +14,7 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     if (error.response.status === 401) {
-      const response = await axiosInstance.post("/refresh_token");
+      const response = await axiosInstance.post("/api/v1/auth/refresh");
       if (response.status === 200) {
         return axiosInstance(error.config);
       }

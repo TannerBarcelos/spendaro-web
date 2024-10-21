@@ -7,15 +7,17 @@ import { useForm } from "@tanstack/react-form";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { z } from "zod";
 import ErrorFields from "@/components/form-error-field";
+import { useSigninUser } from "@/services/api/auth/auth-queries";
 
 const existingUserSchema = z.object({
   email: z.string().email("Invalid email address"),
-  password: z.string().min(8, "Password must be at least 8 characters"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
-type User = z.infer<typeof existingUserSchema>;
+export type User = z.infer<typeof existingUserSchema>;
 
 function SigninTab() {
+  const signInMutation = useSigninUser();
   const form = useForm({
     defaultValues: {
       email: "",
@@ -28,6 +30,7 @@ function SigninTab() {
     },
     onSubmit: async ({ value }) => {
       console.log(value);
+      signInMutation.mutate(value);
     },
   });
 
