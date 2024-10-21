@@ -9,8 +9,8 @@ import { z } from "zod";
 import ErrorFields from "@/components/form-error-field";
 
 const existingUserSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8),
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(8, "Password must be at least 8 characters"),
 });
 
 type User = z.infer<typeof existingUserSchema>;
@@ -24,6 +24,7 @@ function SigninTab() {
     validatorAdapter: zodValidator(),
     validators: {
       onChange: existingUserSchema,
+      onSubmit: existingUserSchema,
     },
     onSubmit: async ({ value }) => {
       console.log(value);
@@ -42,9 +43,6 @@ function SigninTab() {
       <form onSubmit={handleSubmit} className="space-y-6">
         <form.Field
           name="email"
-          validators={{
-            onChange: z.string().email("Invalid email address"),
-          }}
           children={(field) => {
             return (
               <div className="space-y-2">
@@ -75,11 +73,6 @@ function SigninTab() {
         />
         <form.Field
           name="password"
-          validators={{
-            onChange: z
-              .string()
-              .min(8, "Password must be at least 8 characters"),
-          }}
           children={(field) => {
             return (
               <div className="space-y-2">

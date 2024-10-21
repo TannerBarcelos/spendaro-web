@@ -28,6 +28,7 @@ function SignupTab() {
     validatorAdapter: zodValidator(),
     validators: {
       onChange: newUserSchema,
+      onSubmit: newUserSchema,
     },
     onSubmit: async ({ value }) => {
       console.log(value);
