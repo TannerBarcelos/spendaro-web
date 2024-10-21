@@ -3,60 +3,144 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import { TabsContent } from "@radix-ui/react-tabs";
 import { Mail, ArrowRight, Lock } from "lucide-react";
-import { useState } from "react";
+import { useForm } from "@tanstack/react-form";
+import type { FieldApi } from "@tanstack/react-form";
+import { zodValidator } from "@tanstack/zod-form-adapter";
+import { z } from "zod";
+
+const newUserSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8),
+});
+
+type NewUser = z.infer<typeof newUserSchema>;
+
+function FieldInfo({ field }: { field: FieldApi<any, any, any, any> }) {
+  return (
+    <>
+      {field.state.meta.isTouched && field.state.meta.errors.length ? (
+        <p className="text-red-500 font-medium text-sm">
+          {field.state.meta.errors.join(",")}
+        </p>
+      ) : null}
+    </>
+  );
+}
 
 function SigninTab() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const handleSignin = (e: React.FormEvent) => {
+  const form = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    } as NewUser,
+    validatorAdapter: zodValidator(),
+    validators: {
+      onChange: newUserSchema,
+    },
+    onSubmit: async ({ value }) => {
+      console.log(value);
+    },
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Login:", { email, password });
+    e.stopPropagation();
+    form.handleSubmit();
+    console.log(e);
   };
+
   return (
     <TabsContent value="signin">
-      <form onSubmit={handleSignin} className="space-y-6">
-        <div className="space-y-2">
-          <Label htmlFor="email" className="text-xs font-normal text-gray-700">
-            Email
-          </Label>
-          <div className="relative">
-            <Mail className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
-            <Input
-              id="email"
-              type="email"
-              placeholder="you@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="pl-10 pr-4 py-2 w-full border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500"
-              required
-            />
-          </div>
-        </div>
-        <div className="space-y-2">
-          <Label
-            htmlFor="password"
-            className="text-xs font-normal text-gray-700"
-          >
-            Password
-          </Label>
-          <div className="relative">
-            <Lock className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
-            <Input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="pl-10 pr-4 py-2 w-full border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500"
-              required
-            />
-          </div>
-        </div>
-        <Button
-          type="submit"
-          className="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-2.5 px-4 rounded-lg transition duration-300 flex items-center justify-center text-base"
-        >
-          Sign In <ArrowRight className="ml-2 w-5 h-5" />
-        </Button>
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <form.Field
+          name="email"
+          validators={{
+            onChange: z.string().email("Invalid email address"),
+          }}
+          children={(field) => {
+            return (
+              <div className="space-y-2">
+                <Label
+                  htmlFor="email"
+                  className="text-xs font-normal text-gray-700"
+                >
+                  Email
+                </Label>
+                <div className="relative">
+                  <Mail className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                  <Input
+                    type="email"
+                    id={field.name}
+                    name={field.name}
+                    placeholder="you@example.com"
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    className="pl-10 pr-4 py-2 w-full border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500"
+                    required
+                  />
+                </div>
+                <FieldInfo field={field} />
+              </div>
+            );
+          }}
+        />
+        <form.Field
+          name="password"
+          validators={{
+            onChange: z
+              .string()
+              .min(8, "Password must be at least 8 characters"),
+          }}
+          children={(field) => {
+            return (
+              <div className="space-y-2">
+                <Label
+                  htmlFor="password"
+                  className="text-xs font-normal text-gray-700"
+                >
+                  Password
+                </Label>
+                <div className="relative">
+                  <Lock className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                  <Input
+                    type="password"
+                    id={field.name}
+                    name={field.name}
+                    placeholder="Your password"
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    className="pl-10 pr-4 py-2 w-full border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500"
+                    required
+                  />
+                </div>
+                <FieldInfo field={field} />
+              </div>
+            );
+          }}
+        />
+        <form.Subscribe
+          selector={(state) => [state.canSubmit, state.isSubmitting]}
+          children={([canSubmit, isSubmitting]) => (
+            <Button
+              disabled={!canSubmit}
+              type="submit"
+              className="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-2.5 px-4 rounded-lg transition duration-300 flex items-center justify-center text-base"
+            >
+              <p>
+                {isSubmitting ? (
+                  <span>Signing In...</span>
+                ) : (
+                  <span className="flex flex-row items-center w-20 justify-between">
+                    Sign In
+                    <ArrowRight />
+                  </span>
+                )}
+              </p>
+            </Button>
+          )}
+        />
       </form>
     </TabsContent>
   );
