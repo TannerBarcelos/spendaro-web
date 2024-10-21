@@ -7,17 +7,20 @@ import { useForm } from "@tanstack/react-form";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { z } from "zod";
 import ErrorFields from "@/components/form-error-field";
+import { useSignupUser } from "@/services/api/auth/auth-queries";
+import { toast } from "sonner";
 
 const newUserSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
   lastName: z.string().min(2, "Last name must be at least 2 characters"),
   email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+  password: z.string().min(5, "Password must be at least 5 characters"),
 });
 
 export type NewUser = z.infer<typeof newUserSchema>;
 
 function SignupTab() {
+  const signupMutation = useSignupUser();
   const form = useForm({
     defaultValues: {
       firstName: "",
@@ -31,7 +34,10 @@ function SignupTab() {
       onSubmit: newUserSchema,
     },
     onSubmit: async ({ value }) => {
-      console.log(value);
+      await signupMutation.mutateAsync(value);
+      if (signupMutation.isSuccess) {
+        toast.success(signupMutation.data.data.message);
+      }
     },
   });
 

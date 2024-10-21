@@ -1,5 +1,5 @@
-import axios from "axios";
-import axiosInstance from "../../axios";
+import axios, { AxiosResponse } from "axios";
+import axiosInstance from "@/services/axios";
 import type { User } from "@/features/auth/_components/signin-tab";
 import type { NewUser } from "@/features/auth/_components/signup-tab";
 
@@ -12,13 +12,15 @@ const AUTH_URLS = {
   userDetails: `${AUTH_BASE_URL}/user`,
 }
 
-export const signin = async (user: User) => {
+type AuthResponse = AxiosResponse<{message: string}> // AxiosResponst<D> where D is the type of the data returned by the API
+
+export const signin = async (user: User): Promise<AuthResponse> => {
   try {
     const response = await axiosInstance.post(AUTH_URLS.login, {
       email: user.email,
       password: user.password,
     });
-    return response.data;
+    return response
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
       return error.response.data;
@@ -27,7 +29,7 @@ export const signin = async (user: User) => {
   }
 };
 
-export const signup = async (newUser: NewUser) => {
+export const signup = async (newUser: NewUser): Promise<AuthResponse> => {
   try {
     const response = await axiosInstance.post(AUTH_URLS.signup, {
       firstName: newUser.firstName,
@@ -35,7 +37,7 @@ export const signup = async (newUser: NewUser) => {
       email: newUser.email,
       password: newUser.password,
     });
-    return response.data;
+    return response
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
       return error.response.data;

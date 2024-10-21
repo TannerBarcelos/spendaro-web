@@ -8,10 +8,11 @@ import { zodValidator } from "@tanstack/zod-form-adapter";
 import { z } from "zod";
 import ErrorFields from "@/components/form-error-field";
 import { useSigninUser } from "@/services/api/auth/auth-queries";
+import { toast } from "sonner";
 
 const existingUserSchema = z.object({
   email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+  password: z.string().min(5, "Password must be at least 5 characters"),
 });
 
 export type User = z.infer<typeof existingUserSchema>;
@@ -29,8 +30,10 @@ function SigninTab() {
       onSubmit: existingUserSchema,
     },
     onSubmit: async ({ value }) => {
-      console.log(value);
-      signInMutation.mutate(value);
+      await signInMutation.mutateAsync(value);
+      if (signInMutation.isSuccess) {
+        toast.success(signInMutation.data.data.message);
+      }
     },
   });
 

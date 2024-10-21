@@ -1,4 +1,3 @@
-// hooks/useSigninUser.ts
 import { useMutation } from "@tanstack/react-query";
 import { signin, signup } from "@/services/api/auth/auth-fetchers";
 import { User } from "@/features/auth/_components/signin-tab";
