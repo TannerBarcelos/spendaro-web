@@ -1,9 +1,9 @@
-import axios, { AxiosResponse } from "axios";
-import axiosInstance, { CommonApiErrorResponse } from "@/services/axios";
+import  { AxiosResponse } from "axios";
+import axiosInstance from "@/services/axios";
 import type { User } from "@/features/auth/_components/signin-tab";
 import type { NewUser } from "@/features/auth/_components/signup-tab";
 
-const AUTH_BASE_URL = "/api/v1/auth"
+const AUTH_BASE_URL = "/auth"
 
 const AUTH_URLS = {
   login: `${AUTH_BASE_URL}/signin`,

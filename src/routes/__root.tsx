@@ -10,7 +10,7 @@ export const Route = createRootRoute({
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50 ">
         <Navigation />
         <Outlet />
-        <Toaster richColors />
+        <Toaster />
         <TanStackRouterDevtools />
       </div>
     </>

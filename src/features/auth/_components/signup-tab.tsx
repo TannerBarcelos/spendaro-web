@@ -39,10 +39,13 @@ function SignupTab() {
         const result = await signupMutation.mutateAsync(value);
         toast.success(result.data.message, {
           position: "top-center",
+          richColors: true,
         });
       } catch (error) {
-        toast.error(errorBuilder(error), {
+        const errorMessage = errorBuilder(error);
+        toast.error(errorMessage, {
           position: "top-center",
+          richColors: true,
         });
       }
     },
