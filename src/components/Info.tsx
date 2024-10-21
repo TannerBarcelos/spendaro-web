@@ -1,4 +1,3 @@
-import { Button } from "./ui/button";
 import { Info as LucideInfo } from "lucide-react";
 import {
   Popover,
@@ -14,9 +13,9 @@ function Info({ info }: InfoProps) {
   return (
     <Popover>
       <PopoverTrigger>
-        <Button variant="ghost" className="py-2 px-3 ml-1">
-          <LucideInfo width={10} color="grey" />
-        </Button>
+        <div className="py-2 px-2" title={info}>
+          <LucideInfo width={14} color="grey" />
+        </div>
       </PopoverTrigger>
       <PopoverContent side="right">{info}</PopoverContent>
     </Popover>
