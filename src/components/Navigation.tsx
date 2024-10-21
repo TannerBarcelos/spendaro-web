@@ -129,7 +129,7 @@ export function Navigation() {
                         Settings
                       </DropdownMenuItem>
                     </Link>
-                    <DropdownMenuItem onClick={() => auth.setIsSignedIn(false)}>
+                    <DropdownMenuItem onClick={() => auth.logout()}>
                       <LogOut />
                       Sign Out
                     </DropdownMenuItem>

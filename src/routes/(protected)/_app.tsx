@@ -9,11 +9,9 @@ export const Route = createFileRoute("/(protected)/_app")({
 
 function Layout() {
   const navigate = useNavigate();
-  const authStore = useAuthStore((state) => state.isSignedIn);
-  const userStore = useUserStore();
+  const isSignedIn = useAuthStore((state) => state.isSignedIn);
 
-  if (!authStore) {
-    userStore.clear();
+  if (!isSignedIn) {
     navigate({
       to: "/auth",
     });

@@ -2,10 +2,12 @@ import { create } from "zustand";
 
 interface AuthStore {
   isSignedIn: boolean;
-  setIsSignedIn: (isSignedIn: boolean) => void;
+  signin: () => void;
+  logout: () => void;
 }
 
 export const useAuthStore = create<AuthStore>()((set) => ({
     isSignedIn: false,
-    setIsSignedIn: (isSignedIn) => set({ isSignedIn }),
+    signin: () => set({ isSignedIn: true }),
+    logout: () => set({ isSignedIn: false }),
 }));

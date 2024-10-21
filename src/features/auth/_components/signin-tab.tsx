@@ -41,7 +41,7 @@ function SigninTab() {
           position: "top-center",
           richColors: true,
         });
-        authStore.setIsSignedIn(true);
+        authStore.signin();
         setTimeout(() => {
           form.reset();
           toast.dismiss();
