@@ -36,16 +36,18 @@ const WidgetTitle = () => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent sideOffset={3}>
-            <Link to={"/budgeting"}>
+            <Link to={"/budgeting/new"}>
               <DropdownMenuItem>
                 <Plus />
                 Create a Budget
               </DropdownMenuItem>
             </Link>
-            <DropdownMenuItem>
-              <EyeIcon />
-              View a Budget
-            </DropdownMenuItem>
+            <Link to={"/budgeting"}>
+              <DropdownMenuItem>
+                <EyeIcon />
+                View a Budget
+              </DropdownMenuItem>
+            </Link>
           </DropdownMenuContent>
         </DropdownMenu>
       </CardTitle>
