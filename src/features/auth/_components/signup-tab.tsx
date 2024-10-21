@@ -10,6 +10,7 @@ import ErrorFields from "@/components/form-error-field";
 import { useSignupUser } from "@/services/api/auth/auth-queries";
 import { toast } from "sonner";
 import { errorBuilder } from "@/lib/utils";
+import { useNavigate } from "@tanstack/react-router";
 
 const newUserSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
@@ -21,6 +22,7 @@ const newUserSchema = z.object({
 export type NewUser = z.infer<typeof newUserSchema>;
 
 function SignupTab() {
+  const navigate = useNavigate();
   const signupMutation = useSignupUser();
   const form = useForm({
     defaultValues: {
@@ -41,6 +43,12 @@ function SignupTab() {
           position: "top-center",
           richColors: true,
         });
+        setTimeout(() => {
+          toast.dismiss();
+          navigate({
+            to: "/dashboard",
+          });
+        }, 1000);
       } catch (error) {
         const errorMessage = errorBuilder(error);
         toast.error(errorMessage, {

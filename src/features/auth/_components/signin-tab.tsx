@@ -10,6 +10,7 @@ import ErrorFields from "@/components/form-error-field";
 import { useSigninUser } from "@/services/api/auth/auth-queries";
 import { toast } from "sonner";
 import { errorBuilder } from "@/lib/utils";
+import { useNavigate } from "@tanstack/react-router";
 
 const existingUserSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -19,6 +20,7 @@ const existingUserSchema = z.object({
 export type User = z.infer<typeof existingUserSchema>;
 
 function SigninTab() {
+  const navigate = useNavigate();
   const signInMutation = useSigninUser();
   const form = useForm({
     defaultValues: {
@@ -37,6 +39,12 @@ function SigninTab() {
           position: "top-center",
           richColors: true,
         });
+        setTimeout(() => {
+          toast.dismiss();
+          navigate({
+            to: "/dashboard",
+          });
+        }, 1000);
       } catch (error) {
         const errorMessage = errorBuilder(error);
         toast.error(errorMessage, {
