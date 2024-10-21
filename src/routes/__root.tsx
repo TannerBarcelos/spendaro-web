@@ -1,4 +1,3 @@
-import { Navigation } from "@/components/Navigation";
 import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { Toaster } from "@/components/ui/sonner";
@@ -8,7 +7,6 @@ export const Route = createRootRoute({
   component: () => (
     <>
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50 ">
-        <Navigation />
         <Outlet />
         <Toaster />
         <TanStackRouterDevtools />

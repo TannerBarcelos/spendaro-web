@@ -4,6 +4,7 @@ import { Link } from "@tanstack/react-router";
 import {
   ChartArea,
   HandCoins,
+  LogOut,
   Plus,
   Settings,
   User,
@@ -24,6 +25,7 @@ import { useAuthStore } from "@/store/auth-store";
 
 export function Navigation() {
   const isSignedIn = useAuthStore((state) => state.isSignedIn);
+  const auth = useAuthStore();
   const usersName = "Tanner Barcelos";
   return (
     <nav className="p-4">
@@ -127,6 +129,10 @@ export function Navigation() {
                         Settings
                       </DropdownMenuItem>
                     </Link>
+                    <DropdownMenuItem onClick={() => auth.setIsSignedIn(false)}>
+                      <LogOut />
+                      Sign Out
+                    </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
                 <Button variant="ghost" size="icon" className="md:hidden">
