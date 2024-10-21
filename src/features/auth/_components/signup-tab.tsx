@@ -44,6 +44,7 @@ function SignupTab() {
           richColors: true,
         });
         setTimeout(() => {
+          form.reset();
           toast.dismiss();
           navigate({
             to: "/dashboard",
