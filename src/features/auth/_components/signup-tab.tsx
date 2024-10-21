@@ -2,17 +2,17 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import { TabsContent } from "@radix-ui/react-tabs";
-import { Mail, ArrowRight, Lock } from "lucide-react";
+import { Mail, ArrowRight, Lock, CircleUser } from "lucide-react";
 import { useForm } from "@tanstack/react-form";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { z } from "zod";
 import ErrorFields from "@/components/form-error-field";
 
 const newUserSchema = z.object({
-  firstName: z.string(),
-  lastName: z.string(),
-  email: z.string().email(),
-  password: z.string().min(8),
+  firstName: z.string().min(2, "First name must be at least 2 characters"),
+  lastName: z.string().min(2, "Last name must be at least 2 characters"),
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(8, "Password must be at least 8 characters"),
 });
 
 type NewUser = z.infer<typeof newUserSchema>;
@@ -46,11 +46,6 @@ function SignupTab() {
       <form onSubmit={handleSubmit} className="space-y-6">
         <form.Field
           name="firstName"
-          validators={{
-            onChange: z
-              .string()
-              .min(2, "First name must be at least 2 characters"),
-          }}
           children={(field) => {
             return (
               <div className="space-y-2">
@@ -61,7 +56,7 @@ function SignupTab() {
                   First Name
                 </Label>
                 <div className="relative">
-                  <Mail className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                  <CircleUser className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
                   <Input
                     type="text"
                     id={field.name}
@@ -81,11 +76,6 @@ function SignupTab() {
         />
         <form.Field
           name="lastName"
-          validators={{
-            onChange: z
-              .string()
-              .min(2, "Last name must be at least 2 characters"),
-          }}
           children={(field) => {
             return (
               <div className="space-y-2">
@@ -96,7 +86,7 @@ function SignupTab() {
                   Last Name
                 </Label>
                 <div className="relative">
-                  <Mail className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                  <CircleUser className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
                   <Input
                     type="text"
                     id={field.name}
@@ -116,9 +106,6 @@ function SignupTab() {
         />
         <form.Field
           name="email"
-          validators={{
-            onChange: z.string().email("Invalid email address"),
-          }}
           children={(field) => {
             return (
               <div className="space-y-2">
@@ -149,11 +136,6 @@ function SignupTab() {
         />
         <form.Field
           name="password"
-          validators={{
-            onChange: z
-              .string()
-              .min(8, "Password must be at least 8 characters"),
-          }}
           children={(field) => {
             return (
               <div className="space-y-2">
