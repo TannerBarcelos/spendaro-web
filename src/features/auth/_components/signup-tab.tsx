@@ -35,16 +35,16 @@ function SignupTab() {
     },
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    form.handleSubmit();
-    console.log(e);
-  };
-
   return (
     <TabsContent value="signup">
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          form.handleSubmit();
+        }}
+        className="space-y-6"
+      >
         <form.Field
           name="firstName"
           children={(field) => {
