@@ -1,5 +1,5 @@
 import { Navigation } from "@/components/Navigation";
-import { useAuthStore } from "@/store/auth-store";
+import { useAuthStore } from "@/stores/auth-store";
 import { createFileRoute, Outlet, useNavigate } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/(protected)/_app")({

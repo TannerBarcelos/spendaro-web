@@ -11,7 +11,7 @@ import { useSigninUser } from "@/services/api/auth/auth-queries";
 import { toast } from "sonner";
 import { errorBuilder } from "@/lib/utils";
 import { useNavigate } from "@tanstack/react-router";
-import { useAuthStore } from "@/store/auth-store";
+import { useAuthStore } from "@/stores/auth-store";
 
 const existingUserSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -37,7 +37,8 @@ function SigninTab() {
     onSubmit: async ({ value }) => {
       try {
         const result = await signInMutation.mutateAsync(value);
-        toast.success(result.data.message, {
+        const msg = `${result.data.message}. Redirecting to Dashboard.`;
+        toast.success(msg, {
           position: "top-center",
           richColors: true,
         });
