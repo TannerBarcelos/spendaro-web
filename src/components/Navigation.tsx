@@ -20,9 +20,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useAuthStore } from "@/store/auth-store";
 
 export function Navigation() {
-  const isSignedIn = false;
+  const isSignedIn = useAuthStore((state) => state.isSignedIn);
   const usersName = "Tanner Barcelos";
   return (
     <nav className="p-4">

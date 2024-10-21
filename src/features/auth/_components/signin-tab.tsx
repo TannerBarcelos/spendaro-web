@@ -11,6 +11,7 @@ import { useSigninUser } from "@/services/api/auth/auth-queries";
 import { toast } from "sonner";
 import { errorBuilder } from "@/lib/utils";
 import { useNavigate } from "@tanstack/react-router";
+import { useAuthStore } from "@/store/auth-store";
 
 const existingUserSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -20,6 +21,7 @@ const existingUserSchema = z.object({
 export type User = z.infer<typeof existingUserSchema>;
 
 function SigninTab() {
+  const authStore = useAuthStore();
   const navigate = useNavigate();
   const signInMutation = useSigninUser();
   const form = useForm({
@@ -39,6 +41,7 @@ function SigninTab() {
           position: "top-center",
           richColors: true,
         });
+        authStore.setIsSignedIn(true);
         setTimeout(() => {
           form.reset();
           toast.dismiss();
