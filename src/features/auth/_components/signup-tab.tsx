@@ -9,6 +9,7 @@ import { z } from "zod";
 import ErrorFields from "@/components/form-error-field";
 import { useSignupUser } from "@/services/api/auth/auth-queries";
 import { toast } from "sonner";
+import { errorBuilder } from "@/lib/utils";
 
 const newUserSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
@@ -34,9 +35,15 @@ function SignupTab() {
       onSubmit: newUserSchema,
     },
     onSubmit: async ({ value }) => {
-      await signupMutation.mutateAsync(value);
-      if (signupMutation.isSuccess) {
-        toast.success(signupMutation.data.data.message);
+      try {
+        const result = await signupMutation.mutateAsync(value);
+        toast.success(result.data.message, {
+          position: "top-center",
+        });
+      } catch (error) {
+        toast.error(errorBuilder(error), {
+          position: "top-center",
+        });
       }
     },
   });

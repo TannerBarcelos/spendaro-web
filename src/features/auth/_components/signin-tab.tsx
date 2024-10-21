@@ -9,6 +9,7 @@ import { z } from "zod";
 import ErrorFields from "@/components/form-error-field";
 import { useSigninUser } from "@/services/api/auth/auth-queries";
 import { toast } from "sonner";
+import { errorBuilder } from "@/lib/utils";
 
 const existingUserSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -30,9 +31,15 @@ function SigninTab() {
       onSubmit: existingUserSchema,
     },
     onSubmit: async ({ value }) => {
-      await signInMutation.mutateAsync(value);
-      if (signInMutation.isSuccess) {
-        toast.success(signInMutation.data.data.message);
+      try {
+        const result = await signInMutation.mutateAsync(value);
+        toast.success(result.data.message, {
+          position: "top-center",
+        });
+      } catch (error) {
+        toast.error(errorBuilder(error), {
+          position: "top-center",
+        });
       }
     },
   });

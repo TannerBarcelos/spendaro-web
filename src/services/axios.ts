@@ -1,4 +1,15 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+
+export type CommonApiErrorResponse = AxiosError<{
+  error: string
+  message: string
+  details: {
+    issues: string[],
+    method: string,
+    stack?: string
+    url: string
+  }
+}>
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.API_URL,
@@ -13,7 +24,7 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
-    if (error.response.status === 401) {
+    if (error.response.status === 401 && !error.config.url?.includes("auth")) {
       const response = await axiosInstance.post("/api/v1/auth/refresh");
       if (response.status === 200) {
         return axiosInstance(error.config);

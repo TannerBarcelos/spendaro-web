@@ -1,9 +1,25 @@
+import { isAxiosError } from "axios";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+/**
+ * Takes an error object and returns a string message - will determine if it's an Axios error or generic error and parse the message accordingly
+ * @param error - error object (can be any type)
+ * @returns error message as a string
+ */
+export const errorBuilder = (error: unknown): string => {
+  if (isAxiosError(error)) {
+    return error.response?.data.message;
+  } else {
+    const errorMessage =
+      error instanceof Error ? error.message : "An error occurred";
+    return errorMessage;
+  }
+};
 
 export const greetTimeOfDay = () => {
   const date = new Date();
