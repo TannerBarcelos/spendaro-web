@@ -38,28 +38,28 @@ export function Navigation() {
             <div className="hidden md:flex space-x-6 p-2 bg-card rounded-full">
               <Link
                 to="/dashboard"
-                className="text-base [&.active]:bg-nav-item-hover [&.active]:rounded-full [&.active]:text-primary [&.active]:font-medium flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
+                className="text-sm [&.active]:bg-nav-item-hover [&.active]:rounded-full [&.active]:text-primary [&.active]:font-medium flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
                 activeOptions={{ exact: true }}
               >
                 Dashboard
               </Link>
               <Link
                 to="/budgeting"
-                className="text-base [&.active]:bg-nav-item-hover [&.active]:rounded-full [&.active]:text-primary [&.active]:font-medium flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
+                className="text-sm [&.active]:bg-nav-item-hover [&.active]:rounded-full [&.active]:text-primary [&.active]:font-medium flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
                 activeOptions={{ exact: true }}
               >
                 Budgeting
               </Link>
               <Link
                 to="/transactions"
-                className="text-base [&.active]:bg-nav-item-hover [&.active]:rounded-full [&.active]:text-primary [&.active]:font-medium flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
+                className="text-sm [&.active]:bg-nav-item-hover [&.active]:rounded-full [&.active]:text-primary [&.active]:font-medium flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
                 activeOptions={{ exact: true }}
               >
                 Transactions
               </Link>
               <Link
                 to="/reporting"
-                className="text-base [&.active]:bg-nav-item-hover [&.active]:rounded-full [&.active]:text-primary [&.active]:font-medium flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
+                className="text-sm [&.active]:bg-nav-item-hover [&.active]:rounded-full [&.active]:text-primary [&.active]:font-medium flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
                 activeOptions={{ exact: true }}
               >
                 Reporting
