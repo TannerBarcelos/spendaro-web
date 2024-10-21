@@ -4,38 +4,26 @@ import { Label } from "@radix-ui/react-label";
 import { TabsContent } from "@radix-ui/react-tabs";
 import { Mail, ArrowRight, Lock } from "lucide-react";
 import { useForm } from "@tanstack/react-form";
-import type { FieldApi } from "@tanstack/react-form";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { z } from "zod";
+import ErrorFields from "@/components/form-error-field";
 
-const newUserSchema = z.object({
+const existingUserSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8),
 });
 
-type NewUser = z.infer<typeof newUserSchema>;
-
-function FieldInfo({ field }: { field: FieldApi<any, any, any, any> }) {
-  return (
-    <>
-      {field.state.meta.isTouched && field.state.meta.errors.length ? (
-        <p className="text-red-500 font-medium text-sm">
-          {field.state.meta.errors.join(",")}
-        </p>
-      ) : null}
-    </>
-  );
-}
+type User = z.infer<typeof existingUserSchema>;
 
 function SigninTab() {
   const form = useForm({
     defaultValues: {
       email: "",
       password: "",
-    } as NewUser,
+    } as User,
     validatorAdapter: zodValidator(),
     validators: {
-      onChange: newUserSchema,
+      onChange: existingUserSchema,
     },
     onSubmit: async ({ value }) => {
       console.log(value);
@@ -80,7 +68,7 @@ function SigninTab() {
                     required
                   />
                 </div>
-                <FieldInfo field={field} />
+                <ErrorFields field={field} />
               </div>
             );
           }}
@@ -115,7 +103,7 @@ function SigninTab() {
                     required
                   />
                 </div>
-                <FieldInfo field={field} />
+                <ErrorFields field={field} />
               </div>
             );
           }}
