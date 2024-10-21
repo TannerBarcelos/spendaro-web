@@ -8,8 +8,8 @@ export function AuthPage() {
     setSelectedTab(value);
   };
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4">
-      <div className="w-full max-w-md">
+    <div className="flex flex-col items-center justify-center p-4 mt-20">
+      <div className="w-full max-w-lg">
         <div className="bg-white rounded-xl shadow-2xl p-8 space-y-8">
           <AuthHeader selectedTab={selectedTab} />
           <TabsSelection handleTabChange={handleTabChange} />

@@ -9,7 +9,9 @@ function AuthHeader({ selectedTab }: AuthHeaderProps) {
         {selectedTab === "signin" ? "Welcome Back!" : "Create Your Account"}
       </h1>
       <p className="text-gray-500 mt-2 text-sm">
-        Enter to start your journey towards financial freedom.
+        {selectedTab === "signin"
+          ? "Continue your journey towards financial freedom."
+          : "Enter to start your journey towards financial freedom."}
       </p>
     </div>
   );
