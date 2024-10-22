@@ -85,7 +85,7 @@ export function Navigation() {
             </div>
             <div className="flex items-center space-x-4">
               <DropdownMenu>
-                <DropdownMenuTrigger>
+                <DropdownMenuTrigger asChild>
                   <Button className="text-sm w-10 h-10 rounded-full space-x-4">
                     <Plus size={16} />
                   </Button>
