@@ -12,6 +12,8 @@ import { toast } from "sonner";
 import { errorBuilder } from "@/lib/utils";
 import { useNavigate } from "@tanstack/react-router";
 import { useAuthStore } from "@/stores/auth-store";
+import { useUserStore } from "@/stores/user-store";
+import { fetchUser } from "@/services/api/auth/auth-fetchers";
 
 const newUserSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
@@ -25,6 +27,7 @@ export type NewUser = z.infer<typeof newUserSchema>;
 function SignupTab() {
   const authStore = useAuthStore();
   const navigate = useNavigate();
+  const userStore = useUserStore();
   const signupMutation = useSignupUser();
   const form = useForm({
     defaultValues: {
@@ -41,8 +44,15 @@ function SignupTab() {
     onSubmit: async ({ value: newUser }) => {
       try {
         const result = await signupMutation.mutateAsync(newUser);
-        const msg = `${result.data.message}. Redirecting to Dashboard.`;
-        toast.success(msg, {
+        const {
+          data: { data: userInfo },
+        } = await fetchUser();
+
+        userStore.setFirstName(userInfo.firstName);
+        userStore.setLastName(userInfo.lastName);
+        userStore.setEmail(userInfo.email);
+        userStore.setProfileImage(userInfo.profileImage);
+        toast.success(result.data.message, {
           position: "top-center",
           richColors: true,
           duration: 2_000,

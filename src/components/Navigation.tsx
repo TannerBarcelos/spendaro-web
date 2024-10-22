@@ -1,7 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Link } from "@tanstack/react-router";
-import { Skeleton } from "@/components/ui/skeleton";
 import {
   ChartArea,
   HandCoins,
@@ -29,11 +28,6 @@ export function Navigation() {
   const auth = useAuthStore();
   const userStore = useUserStore();
   const isSignedIn = useAuthStore((state) => state.isSignedIn);
-
-  if (isSignedIn) {
-    console.log("User is signed in");
-  }
-
   return (
     <nav className="py-4">
       <div className="container mx-auto flex items-center justify-between">
