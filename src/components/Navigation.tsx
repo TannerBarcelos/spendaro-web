@@ -51,7 +51,7 @@ export function Navigation() {
                 className="text-sm [&.active]:bg-nav-item-hover [&.active]:rounded-full [&.active]:text-primary [&.active]:font-medium flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
                 activeOptions={{ exact: true }}
               >
-                Budgeting
+                Budgets
               </Link>
               <Link
                 to="/transactions"
@@ -65,7 +65,7 @@ export function Navigation() {
                 className="text-sm [&.active]:bg-nav-item-hover [&.active]:rounded-full [&.active]:text-primary [&.active]:font-medium flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
                 activeOptions={{ exact: true }}
               >
-                Reporting
+                Reports
               </Link>
             </div>
             <div className="flex items-center space-x-4">

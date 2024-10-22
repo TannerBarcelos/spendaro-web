@@ -1,4 +1,4 @@
-import { BudgetPage } from "@/features/budgeting";
+import { BudgetPage } from "@/features/budgets";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/(protected)/_app/budgeting/")({
