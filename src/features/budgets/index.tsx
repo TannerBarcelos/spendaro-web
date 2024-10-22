@@ -17,6 +17,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Budget } from "@/services/api/budget/budget-fetchers";
 
 export function BudgetPage() {
   const { data, isLoading, isError } = useGetBudgets();
@@ -32,64 +33,78 @@ export function BudgetPage() {
   return (
     <Page>
       <h1 className="text-xl lg:text-2xl font-semibold">Budgets</h1>
-      <Table className="mt-8">
-        <TableHeader>
-          <TableRow>
-            <TableHead>Budget Name</TableHead>
-            <TableHead>Budget Description</TableHead>
-            <TableHead>Budget Amount</TableHead>
-            <TableHead>Created</TableHead>
-            <TableHead>Actions</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {data.data.map((budget: any) => {
-            return (
-              <TableRow key={budget.id}>
-                <TableCell>{budget.budget_name}</TableCell>
-                <TableCell>{budget.budget_description}</TableCell>
-                <TableCell>${budget.amount}</TableCell>
-                <TableCell>
-                  {new Date(budget.createdAt).toLocaleDateString()}
-                </TableCell>
-                <TableCell>
-                  <DropdownMenu>
-                    <div className="flex flex-row items-center w-max gap-2">
-                      <DropdownMenuTrigger asChild>
-                        <Button
-                          variant="outline"
-                          className="border border-gray-200 border-solid"
-                        >
-                          <MoreHorizontal size={16} />
-                        </Button>
-                      </DropdownMenuTrigger>
+      <AllBudgets data={data?.data} />
+    </Page>
+  );
+}
+
+interface AllBudgetsProps {
+  data?: Budget[];
+}
+
+function AllBudgets({ data }: AllBudgetsProps) {
+  if (!data || data.length === 0) {
+    return <p>No budgets found</p>;
+  }
+
+  return (
+    <Table className="mt-8">
+      <TableHeader>
+        <TableRow>
+          <TableHead>Budget Name</TableHead>
+          <TableHead>Budget Description</TableHead>
+          <TableHead>Budget Amount</TableHead>
+          <TableHead>Created</TableHead>
+          <TableHead>Actions</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {data?.map((budget: any) => {
+          return (
+            <TableRow key={budget.id}>
+              <TableCell>{budget.budget_name}</TableCell>
+              <TableCell>{budget.budget_description}</TableCell>
+              <TableCell>${budget.amount}</TableCell>
+              <TableCell>
+                {new Date(budget.createdAt).toLocaleDateString()}
+              </TableCell>
+              <TableCell>
+                <DropdownMenu>
+                  <div className="flex flex-row items-center w-max gap-2">
+                    <DropdownMenuTrigger asChild>
                       <Button
                         variant="outline"
                         className="border border-gray-200 border-solid"
                       >
-                        <Star
-                          size={15}
-                          strokeWidth={2}
-                          className="text-primary hover:cursor-pointer"
-                        />
+                        <MoreHorizontal size={16} />
                       </Button>
-                    </div>
-                    <DropdownMenuContent>
-                      <DropdownMenuItem>
-                        <Trash2 /> Delete Budget
-                      </DropdownMenuItem>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem>
-                        <Edit2 /> Edit Budget
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </Page>
+                    </DropdownMenuTrigger>
+                    <Button
+                      variant="outline"
+                      className="border border-gray-200 border-solid"
+                    >
+                      <Star
+                        size={15}
+                        strokeWidth={2}
+                        className="text-primary hover:cursor-pointer"
+                      />
+                    </Button>
+                  </div>
+                  <DropdownMenuContent>
+                    <DropdownMenuItem>
+                      <Trash2 /> Delete Budget
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>
+                      <Edit2 /> Edit Budget
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </TableCell>
+            </TableRow>
+          );
+        })}
+      </TableBody>
+    </Table>
   );
 }

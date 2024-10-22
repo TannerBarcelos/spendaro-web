@@ -25,11 +25,13 @@ import { useAuthStore } from "@/stores/auth-store";
 import { useUserStore } from "@/stores/user-store";
 import { logoutUser } from "@/services/api/auth/auth-fetchers";
 import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
 
 export function Navigation() {
   const auth = useAuthStore();
   const userStore = useUserStore();
   const isSignedIn = useAuthStore((state) => state.isSignedIn);
+  const qc = useQueryClient();
 
   const handleLogout = async () => {
     try {
@@ -37,6 +39,7 @@ export function Navigation() {
     } catch (error) {
       toast.error("Failed to logout");
     } finally {
+      qc.clear(); // flush all cache data (solves an issue where the user can see the data for another user after loggin into a different account on the same browser session)
       auth.logout(); // sets isSignedIn to false
       userStore.clear(); // clears all user data
     }
