@@ -12,6 +12,8 @@ import { toast } from "sonner";
 import { errorBuilder } from "@/lib/utils";
 import { useNavigate } from "@tanstack/react-router";
 import { useAuthStore } from "@/stores/auth-store";
+import { fetchUser } from "@/services/api/auth/auth-fetchers";
+import { useUserStore } from "@/stores/user-store";
 
 const existingUserSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -22,6 +24,7 @@ export type User = z.infer<typeof existingUserSchema>;
 
 function SigninTab() {
   const authStore = useAuthStore();
+  const userStore = useUserStore();
   const navigate = useNavigate();
   const signInMutation = useSigninUser();
   const form = useForm({
@@ -34,9 +37,18 @@ function SigninTab() {
       onChange: existingUserSchema,
       onSubmit: existingUserSchema,
     },
-    onSubmit: async ({ value }) => {
+    onSubmit: async ({ value: user }) => {
       try {
-        const result = await signInMutation.mutateAsync(value);
+        const result = await signInMutation.mutateAsync(user);
+        const {
+          data: { data: userInfo },
+        } = await fetchUser();
+
+        userStore.setFirstName(userInfo.firstName);
+        userStore.setLastName(userInfo.lastName);
+        userStore.setEmail(userInfo.email);
+        userStore.setProfileImage(userInfo.profileImage);
+
         toast.success(result.data.message, {
           position: "bottom-right",
           richColors: true,

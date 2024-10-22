@@ -38,9 +38,9 @@ function SignupTab() {
       onChange: newUserSchema,
       onSubmit: newUserSchema,
     },
-    onSubmit: async ({ value }) => {
+    onSubmit: async ({ value: newUser }) => {
       try {
-        const result = await signupMutation.mutateAsync(value);
+        const result = await signupMutation.mutateAsync(newUser);
         const msg = `${result.data.message}. Redirecting to Dashboard.`;
         toast.success(msg, {
           position: "top-center",

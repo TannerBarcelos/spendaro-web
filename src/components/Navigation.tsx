@@ -1,6 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Link } from "@tanstack/react-router";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   ChartArea,
   HandCoins,
@@ -22,11 +23,17 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAuthStore } from "@/stores/auth-store";
+import { useUserStore } from "@/stores/user-store";
 
 export function Navigation() {
-  const isSignedIn = useAuthStore((state) => state.isSignedIn);
   const auth = useAuthStore();
-  const usersName = "Tanner Barcelos";
+  const userStore = useUserStore();
+  const isSignedIn = useAuthStore((state) => state.isSignedIn);
+
+  if (isSignedIn) {
+    console.log("User is signed in");
+  }
+
   return (
     <nav className="py-4">
       <div className="container mx-auto flex items-center justify-between">
@@ -96,17 +103,19 @@ export function Navigation() {
                   </Link>
                 </DropdownMenuContent>
               </DropdownMenu>
-              <div className="flex items-center space-x-4 p-3 bg-card rounded-full">
-                <span className="hidden md:inline text-sm">{usersName}</span>
+              <div className="flex items-center justify-end space-x-4 p-3 bg-card rounded-full min-w-fit">
+                <span className="hidden md:inline text-sm">
+                  {userStore.firstName} {userStore.lastName}
+                </span>
                 <DropdownMenu>
                   <DropdownMenuTrigger>
                     <Avatar>
                       <AvatarImage
-                        src="https://avatars.githubusercontent.com/u/41309200?v=4"
+                        src={userStore.profileImage ?? ""}
                         alt="users profile image"
                       />
                       <AvatarFallback>
-                        {usersName
+                        {`${userStore.firstName} ${userStore.lastName}`
                           .split(" ")
                           .map((name) => name[0])
                           .join("")
