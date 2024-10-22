@@ -60,3 +60,10 @@ export const fetchUser = async () => {
   );
   return response;
 };
+
+export const logoutUser = async () => {
+  const response = await axiosInstance.get<ApiResponsePayload>(
+    AUTH_URLS.logout
+  );
+  return response;
+}

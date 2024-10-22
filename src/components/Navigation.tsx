@@ -23,11 +23,25 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useAuthStore } from "@/stores/auth-store";
 import { useUserStore } from "@/stores/user-store";
+import { logoutUser } from "@/services/api/auth/auth-fetchers";
+import { toast } from "sonner";
 
 export function Navigation() {
   const auth = useAuthStore();
   const userStore = useUserStore();
   const isSignedIn = useAuthStore((state) => state.isSignedIn);
+
+  const handleLogout = async () => {
+    try {
+      await logoutUser(); // logs out the user from the server (clears cookies to invalidate the JWT token)
+    } catch (error) {
+      toast.error("Failed to logout");
+    } finally {
+      auth.logout(); // sets isSignedIn to false
+      userStore.clear(); // clears all user data
+    }
+  };
+
   return (
     <nav className="py-4">
       <div className="container mx-auto flex items-center justify-between">
@@ -132,7 +146,7 @@ export function Navigation() {
                         Settings
                       </DropdownMenuItem>
                     </Link>
-                    <DropdownMenuItem onClick={() => auth.logout()}>
+                    <DropdownMenuItem onClick={handleLogout}>
                       <LogOut />
                       Sign Out
                     </DropdownMenuItem>
