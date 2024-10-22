@@ -8,6 +8,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { Edit2, MoreHorizontal, Trash2 } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export function BudgetPage() {
   const { data, isLoading, isError } = useGetBudgets();
@@ -30,6 +39,7 @@ export function BudgetPage() {
             <TableHead>Budget Description</TableHead>
             <TableHead>Budget Amount</TableHead>
             <TableHead>Created</TableHead>
+            <TableHead>Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -38,9 +48,27 @@ export function BudgetPage() {
               <TableRow key={budget.id}>
                 <TableCell>{budget.budget_name}</TableCell>
                 <TableCell>{budget.budget_description}</TableCell>
-                <TableCell>{budget.amount}</TableCell>
+                <TableCell>${budget.amount}</TableCell>
                 <TableCell>
                   {new Date(budget.createdAt).toLocaleDateString()}
+                </TableCell>
+                <TableCell>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="ghost">
+                        <MoreHorizontal size={16} />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                      <DropdownMenuItem>
+                        <Trash2 /> Delete Budget
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem>
+                        <Edit2 /> Edit Budget
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </TableCell>
               </TableRow>
             );
