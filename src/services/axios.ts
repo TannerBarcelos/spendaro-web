@@ -33,7 +33,7 @@ axiosInstance.interceptors.response.use(
         originalRequest.sent = true;
 
         // Attempt to refresh the token
-        const response = await axiosInstance.post("/api/v1/auth/refresh");
+        const response = await axiosInstance.post("/auth/refresh");
 
         // If refresh is successful, retry the original request
         if (response.status === axios.HttpStatusCode.Ok) {

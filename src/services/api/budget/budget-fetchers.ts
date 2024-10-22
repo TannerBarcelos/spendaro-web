@@ -1,8 +1,14 @@
 // services/budgetService.ts
-import axiosInstance from '../../axios';
+import axiosInstance from '@/services/axios';
+
+const BUDGET_BASE_URL = "/budgets"
+
+const BUDGET_URLS = {
+  getAllBudgets: `${BUDGET_BASE_URL}`,
+}
 
 export const getBudgets = async () => {
-  const response = await axiosInstance.get('/budgets');
+  const response = await axiosInstance.get(BUDGET_URLS.getAllBudgets);
   return response.data;
 };
 
