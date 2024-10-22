@@ -1,8 +1,9 @@
 import { useState } from "react";
 import AuthHeader from "./_components/auth-header";
 import TabsSelection from "./_components/tabs";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { Zap } from "lucide-react";
+import { useAuthStore } from "@/stores/auth-store";
 
 const UnAuthNav = () => {
   return (
@@ -20,10 +21,19 @@ const UnAuthNav = () => {
 };
 
 export function AuthPage() {
+  const navigate = useNavigate();
+  const isSignedIn = useAuthStore((state) => state.isSignedIn);
   const [selectedTab, setSelectedTab] = useState("signin");
   const handleTabChange = (value: string) => {
     setSelectedTab(value);
   };
+
+  if (isSignedIn) {
+    navigate({
+      to: "/dashboard",
+    });
+  }
+
   return (
     <>
       <UnAuthNav />
