@@ -87,33 +87,6 @@ export function Navigation() {
               </Link>
             </div>
             <div className="flex items-center space-x-4">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button className="text-sm w-10 h-10 rounded-full space-x-4">
-                    <Plus size={16} />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent sideOffset={5}>
-                  <Link to="/budgeting/new">
-                    <DropdownMenuItem>
-                      <HandCoins />
-                      Create a Budget
-                    </DropdownMenuItem>
-                  </Link>
-                  <Link to="/transactions">
-                    <DropdownMenuItem>
-                      <WalletCards />
-                      Add a Transaction
-                    </DropdownMenuItem>
-                  </Link>
-                  <Link to="/reporting/new">
-                    <DropdownMenuItem>
-                      <ChartArea />
-                      Create a Report
-                    </DropdownMenuItem>
-                  </Link>
-                </DropdownMenuContent>
-              </DropdownMenu>
               <div className="flex items-center justify-end space-x-4 p-3 bg-card rounded-full min-w-fit">
                 <span className="hidden md:inline text-sm">
                   {userStore.firstName} {userStore.lastName}
