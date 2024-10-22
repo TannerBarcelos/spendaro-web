@@ -28,9 +28,9 @@ export function Navigation() {
   const auth = useAuthStore();
   const usersName = "Tanner Barcelos";
   return (
-    <nav className="p-4">
+    <nav className="py-4">
       <div className="container mx-auto flex items-center justify-between">
-        <div className="flex flex-row p-3">
+        <div className="flex flex-row">
           <Zap size={24} color="#006EFF" strokeWidth={2.5} className="mr-2" />
           <Link to="/dashboard" className="text-xl font-semibold">
             Spendaro
