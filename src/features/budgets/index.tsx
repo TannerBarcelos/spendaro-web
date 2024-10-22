@@ -55,7 +55,10 @@ export function BudgetPage() {
                 <TableCell>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="ghost">
+                      <Button
+                        variant="ghost"
+                        className="border border-gray-200 border-solid"
+                      >
                         <MoreHorizontal size={16} />
                       </Button>
                     </DropdownMenuTrigger>
