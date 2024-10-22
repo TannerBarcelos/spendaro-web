@@ -37,19 +37,15 @@ function SigninTab() {
     onSubmit: async ({ value }) => {
       try {
         const result = await signInMutation.mutateAsync(value);
-        const msg = `${result.data.message}. Redirecting to Dashboard.`;
-        toast.success(msg, {
-          position: "top-center",
+        toast.success(result.data.message, {
+          position: "bottom-right",
           richColors: true,
+          duration: 2_000,
         });
         authStore.signin();
-        setTimeout(() => {
-          form.reset();
-          toast.dismiss();
-          navigate({
-            to: "/dashboard",
-          });
-        }, 1000);
+        navigate({
+          to: "/dashboard",
+        });
       } catch (error) {
         const errorMessage = errorBuilder(error);
         toast.error(errorMessage, {

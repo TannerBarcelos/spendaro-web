@@ -45,15 +45,12 @@ function SignupTab() {
         toast.success(msg, {
           position: "top-center",
           richColors: true,
+          duration: 2_000,
         });
         authStore.signin();
-        setTimeout(() => {
-          form.reset();
-          toast.dismiss();
-          navigate({
-            to: "/dashboard",
-          });
-        }, 1000);
+        navigate({
+          to: "/dashboard",
+        });
       } catch (error) {
         const errorMessage = errorBuilder(error);
         toast.error(errorMessage, {
