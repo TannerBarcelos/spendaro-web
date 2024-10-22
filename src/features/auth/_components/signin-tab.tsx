@@ -43,7 +43,7 @@ function SigninTab() {
         const {
           data: { data: userInfo },
         } = await fetchUser();
-
+        console.log(userInfo);
         userStore.setFirstName(userInfo.firstName);
         userStore.setLastName(userInfo.lastName);
         userStore.setEmail(userInfo.email);
