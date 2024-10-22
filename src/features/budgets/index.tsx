@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Edit2, MoreHorizontal, Trash2 } from "lucide-react";
+import { Edit2, MoreHorizontal, Star, Trash2 } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -54,14 +54,26 @@ export function BudgetPage() {
                 </TableCell>
                 <TableCell>
                   <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
+                    <div className="flex flex-row items-center w-max gap-2">
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className="border border-gray-200 border-solid"
+                        >
+                          <MoreHorizontal size={16} />
+                        </Button>
+                      </DropdownMenuTrigger>
                       <Button
-                        variant="ghost"
+                        variant="outline"
                         className="border border-gray-200 border-solid"
                       >
-                        <MoreHorizontal size={16} />
+                        <Star
+                          size={15}
+                          strokeWidth={2}
+                          className="text-primary hover:cursor-pointer"
+                        />
                       </Button>
-                    </DropdownMenuTrigger>
+                    </div>
                     <DropdownMenuContent>
                       <DropdownMenuItem>
                         <Trash2 /> Delete Budget
