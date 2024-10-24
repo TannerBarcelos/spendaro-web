@@ -29,10 +29,12 @@ export function QuickViewBox({
   children: React.ReactNode;
 }) {
   return (
-    <div className="bg-slate-100 rounded-xl flex flex-col">
-      <div>
-        <h1>{title}</h1>
-        {icon}
+    <div className="bg-slate-100 rounded-xl flex flex-col p-3">
+      <div className="flex items-center justify-between">
+        <h1 className="text-sm font-medium text-slate-900">{title}</h1>
+        <span className="bg-slate-200 w-8 h-8 flex items-center justify-center rounded-full text-primary">
+          {icon}
+        </span>
       </div>
       {children}
     </div>
