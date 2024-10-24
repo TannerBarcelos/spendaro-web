@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getBudgets } from "./budget-fetchers";
+import { getBudgets } from ".";
 
 export const useGetBudgets = () => {
   return useQuery({

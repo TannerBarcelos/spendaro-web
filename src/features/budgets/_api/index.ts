@@ -1,4 +1,3 @@
-// services/budgetService.ts
 import axiosInstance from '@/lib/axios';
 
 const BUDGET_BASE_URL = "/budgets"
