@@ -6,7 +6,7 @@ import TopGreetingBar from "./_components/TopGreetingBar";
 
 export function DashboardPage() {
   return (
-    <div>
+    <>
       <TopGreetingBar />
       <div className="flex-grow grid grid-cols-1 lg:grid-cols-4 grid-rows-4 lg:gap-6 mb-6">
         <LatestTransactionsWidget />
@@ -16,6 +16,6 @@ export function DashboardPage() {
         </div>
         <ReportingWidget />
       </div>
-    </div>
+    </>
   );
 }

@@ -22,12 +22,10 @@ function RootRoute() {
   }
 
   return (
-    <>
-      <div className="min-h-screen flex flex-col m-4 lg:mx-0 bg-gradient-to-br from-slate-50 to-indigo-50 ">
-        <Outlet />
-        <Toaster />
-        <TanStackRouterDevtools />
-      </div>
-    </>
+    <div className="min-h-screen mx-auto lg:mx-0 bg-gradient-to-br from-slate-50 to-indigo-50 ">
+      <Outlet />
+      <Toaster />
+      <TanStackRouterDevtools />
+    </div>
   );
 }
