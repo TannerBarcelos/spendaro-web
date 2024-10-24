@@ -1,5 +1,5 @@
 // services/budgetService.ts
-import axiosInstance from '@/services/axios';
+import axiosInstance from '@/lib/axios';
 
 const BUDGET_BASE_URL = "/budgets"
 

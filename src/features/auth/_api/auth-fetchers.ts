@@ -1,4 +1,4 @@
-import axiosInstance from "@/services/axios";
+import axiosInstance from "@/lib/axios";
 import type { User } from "@/features/auth/_components/signin-tab";
 import type { NewUser } from "@/features/auth/_components/signup-tab";
 
@@ -40,11 +40,11 @@ export const signup = async (newUser: NewUser) => {
 };
 
 export interface UserDetailsResponse {
-  data: Data;
+  data: UserData;
   message: string;
 }
 
-export interface Data {
+export interface UserData {
   id: number;
   firstName: string;
   lastName: string;
