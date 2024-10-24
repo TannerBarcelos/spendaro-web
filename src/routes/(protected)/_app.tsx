@@ -79,12 +79,12 @@ export function Navbar() {
         </div>
         {isSignedIn && (
           <>
-            <div className="hidden md:flex space-x-6 p-2 bg-card rounded-full">
+            <div className="hidden md:flex space-x-4">
               {navItems.map((item) => {
                 return (
                   <Link
                     to={item.to}
-                    className="text-sm [&.active]:bg-nav-item-hover [&.active]:rounded-full [&.active]:text-primary [&.active]:font-medium flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
+                    className="font-medium text-gray-700 text-sm [&.active]:bg-nav-item-hover [&.active]:rounded-full [&.active]:text-primary [&.active]:font-medium flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
                     activeOptions={{ exact: true }}
                   >
                     {item.label}
@@ -92,10 +92,10 @@ export function Navbar() {
                 );
               })}
             </div>
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center justify-end space-x-4 p-3 bg-card rounded-full min-w-fit">
-                <span className="hidden md:inline text-sm">
-                  {userStore.firstName} {userStore.lastName}
+            <div className="flex items-center">
+              <div className="flex items-center justify-end space-x-4 p-3 rounded-full min-w-fit">
+                <span className="hidden md:inline text-sm font-medium text-gray-700">
+                  Hi {userStore.firstName}!
                 </span>
                 <DropdownMenu>
                   <DropdownMenuTrigger>
@@ -104,7 +104,7 @@ export function Navbar() {
                         src={userStore.profileImage ?? ""}
                         alt="users profile image"
                       />
-                      <AvatarFallback>
+                      <AvatarFallback className="bg-primary/10">
                         {`${userStore.firstName} ${userStore.lastName}`
                           .split(" ")
                           .map((name) => name[0])

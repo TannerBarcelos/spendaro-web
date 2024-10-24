@@ -9,7 +9,7 @@ export const Route = createRootRoute({
 
 function Root() {
   return (
-    <div className="min-h-screen mx-auto lg:mx-0 bg-gradient-to-br from-slate-50 to-indigo-50 ">
+    <div className="min-h-screen px-4 md:px-0 mx-auto lg:mx-0 bg-gradient-to-br from-slate-50 to-indigo-50 ">
       <Outlet />
       <Toaster />
       <TanStackRouterDevtools />
