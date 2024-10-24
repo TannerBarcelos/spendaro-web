@@ -1,4 +1,4 @@
-import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Outlet, useNavigate } from "@tanstack/react-router";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Link } from "@tanstack/react-router";
@@ -24,6 +24,17 @@ export const Route = createFileRoute("/(protected)/_app")({
 });
 
 function Layout() {
+  const navigate = useNavigate();
+  const isSignedIn = useAuthStore((state) => state.isSignedIn);
+  const logout = useAuthStore((state) => state.logout);
+
+  if (!isSignedIn) {
+    logout();
+    navigate({
+      to: "/auth",
+    });
+  }
+
   return (
     <div className="container mx-auto min-h-screen flex flex-col">
       <Navbar />
@@ -50,6 +61,13 @@ export function Navbar() {
     }
   };
 
+  const navItems = [
+    { to: "/dashboard", label: "Dashboard" },
+    { to: "/budgeting", label: "Budgets" },
+    { to: "/transactions", label: "Transactions" },
+    { to: "/reporting", label: "Reports" },
+  ];
+
   return (
     <nav className="py-4">
       <div className="container mx-auto flex items-center justify-between">
@@ -62,34 +80,17 @@ export function Navbar() {
         {isSignedIn && (
           <>
             <div className="hidden md:flex space-x-6 p-2 bg-card rounded-full">
-              <Link
-                to="/dashboard"
-                className="text-sm [&.active]:bg-nav-item-hover [&.active]:rounded-full [&.active]:text-primary [&.active]:font-medium flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
-                activeOptions={{ exact: true }}
-              >
-                Dashboard
-              </Link>
-              <Link
-                to="/budgeting"
-                className="text-sm [&.active]:bg-nav-item-hover [&.active]:rounded-full [&.active]:text-primary [&.active]:font-medium flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
-                activeOptions={{ exact: true }}
-              >
-                Budgets
-              </Link>
-              <Link
-                to="/transactions"
-                className="text-sm [&.active]:bg-nav-item-hover [&.active]:rounded-full [&.active]:text-primary [&.active]:font-medium flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
-                activeOptions={{ exact: true }}
-              >
-                Transactions
-              </Link>
-              <Link
-                to="/reporting"
-                className="text-sm [&.active]:bg-nav-item-hover [&.active]:rounded-full [&.active]:text-primary [&.active]:font-medium flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
-                activeOptions={{ exact: true }}
-              >
-                Reports
-              </Link>
+              {navItems.map((item) => {
+                return (
+                  <Link
+                    to={item.to}
+                    className="text-sm [&.active]:bg-nav-item-hover [&.active]:rounded-full [&.active]:text-primary [&.active]:font-medium flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
+                    activeOptions={{ exact: true }}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
             </div>
             <div className="flex items-center space-x-4">
               <div className="flex items-center justify-end space-x-4 p-3 bg-card rounded-full min-w-fit">
