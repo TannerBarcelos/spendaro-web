@@ -12,7 +12,7 @@ import { ChartArea, EllipsisVertical, EyeIcon, Plus } from "lucide-react";
 
 export function ReportingWidget() {
   return (
-    <Card className="col-span-3 row-span-3">
+    <Card className="col-span-3 row-span-2">
       <WidgetTitle />
       <CardContent></CardContent>
     </Card>
