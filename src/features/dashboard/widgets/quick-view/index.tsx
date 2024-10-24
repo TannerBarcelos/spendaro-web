@@ -10,35 +10,44 @@ import {
   PiggyBank,
 } from "lucide-react";
 
+const iconConfig = {
+  width: 20,
+  height: 20,
+};
+
+const boxes = [
+  {
+    title: "Today",
+    icon: <BadgeDollarSign {...iconConfig} />,
+    component: <Today />,
+  },
+  {
+    title: "Budget Zero",
+    icon: <PiggyBank {...iconConfig} />,
+    component: <BudgetZero />,
+  },
+  {
+    title: "Spent This Month",
+    icon: <CalendarClock {...iconConfig} />,
+    component: <Spend />,
+  },
+  {
+    title: "This Months Income",
+    icon: <Landmark {...iconConfig} />,
+    component: <Income />,
+  },
+];
+
 export function QuickViewWidget() {
   return (
-    <Card className="p-3">
+    <Card className="p-3 lg:col-span-2">
       <CardContent className="p-0 h-full">
         <div className="grid grid-cols-2 grid-rows-2 gap-2 h-full">
-          <QuickViewBox
-            title="Today"
-            icon={<BadgeDollarSign width={20} height={20} />}
-          >
-            <Today />
-          </QuickViewBox>
-          <QuickViewBox
-            title="Budget Zero"
-            icon={<PiggyBank width={20} height={20} />}
-          >
-            <BudgetZero />
-          </QuickViewBox>
-          <QuickViewBox
-            title="Spent This Month"
-            icon={<CalendarClock width={20} height={20} />}
-          >
-            <Spend />
-          </QuickViewBox>
-          <QuickViewBox
-            title="This Months Income"
-            icon={<Landmark width={20} height={20} />}
-          >
-            <Income />
-          </QuickViewBox>
+          {boxes.map((box, index) => (
+            <QuickViewBox key={index} title={box.title} icon={box.icon}>
+              {box.component}
+            </QuickViewBox>
+          ))}
         </div>
       </CardContent>
     </Card>
