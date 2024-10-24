@@ -12,7 +12,7 @@ import { toast } from "sonner";
 import { errorBuilder } from "@/lib/utils";
 import { useNavigate } from "@tanstack/react-router";
 import { useAuthStore } from "@/stores/auth-store";
-import { fetchUser } from "../_api";
+import { fetchUser as getUserDetails } from "../_api";
 import { useUserStore } from "@/stores/user-store";
 
 const existingUserSchema = z.object({
@@ -40,13 +40,11 @@ function SigninTab() {
     onSubmit: async ({ value: user }) => {
       try {
         const result = await signInMutation.mutateAsync(user);
-        const {
-          data: { data: userInfo },
-        } = await fetchUser();
-        userStore.setFirstName(userInfo.firstName);
-        userStore.setLastName(userInfo.lastName);
-        userStore.setEmail(userInfo.email);
-        userStore.setProfileImage(userInfo.profileImage);
+        const { data } = await getUserDetails();
+        userStore.setFirstName(data.data.firstName);
+        userStore.setLastName(data.data.lastName);
+        userStore.setEmail(data.data.email);
+        userStore.setProfileImage(data.data.profileImage);
 
         toast.success(result.data.message, {
           position: "bottom-right",
