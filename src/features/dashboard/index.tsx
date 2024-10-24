@@ -2,12 +2,11 @@ import { UnassignedBalanceWidget } from "./widgets/unassigned-balance";
 import { LatestTransactionsWidget } from "./widgets/latest-transactions";
 import { ActiveBudgetsWidget } from "./widgets/active-budgets";
 import { ReportingWidget } from "./widgets/reporting";
-import Page from "@/components/Page";
 import TopGreetingBar from "./_components/TopGreetingBar";
 
 export function DashboardPage() {
   return (
-    <Page>
+    <div>
       <TopGreetingBar />
       <div className="flex-grow grid grid-cols-1 lg:grid-cols-4 grid-rows-4 lg:gap-6 mb-6">
         <LatestTransactionsWidget />
@@ -17,6 +16,6 @@ export function DashboardPage() {
         </div>
         <ReportingWidget />
       </div>
-    </Page>
+    </div>
   );
 }

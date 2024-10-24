@@ -7,13 +7,13 @@ import { useForm } from "@tanstack/react-form";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { z } from "zod";
 import ErrorFields from "@/components/form-error-field";
-import { useSignupUser } from "@/services/api/auth/auth-queries";
+import { useSignupUser } from "../_api/queries";
 import { toast } from "sonner";
 import { errorBuilder } from "@/lib/utils";
 import { useNavigate } from "@tanstack/react-router";
 import { useAuthStore } from "@/stores/auth-store";
 import { useUserStore } from "@/stores/user-store";
-import { fetchUser } from "@/services/api/auth/auth-fetchers";
+import { fetchUser } from "../_api";
 
 const newUserSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),

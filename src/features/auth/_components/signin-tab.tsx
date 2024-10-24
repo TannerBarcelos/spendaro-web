@@ -7,12 +7,12 @@ import { useForm } from "@tanstack/react-form";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { z } from "zod";
 import ErrorFields from "@/components/form-error-field";
-import { useSigninUser } from "@/services/api/auth/auth-queries";
+import { useSigninUser } from "../_api/queries";
 import { toast } from "sonner";
 import { errorBuilder } from "@/lib/utils";
 import { useNavigate } from "@tanstack/react-router";
 import { useAuthStore } from "@/stores/auth-store";
-import { fetchUser } from "@/services/api/auth/auth-fetchers";
+import { fetchUser } from "../_api";
 import { useUserStore } from "@/stores/user-store";
 
 const existingUserSchema = z.object({

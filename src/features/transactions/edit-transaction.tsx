@@ -1,10 +1,8 @@
-import Page from "@/components/Page";
-
 function EditTransactionPage() {
   return (
-    <Page>
+    <div>
       <h1 className="text-xl lg:text-2xl font-semibold">Edit Transaction</h1>
-    </Page>
+    </div>
   );
 }
 

@@ -1,5 +1,4 @@
-import Page from "@/components/Page";
-import { useGetBudgets } from "@/services/api/budget/budget-queries";
+import { useGetBudgets } from "./_api/queries";
 import {
   Table,
   TableBody,
@@ -17,7 +16,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Budget } from "@/services/api/budget/budget-fetchers";
+import { Budget } from "./_api/index";
 import {
   Accordion,
   AccordionContent,
@@ -30,15 +29,15 @@ export function BudgetPage() {
   const { data, isLoading, isError } = useGetBudgets();
 
   if (isLoading) {
-    return <Page>Loading...</Page>;
+    return <div>Loading...</div>;
   }
 
   if (isError) {
-    return <Page>Error fetching budgets</Page>;
+    return <div>Error fetching budgets</div>;
   }
 
   return (
-    <Page>
+    <div>
       <div className="w-full flex flex-row items-center justify-between">
         <h1 className="text-xl lg:text-2xl font-semibold">Budget List</h1>
         <Link to="/budgeting/new">
@@ -54,7 +53,7 @@ export function BudgetPage() {
         <FavoritedBudgets data={[]} />
         <AllBudgets data={data?.data} />
       </div>
-    </Page>
+    </div>
   );
 }
 

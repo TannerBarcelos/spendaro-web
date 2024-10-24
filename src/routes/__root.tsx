@@ -23,7 +23,7 @@ function RootRoute() {
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50 ">
+      <div className="min-h-screen flex flex-col m-4 lg:mx-0 bg-gradient-to-br from-slate-50 to-indigo-50 ">
         <Outlet />
         <Toaster />
         <TanStackRouterDevtools />
