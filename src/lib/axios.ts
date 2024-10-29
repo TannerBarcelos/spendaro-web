@@ -73,7 +73,7 @@ axiosInstance.interceptors.response.use(
           return axiosInstance(originalRequest);
         }
       } catch (refreshError) {
-        const logout = useAuthStore.getState().logout;
+        const logout = useAuthStore.getState().clear;
         localStorage.clear();
         logout();
         window.location.href = "/auth";
