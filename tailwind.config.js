@@ -1,5 +1,7 @@
+import { withUt as uploadThingWrapperConfig } from "uploadthing/tw"
+
 /** @type {import('tailwindcss').Config} */
-export default {
+export default uploadThingWrapperConfig({
     darkMode: ["class"],
     content: [
     "./index.html",
@@ -84,4 +86,4 @@ export default {
   	}
   },
   plugins: [require("tailwindcss-animate")],
-}
+})

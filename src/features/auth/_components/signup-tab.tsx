@@ -13,7 +13,7 @@ import { errorBuilder } from "@/lib/utils";
 import { useNavigate } from "@tanstack/react-router";
 import { useAuthStore } from "@/stores/auth-store";
 import { useUserStore } from "@/stores/user-store";
-import { fetchUser as getUserDetails } from "../_api";
+import { fetchUser as getUserDetails } from "@/features/profile/_api";
 
 const newUserSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),

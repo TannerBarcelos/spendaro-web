@@ -8,7 +8,6 @@ const AUTH_URLS = {
   login: `${AUTH_BASE_URL}/signin`,
   signup: `${AUTH_BASE_URL}/signup`,
   logout: `${AUTH_BASE_URL}/logout`,
-  userDetails: `${AUTH_BASE_URL}/user-details`,
 };
 
 type ApiResponsePayload = {
@@ -39,27 +38,6 @@ export const signup = async (newUser: NewUser) => {
   return response;
 };
 
-export interface UserDetailsResponse {
-  data: UserData;
-  message: string;
-}
-
-export interface UserData {
-  id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  profileImage: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export const fetchUser = async () => {
-  const response = await axiosInstance.get<UserDetailsResponse>(
-    AUTH_URLS.userDetails
-  );
-  return response;
-};
 
 export const logoutUser = async () => {
   const response = await axiosInstance.get<ApiResponsePayload>(

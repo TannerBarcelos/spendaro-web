@@ -12,7 +12,7 @@ import { toast } from "sonner";
 import { errorBuilder } from "@/lib/utils";
 import { useNavigate } from "@tanstack/react-router";
 import { useAuthStore } from "@/stores/auth-store";
-import { fetchUser as getUserDetails } from "../_api";
+import { fetchUser as getUserDetails } from "@/features/profile/_api";
 import { useUserStore } from "@/stores/user-store";
 
 const existingUserSchema = z.object({
