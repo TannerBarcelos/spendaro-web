@@ -14,6 +14,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { useAuthStore } from "@/stores/auth-store";
 import { fetchUser as getUserDetails } from "@/features/profile/_api";
 import { useUserStore } from "@/stores/user-store";
+import { queryClient } from "@/lib/client";
 
 const existingUserSchema = z.object({
   email: z.string().email("Invalid email address"),

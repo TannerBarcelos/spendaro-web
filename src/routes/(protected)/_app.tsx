@@ -18,6 +18,7 @@ import { useUserStore } from "@/stores/user-store";
 import { logoutUser } from "@/features/auth/_api";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
+import { useFetchUserDetails } from "@/features/profile/_api/queries";
 
 export const Route = createFileRoute("/(protected)/_app")({
   component: () => <Layout />,
@@ -37,16 +38,16 @@ function Layout() {
 
   return (
     <div className="container mx-auto min-h-screen flex flex-col">
-      <Navbar />
+      <Navbar isSignedIn={isSignedIn} />
       <Outlet />
     </div>
   );
 }
 
-export function Navbar() {
+export function Navbar({ isSignedIn }: { isSignedIn: boolean }) {
   const auth = useAuthStore();
   const userStore = useUserStore();
-  const isSignedIn = useAuthStore((state) => state.isSignedIn);
+  useFetchUserDetails(isSignedIn);
   const qc = useQueryClient();
 
   const handleLogout = async () => {
