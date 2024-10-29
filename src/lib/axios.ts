@@ -1,6 +1,6 @@
 import { useAuthStore } from "@/stores/auth-store";
 import axios, { AxiosError } from "axios";
-import { getTokensFromLocalStorage } from "./utils";
+import { getTokensFromLocalStorage, setTokensToLocalStorage } from "./utils";
 
 export type CommonApiErrorResponse = AxiosError<{
   error: string
@@ -47,9 +47,14 @@ axiosInstance.interceptors.response.use(
         // Attempt to refresh the token
         const response = await axiosInstance.post("/auth/refresh", {}, {
           headers: {
-            Authorization: `Bearer ${getTokensFromLocalStorage().refreshToken ?? ""}`, 
+            Authorization: `Bearer ${getTokensFromLocalStorage().refreshToken ?? ""}`, // will override the default Authorization header
           }
         });
+
+          setTokensToLocalStorage(
+            response.data.accessToken,
+            response.data.refreshToken
+          );
 
         // If refresh is successful, retry the original request
         if (response.status === axios.HttpStatusCode.Ok) {
@@ -57,6 +62,7 @@ axiosInstance.interceptors.response.use(
         }
       } catch (refreshError) {
         const logout = useAuthStore.getState().logout;
+        localStorage.clear();
         logout();
         window.location.href = '/auth';
       }

@@ -1,6 +1,7 @@
-import axiosInstance, { authAxiosInstance } from "@/lib/axios";
+import { authAxiosInstance } from "@/lib/axios";
 import type { User } from "@/features/auth/_components/signin-tab";
 import type { NewUser } from "@/features/auth/_components/signup-tab";
+import { setTokensToLocalStorage } from "@/lib/utils";
 
 const AUTH_BASE_URL = "/auth";
 
@@ -23,6 +24,10 @@ export const signin = async (user: User) => {
       password: user.password,
     }
   );
+  setTokensToLocalStorage(
+    response.data.accessToken,
+    response.data.refreshToken
+  );
   return response;
 };
 
@@ -36,13 +41,16 @@ export const signup = async (newUser: NewUser) => {
       password: newUser.password,
     }
   );
+  setTokensToLocalStorage(
+    response.data.accessToken,
+    response.data.refreshToken
+  );
   return response;
 };
-
 
 export const logoutUser = async () => {
   const response = await authAxiosInstance.get<ApiResponsePayload>(
     AUTH_URLS.logout
   );
   return response;
-}
+};

@@ -39,21 +39,12 @@ function SigninTab() {
     },
     onSubmit: async ({ value: user }) => {
       try {
-        // Call the mutation to sign in the user
-        const result = await signInMutation.mutateAsync(user);
-
-        // Set tokens to local storage
-        setTokensToLocalStorage(
-          result.data.accessToken,
-          result.data.refreshToken
-        );
-
+        await signInMutation.mutateAsync(user);
         const { data } = await getUserDetails();
         userStore.setFirstName(data.data.firstName);
         userStore.setLastName(data.data.lastName);
         userStore.setEmail(data.data.email);
         userStore.setProfileImage(data.data.profileImage);
-
         toast.success("User signed in successfully", {
           position: "bottom-right",
           richColors: true,
