@@ -40,6 +40,11 @@ export const greetTimeOfDay = () => {
 };
 
 export function setTokensToLocalStorage(accessToken: string, refreshToken: string) {
+  // Clear the existing tokens
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
+
+  // Set the new tokens
   localStorage.setItem("accessToken", accessToken);
   localStorage.setItem("refreshToken", refreshToken);
 }

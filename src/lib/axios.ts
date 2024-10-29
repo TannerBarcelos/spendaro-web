@@ -3,27 +3,30 @@ import axios, { AxiosError } from "axios";
 import { getTokensFromLocalStorage, setTokensToLocalStorage } from "./utils";
 
 export type CommonApiErrorResponse = AxiosError<{
-  error: string
-  message: string
+  error: string;
+  message: string;
   details: {
-    issues: string[],
-    method: string,
-    stack?: string
-    url: string
-  }
-}>
+    issues: string[];
+    method: string;
+    stack?: string;
+    url: string;
+  };
+}>;
 
 const commonHeaders = {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-}
+  "Content-Type": "application/json",
+  Accept: "application/json",
+};
 
 const commonAxionConfig = {
   baseURL: "/api/v1",
   timeout: 5_000,
-}
+};
 
-export const authAxiosInstance = axios.create({...commonAxionConfig, headers: {...commonHeaders}});
+export const authAxiosInstance = axios.create({
+  ...commonAxionConfig,
+  headers: { ...commonHeaders },
+});
 
 const axiosInstance = axios.create({
   ...commonAxionConfig,
@@ -39,32 +42,41 @@ axiosInstance.interceptors.response.use(
     const originalRequest = error.config;
 
     // Check if the error is 403 Forbidden and it's not the auth request itself, and also prevent retry loops
-    if (error.response?.status === axios.HttpStatusCode.Forbidden && !originalRequest.url?.includes("auth") && !originalRequest.sent) {
+    if (
+      error.response?.status === axios.HttpStatusCode.Forbidden &&
+      !originalRequest.url?.includes("auth") &&
+      !originalRequest.sent
+    ) {
       try {
         // Mark the request to prevent retry loops
         originalRequest.sent = true;
 
         // Attempt to refresh the token
-        const response = await axiosInstance.post("/auth/refresh", {}, {
-          headers: {
-            Authorization: `Bearer ${getTokensFromLocalStorage().refreshToken ?? ""}`, // will override the default Authorization header
+        const response = await axiosInstance.post(
+          "/auth/refresh",
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${getTokensFromLocalStorage().refreshToken ?? ""}`, // will override the default Authorization header
+            },
           }
-        });
+        );
 
-          setTokensToLocalStorage(
-            response.data.accessToken,
-            response.data.refreshToken
-          );
+        setTokensToLocalStorage(
+          response.data.accessToken,
+          response.data.refreshToken
+        );
 
-        // If refresh is successful, retry the original request
+        // If refresh is successful, retry the original request with the new token
         if (response.status === axios.HttpStatusCode.Ok) {
+          axiosInstance.defaults.headers['Authorization'] = `Bearer ${response.data.accessToken}`;
           return axiosInstance(originalRequest);
         }
       } catch (refreshError) {
         const logout = useAuthStore.getState().logout;
         localStorage.clear();
         logout();
-        window.location.href = '/auth';
+        window.location.href = "/auth";
       }
     }
 
