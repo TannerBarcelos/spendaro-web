@@ -38,3 +38,15 @@ export const greetTimeOfDay = () => {
 
   return greeting;
 };
+
+export function setTokensToLocalStorage(accessToken: string, refreshToken: string) {
+  localStorage.setItem("accessToken", accessToken);
+  localStorage.setItem("refreshToken", refreshToken);
+}
+
+export function getTokensFromLocalStorage() {
+  const accessToken = localStorage.getItem("accessToken");
+  const refreshToken = localStorage.getItem("refreshToken");
+
+  return { accessToken, refreshToken };
+}

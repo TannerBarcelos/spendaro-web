@@ -1,5 +1,6 @@
 import { useAuthStore } from "@/stores/auth-store";
 import axios, { AxiosError } from "axios";
+import { getTokensFromLocalStorage } from "./utils";
 
 export type CommonApiErrorResponse = AxiosError<{
   error: string
@@ -12,12 +13,23 @@ export type CommonApiErrorResponse = AxiosError<{
   }
 }>
 
-const axiosInstance = axios.create({
-  baseURL: "/api/v1",
-  timeout: 5_000,
-  headers: {
+const commonHeaders = {
     "Content-Type": "application/json",
     Accept: "application/json",
+}
+
+const commonAxionConfig = {
+  baseURL: "/api/v1",
+  timeout: 5_000,
+}
+
+export const authAxiosInstance = axios.create({...commonAxionConfig, headers: {...commonHeaders}});
+
+const axiosInstance = axios.create({
+  ...commonAxionConfig,
+  headers: {
+    ...commonHeaders,
+    Authorization: `Bearer ${getTokensFromLocalStorage().accessToken ?? ""}`,
   },
 });
 
@@ -33,7 +45,11 @@ axiosInstance.interceptors.response.use(
         originalRequest.sent = true;
 
         // Attempt to refresh the token
-        const response = await axiosInstance.post("/auth/refresh");
+        const response = await axiosInstance.post("/auth/refresh", {}, {
+          headers: {
+            Authorization: `Bearer ${getTokensFromLocalStorage().refreshToken ?? ""}`, 
+          }
+        });
 
         // If refresh is successful, retry the original request
         if (response.status === axios.HttpStatusCode.Ok) {
@@ -42,7 +58,7 @@ axiosInstance.interceptors.response.use(
       } catch (refreshError) {
         const logout = useAuthStore.getState().logout;
         logout();
-        window.location.href = '/login';
+        window.location.href = '/auth';
       }
     }
 

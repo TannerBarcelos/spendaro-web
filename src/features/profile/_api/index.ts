@@ -23,7 +23,7 @@ export interface UserData {
 
 export const fetchUser = async () => {
   const response = await axiosInstance.get<UserDetailsResponse>(
-    USER_URLS.userDetails
+    USER_URLS.userDetails,
   );
   return response;
 };

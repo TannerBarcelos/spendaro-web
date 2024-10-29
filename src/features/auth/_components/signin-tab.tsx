@@ -9,7 +9,7 @@ import { z } from "zod";
 import ErrorFields from "@/components/form-error-field";
 import { useSigninUser } from "../_api/queries";
 import { toast } from "sonner";
-import { errorBuilder } from "@/lib/utils";
+import { errorBuilder, setTokensToLocalStorage } from "@/lib/utils";
 import { useNavigate } from "@tanstack/react-router";
 import { useAuthStore } from "@/stores/auth-store";
 import { fetchUser as getUserDetails } from "@/features/profile/_api";
@@ -39,14 +39,22 @@ function SigninTab() {
     },
     onSubmit: async ({ value: user }) => {
       try {
+        // Call the mutation to sign in the user
         const result = await signInMutation.mutateAsync(user);
+
+        // Set tokens to local storage
+        setTokensToLocalStorage(
+          result.data.accessToken,
+          result.data.refreshToken
+        );
+
         const { data } = await getUserDetails();
         userStore.setFirstName(data.data.firstName);
         userStore.setLastName(data.data.lastName);
         userStore.setEmail(data.data.email);
         userStore.setProfileImage(data.data.profileImage);
 
-        toast.success(result.data.message, {
+        toast.success("User signed in successfully", {
           position: "bottom-right",
           richColors: true,
           duration: 2_000,
