@@ -27,7 +27,7 @@ export const Route = createFileRoute("/(protected)/_app")({
 function Layout() {
   const navigate = useNavigate();
   const isSignedIn = useAuthStore((state) => state.isSignedIn);
-  const logout = useAuthStore((state) => state.logout);
+  const logout = useAuthStore((state) => state.clear);
 
   if (!isSignedIn) {
     logout();
@@ -57,8 +57,8 @@ export function Navbar({ isSignedIn }: { isSignedIn: boolean }) {
       toast.error("Failed to logout");
     } finally {
       qc.clear(); // flush all cache data (solves an issue where the user can see the data for another user after loggin into a different account on the same browser session)
-      auth.logout(); // sets isSignedIn to false
       userStore.clear(); // clears all user data
+      auth.clear(); // clears all auth data (including the JWT tokens)
     }
   };
 

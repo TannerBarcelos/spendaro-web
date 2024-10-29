@@ -1,10 +1,11 @@
 import { queryClient } from "@/lib/client";
-import { getTokensFromLocalStorage } from "@/lib/utils";
+import { useAuthStore } from "@/stores/auth-store";
 import { generateUploadDropzone } from "@uploadthing/react";
 import { toast } from "sonner";
 import { twMerge } from "tailwind-merge";
 
 export function UserProfilePage() {
+  const accessToken = useAuthStore((state) => state.accessToken);
   const UploadImageDropzone = generateUploadDropzone({
     url: "http://localhost:8010/api/uploadthing",
   });
@@ -19,7 +20,7 @@ export function UserProfilePage() {
           className="w-[400px]"
           headers={() => {
             return {
-              Authorization: `Bearer ${getTokensFromLocalStorage().accessToken ?? ""}`,
+              Authorization: `Bearer ${accessToken}`,
             };
           }}
           onClientUploadComplete={(_) => {
@@ -28,7 +29,6 @@ export function UserProfilePage() {
               richColors: true,
               duration: 2_000,
             });
-            // userStore.setProfileImage(profileImage);
             queryClient.invalidateQueries({ queryKey: ["userDetails"] });
           }}
         />
