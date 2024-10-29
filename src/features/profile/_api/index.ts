@@ -1,4 +1,5 @@
 import axiosInstance from "@/lib/axios";
+import { useUserStore } from "@/stores/user-store";
 
 const USER_BASE_URL = "/user";
 
@@ -25,5 +26,14 @@ export const fetchUser = async () => {
   const response = await axiosInstance.get<UserDetailsResponse>(
     USER_URLS.userDetails,
   );
+  const { firstName, lastName, email, profileImage } = response.data.data
+
+  // Update the user store with the fetched user data
+  const store = useUserStore.getState()
+  store.setFirstName(firstName)
+  store.setLastName(lastName)
+  store.setEmail(email)
+  store.setProfileImage(profileImage)
+  
   return response;
 };
