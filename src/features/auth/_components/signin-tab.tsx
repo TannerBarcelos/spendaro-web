@@ -41,7 +41,6 @@ function SigninTab() {
     onSubmit: async ({ value: user }) => {
       try {
         const { data: tokens } = await signInMutation.mutateAsync(user);
-        setTokensToLocalStorage(tokens.accessToken, tokens.refreshToken);
         const {
           data: {
             data: { firstName, lastName, email, profileImage },
@@ -51,12 +50,12 @@ function SigninTab() {
         userStore.setLastName(lastName);
         userStore.setEmail(email);
         userStore.setProfileImage(profileImage);
+        authStore.signin(tokens.accessToken, tokens.refreshToken);
         toast.success("User signed in successfully", {
           position: "bottom-right",
           richColors: true,
           duration: 2_000,
         });
-        authStore.signin();
         navigate({
           to: "/dashboard",
         });
