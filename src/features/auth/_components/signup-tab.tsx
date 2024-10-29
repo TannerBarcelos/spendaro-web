@@ -9,7 +9,7 @@ import { z } from "zod";
 import ErrorFields from "@/components/form-error-field";
 import { useSignupUser } from "../_api/queries";
 import { toast } from "sonner";
-import { errorBuilder, setTokensToLocalStorage } from "@/lib/utils";
+import { errorBuilder } from "@/lib/utils";
 import { useNavigate } from "@tanstack/react-router";
 import { useAuthStore } from "@/stores/auth-store";
 import { useUserStore } from "@/stores/user-store";
@@ -44,6 +44,7 @@ function SignupTab() {
     onSubmit: async ({ value: newUser }) => {
       try {
         const { data: tokens } = await signupMutation.mutateAsync(newUser);
+        authStore.signin(tokens.accessToken, tokens.refreshToken);
         const {
           data: {
             data: { firstName, lastName, email, profileImage },
@@ -53,7 +54,6 @@ function SignupTab() {
         userStore.setLastName(lastName);
         userStore.setEmail(email);
         userStore.setProfileImage(profileImage);
-        authStore.signin(tokens.accessToken, tokens.refreshToken);
         toast.success("User signed up successfully", {
           position: "top-center",
           richColors: true,

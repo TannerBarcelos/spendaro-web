@@ -9,12 +9,11 @@ import { z } from "zod";
 import ErrorFields from "@/components/form-error-field";
 import { useSigninUser } from "../_api/queries";
 import { toast } from "sonner";
-import { errorBuilder, setTokensToLocalStorage } from "@/lib/utils";
+import { errorBuilder } from "@/lib/utils";
 import { useNavigate } from "@tanstack/react-router";
 import { useAuthStore } from "@/stores/auth-store";
 import { fetchUser as getUserDetails } from "@/features/profile/_api";
 import { useUserStore } from "@/stores/user-store";
-import { queryClient } from "@/lib/client";
 
 const existingUserSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -41,6 +40,7 @@ function SigninTab() {
     onSubmit: async ({ value: user }) => {
       try {
         const { data: tokens } = await signInMutation.mutateAsync(user);
+        authStore.signin(tokens.accessToken, tokens.refreshToken);
         const {
           data: {
             data: { firstName, lastName, email, profileImage },
@@ -50,7 +50,6 @@ function SigninTab() {
         userStore.setLastName(lastName);
         userStore.setEmail(email);
         userStore.setProfileImage(profileImage);
-        authStore.signin(tokens.accessToken, tokens.refreshToken);
         toast.success("User signed in successfully", {
           position: "bottom-right",
           richColors: true,
