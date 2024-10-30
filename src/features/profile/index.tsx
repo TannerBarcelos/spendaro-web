@@ -23,8 +23,9 @@ export function UserProfilePage() {
               Authorization: `Bearer ${accessToken}`,
             };
           }}
-          onClientUploadComplete={(_) => {
-            toast.success("Profile image updated", {
+          onClientUploadComplete={(res) => {
+            const responseMessage = res[0].serverData.message as string;
+            toast.success(responseMessage, {
               position: "bottom-right",
               richColors: true,
               duration: 2_000,
