@@ -15,8 +15,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useAuthStore } from "@/stores/auth-store";
 import { useUserStore } from "@/stores/user-store";
-import { logoutUser } from "@/features/auth/_api";
-import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 import { useFetchUserDetails } from "@/features/profile/_api/queries";
 
@@ -27,10 +25,10 @@ export const Route = createFileRoute("/(protected)/_app")({
 function Layout() {
   const navigate = useNavigate();
   const isSignedIn = useAuthStore((state) => state.isSignedIn);
-  const logout = useAuthStore((state) => state.clear);
+  const clearAuthStore = useAuthStore((state) => state.clear);
 
   if (!isSignedIn) {
-    logout();
+    clearAuthStore();
     navigate({
       to: "/auth",
     });
@@ -51,15 +49,9 @@ export function Navbar({ isSignedIn }: { isSignedIn: boolean }) {
   const qc = useQueryClient();
 
   const handleLogout = async () => {
-    try {
-      await logoutUser(); // logs out the user from the server (clears cookies to invalidate the JWT token)
-    } catch (error) {
-      toast.error("Failed to logout");
-    } finally {
-      qc.clear(); // flush all cache data (solves an issue where the user can see the data for another user after loggin into a different account on the same browser session)
-      userStore.clear(); // clears all user data
-      auth.clear(); // clears all auth data (including the JWT tokens)
-    }
+    qc.clear(); // flush the cache
+    userStore.clear(); // clear the user store
+    auth.clear(); // clear the auth store
   };
 
   const navItems = [
@@ -104,6 +96,9 @@ export function Navbar({ isSignedIn }: { isSignedIn: boolean }) {
                       <AvatarImage
                         src={userStore.profileImage ?? ""}
                         alt="users profile image"
+                        width={32}
+                        height={32}
+                        className="object-cover"
                       />
                       <AvatarFallback className="bg-primary/10">
                         {`${userStore.firstName} ${userStore.lastName}`

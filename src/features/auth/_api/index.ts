@@ -38,10 +38,3 @@ export const signup = async (newUser: NewUser) => {
   );
   return response;
 };
-
-export const logoutUser = async () => {
-  const response = await authAxiosInstance.get<ApiResponsePayload>(
-    AUTH_URLS.logout
-  );
-  return response;
-};
