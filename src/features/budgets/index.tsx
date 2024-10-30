@@ -8,7 +8,15 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Edit2, MoreHorizontal, Star, StarOff, Trash2 } from "lucide-react";
+import {
+  ArrowUpRightFromCircleIcon,
+  Edit2,
+  EyeIcon,
+  MoreHorizontal,
+  Star,
+  StarOff,
+  Trash2,
+} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,7 +31,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 
 export function BudgetPage() {
   const { data, isLoading, isError } = useGetBudgets();
@@ -62,6 +70,8 @@ interface AllBudgetsProps {
 }
 
 function AllBudgets({ data }: AllBudgetsProps) {
+  const navigate = useNavigate();
+
   if (!data || data.length === 0) {
     return <p>No budgets found</p>;
   }
@@ -112,10 +122,19 @@ function AllBudgets({ data }: AllBudgetsProps) {
                       </Button>
                     </div>
                     <DropdownMenuContent>
+                      <DropdownMenuItem
+                        onClick={() => {
+                          navigate({
+                            to: `/budgeting/${budget.id}`, // go to budget overview page
+                          });
+                        }}
+                      >
+                        <ArrowUpRightFromCircleIcon /> View Budget
+                      </DropdownMenuItem>
                       <DropdownMenuItem>
                         <Trash2 /> Delete Budget
                       </DropdownMenuItem>
-                      <DropdownMenuSeparator />
+                      {/* <DropdownMenuSeparator /> */}
                       <DropdownMenuItem>
                         <Edit2 /> Edit Budget
                       </DropdownMenuItem>
