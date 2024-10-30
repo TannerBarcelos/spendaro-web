@@ -5,6 +5,7 @@ import { Link } from "@tanstack/react-router";
 import { LogOut, Settings, User, Zap } from "lucide-react";
 import { SVGProps } from "react";
 import { JSX } from "react/jsx-runtime";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,6 +18,7 @@ import { useAuthStore } from "@/stores/auth-store";
 import { useQueryClient } from "@tanstack/react-query";
 import { useUserDetails } from "@/features/profile/_api/queries";
 import { UserData } from "@/features/profile/_api";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/(protected)/_app")({
   component: () => <Layout />,
@@ -28,42 +30,43 @@ function Layout() {
   const navigate = useNavigate();
   const auth_store = useAuthStore();
 
-  if (!auth_store.accessToken || isError) {
+  if (!auth_store.accessToken) {
     qc.clear(); // flush the cache
     navigate({
       to: "/auth",
     });
   }
 
-  if (isLoading) {
-    return <div>Loading...</div>;
+  if (isError) {
+    return toast.error("An error occurred while fetching user details");
   }
 
-  if (data) {
-    return (
-      <div className="container mx-auto min-h-screen flex flex-col">
-        <Navbar
-          isSignedIn={true}
-          cb={() => {
-            qc.clear(); // flush the cache
-            auth_store.clear(); // clear the auth store (holds the access token)
-          }}
-          userData={data.data.data}
-        />
-        <Outlet />
-      </div>
-    );
-  }
+  return (
+    <div className="container mx-auto min-h-screen flex flex-col">
+      <Navbar
+        isSignedIn={true}
+        isLoading={isLoading}
+        cb={() => {
+          qc.clear(); // flush the cache
+          auth_store.clear(); // clear the auth store (holds the access token)
+        }}
+        userData={data?.data.data}
+      />
+      <Outlet />
+    </div>
+  );
 }
 
 export function Navbar({
   isSignedIn,
   cb,
   userData,
+  isLoading,
 }: {
   isSignedIn: boolean;
   cb: () => void;
-  userData: UserData;
+  userData?: UserData;
+  isLoading: boolean;
 }) {
   const navItems = [
     { to: "/dashboard", label: "Dashboard" },
@@ -83,42 +86,49 @@ export function Navbar({
         {isSignedIn && (
           <>
             <div className="hidden md:flex space-x-4">
-              {navItems.map((item) => {
-                return (
-                  <Link
-                    key={item.to}
-                    to={item.to}
-                    className="font-medium text-gray-700 text-sm [&.active]:bg-nav-item-hover [&.active]:rounded-full [&.active]:text-primary [&.active]:font-medium flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
-                    activeOptions={{ exact: true }}
-                  >
-                    {item.label}
-                  </Link>
-                );
-              })}
+              {navItems.map((item) => (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  className="font-medium text-gray-700 text-sm [&.active]:bg-nav-item-hover [&.active]:rounded-full [&.active]:text-primary [&.active]:font-medium flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
+                  activeOptions={{ exact: true }}
+                >
+                  {item.label}
+                </Link>
+              ))}
             </div>
             <div className="flex items-center">
               <div className="flex items-center justify-end space-x-4 p-3 rounded-full min-w-fit">
-                <span className="hidden md:inline text-sm font-medium text-gray-700">
-                  Hi {userData.firstName}!
-                </span>
+                <div className="hidden md:inline text-sm font-medium text-gray-700 overflow-hidden whitespace-nowrap text-ellipsis text-right w-[100px]">
+                  {isLoading ? (
+                    <Skeleton className="w-full h-[40px] rounded-xl bg-gray-200/70" />
+                  ) : (
+                    `Hi ${userData?.firstName}!`
+                  )}
+                </div>
                 <DropdownMenu>
                   <DropdownMenuTrigger>
                     <Avatar>
-                      <AvatarImage
-                        src={userData.profileImage}
-                        alt="users profile image"
-                        width={32}
-                        height={32}
-                        className="object-cover"
-                      />
-                      {/* If profileImage is empty (null, empty string), render the fallback */}
-                      <AvatarFallback className="bg-primary/10">
-                        {`${userData.firstName} ${userData.lastName}`
-                          .split(" ")
-                          .map((name) => name[0])
-                          .join("")
-                          .toUpperCase()}
-                      </AvatarFallback>
+                      {isLoading ? (
+                        <Skeleton className="w-16 h-16 rounded-full bg-gray-200/70" />
+                      ) : (
+                        <>
+                          <AvatarImage
+                            src={userData?.profileImage}
+                            alt="users profile image"
+                            width={32}
+                            height={32}
+                            className="object-cover"
+                          />
+                          <AvatarFallback className="bg-primary/10">
+                            {`${userData?.firstName ?? ""} ${userData?.lastName ?? ""}`
+                              .split(" ")
+                              .map((name) => name[0])
+                              .join("")
+                              .toUpperCase()}
+                          </AvatarFallback>
+                        </>
+                      )}
                     </Avatar>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent sideOffset={10} className="w-40">
