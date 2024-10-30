@@ -17,58 +17,61 @@ import { useAuthStore } from "@/stores/auth-store";
 import { useUserStore } from "@/stores/user-store";
 import { useQueryClient } from "@tanstack/react-query";
 import { useFetchUserDetails } from "@/features/profile/_api/queries";
+import { UserData } from "@/features/profile/_api";
 
 export const Route = createFileRoute("/(protected)/_app")({
   component: () => <Layout />,
 });
 
 function Layout() {
+  const { isLoading, isError, data } = useFetchUserDetails();
   const qc = useQueryClient();
   const navigate = useNavigate();
   const auth_store = useAuthStore();
 
-  if (!auth_store.accessToken) {
+  if (!auth_store.accessToken || isError) {
     auth_store.clear();
     navigate({
       to: "/auth",
     });
-  } else
+  }
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (data) {
     return (
       <div className="container mx-auto min-h-screen flex flex-col">
         <Navbar
           isSignedIn={true}
-          cleanup={() => {
-            qc.clear(); // flush the cache
+          cb={() => {
+            // qc.clear(); // flush the cache
             auth_store.clear(); // clear the auth store
           }}
+          userData={data.data.data}
         />
         <Outlet />
       </div>
     );
+  }
 }
 
 export function Navbar({
   isSignedIn,
-  cleanup,
+  cb,
+  userData,
 }: {
   isSignedIn: boolean;
-  cleanup: () => void;
+  cb: () => void;
+  userData: UserData;
 }) {
-  const userStore = useUserStore();
-  useFetchUserDetails(isSignedIn);
-
-  const handleLogout = async () => {
-    cleanup();
-    userStore.clear(); // clear the user store
-  };
-
   const navItems = [
     { to: "/dashboard", label: "Dashboard" },
     { to: "/budgeting", label: "Budgets" },
     { to: "/transactions", label: "Transactions" },
     { to: "/reporting", label: "Reports" },
   ];
-
   return (
     <nav className="py-4">
       <div className="container mx-auto flex items-center justify-between">
@@ -97,13 +100,13 @@ export function Navbar({
             <div className="flex items-center">
               <div className="flex items-center justify-end space-x-4 p-3 rounded-full min-w-fit">
                 <span className="hidden md:inline text-sm font-medium text-gray-700">
-                  Hi {userStore.firstName}!
+                  Hi {userData.firstName}!
                 </span>
                 <DropdownMenu>
                   <DropdownMenuTrigger>
                     <Avatar>
                       <AvatarImage
-                        src={userStore.profileImage}
+                        src={userData.profileImage}
                         alt="users profile image"
                         width={32}
                         height={32}
@@ -111,7 +114,7 @@ export function Navbar({
                       />
                       {/* If profileImage is empty (null, empty string), render the fallback */}
                       <AvatarFallback className="bg-primary/10">
-                        {`${userStore.firstName} ${userStore.lastName}`
+                        {`${userData.firstName} ${userData.lastName}`
                           .split(" ")
                           .map((name) => name[0])
                           .join("")
@@ -134,7 +137,7 @@ export function Navbar({
                         Settings
                       </DropdownMenuItem>
                     </Link>
-                    <DropdownMenuItem onClick={handleLogout}>
+                    <DropdownMenuItem onClick={cb}>
                       <LogOut />
                       Sign Out
                     </DropdownMenuItem>
