@@ -43,7 +43,7 @@ function Layout() {
 }
 
 export function Navbar({ isSignedIn }: { isSignedIn: boolean }) {
-  const auth = useAuthStore();
+  const authStore = useAuthStore();
   const userStore = useUserStore();
   useFetchUserDetails(isSignedIn);
   const qc = useQueryClient();
@@ -51,7 +51,7 @@ export function Navbar({ isSignedIn }: { isSignedIn: boolean }) {
   const handleLogout = async () => {
     qc.clear(); // flush the cache
     userStore.clear(); // clear the user store
-    auth.clear(); // clear the auth store
+    authStore.clear(); // clear the auth store
   };
 
   const navItems = [
@@ -95,12 +95,13 @@ export function Navbar({ isSignedIn }: { isSignedIn: boolean }) {
                   <DropdownMenuTrigger>
                     <Avatar>
                       <AvatarImage
-                        src={userStore.profileImage ?? ""}
+                        src={userStore.profileImage}
                         alt="users profile image"
                         width={32}
                         height={32}
                         className="object-cover"
                       />
+                      {/* If profileImage is empty (null, empty string), render the fallback */}
                       <AvatarFallback className="bg-primary/10">
                         {`${userStore.firstName} ${userStore.lastName}`
                           .split(" ")
