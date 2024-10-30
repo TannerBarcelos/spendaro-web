@@ -82,7 +82,12 @@ export function UserProfilePage() {
           </Dialog>
           <Dialog>
             <DialogTrigger>
-              <Button variant="destructive">Remove Photo</Button>
+              <Button
+                variant="outline"
+                className="hover:bg-red-200/10 border-red-300 text-red-700"
+              >
+                Remove Photo
+              </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
