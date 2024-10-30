@@ -62,10 +62,8 @@ axiosInstance.interceptors.response.use(
           }
         );
 
-        setTokensToLocalStorage(
-          response.data.accessToken,
-          response.data.refreshToken
-        );
+        const setAccessTokens = useAuthStore.getState().setAccessTokens
+        setAccessTokens(response.data.accessToken, response.data.refreshToken)
 
         // If refresh is successful, retry the original request with the new token
         if (response.status === axios.HttpStatusCode.Ok) {

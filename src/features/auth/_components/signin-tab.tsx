@@ -40,7 +40,7 @@ function SigninTab() {
     onSubmit: async ({ value: user }) => {
       try {
         const { data: tokens } = await signInMutation.mutateAsync(user);
-        authStore.signin(tokens.accessToken, tokens.refreshToken);
+        authStore.setAccessTokens(tokens.accessToken, tokens.refreshToken);
         const {
           data: {
             data: { firstName, lastName, email, profileImage },

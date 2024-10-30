@@ -44,7 +44,7 @@ function SignupTab() {
     onSubmit: async ({ value: newUser }) => {
       try {
         const { data: tokens } = await signupMutation.mutateAsync(newUser);
-        authStore.signin(tokens.accessToken, tokens.refreshToken);
+        authStore.setAccessTokens(tokens.accessToken, tokens.refreshToken);
         const {
           data: {
             data: { firstName, lastName, email, profileImage },
