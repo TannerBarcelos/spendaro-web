@@ -24,22 +24,21 @@ export const Route = createFileRoute("/(protected)/_app")({
 
 function Layout() {
   const navigate = useNavigate();
-  const isSignedIn = useAuthStore((state) => state.isSignedIn);
+  const access_token = useAuthStore((state) => state.accessToken);
   const clearAuthStore = useAuthStore((state) => state.clear);
 
-  if (!isSignedIn) {
+  if (!access_token) {
     clearAuthStore();
     navigate({
       to: "/auth",
     });
-  }
-
-  return (
-    <div className="container mx-auto min-h-screen flex flex-col">
-      <Navbar isSignedIn={isSignedIn} />
-      <Outlet />
-    </div>
-  );
+  } else
+    return (
+      <div className="container mx-auto min-h-screen flex flex-col">
+        <Navbar isSignedIn={true} />
+        <Outlet />
+      </div>
+    );
 }
 
 export function Navbar({ isSignedIn }: { isSignedIn: boolean }) {

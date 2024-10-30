@@ -1,4 +1,5 @@
 import axiosInstance from "@/lib/axios";
+import { useAuthStore } from "@/stores/auth-store";
 import { useUserStore } from "@/stores/user-store";
 
 const USER_BASE_URL = "/user";
@@ -23,17 +24,25 @@ export interface UserData {
 }
 
 export const fetchUser = async () => {
+  const access_token = useAuthStore.getState().accessToken;
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${access_token}`,
+  };
   const response = await axiosInstance.get<UserDetailsResponse>(
     USER_URLS.userDetails,
+    {
+      headers,
+    }
   );
-  const { firstName, lastName, email, profileImage } = response.data.data
+  const { firstName, lastName, email, profileImage } = response.data.data;
 
   // Update the user store with the fetched user data
-  const store = useUserStore.getState()
-  store.setFirstName(firstName)
-  store.setLastName(lastName)
-  store.setEmail(email)
-  store.setProfileImage(profileImage)
-  
+  const store = useUserStore.getState();
+  store.setFirstName(firstName);
+  store.setLastName(lastName);
+  store.setEmail(email);
+  store.setProfileImage(profileImage);
+
   return response;
 };

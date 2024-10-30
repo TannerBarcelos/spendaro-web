@@ -22,16 +22,10 @@ const commonAxionConfig = {
   timeout: 5_000,
 };
 
-export const authAxiosInstance = axios.create({
-  ...commonAxionConfig,
-  headers: { ...commonHeaders },
-});
-
 const axiosInstance = axios.create({
   ...commonAxionConfig,
   headers: {
     ...commonHeaders,
-    Authorization: `Bearer ${useAuthStore.getState().accessToken}`,
   },
 });
 

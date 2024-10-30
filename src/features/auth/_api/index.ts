@@ -1,4 +1,4 @@
-import { authAxiosInstance } from "@/lib/axios";
+import axiosInstance from "@/lib/axios";
 import type { User } from "@/features/auth/_components/signin-tab";
 import type { NewUser } from "@/features/auth/_components/signup-tab";
 
@@ -16,18 +16,18 @@ type ApiResponsePayload = {
 };
 
 export const signin = async (user: User) => {
-  const response = await authAxiosInstance.post<ApiResponsePayload>(
+  const response = await axiosInstance.post<ApiResponsePayload>(
     AUTH_URLS.login,
     {
       email: user.email,
       password: user.password,
-    }
+    },
   );
   return response;
 };
 
 export const signup = async (newUser: NewUser) => {
-  const response = await authAxiosInstance.post<ApiResponsePayload>(
+  const response = await axiosInstance.post<ApiResponsePayload>(
     AUTH_URLS.signup,
     {
       firstName: newUser.firstName,
