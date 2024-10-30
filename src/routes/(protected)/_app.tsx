@@ -137,7 +137,7 @@ export function Navbar({
                     <Link to="/profile">
                       <DropdownMenuItem>
                         <User />
-                        Profile
+                        Account
                       </DropdownMenuItem>
                     </Link>
                     <Link to="/reporting/new">
