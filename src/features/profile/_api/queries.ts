@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchUser } from ".";
 
-export const useFetchUserDetails = () => {
+export const useUserDetails = () => {
   return useQuery({
     queryKey: ["userDetails"],
     queryFn: fetchUser,

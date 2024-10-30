@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useAuthStore } from "@/stores/auth-store";
 import { useQueryClient } from "@tanstack/react-query";
-import { useFetchUserDetails } from "@/features/profile/_api/queries";
+import { useUserDetails } from "@/features/profile/_api/queries";
 import { UserData } from "@/features/profile/_api";
 
 export const Route = createFileRoute("/(protected)/_app")({
@@ -23,7 +23,7 @@ export const Route = createFileRoute("/(protected)/_app")({
 });
 
 function Layout() {
-  const { isLoading, isError, data } = useFetchUserDetails();
+  const { isLoading, isError, data } = useUserDetails();
   const qc = useQueryClient();
   const navigate = useNavigate();
   const auth_store = useAuthStore();
