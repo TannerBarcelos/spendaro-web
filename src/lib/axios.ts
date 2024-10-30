@@ -1,6 +1,5 @@
 import { useAuthStore } from "@/stores/auth-store";
 import axios, { AxiosError } from "axios";
-import { getTokensFromLocalStorage, setTokensToLocalStorage } from "./utils";
 
 export type CommonApiErrorResponse = AxiosError<{
   error: string;
@@ -32,7 +31,7 @@ const axiosInstance = axios.create({
   ...commonAxionConfig,
   headers: {
     ...commonHeaders,
-    Authorization: `Bearer ${getTokensFromLocalStorage().accessToken ?? ""}`,
+    Authorization: `Bearer ${useAuthStore.getState().accessToken}`,
   },
 });
 
@@ -57,7 +56,7 @@ axiosInstance.interceptors.response.use(
           {},
           {
             headers: {
-              Authorization: `Bearer ${getTokensFromLocalStorage().refreshToken ?? ""}`, // will override the default Authorization header
+              Authorization: `Bearer ${useAuthStore.getState().refreshToken}`, // will override the default Authorization header
             },
           }
         );

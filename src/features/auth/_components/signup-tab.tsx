@@ -54,6 +54,7 @@ function SignupTab() {
         userStore.setLastName(lastName);
         userStore.setEmail(email);
         userStore.setProfileImage(profileImage);
+        authStore.signin();
         toast.success("User signed up successfully", {
           position: "top-center",
           richColors: true,

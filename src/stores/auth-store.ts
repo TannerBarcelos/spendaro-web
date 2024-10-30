@@ -6,6 +6,7 @@ interface AuthStore {
   accessToken?: string;
   refreshToken?: string;
   setAccessTokens: (accessToken: string, refreshToken: string) => void;
+  signin: () => void;
   clear: () => void;
 }
 
@@ -15,7 +16,8 @@ export const useAuthStore = create<AuthStore>()(
       isSignedIn: false,
       accessToken: undefined,
       refreshToken: undefined,
-      setAccessTokens: (accessToken:string, refreshToken: string) => set({ isSignedIn: true, accessToken, refreshToken }),
+      signin: () => set({ isSignedIn: true }),
+      setAccessTokens: (accessToken:string, refreshToken: string) => set({ accessToken, refreshToken }),
       clear: () => set({ isSignedIn: false, accessToken: undefined, refreshToken: undefined })
     }),
     {

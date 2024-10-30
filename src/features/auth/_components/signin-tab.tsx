@@ -50,6 +50,7 @@ function SigninTab() {
         userStore.setLastName(lastName);
         userStore.setEmail(email);
         userStore.setProfileImage(profileImage);
+        authStore.signin();
         toast.success("User signed in successfully", {
           position: "bottom-right",
           richColors: true,
