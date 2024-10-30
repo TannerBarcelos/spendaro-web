@@ -14,7 +14,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAuthStore } from "@/stores/auth-store";
-import { useUserStore } from "@/stores/user-store";
 import { useQueryClient } from "@tanstack/react-query";
 import { useFetchUserDetails } from "@/features/profile/_api/queries";
 import { UserData } from "@/features/profile/_api";
@@ -30,7 +29,7 @@ function Layout() {
   const auth_store = useAuthStore();
 
   if (!auth_store.accessToken || isError) {
-    auth_store.clear();
+    qc.clear(); // flush the cache
     navigate({
       to: "/auth",
     });
@@ -46,8 +45,8 @@ function Layout() {
         <Navbar
           isSignedIn={true}
           cb={() => {
-            // qc.clear(); // flush the cache
-            auth_store.clear(); // clear the auth store
+            qc.clear(); // flush the cache
+            auth_store.clear(); // clear the auth store (holds the access token)
           }}
           userData={data.data.data}
         />
