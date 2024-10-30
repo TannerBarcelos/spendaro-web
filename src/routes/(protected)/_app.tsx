@@ -99,11 +99,12 @@ export function Navbar({
             </div>
             <div className="flex items-center">
               <div className="flex items-center justify-end space-x-4 p-3 rounded-full min-w-fit">
-                <div className="hidden md:inline text-sm font-medium text-gray-700 overflow-hidden whitespace-nowrap text-ellipsis text-right w-[100px]">
+                <div className="hidden md:inline text-sm font-semibold text-gray-700 overflow-hidden whitespace-nowrap text-ellipsis text-right w-[100px]">
                   {isLoading ? (
-                    <Skeleton className="w-full h-[40px] rounded-xl bg-gray-200/70" />
+                    <Skeleton className="w-full h-[30px] rounded-xl bg-gray-200/70" />
                   ) : (
-                    `Hi ${userData?.firstName}!`
+                    (userData?.firstName?.charAt(0)?.toUpperCase() ?? "") +
+                    userData?.firstName?.slice(1)
                   )}
                 </div>
                 <DropdownMenu>

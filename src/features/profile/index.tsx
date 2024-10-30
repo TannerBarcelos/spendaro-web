@@ -15,6 +15,8 @@ import {
 } from "@/components/ui/dialog";
 import { useUserDetails } from "./_api/queries";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export function UserProfilePage() {
   const data = useUserDetails();
@@ -103,6 +105,25 @@ export function UserProfilePage() {
               </DialogFooter>
             </DialogContent>
           </Dialog>
+        </div>
+        <h3 className="text-lg font-medium mt-8 mb-2">Name</h3>
+        <div className="flex flex-col items-center w-fit">
+          <div>
+            <Label>First Name</Label>
+            <Input
+              type="text"
+              placeholder={data.data?.data.data.firstName ?? "name"}
+              className="w-[400px]"
+            />
+          </div>
+          <div className="mt-4">
+            <Label>Last Name</Label>
+            <Input
+              type="text"
+              placeholder={data.data?.data.data.firstName ?? "name"}
+              className="w-[400px]"
+            />
+          </div>
         </div>
       </div>
     </div>
