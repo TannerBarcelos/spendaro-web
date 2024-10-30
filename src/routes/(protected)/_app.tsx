@@ -23,34 +23,43 @@ export const Route = createFileRoute("/(protected)/_app")({
 });
 
 function Layout() {
+  const qc = useQueryClient();
   const navigate = useNavigate();
-  const access_token = useAuthStore((state) => state.accessToken);
-  const clearAuthStore = useAuthStore((state) => state.clear);
+  const auth_store = useAuthStore();
 
-  if (!access_token) {
-    clearAuthStore();
+  if (!auth_store.accessToken) {
+    auth_store.clear();
     navigate({
       to: "/auth",
     });
   } else
     return (
       <div className="container mx-auto min-h-screen flex flex-col">
-        <Navbar isSignedIn={true} />
+        <Navbar
+          isSignedIn={true}
+          cleanup={() => {
+            qc.clear(); // flush the cache
+            auth_store.clear(); // clear the auth store
+          }}
+        />
         <Outlet />
       </div>
     );
 }
 
-export function Navbar({ isSignedIn }: { isSignedIn: boolean }) {
-  const authStore = useAuthStore();
+export function Navbar({
+  isSignedIn,
+  cleanup,
+}: {
+  isSignedIn: boolean;
+  cleanup: () => void;
+}) {
   const userStore = useUserStore();
   useFetchUserDetails(isSignedIn);
-  const qc = useQueryClient();
 
   const handleLogout = async () => {
-    qc.clear(); // flush the cache
+    cleanup();
     userStore.clear(); // clear the user store
-    authStore.clear(); // clear the auth store
   };
 
   const navItems = [
