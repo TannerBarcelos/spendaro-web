@@ -37,7 +37,7 @@ export function UserProfilePage() {
           <Dialog>
             <div className="mx-4">
               <DialogTrigger>
-                <Button className="bg-gray-200/60 text-gray-900 mr-4 hover:bg-gray-200/90">
+                <Button className="bg-gray-200/60 text-gray-900 hover:bg-gray-200/90">
                   Change Photo
                 </Button>
               </DialogTrigger>
@@ -98,23 +98,6 @@ export function UserProfilePage() {
               </DialogFooter>
             </DialogContent>
           </Dialog>
-        </div>
-      </div>
-      <div className="my-10">
-        <h2 className="text-lg font-semibold">User Information</h2>
-        <div>
-          <p>
-            <span className="font-semibold">First Name:</span>{" "}
-            {data.data?.data.data.firstName}
-          </p>
-          <p>
-            <span className="font-semibold">Last Name:</span>{" "}
-            {data.data?.data.data.lastName}
-          </p>
-          <p>
-            <span className="font-semibold">Email:</span>{" "}
-            {data.data?.data.data.email}
-          </p>
         </div>
       </div>
     </div>
