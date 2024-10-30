@@ -50,7 +50,7 @@ export function BudgetPage() {
         </Link>
       </div>
       <div className="mt-5">
-        <FavoritedBudgets data={[]} />
+        <FavoritedBudgets data={data?.data.filter((d) => d.isFavorited)} />
         <AllBudgets data={data?.data} />
       </div>
     </div>

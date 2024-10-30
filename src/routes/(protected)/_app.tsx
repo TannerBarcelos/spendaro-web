@@ -76,6 +76,7 @@ export function Navbar({ isSignedIn }: { isSignedIn: boolean }) {
               {navItems.map((item) => {
                 return (
                   <Link
+                    key={item.to}
                     to={item.to}
                     className="font-medium text-gray-700 text-sm [&.active]:bg-nav-item-hover [&.active]:rounded-full [&.active]:text-primary [&.active]:font-medium flex items-center p-3 hover:bg-nav-item-hover hover:rounded-full"
                     activeOptions={{ exact: true }}

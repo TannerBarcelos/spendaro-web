@@ -22,6 +22,7 @@ export interface Budget {
   budget_name:        string;
   budget_description: string;
   amount:             number;
+  isFavorited:        boolean;
   createdAt:          Date;
   updatedAt:          Date;
 }
