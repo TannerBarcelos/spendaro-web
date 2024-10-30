@@ -8,7 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Edit2, MoreHorizontal, Star, Trash2 } from "lucide-react";
+import { Edit2, MoreHorizontal, Star, StarOff, Trash2 } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -184,8 +184,9 @@ function FavoritedBudgets({ data }: AllBudgetsProps) {
                                 <Button
                                   variant="outline"
                                   className="border border-gray-200 border-solid"
+                                  title="Un-favorite this budget"
                                 >
-                                  <Star
+                                  <StarOff
                                     size={15}
                                     strokeWidth={2}
                                     className="text-primary hover:cursor-pointer"
