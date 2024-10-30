@@ -24,7 +24,10 @@ export const useUserStore = create<UserStore>()(
       setLastName: (lastName) => set({ lastName }),
       setEmail: (email) => set({ email }),
       setProfileImage: (profileImage) => set({ profileImage }),
-      clear: () => set({ firstName: "", lastName: "", email: "" }),
+      clear: () => {
+        set({ firstName: "", lastName: "", email: "" });
+        localStorage.removeItem("user-storage");
+      }
     }),
     {
       name: "user-storage",

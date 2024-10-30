@@ -18,7 +18,10 @@ export const useAuthStore = create<AuthStore>()(
       refreshToken: undefined,
       signin: () => set({ isSignedIn: true }),
       setAccessTokens: (accessToken:string, refreshToken: string) => set({ accessToken, refreshToken }),
-      clear: () => set({ isSignedIn: false, accessToken: undefined, refreshToken: undefined })
+      clear: () => {
+        set({ isSignedIn: false, accessToken: undefined, refreshToken: undefined });
+        localStorage.removeItem("auth-storage");
+      }
     }),
     {
       name: "auth-storage",
