@@ -1,4 +1,9 @@
-import { createFileRoute, Outlet, useNavigate } from "@tanstack/react-router";
+import {
+  createFileRoute,
+  LinkComponent,
+  Outlet,
+  useNavigate,
+} from "@tanstack/react-router";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Link } from "@tanstack/react-router";
@@ -80,12 +85,6 @@ export function Navbar({
   userData?: UserData;
   isLoading: boolean;
 }) {
-  const navItems = [
-    { to: "/dashboard", label: "Dashboard" },
-    { to: "/budgeting", label: "Budgets" },
-    { to: "/transactions", label: "Transactions" },
-    { to: "/reporting", label: "Reports" },
-  ];
   return (
     <nav className="py-4">
       <div className="container mx-auto flex items-center justify-between">
@@ -97,8 +96,8 @@ export function Navbar({
         </div>
         {isSignedIn && (
           <>
-            <NavigationMenuDemo />
-            <div className="flex space-x-4">
+            <NavMenu />
+            {/* <div className="flex space-x-4">
               {navItems.map((item) => (
                 <Link
                   key={item.to}
@@ -109,7 +108,7 @@ export function Navbar({
                   {item.label}
                 </Link>
               ))}
-            </div>
+            </div> */}
             <div className="flex items-center">
               <div className="flex items-center justify-end space-x-4 p-3 rounded-full min-w-fit">
                 <div className="inline text-sm font-semibold text-gray-700 overflow-hidden whitespace-nowrap text-ellipsis text-right w-[100px]">
@@ -238,14 +237,14 @@ const components: { title: string; href: string; description: string }[] = [
   },
 ];
 
-export function NavigationMenuDemo() {
+export function NavMenu() {
   return (
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
           <Link
             to="/dashboard"
-            className="[&.active]:text-primary [&.active]:font-medium "
+            className="[&.active]:text-primary [&.active]:font-medium"
           >
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Dashboard
@@ -255,40 +254,67 @@ export function NavigationMenuDemo() {
         <NavigationMenuItem>
           <NavigationMenuTrigger>Budgets</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+            <ul className="grid gap-2 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
               <li className="row-span-3">
                 <NavigationMenuLink asChild>
-                  <a
-                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                    href="/"
+                  <Link
+                    className="flex h-full w-full select-none flex-col justify-center rounded-md border bg-slate-50 hover:bg-slate-100 p-6 no-underline outline-none focus:shadow-md"
+                    href="/budgeting/new"
                   >
-                    <div className="mb-2 mt-4 text-lg font-medium">
-                      Create a Budget
-                    </div>
+                    <div className="text-lg font-medium">Create Budget</div>
                     <p className="text-sm leading-tight text-muted-foreground">
-                      Beautifully designed components that you can copy and
-                      paste into your apps. Accessible. Customizable. Open
-                      Source.
+                      Create a new budget and start tracking your expenses
                     </p>
-                  </a>
+                  </Link>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="/docs" title="Introduction">
-                Re-usable components built using Radix UI and Tailwind CSS.
+              <ListItem href="/budgeting" title="View Budgets">
+                <p className="text-sm leading-tight">
+                  View all your current and favorited budgets.
+                </p>
               </ListItem>
-              <ListItem href="/docs/installation" title="Installation">
-                How to install dependencies and structure your app.
+              <ListItem href="/categories" title="Category Management">
+                View and manage budget categories
               </ListItem>
-              <ListItem href="/docs/primitives/typography" title="Typography">
-                Styles for headings, paragraphs, lists...etc
+              <ListItem href="/categories" title="Category Management">
+                View and manage budget categories
               </ListItem>
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Budgets</NavigationMenuTrigger>
+          <NavigationMenuTrigger>Transactions</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+            <ul className="grid gap-2 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+              <li className="row-span-3">
+                <NavigationMenuLink asChild>
+                  <Link
+                    className="flex h-full w-full select-none flex-col justify-center rounded-md border bg-slate-50 hover:bg-slate-100  p-6 no-underline outline-none focus:shadow-md"
+                    href="/transactions/new"
+                  >
+                    <div className="text-lg font-medium">Add Transaction</div>
+                    <p className="text-sm leading-tight text-muted-foreground">
+                      Add a new transaction to your budget
+                    </p>
+                  </Link>
+                </NavigationMenuLink>
+              </li>
+              <ListItem href="/transactions" title="View All Transactions">
+                <p className="text-sm leading-tight">
+                  View all your transactions.
+                </p>
+              </ListItem>
+              <ListItem href="/categories" title="Category Management">
+                View and manage budget categories
+              </ListItem>
+              {/* <ListItem>View and manage budget categories</ListItem> */}
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationMenuTrigger>Reports</NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className="grid w-[400px] gap-3 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
               {components.map((component) => (
                 <ListItem
                   key={component.title}
@@ -307,14 +333,13 @@ export function NavigationMenuDemo() {
 }
 
 const ListItem = React.forwardRef<
-  React.ElementRef<"a">,
+  LinkComponent<"a">,
   React.ComponentPropsWithoutRef<"a">
->(({ className, title, children, ...props }, ref) => {
+>(({ className, title, children, ...props }) => {
   return (
     <li>
       <NavigationMenuLink asChild>
-        <a
-          ref={ref}
+        <Link
           className={cn(
             "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
             className
@@ -325,7 +350,7 @@ const ListItem = React.forwardRef<
           <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
             {children}
           </p>
-        </a>
+        </Link>
       </NavigationMenuLink>
     </li>
   );
