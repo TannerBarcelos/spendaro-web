@@ -17,7 +17,7 @@ function Root() {
       <Outlet />
       <Toaster />
       <TanStackRouterDevtools />
-      <ReactQueryDevtools buttonPosition="top-right" />
+      <ReactQueryDevtools buttonPosition="bottom-right" />
     </div>
   );
 }

@@ -68,7 +68,7 @@ export function Navbar({
   userData?: UserData;
   isLoading: boolean;
 }) {
-  console.log(userData?.firstName);
+  console.log(isSignedIn);
   const navItems = [
     { to: "/dashboard", label: "Dashboard" },
     { to: "/budgeting", label: "Budgets" },
@@ -84,9 +84,9 @@ export function Navbar({
             Spendaro
           </Link>
         </div>
-        {isSignedIn && userData && (
+        {isSignedIn && (
           <>
-            <div className="hidden md:flex space-x-4">
+            <div className="flex space-x-4">
               {navItems.map((item) => (
                 <Link
                   key={item.to}
@@ -100,7 +100,7 @@ export function Navbar({
             </div>
             <div className="flex items-center">
               <div className="flex items-center justify-end space-x-4 p-3 rounded-full min-w-fit">
-                <div className="hidden md:inline text-sm font-semibold text-gray-700 overflow-hidden whitespace-nowrap text-ellipsis text-right w-[100px]">
+                <div className="text-sm font-semibold text-gray-700 overflow-hidden whitespace-nowrap text-ellipsis text-right w-[100px]">
                   {isLoading ? (
                     <Skeleton className="w-full h-[30px] rounded-xl bg-gray-200/70" />
                   ) : (
