@@ -33,6 +33,11 @@ export const getBudgets = async () => {
   return response.data;
 };
 
+export const getBudget = async (budget_id: string) => {
+  const response = await axiosInstance.get<BudgetResponse>(`${BUDGET_BASE_URL}/${budget_id}`);
+  return response.data;
+}
+
 export const createBudget = async (budgetData: any) => {
   const response = await axiosInstance.post('/budgets', budgetData);
   return response.data;

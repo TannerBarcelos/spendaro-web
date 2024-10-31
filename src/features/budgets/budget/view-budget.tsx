@@ -1,8 +1,10 @@
+import { Route as BudgetRoute } from "@/routes/(protected)/_app/budgeting/$budgetId";
+
 export function ViewBudget() {
-  const budgetName = "Budget Name"; // TODO: Get budget name from API via api call for budget details in a loader for fretching budget by id
+  const { data } = BudgetRoute.useLoaderData();
   return (
     <div>
-      <h1 className="text-xl lg:text-2xl font-semibold">{budgetName}</h1>
+      <h1 className="text-xl lg:text-2xl font-semibold">{data.budget_name}</h1>
     </div>
   );
 }
