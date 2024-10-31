@@ -11,7 +11,6 @@ interface AuthStore {
 export const useAuthStore = create<AuthStore>()(
   persist<AuthStore>(
     (set) => ({
-      isSignedIn: false,
       accessToken: undefined,
       refreshToken: undefined,
       setAccessTokens: (accessToken:string, refreshToken: string) => set({ accessToken, refreshToken }),

@@ -68,6 +68,7 @@ export function Navbar({
   userData?: UserData;
   isLoading: boolean;
 }) {
+  console.log(userData?.firstName);
   const navItems = [
     { to: "/dashboard", label: "Dashboard" },
     { to: "/budgeting", label: "Budgets" },
@@ -83,7 +84,7 @@ export function Navbar({
             Spendaro
           </Link>
         </div>
-        {isSignedIn && (
+        {isSignedIn && userData && (
           <>
             <div className="hidden md:flex space-x-4">
               {navItems.map((item) => (
