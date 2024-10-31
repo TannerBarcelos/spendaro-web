@@ -304,8 +304,8 @@ export function NavMenu() {
                   View all your transactions.
                 </p>
               </ListItem>
-              <ListItem href="/categories" title="Category Management">
-                View and manage budget categories
+              <ListItem href="/categories" title="Manage Transactions">
+                Manage transactions and view transaction history
               </ListItem>
               {/* <ListItem>View and manage budget categories</ListItem> */}
             </ul>
