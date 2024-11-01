@@ -215,8 +215,8 @@ function FavoritedBudgets({ data }: AllBudgetsProps) {
                               <div className="flex flex-row items-center w-max gap-2">
                                 <DropdownMenuTrigger asChild>
                                   <Button
-                                    variant="outline"
-                                    className="border border-gray-200 border-solid"
+                                    variant="ghost"
+                                    className="hover:bg-slate-200/50"
                                   >
                                     <MoreHorizontal size={16} />
                                   </Button>
