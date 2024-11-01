@@ -13,6 +13,7 @@ import {
   Edit2,
   MoreHorizontal,
   Star,
+  StarIcon,
   StarOff,
   Trash2,
 } from "lucide-react";
@@ -50,7 +51,7 @@ export function BudgetPage() {
         <Link to="/budgeting/new">
           <Button
             variant="link"
-            className="hover:no-underline hover:bg-gray-200 rounded-xl"
+            className="hover:no-underline hover:bg-gray-100 hover:text-primary/80 rounded-xl"
           >
             Create Budget
           </Button>
@@ -103,22 +104,12 @@ function AllBudgets({ data }: AllBudgetsProps) {
                     <div className="flex flex-row items-center w-max gap-2">
                       <DropdownMenuTrigger asChild>
                         <Button
-                          variant="outline"
-                          className="border border-gray-200 border-solid"
+                          variant="ghost"
+                          className="hover:bg-slate-200/50"
                         >
                           <MoreHorizontal size={16} />
                         </Button>
                       </DropdownMenuTrigger>
-                      <Button
-                        variant="outline"
-                        className="border border-gray-200 border-solid"
-                      >
-                        <Star
-                          size={15}
-                          strokeWidth={2}
-                          className="text-primary hover:cursor-pointer"
-                        />
-                      </Button>
                     </div>
                     <DropdownMenuContent>
                       <DropdownMenuItem
@@ -130,12 +121,15 @@ function AllBudgets({ data }: AllBudgetsProps) {
                       >
                         <ArrowUpRightFromCircleIcon /> View Budget
                       </DropdownMenuItem>
+                      <DropdownMenuSeparator />
                       <DropdownMenuItem>
-                        <Trash2 /> Delete Budget
+                        <StarIcon /> Add to favorites
                       </DropdownMenuItem>
-                      {/* <DropdownMenuSeparator /> */}
                       <DropdownMenuItem>
-                        <Edit2 /> Edit Budget
+                        <Edit2 /> Edit budget
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Trash2 /> Delete budget
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
@@ -150,6 +144,7 @@ function AllBudgets({ data }: AllBudgetsProps) {
 }
 
 function FavoritedBudgets({ data }: AllBudgetsProps) {
+  const navigate = useNavigate();
   return (
     <div className="mt-2">
       <Accordion type="single" collapsible defaultValue="favorites">
@@ -158,7 +153,7 @@ function FavoritedBudgets({ data }: AllBudgetsProps) {
             <h3 className="text-xl lg:text-xl font-semibold">Favorites</h3>
           </AccordionTrigger>
           <AccordionContent>
-            <div className="bg-gray-300/20 rounded-2xl min-h-[100px] py-4 px-3 flex items-center">
+            <div className="bg-slate-200/30 rounded-2xl min-h-[100px] py-4 px-3 flex items-center">
               {!data || data.length === 0 ? (
                 <p className="text-gray-500 flex flex-row items-center text-sm font-medium justify-center">
                   You have not favorited any budgets. Press the{" "}
@@ -199,25 +194,26 @@ function FavoritedBudgets({ data }: AllBudgetsProps) {
                                     <MoreHorizontal size={16} />
                                   </Button>
                                 </DropdownMenuTrigger>
-                                <Button
-                                  variant="outline"
-                                  className="border border-gray-200 border-solid"
-                                  title="Un-favorite this budget"
-                                >
-                                  <StarOff
-                                    size={15}
-                                    strokeWidth={2}
-                                    className="text-primary hover:cursor-pointer"
-                                  />
-                                </Button>
                               </div>
                               <DropdownMenuContent>
-                                <DropdownMenuItem>
-                                  <Trash2 /> Delete Budget
+                                <DropdownMenuItem
+                                  onClick={() => {
+                                    navigate({
+                                      to: `/budgeting/${budget.id}`, // go to budget overview page
+                                    });
+                                  }}
+                                >
+                                  <ArrowUpRightFromCircleIcon /> View Budget
                                 </DropdownMenuItem>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem>
-                                  <Edit2 /> Edit Budget
+                                  <StarOff /> Remove from favorites
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                  <Edit2 /> Edit budget
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                  <Trash2 /> Delete budget
                                 </DropdownMenuItem>
                               </DropdownMenuContent>
                             </DropdownMenu>
