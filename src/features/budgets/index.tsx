@@ -153,7 +153,7 @@ function FavoritedBudgets({ data }: AllBudgetsProps) {
             <h3 className="text-xl lg:text-xl font-semibold">Favorites</h3>
           </AccordionTrigger>
           <AccordionContent>
-            <div className="bg-slate-200/30 rounded-2xl min-h-[100px] py-4 px-3 flex items-center">
+            <div className="bg-slate-100/40 border border-slate-200/40 rounded-2xl min-h-[100px] py-4 px-3 flex items-center">
               {!data || data.length === 0 ? (
                 <p className="text-gray-500 flex flex-row items-center text-sm font-medium justify-center">
                   You have not favorited any budgets. Press the{" "}
