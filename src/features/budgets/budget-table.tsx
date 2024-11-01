@@ -89,7 +89,10 @@ function BudgetTable({ data }: BudgetTableProps) {
                         handleUpdateFavorite(budget.id, budget.isFavorited)
                       }
                     >
-                      <StarIcon /> Add to favorites
+                      <StarIcon />{" "}
+                      {budget.isFavorited
+                        ? "Unfavorite Budget"
+                        : "Favorite Budget"}
                     </DropdownMenuItem>
                     <DropdownMenuItem>
                       <Edit2 /> Edit budget
