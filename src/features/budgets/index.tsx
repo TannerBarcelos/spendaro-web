@@ -32,6 +32,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Link, useNavigate } from "@tanstack/react-router";
+import { useUpdateBudget } from "./_api/mutations/useUpdateBudget";
+import { toast } from "sonner";
 
 export function BudgetPage() {
   const { data, isLoading, isError } = useGetBudgets();
@@ -70,11 +72,23 @@ interface AllBudgetsProps {
 }
 
 function AllBudgets({ data }: AllBudgetsProps) {
+  const updateBudget = useUpdateBudget();
+
   const navigate = useNavigate();
 
   if (!data || data.length === 0) {
     return <p>No budgets found</p>;
   }
+
+  const handleUpdateFavorite = async (budget_id: number, favorite: boolean) => {
+    const updated_budget = await updateBudget.mutateAsync({
+      budget_id: budget_id.toString(),
+      budget_to_update: { isFavorited: favorite },
+    });
+    toast.success(
+      `Added ${updated_budget.data.budget_name} budget to favorites`
+    );
+  };
 
   return (
     <div className="mt-10">
@@ -90,7 +104,7 @@ function AllBudgets({ data }: AllBudgetsProps) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data?.map((budget: any) => {
+          {data?.map((budget: Budget) => {
             return (
               <TableRow key={budget.id}>
                 <TableCell>{budget.budget_name}</TableCell>
@@ -115,14 +129,17 @@ function AllBudgets({ data }: AllBudgetsProps) {
                       <DropdownMenuItem
                         onClick={() => {
                           navigate({
-                            to: `/budgeting/${budget.id}`, // go to budget overview page
+                            to: `/budgeting/${budget.id}`,
                           });
                         }}
                       >
                         <ArrowUpRightFromCircleIcon /> View Budget
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem>
+                      <DropdownMenuItem
+                        disabled={budget.isFavorited}
+                        onClick={() => handleUpdateFavorite(budget.id, true)}
+                      >
                         <StarIcon /> Add to favorites
                       </DropdownMenuItem>
                       <DropdownMenuItem>
@@ -145,6 +162,16 @@ function AllBudgets({ data }: AllBudgetsProps) {
 
 function FavoritedBudgets({ data }: AllBudgetsProps) {
   const navigate = useNavigate();
+  const updateBudget = useUpdateBudget();
+  const handleUpdateFavorite = async (budget_id: number, favorite: boolean) => {
+    const updated_budget = await updateBudget.mutateAsync({
+      budget_id: budget_id.toString(),
+      budget_to_update: { isFavorited: favorite },
+    });
+    toast.success(
+      `Removed ${updated_budget.data.budget_name} budget from favorites`
+    );
+  };
   return (
     <div className="mt-2">
       <Accordion type="single" collapsible defaultValue="favorites">
@@ -174,7 +201,7 @@ function FavoritedBudgets({ data }: AllBudgetsProps) {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {data?.map((budget: any) => {
+                    {data?.map((budget: Budget) => {
                       return (
                         <TableRow key={budget.id}>
                           <TableCell>{budget.budget_name}</TableCell>
@@ -206,7 +233,11 @@ function FavoritedBudgets({ data }: AllBudgetsProps) {
                                   <ArrowUpRightFromCircleIcon /> View Budget
                                 </DropdownMenuItem>
                                 <DropdownMenuSeparator />
-                                <DropdownMenuItem>
+                                <DropdownMenuItem
+                                  onClick={() =>
+                                    handleUpdateFavorite(budget.id, false)
+                                  }
+                                >
                                   <StarOff /> Remove from favorites
                                 </DropdownMenuItem>
                                 <DropdownMenuItem>
