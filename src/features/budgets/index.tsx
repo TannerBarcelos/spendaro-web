@@ -1,29 +1,6 @@
 import { useGetBudgets } from "./_api/queries/useGetBudgets";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import {
-  ArrowUpRightFromCircleIcon,
-  Edit2,
-  MoreHorizontal,
-  Star,
-  StarIcon,
-  StarOff,
-  Trash2,
-} from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Star } from "lucide-react";
 import { Budget } from "./_api/index";
 import {
   Accordion,
@@ -31,9 +8,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Link, useNavigate } from "@tanstack/react-router";
-import { useUpdateBudget } from "./_api/mutations/useUpdateBudget";
-import { toast } from "sonner";
+import { Link } from "@tanstack/react-router";
+import BudgetTable from "./budget-table";
 
 export function BudgetPage() {
   const { data, isLoading, isError } = useGetBudgets();
@@ -72,106 +48,18 @@ interface AllBudgetsProps {
 }
 
 function AllBudgets({ data }: AllBudgetsProps) {
-  const updateBudget = useUpdateBudget();
-
-  const navigate = useNavigate();
-
   if (!data || data.length === 0) {
     return <p>No budgets found</p>;
   }
-
-  const handleUpdateFavorite = async (budget_id: number, favorite: boolean) => {
-    const updated_budget = await updateBudget.mutateAsync({
-      budget_id: budget_id.toString(),
-      budget_to_update: { isFavorited: favorite },
-    });
-    toast.success(
-      `Added ${updated_budget.data.budget_name} budget to favorites`
-    );
-  };
-
   return (
     <div className="mt-10">
       <h3 className="text-xl lg:text-xl font-semibold">All Budgets</h3>
-      <Table className="mt-8">
-        <TableHeader>
-          <TableRow>
-            <TableHead>Budget Name</TableHead>
-            <TableHead>Budget Description</TableHead>
-            <TableHead>Budget Amount</TableHead>
-            <TableHead>Created</TableHead>
-            <TableHead>Actions</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {data?.map((budget: Budget) => {
-            return (
-              <TableRow key={budget.id}>
-                <TableCell>{budget.budget_name}</TableCell>
-                <TableCell>{budget.budget_description}</TableCell>
-                <TableCell>${budget.amount}</TableCell>
-                <TableCell>
-                  {new Date(budget.createdAt).toLocaleDateString()}
-                </TableCell>
-                <TableCell>
-                  <DropdownMenu>
-                    <div className="flex flex-row items-center w-max gap-2">
-                      <DropdownMenuTrigger asChild>
-                        <Button
-                          variant="ghost"
-                          className="hover:bg-slate-200/50"
-                        >
-                          <MoreHorizontal size={16} />
-                        </Button>
-                      </DropdownMenuTrigger>
-                    </div>
-                    <DropdownMenuContent>
-                      <DropdownMenuItem
-                        onClick={() => {
-                          navigate({
-                            to: `/budgeting/${budget.id}`,
-                          });
-                        }}
-                      >
-                        <ArrowUpRightFromCircleIcon /> View Budget
-                      </DropdownMenuItem>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem
-                        disabled={budget.isFavorited}
-                        onClick={() => handleUpdateFavorite(budget.id, true)}
-                      >
-                        <StarIcon /> Add to favorites
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Edit2 /> Edit budget
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Trash2 /> Delete budget
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
+      <BudgetTable data={data} />
     </div>
   );
 }
 
 function FavoritedBudgets({ data }: AllBudgetsProps) {
-  const navigate = useNavigate();
-  const updateBudget = useUpdateBudget();
-  const handleUpdateFavorite = async (budget_id: number, favorite: boolean) => {
-    const updated_budget = await updateBudget.mutateAsync({
-      budget_id: budget_id.toString(),
-      budget_to_update: { isFavorited: favorite },
-    });
-    toast.success(
-      `Removed ${updated_budget.data.budget_name} budget from favorites`
-    );
-  };
   return (
     <div className="mt-2">
       <Accordion type="single" collapsible defaultValue="favorites">
@@ -190,70 +78,7 @@ function FavoritedBudgets({ data }: AllBudgetsProps) {
                   </span>
                 </p>
               ) : (
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Budget Name</TableHead>
-                      <TableHead>Budget Description</TableHead>
-                      <TableHead>Budget Amount</TableHead>
-                      <TableHead>Created</TableHead>
-                      <TableHead>Actions</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {data?.map((budget: Budget) => {
-                      return (
-                        <TableRow key={budget.id}>
-                          <TableCell>{budget.budget_name}</TableCell>
-                          <TableCell>{budget.budget_description}</TableCell>
-                          <TableCell>${budget.amount}</TableCell>
-                          <TableCell>
-                            {new Date(budget.createdAt).toLocaleDateString()}
-                          </TableCell>
-                          <TableCell>
-                            <DropdownMenu>
-                              <div className="flex flex-row items-center w-max gap-2">
-                                <DropdownMenuTrigger asChild>
-                                  <Button
-                                    variant="ghost"
-                                    className="hover:bg-slate-200/50"
-                                  >
-                                    <MoreHorizontal size={16} />
-                                  </Button>
-                                </DropdownMenuTrigger>
-                              </div>
-                              <DropdownMenuContent>
-                                <DropdownMenuItem
-                                  onClick={() => {
-                                    navigate({
-                                      to: `/budgeting/${budget.id}`, // go to budget overview page
-                                    });
-                                  }}
-                                >
-                                  <ArrowUpRightFromCircleIcon /> View Budget
-                                </DropdownMenuItem>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem
-                                  onClick={() =>
-                                    handleUpdateFavorite(budget.id, false)
-                                  }
-                                >
-                                  <StarOff /> Remove from favorites
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                  <Edit2 /> Edit budget
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                  <Trash2 /> Delete budget
-                                </DropdownMenuItem>
-                              </DropdownMenuContent>
-                            </DropdownMenu>
-                          </TableCell>
-                        </TableRow>
-                      );
-                    })}
-                  </TableBody>
-                </Table>
+                <BudgetTable data={data} />
               )}
             </div>
           </AccordionContent>
