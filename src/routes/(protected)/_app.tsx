@@ -199,39 +199,39 @@ function MenuIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
   );
 }
 
-const components: { title: string; href: string; description: string }[] = [
+const components: { title: string; to: string; description: string }[] = [
   {
     title: "Alert Dialog",
-    href: "/docs/primitives/alert-dialog",
+    to: "/docs/primitives/alert-dialog",
     description:
       "A modal dialog that interrupts the user with important content and expects a response.",
   },
   {
     title: "Hover Card",
-    href: "/docs/primitives/hover-card",
+    to: "/docs/primitives/hover-card",
     description:
       "For sighted users to preview content available behind a link.",
   },
   {
     title: "Progress",
-    href: "/docs/primitives/progress",
+    to: "/docs/primitives/progress",
     description:
       "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
   },
   {
     title: "Scroll-area",
-    href: "/docs/primitives/scroll-area",
+    to: "/docs/primitives/scroll-area",
     description: "Visually or semantically separates content.",
   },
   {
     title: "Tabs",
-    href: "/docs/primitives/tabs",
+    to: "/docs/primitives/tabs",
     description:
       "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
   },
   {
     title: "Tooltip",
-    href: "/docs/primitives/tooltip",
+    to: "/docs/primitives/tooltip",
     description:
       "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
   },
@@ -244,11 +244,9 @@ export function NavMenu() {
         <NavigationMenuItem>
           <Link
             to="/dashboard"
-            className="[&.active]:text-primary [&.active]:font-medium"
+            className={`[&.active]:text-primary [&.active]:font-medium ${navigationMenuTriggerStyle()}`}
           >
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Dashboard
-            </NavigationMenuLink>
+            Dashboard
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
@@ -256,27 +254,25 @@ export function NavMenu() {
           <NavigationMenuContent>
             <ul className="grid gap-2 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
               <li className="row-span-3">
-                <NavigationMenuLink asChild>
-                  <Link
-                    className="flex h-full w-full select-none flex-col justify-center rounded-md border bg-slate-50 hover:bg-slate-100 p-6 no-underline outline-none focus:shadow-md"
-                    href="/budgeting/new"
-                  >
-                    <div className="text-lg font-medium">Create Budget</div>
-                    <p className="text-sm leading-tight text-muted-foreground">
-                      Create a new budget and start tracking your expenses
-                    </p>
-                  </Link>
-                </NavigationMenuLink>
+                <Link
+                  className="flex h-full w-full select-none flex-col justify-center rounded-md border bg-slate-50 hover:bg-slate-100 p-6 no-underline outline-none focus:shadow-md"
+                  to="/budgeting/new"
+                >
+                  <div className="text-lg font-medium">Create Budget</div>
+                  <p className="text-sm leading-tight text-muted-foreground">
+                    Create a new budget and start tracking your expenses
+                  </p>
+                </Link>
               </li>
-              <ListItem href="/budgeting" title="View Budgets">
+              <ListItem to="/budgeting" title="View Budgets">
                 <p className="text-sm leading-tight">
                   View all your current and favorited budgets.
                 </p>
               </ListItem>
-              <ListItem href="/categories" title="Category Management">
+              <ListItem to="/categories" title="Category Management">
                 View and manage budget categories
               </ListItem>
-              <ListItem href="/categories" title="Category Management">
+              <ListItem to="/categories" title="Category Management">
                 View and manage budget categories
               </ListItem>
             </ul>
@@ -287,27 +283,24 @@ export function NavMenu() {
           <NavigationMenuContent>
             <ul className="grid gap-2 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
               <li className="row-span-3">
-                <NavigationMenuLink asChild>
-                  <Link
-                    className="flex h-full w-full select-none flex-col justify-center rounded-md border bg-slate-50 hover:bg-slate-100  p-6 no-underline outline-none focus:shadow-md"
-                    href="/transactions/new"
-                  >
-                    <div className="text-lg font-medium">Add Transaction</div>
-                    <p className="text-sm leading-tight text-muted-foreground">
-                      Add a new transaction to your budget
-                    </p>
-                  </Link>
-                </NavigationMenuLink>
+                <Link
+                  className="flex h-full w-full select-none flex-col justify-center rounded-md border bg-slate-50 hover:bg-slate-100  p-6 no-underline outline-none focus:shadow-md"
+                  to="/transactions/new"
+                >
+                  <div className="text-lg font-medium">Add Transaction</div>
+                  <p className="text-sm leading-tight text-muted-foreground">
+                    Add a new transaction to your budget
+                  </p>
+                </Link>
               </li>
-              <ListItem href="/transactions" title="View All Transactions">
+              <ListItem to="/transactions" title="View All Transactions">
                 <p className="text-sm leading-tight">
                   View all your transactions.
                 </p>
               </ListItem>
-              <ListItem href="/categories" title="Manage Transactions">
+              <ListItem to="/categories" title="Manage Transactions">
                 Manage transactions and view transaction history
               </ListItem>
-              {/* <ListItem>View and manage budget categories</ListItem> */}
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
@@ -318,8 +311,8 @@ export function NavMenu() {
               {components.map((component) => (
                 <ListItem
                   key={component.title}
+                  to={component.to}
                   title={component.title}
-                  href={component.href}
                 >
                   {component.description}
                 </ListItem>
@@ -332,27 +325,28 @@ export function NavMenu() {
   );
 }
 
-const ListItem = React.forwardRef<
-  LinkComponent<"a">,
-  React.ComponentPropsWithoutRef<"a">
->(({ className, title, children, ...props }) => {
+const ListItem = ({
+  to,
+  title,
+  children,
+}: {
+  to: string;
+  title: string;
+  children?: React.ReactNode;
+}) => {
   return (
     <li>
-      <NavigationMenuLink asChild>
-        <Link
-          className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
-          )}
-          {...props}
-        >
-          <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-            {children}
-          </p>
-        </Link>
-      </NavigationMenuLink>
+      <Link
+        to={to}
+        className={cn(
+          "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+        )}
+      >
+        <div className="text-sm font-medium leading-none">{title}</div>
+        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+          {children}
+        </p>
+      </Link>
     </li>
   );
-});
-ListItem.displayName = "ListItem";
+};

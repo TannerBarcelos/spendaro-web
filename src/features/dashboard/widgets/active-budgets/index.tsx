@@ -30,10 +30,8 @@ const WidgetTitle = () => {
           <Info info="A list of all your active budgets" />
         </div>
         <DropdownMenu>
-          <DropdownMenuTrigger>
-            <Button variant="ghost">
-              <EllipsisVertical className="ml-auto" />
-            </Button>
+          <DropdownMenuTrigger className="hover:text-primary rounded-2xl">
+            <EllipsisVertical className="ml-auto size-4" />
           </DropdownMenuTrigger>
           <DropdownMenuContent sideOffset={3}>
             <Link to={"/budgeting/new"}>
