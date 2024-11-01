@@ -1,10 +1,10 @@
 import axiosInstance from "@/lib/axios";
 import { useMutation } from "@tanstack/react-query";
-import { Budget } from "..";
+import { Budget, BudgetResponse } from "..";
 import { queryClient } from "@/lib/client";
 
 const updateBudget = async (id: string, budgetData: any) => {
-  const { data } = await axiosInstance.put<Budget>(`/budgets/${id}`, budgetData);
+  const { data } = await axiosInstance.put<BudgetResponse>(`/budgets/${id}`, budgetData);
   return data
 };
 

@@ -85,7 +85,9 @@ function AllBudgets({ data }: AllBudgetsProps) {
       budget_id: budget_id.toString(),
       budget_to_update: { isFavorited: favorite },
     });
-    toast.success(`Added ${updated_budget.budget_name} budget to favorites`);
+    toast.success(
+      `Added ${updated_budget.data.budget_name} budget to favorites`
+    );
   };
 
   return (
@@ -167,7 +169,7 @@ function FavoritedBudgets({ data }: AllBudgetsProps) {
       budget_to_update: { isFavorited: favorite },
     });
     toast.success(
-      `Removed ${updated_budget.budget_name} budget from favorites`
+      `Removed ${updated_budget.data.budget_name} budget from favorites`
     );
   };
   return (
