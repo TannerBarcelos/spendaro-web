@@ -1,4 +1,4 @@
-import { useGetBudgets } from "./_api/queries";
+import { useGetBudgets } from "./_api/queries/useGetBudgets";
 import {
   Table,
   TableBody,
@@ -11,7 +11,6 @@ import { Button } from "@/components/ui/button";
 import {
   ArrowUpRightFromCircleIcon,
   Edit2,
-  EyeIcon,
   MoreHorizontal,
   Star,
   StarOff,

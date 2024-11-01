@@ -4,10 +4,12 @@ import { Toaster } from "@/components/ui/sonner";
 import { QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-// The root route is the entry point for TanStack Router. It is the parent of all other routes. It will always be rendered, so it is a good place to put layout components like a Navigation or sidebar.
-export const Route = createRootRouteWithContext<{
+type RouterContext = {
   queryClient: QueryClient;
-}>()({
+};
+
+// The root route is the entry point for TanStack Router. It is the parent of all other routes. It will always be rendered, so it is a good place to put layout components like a Navigation or sidebar.
+export const Route = createRootRouteWithContext<RouterContext>()({
   component: Root,
 });
 

@@ -1,4 +1,4 @@
-import { getBudgetOptions } from "@/features/budgets/_api/queries";
+import { getBudgetOptions } from "@/features/budgets/_api/queries/useGetBudget";
 import { ViewBudget } from "@/features/budgets/budget/view-budget";
 import { createFileRoute } from "@tanstack/react-router";
 

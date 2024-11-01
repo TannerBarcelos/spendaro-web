@@ -22,13 +22,15 @@ const UnAuthNav = () => {
 
 export function AuthPage() {
   const navigate = useNavigate();
-  const isSignedIn = useAuthStore((state) => state.isSignedIn);
+  const access_token = useAuthStore((state) => state.accessToken);
   const [selectedTab, setSelectedTab] = useState("signin");
   const handleTabChange = (value: string) => {
     setSelectedTab(value);
   };
 
-  if (isSignedIn) {
+  // access token can exist,but be expired. When a request is sent from the dashboard, the server will return a 401 error if the token is expired.
+  // and the user will be redirected to the login page and have the token removed from the local storage.
+  if (access_token) {
     navigate({
       to: "/dashboard",
     });
