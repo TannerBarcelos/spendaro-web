@@ -36,30 +36,30 @@ export function BudgetPage() {
         </Link>
       </div>
       <div className="mt-5">
-        <FavoritedBudgets data={data?.data.filter((d) => d.is_favorite)} />
-        <AllBudgets data={data?.data} />
+        <FavoriteBudgets budgets={data?.data.filter((d) => d.is_favorite)} />
+        <AllBudgets budgets={data?.data} />
       </div>
     </div>
   );
 }
 
 interface AllBudgetsProps {
-  data?: Budget[];
+  budgets?: Budget[];
 }
 
-function AllBudgets({ data }: AllBudgetsProps) {
-  if (!data || data.length === 0) {
+function AllBudgets({ budgets }: AllBudgetsProps) {
+  if (!budgets || budgets.length === 0) {
     return <p>No budgets found</p>;
   }
   return (
     <div className="mt-10">
       <h3 className="text-xl lg:text-xl font-semibold">All Budgets</h3>
-      <BudgetTable data={data} />
+      <BudgetTable budgets={budgets} />
     </div>
   );
 }
 
-function FavoritedBudgets({ data }: AllBudgetsProps) {
+function FavoriteBudgets({ budgets }: AllBudgetsProps) {
   return (
     <div className="mt-2">
       <Accordion type="single" collapsible defaultValue="favorites">
@@ -69,10 +69,10 @@ function FavoritedBudgets({ data }: AllBudgetsProps) {
           </AccordionTrigger>
           <AccordionContent>
             <div className="bg-slate-100/40 border border-slate-200/40 rounded-2xl min-h-[100px] px-3 flex items-center">
-              {!data || data.length === 0 ? (
+              {!budgets || budgets.length === 0 ? (
                 <NoFavorites />
               ) : (
-                <BudgetTable data={data} />
+                <BudgetTable budgets={budgets} />
               )}
             </div>
           </AccordionContent>

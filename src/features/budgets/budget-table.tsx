@@ -27,10 +27,10 @@ import { toast } from "sonner";
 import { useNavigate } from "@tanstack/react-router";
 
 type BudgetTableProps = {
-  data: Budget[];
+  budgets: Budget[];
 };
 
-function BudgetTable({ data }: BudgetTableProps) {
+function BudgetTable({ budgets }: BudgetTableProps) {
   const navigate = useNavigate();
   const updateBudget = useUpdateBudget();
   const handleUpdateFavorite = async (budget_id: number, favorite: boolean) => {
@@ -54,7 +54,7 @@ function BudgetTable({ data }: BudgetTableProps) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {data.map((budget: Budget) => {
+        {budgets.map((budget) => {
           return (
             <TableRow key={budget.id}>
               <TableCell>{budget.budget_name}</TableCell>
