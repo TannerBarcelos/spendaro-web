@@ -51,14 +51,18 @@ interface AllBudgetsProps {
 
 function AllBudgets({ budgets }: AllBudgetsProps) {
   return (
-    <div className="mt-10">
-      <h3 className="text-xl lg:text-xl font-semibold">All Budgets</h3>
-      {budgets && budgets.length > 0 ? (
-        <BudgetTable budgets={budgets} />
-      ) : (
-        <NoBudgetsFound />
-      )}
-    </div>
+    <>
+      <h3 className="text-xl lg:text-xl font-semibold my-4 mt-8">
+        All Budgets
+      </h3>
+      <div className="bg-slate-100/40 border border-slate-200/40 rounded-2xl min-h-[100px] px-3 flex items-center">
+        {budgets && budgets.length > 0 ? (
+          <BudgetTable budgets={budgets} />
+        ) : (
+          <NoBudgetsFound />
+        )}
+      </div>
+    </>
   );
 }
 
