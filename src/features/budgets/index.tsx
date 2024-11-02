@@ -22,6 +22,9 @@ export function BudgetPage() {
     return <div>Error fetching budgets</div>;
   }
 
+  const favoritedBudgets = data?.data.filter((budget) => budget.is_favorite);
+  const allBudgets = data?.data.filter((budget) => !budget);
+
   return (
     <div>
       <div className="w-full flex flex-row items-center justify-between">
@@ -36,8 +39,8 @@ export function BudgetPage() {
         </Link>
       </div>
       <div className="mt-5">
-        <FavoriteBudgets budgets={data?.data.filter((d) => d.is_favorite)} />
-        <AllBudgets budgets={data?.data} />
+        <FavoriteBudgets budgets={favoritedBudgets} />
+        <AllBudgets budgets={allBudgets} />
       </div>
     </div>
   );
@@ -48,13 +51,14 @@ interface AllBudgetsProps {
 }
 
 function AllBudgets({ budgets }: AllBudgetsProps) {
-  if (!budgets || budgets.length === 0) {
-    return <p>No budgets found</p>;
-  }
   return (
     <div className="mt-10">
       <h3 className="text-xl lg:text-xl font-semibold">All Budgets</h3>
-      <BudgetTable budgets={budgets} />
+      {budgets && budgets.length > 0 ? (
+        <BudgetTable budgets={budgets} />
+      ) : (
+        <NoBudgetsFound />
+      )}
     </div>
   );
 }
@@ -69,10 +73,10 @@ function FavoriteBudgets({ budgets }: AllBudgetsProps) {
           </AccordionTrigger>
           <AccordionContent>
             <div className="bg-slate-100/40 border border-slate-200/40 rounded-2xl min-h-[100px] px-3 flex items-center">
-              {!budgets || budgets.length === 0 ? (
-                <NoFavorites />
-              ) : (
+              {budgets && budgets.length > 0 ? (
                 <BudgetTable budgets={budgets} />
+              ) : (
+                <NoFavoritesFound />
               )}
             </div>
           </AccordionContent>
@@ -82,7 +86,18 @@ function FavoriteBudgets({ budgets }: AllBudgetsProps) {
   );
 }
 
-function NoFavorites() {
+function NoBudgetsFound() {
+  return (
+    <div className="p-8 mt-4 text-center text-gray-700 bg-slate-100/40 border border-slate-200/40 rounded-2xl">
+      <p className="text-lg">Currently, you have no budgets.</p>
+      <p className="text-sm pt-4">
+        Click the Create Budget button above to begin creating a budget.
+      </p>
+    </div>
+  );
+}
+
+function NoFavoritesFound() {
   return (
     <p className="text-gray-500 flex flex-row items-center text-sm font-medium justify-center">
       You have not favorited any budgets. Press the{" "}
