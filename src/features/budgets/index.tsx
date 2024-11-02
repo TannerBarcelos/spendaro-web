@@ -23,7 +23,6 @@ export function BudgetPage() {
   }
 
   const favoritedBudgets = data?.data.filter((budget) => budget.is_favorite);
-  const allBudgets = data?.data.filter((budget) => !budget);
 
   return (
     <div>
@@ -40,7 +39,7 @@ export function BudgetPage() {
       </div>
       <div className="mt-5">
         <FavoriteBudgets budgets={favoritedBudgets} />
-        <AllBudgets budgets={allBudgets} />
+        <AllBudgets budgets={data?.data} />
       </div>
     </div>
   );
