@@ -5,7 +5,8 @@ export type Budget = {
   budget_name:        string;
   budget_description: string;
   amount:             number;
-  isFavorited:        boolean;
+  is_favorite:        boolean;
+  is_active:          boolean;
   createdAt:          Date;
   updatedAt:          Date;
 }
