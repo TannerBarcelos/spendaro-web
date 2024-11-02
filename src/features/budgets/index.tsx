@@ -70,13 +70,7 @@ function FavoritedBudgets({ data }: AllBudgetsProps) {
           <AccordionContent>
             <div className="bg-slate-100/40 border border-slate-200/40 rounded-2xl min-h-[100px] px-3 flex items-center">
               {!data || data.length === 0 ? (
-                <p className="text-gray-500 flex flex-row items-center text-sm font-medium justify-center">
-                  You have not favorited any budgets. Press the{" "}
-                  <span className="flex flex-row items-center">
-                    <Star width={10} className="mx-1" /> on any budget in the
-                    list below to favorite.
-                  </span>
-                </p>
+                <NoFavorites />
               ) : (
                 <BudgetTable data={data} />
               )}
@@ -85,5 +79,17 @@ function FavoritedBudgets({ data }: AllBudgetsProps) {
         </AccordionItem>
       </Accordion>
     </div>
+  );
+}
+
+function NoFavorites() {
+  return (
+    <p className="text-gray-500 flex flex-row items-center text-sm font-medium justify-center">
+      You have not favorited any budgets. Press the{" "}
+      <span className="flex flex-row items-center">
+        <Star width={10} className="mx-1" /> on any budget in the list below to
+        favorite.
+      </span>
+    </p>
   );
 }

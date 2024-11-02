@@ -36,7 +36,7 @@ function BudgetTable({ data }: BudgetTableProps) {
   const handleUpdateFavorite = async (budget_id: number, favorite: boolean) => {
     const updated_budget = await updateBudget.mutateAsync({
       budget_id: budget_id.toString(),
-      budget_to_update: { isFavorited: !favorite },
+      budget_to_update: { is_favorite: !favorite },
     });
     toast.success(
       `Added ${updated_budget.data.budget_name} budget to favorites`
@@ -84,13 +84,13 @@ function BudgetTable({ data }: BudgetTableProps) {
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem
-                      disabled={budget.isFavorited}
+                      disabled={budget.is_favorite}
                       onClick={() =>
-                        handleUpdateFavorite(budget.id, budget.isFavorited)
+                        handleUpdateFavorite(budget.id, budget.is_favorite)
                       }
                     >
                       <StarIcon />{" "}
-                      {budget.isFavorited
+                      {budget.is_favorite
                         ? "Unfavorite Budget"
                         : "Favorite Budget"}
                     </DropdownMenuItem>
