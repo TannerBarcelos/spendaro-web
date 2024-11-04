@@ -23,7 +23,7 @@ export function LoadingBudgetState() {
             stroke="currentColor"
             strokeWidth="4"
             strokeLinecap="round"
-            className="text-primary"
+            className="text-primary "
           >
             <animateTransform
               attributeName="transform"
@@ -36,7 +36,7 @@ export function LoadingBudgetState() {
             />
           </path>
         </svg>
-        <Loader2 className="absolute bottom-0 right-0 h-12 w-12 text-primary animate-spin" />
+        <Loader2 className="absolute bottom-0 right-0 h-12 w-12 text-primary  animate-spin" />
       </div>
       <h2 className="text-2xl font-semibold mb-3">Loading your budgets</h2>
       <p className="text-muted-foreground mb-6 max-w-sm">

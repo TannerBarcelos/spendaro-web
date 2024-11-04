@@ -30,7 +30,7 @@ const WidgetTitle = () => {
           <Info info="Detailed view over your budget performance" />
         </div>
         <DropdownMenu>
-          <DropdownMenuTrigger className="hover:text-primary rounded-2xl">
+          <DropdownMenuTrigger className="hover:text-primary  rounded-2xl">
             <EllipsisVertical className="ml-auto size-4" />
           </DropdownMenuTrigger>
           <DropdownMenuContent sideOffset={3}>

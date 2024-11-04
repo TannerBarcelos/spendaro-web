@@ -30,7 +30,7 @@ const WidgetTitle = () => {
           <Info info="A list of all your latest transactions across all your accounts and budgets" />
         </div>
         <DropdownMenu>
-          <DropdownMenuTrigger className="hover:text-primary rounded-2xl">
+          <DropdownMenuTrigger className="hover:text-primary  rounded-2xl">
             <EllipsisVertical className="ml-auto size-4" />
           </DropdownMenuTrigger>
           <DropdownMenuContent sideOffset={3}>

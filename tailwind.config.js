@@ -14,6 +14,7 @@ export default {
   		},
   		backgroundColor: {
   			primary: 'hsl(var(--primary))',
+			dark: 'hsl(var(--dark-background))',
   			'nav-item-hover': 'rgba(0,110,255,0.14)'
   		},
   		colors: {
@@ -21,7 +22,8 @@ export default {
   			foreground: 'hsl(var(--foreground))',
   			card: {
   				DEFAULT: 'hsl(var(--card))',
-  				foreground: 'hsl(var(--card-foreground))'
+  				foreground: 'hsl(var(--card-foreground))',
+				dark: 'hsl(var(--card-background))',
   			},
   			popover: {
   				DEFAULT: 'hsl(var(--popover))',
@@ -47,7 +49,9 @@ export default {
   				DEFAULT: 'hsl(var(--destructive))',
   				foreground: 'hsl(var(--destructive-foreground))'
   			},
-  			border: 'hsl(var(--border))',
+  			border: {
+				DEFAULT: 'hsl(var(--border))',
+			},
   			input: 'hsl(var(--input))',
   			ring: 'hsl(var(--ring))',
   			chart: {

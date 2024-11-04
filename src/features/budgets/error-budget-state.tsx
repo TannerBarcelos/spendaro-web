@@ -24,7 +24,7 @@ export function ErrorBudgetState({ onRetry }: { onRetry: () => void }) {
             stroke="currentColor"
             strokeWidth="4"
             strokeLinecap="round"
-            className="text-primary animate-spin-slow origin-center"
+            className="text-primary  animate-spin-slow origin-center"
           />
           <path
             d="M110 80 L90 120 M90 80 L110 120"

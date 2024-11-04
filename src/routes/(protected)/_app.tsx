@@ -88,7 +88,10 @@ export function Navbar({
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex flex-row">
           <Zap size={24} color="#006EFF" strokeWidth={2.5} className="mr-2" />
-          <Link to="/dashboard" className="text-xl font-semibold">
+          <Link
+            to="/dashboard"
+            className="text-xl font-semibold dark:text-indigo-100"
+          >
             Spendaro
           </Link>
         </div>
@@ -97,7 +100,7 @@ export function Navbar({
             <NavMenu />
             <div className="flex items-center">
               <div className="flex items-center justify-end space-x-4 p-3 rounded-full min-w-fit">
-                <div className="inline text-sm font-semibold text-gray-700 overflow-hidden whitespace-nowrap text-ellipsis text-right w-[100px]">
+                <div className="inline text-sm font-semibold text-gray-700 overflow-hidden whitespace-nowrap text-ellipsis text-right w-[100px] dark:text-indigo-300">
                   {isLoading ? (
                     <Skeleton className="w-full h-[30px] rounded-xl bg-gray-200/70" />
                   ) : (
@@ -237,7 +240,7 @@ export function NavMenu() {
         <NavigationMenuItem>
           <Link
             to="/dashboard"
-            className={`[&.active]:text-primary [&.active]:font-medium ${navigationMenuTriggerStyle()}`}
+            className={`[&.active]:text-primary  [&.active]:font-medium ${navigationMenuTriggerStyle()}`}
           >
             Dashboard
           </Link>

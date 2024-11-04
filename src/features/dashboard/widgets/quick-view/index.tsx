@@ -80,7 +80,7 @@ export function QuickViewBox({
     >
       <div className="flex items-center justify-between">
         <h1 className="text-base font-medium text-slate-900">{title}</h1>
-        <span className="bg-slate-200 w-8 h-8 flex items-center justify-center rounded-full text-primary">
+        <span className="bg-slate-200 w-8 h-8 flex items-center justify-center rounded-full text-primary ">
           {icon}
         </span>
       </div>
