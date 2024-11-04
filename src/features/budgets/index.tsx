@@ -67,7 +67,7 @@ function FavoriteBudgets({ budgets }: AllBudgetsProps) {
     <div className="mt-2">
       <Accordion type="single" collapsible defaultValue="favorites">
         <AccordionItem value="favorites">
-          <AccordionTrigger>
+          <AccordionTrigger className="max-w-fit">
             <h2>Favorited Budgets</h2>
           </AccordionTrigger>
           <AccordionContent>
