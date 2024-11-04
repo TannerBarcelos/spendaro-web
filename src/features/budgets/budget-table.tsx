@@ -12,6 +12,7 @@ import {
   Edit2,
   MoreHorizontal,
   StarIcon,
+  StarOffIcon,
   Trash2,
 } from "lucide-react";
 import {
@@ -35,24 +36,18 @@ function BudgetTable({ budgets }: BudgetTableProps) {
   return (
     <TableContainer>
       <Table className="my-2">
-        <BudgetTableHeader />
+        <TableHeader>
+          <TableRow>
+            <TableHead>Budget Name</TableHead>
+            <TableHead>Budget Description</TableHead>
+            <TableHead>Budget Amount</TableHead>
+            <TableHead>Created</TableHead>
+            <TableHead>Actions</TableHead>
+          </TableRow>
+        </TableHeader>
         <BudgetTableBody budgets={budgets} />
       </Table>
     </TableContainer>
-  );
-}
-
-function BudgetTableHeader() {
-  return (
-    <TableHeader>
-      <TableRow>
-        <TableHead>Budget Name</TableHead>
-        <TableHead>Budget Description</TableHead>
-        <TableHead>Budget Amount</TableHead>
-        <TableHead>Created</TableHead>
-        <TableHead>Actions</TableHead>
-      </TableRow>
-    </TableHeader>
   );
 }
 
@@ -74,7 +69,9 @@ function BudgetTableBody({ budgets }: BudgetTableProps) {
         return (
           <TableRow key={budget.id}>
             <TableCell>{budget.budget_name}</TableCell>
-            <TableCell>{budget.budget_description}</TableCell>
+            <TableCell className="text-clip">
+              {budget.budget_description}
+            </TableCell>
             <TableCell>${budget.amount}</TableCell>
             <TableCell>
               {new Date(budget.createdAt).toLocaleDateString()}
@@ -104,7 +101,7 @@ function BudgetTableBody({ budgets }: BudgetTableProps) {
                       handleUpdateFavorite(budget.id, budget.is_favorite)
                     }
                   >
-                    <StarIcon />{" "}
+                    {budget.is_favorite ? <StarOffIcon /> : <StarIcon />}
                     {budget.is_favorite
                       ? "Unfavorite Budget"
                       : "Favorite Budget"}

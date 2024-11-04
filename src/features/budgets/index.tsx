@@ -42,46 +42,36 @@ export function BudgetPage() {
           </Button>
         </Link>
       </div>
-
       {!budgets || budgets.length === 0 ? (
         <EmptyBudgetState />
       ) : (
         <div className="mt-5">
           {favoriteBudgets && favoriteBudgets.length > 0 && (
-            <FavoriteBudgets budgets={favoriteBudgets} />
+            <Accordion
+              type="single"
+              collapsible
+              defaultValue="favorites"
+              className="mt-2"
+            >
+              <AccordionItem value="favorites">
+                <AccordionTrigger className="max-w-fit">
+                  <h2>Favorited Budgets</h2>
+                </AccordionTrigger>
+                <AccordionContent>
+                  <BudgetTable budgets={favoriteBudgets || []} />
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           )}
-          <AllBudgets budgets={budgets} />
+
+          <>
+            {(favoriteBudgets?.length ?? 0) > 0 && (
+              <h2 className="font-medium my-4 mt-8">All Budgets</h2>
+            )}
+            <BudgetTable budgets={budgets || []} />
+          </>
         </div>
       )}
     </div>
-  );
-}
-
-function AllBudgets({ budgets }: TBudgets) {
-  return (
-    <>
-      <h2 className="font-medium my-4 mt-8">All Budgets</h2>
-      <BudgetTable budgets={budgets || []} />
-    </>
-  );
-}
-
-function FavoriteBudgets({ budgets }: TBudgets) {
-  return (
-    <Accordion
-      type="single"
-      collapsible
-      defaultValue="favorites"
-      className="mt-2"
-    >
-      <AccordionItem value="favorites">
-        <AccordionTrigger className="max-w-fit">
-          <h2>Favorited Budgets</h2>
-        </AccordionTrigger>
-        <AccordionContent>
-          <BudgetTable budgets={budgets || []} />
-        </AccordionContent>
-      </AccordionItem>
-    </Accordion>
   );
 }
