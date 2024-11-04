@@ -57,7 +57,6 @@ function Budgets({ budgets }: { budgets: Budget[] }) {
               </AccordionItem>
             </Accordion>
           )}
-
           <>
             {(favoriteBudgets.length ?? 0) > 0 && (
               <h2 className="font-medium my-4 mt-8">All Budgets</h2>

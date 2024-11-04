@@ -27,6 +27,7 @@ import { useUpdateBudget } from "./_api/mutations/useUpdateBudget";
 import { toast } from "sonner";
 import { useNavigate } from "@tanstack/react-router";
 import TableContainer from "@/components/table-container";
+import { formatDate } from "@/lib/utils";
 
 type BudgetTableProps = {
   budgets: Budget[];
@@ -59,9 +60,10 @@ function BudgetTableBody({ budgets }: BudgetTableProps) {
       budget_id: budget_id.toString(),
       budget_to_update: { is_favorite: !favorite },
     });
-    toast.success(
-      `Added ${updated_budget.data.budget_name} budget to favorites`
-    );
+    const toast_message = updated_budget.data.is_favorite
+      ? "favorited"
+      : ("unfavorited" as const);
+    toast.success(`Budget ${toast_message} successfully`);
   };
   return (
     <TableBody>
@@ -73,8 +75,8 @@ function BudgetTableBody({ budgets }: BudgetTableProps) {
               {budget.budget_description}
             </TableCell>
             <TableCell>${budget.amount}</TableCell>
-            <TableCell>
-              {new Date(budget.createdAt).toLocaleDateString()}
+            <TableCell title={String(budget.createdAt)}>
+              {formatDate(budget.createdAt)}
             </TableCell>
             <TableCell>
               <DropdownMenu>
