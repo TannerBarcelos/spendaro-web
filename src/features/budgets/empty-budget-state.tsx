@@ -21,10 +21,10 @@ export function EmptyBudgetState() {
   );
 }
 
+// This is a helper component that creates a stack of cards - generated via v0 -> https://v0.dev/chat/PnXo03hsLTz
 function CardStack() {
   return (
     <div className="mb-6 relative">
-      {/* Stacked cards illustration */}
       <div className="w-48 space-y-4">
         <div className="h-24 bg-muted/40 rounded-lg shadow-sm transform -rotate-6 relative">
           <div className="absolute inset-4">

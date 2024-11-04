@@ -8,8 +8,9 @@ import {
 } from "@/components/ui/accordion";
 import { Link } from "@tanstack/react-router";
 import BudgetTable from "./budget-table";
-import { EmptyBudgetState } from "@/components/empty-budget-state";
-import { ErrorBudgetState } from "@/components/error-budget-state";
+import { EmptyBudgetState } from "@/features/budgets/empty-budget-state";
+import { ErrorBudgetState } from "@/features/budgets/error-budget-state";
+import { Budget } from "./_api";
 
 export function BudgetPage() {
   const { data, isLoading, isError, refetch } = useGetBudgets();
@@ -26,9 +27,11 @@ export function BudgetPage() {
     return <EmptyBudgetState />;
   }
 
-  const budgets = data.data;
-  const favoriteBudgets = budgets.filter((budget) => budget.is_favorite);
+  return <Budgets budgets={data.data} />;
+}
 
+function Budgets({ budgets }: { budgets: Budget[] }) {
+  const favoriteBudgets = budgets.filter((budget) => budget.is_favorite);
   return (
     <div>
       <div className="w-full flex flex-row items-center justify-between">
@@ -58,7 +61,7 @@ export function BudgetPage() {
                   <h2>Favorited Budgets</h2>
                 </AccordionTrigger>
                 <AccordionContent>
-                  <BudgetTable budgets={favoriteBudgets || []} />
+                  <BudgetTable budgets={favoriteBudgets} />
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
@@ -68,7 +71,7 @@ export function BudgetPage() {
             {(favoriteBudgets?.length ?? 0) > 0 && (
               <h2 className="font-medium my-4 mt-8">All Budgets</h2>
             )}
-            <BudgetTable budgets={budgets || []} />
+            <BudgetTable budgets={budgets} />
           </>
         </div>
       )}
