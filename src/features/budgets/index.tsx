@@ -9,7 +9,11 @@ import {
 } from "@/components/ui/accordion";
 import { Link } from "@tanstack/react-router";
 import BudgetTable from "./budget-table";
-import TableContainer from "@/components/table-container";
+import { EmptyBudgetState } from "@/components/empty-budget-state";
+
+type TBudgets = {
+  budgets?: Budget[];
+};
 
 export function BudgetPage() {
   const { data, isLoading, isError } = useGetBudgets();
@@ -22,7 +26,8 @@ export function BudgetPage() {
     return <div>Error fetching budgets</div>;
   }
 
-  const favoritedBudgets = data?.data.filter((budget) => budget.is_favorite);
+  const budgets = data?.data;
+  const favoriteBudgets = budgets?.filter((budget) => budget.is_favorite);
 
   return (
     <div>
@@ -37,68 +42,46 @@ export function BudgetPage() {
           </Button>
         </Link>
       </div>
-      <div className="mt-5">
-        <FavoriteBudgets budgets={favoritedBudgets} />
-        <AllBudgets budgets={data?.data} />
-      </div>
+
+      {!budgets || budgets.length === 0 ? (
+        <EmptyBudgetState />
+      ) : (
+        <div className="mt-5">
+          {favoriteBudgets && favoriteBudgets.length > 0 && (
+            <FavoriteBudgets budgets={favoriteBudgets} />
+          )}
+          <AllBudgets budgets={budgets} />
+        </div>
+      )}
     </div>
   );
 }
 
-interface AllBudgetsProps {
-  budgets?: Budget[];
-}
-
-function AllBudgets({ budgets }: AllBudgetsProps) {
+function AllBudgets({ budgets }: TBudgets) {
   return (
     <>
       <h2 className="font-medium my-4 mt-8">All Budgets</h2>
-      {budgets && budgets.length > 0 ? (
-        <BudgetTable budgets={budgets} />
-      ) : (
-        <NoBudgetsFound />
-      )}
+      <BudgetTable budgets={budgets || []} />
     </>
   );
 }
 
-function FavoriteBudgets({ budgets }: AllBudgetsProps) {
+function FavoriteBudgets({ budgets }: TBudgets) {
   return (
-    <div className="mt-2">
-      <Accordion type="single" collapsible defaultValue="favorites">
-        <AccordionItem value="favorites">
-          <AccordionTrigger className="max-w-fit">
-            <h2>Favorited Budgets</h2>
-          </AccordionTrigger>
-          <AccordionContent>
-            {budgets && budgets.length > 0 ? (
-              <BudgetTable budgets={budgets} />
-            ) : (
-              <NoFavoritesFound />
-            )}
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
-    </div>
-  );
-}
-
-function NoBudgetsFound() {
-  return (
-    <div className="p-8 mt-4 text-center text-gray-700 bg-slate-100/40 border border-slate-200/40 rounded-2xl">
-      <p className="text-lg">Currently, you have no budgets.</p>
-      <p className="text-sm pt-4">
-        Click the Create Budget button above to begin creating a budget.
-      </p>
-    </div>
-  );
-}
-
-function NoFavoritesFound() {
-  return (
-    <p className="text-gray-500 flex flex-row items-center text-sm font-medium justify-center">
-      You have not favorited any budgets. Select the menu icon on any budget to
-      add it to your favorites.
-    </p>
+    <Accordion
+      type="single"
+      collapsible
+      defaultValue="favorites"
+      className="mt-2"
+    >
+      <AccordionItem value="favorites">
+        <AccordionTrigger className="max-w-fit">
+          <h2>Favorited Budgets</h2>
+        </AccordionTrigger>
+        <AccordionContent>
+          <BudgetTable budgets={budgets || []} />
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
   );
 }
