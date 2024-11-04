@@ -1,6 +1,5 @@
 import { useGetBudgets } from "./_api/queries/useGetBudgets";
 import { Button } from "@/components/ui/button";
-import { Budget } from "./_api/index";
 import {
   Accordion,
   AccordionContent,
@@ -10,24 +9,25 @@ import {
 import { Link } from "@tanstack/react-router";
 import BudgetTable from "./budget-table";
 import { EmptyBudgetState } from "@/components/empty-budget-state";
-
-type TBudgets = {
-  budgets?: Budget[];
-};
+import { ErrorBudgetState } from "@/components/error-budget-state";
 
 export function BudgetPage() {
-  const { data, isLoading, isError } = useGetBudgets();
+  const { data, isLoading, isError, refetch } = useGetBudgets();
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
   if (isError) {
-    return <div>Error fetching budgets</div>;
+    return <ErrorBudgetState onRetry={refetch} />;
   }
 
-  const budgets = data?.data;
-  const favoriteBudgets = budgets?.filter((budget) => budget.is_favorite);
+  if (!data) {
+    return <EmptyBudgetState />;
+  }
+
+  const budgets = data.data;
+  const favoriteBudgets = budgets.filter((budget) => budget.is_favorite);
 
   return (
     <div>
