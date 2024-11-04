@@ -25,6 +25,7 @@ import { Budget } from "./_api/index";
 import { useUpdateBudget } from "./_api/mutations/useUpdateBudget";
 import { toast } from "sonner";
 import { useNavigate } from "@tanstack/react-router";
+import TableContainer from "@/components/table-container";
 
 type BudgetTableProps = {
   budgets: Budget[];
@@ -32,10 +33,12 @@ type BudgetTableProps = {
 
 function BudgetTable({ budgets }: BudgetTableProps) {
   return (
-    <Table className="mt-8">
-      <BudgetTableHeader />
-      <BudgetTableBody budgets={budgets} />
-    </Table>
+    <TableContainer>
+      <Table className="my-2">
+        <BudgetTableHeader />
+        <BudgetTableBody budgets={budgets} />
+      </Table>
+    </TableContainer>
   );
 }
 

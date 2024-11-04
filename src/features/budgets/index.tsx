@@ -1,6 +1,5 @@
 import { useGetBudgets } from "./_api/queries/useGetBudgets";
 import { Button } from "@/components/ui/button";
-import { Star } from "lucide-react";
 import { Budget } from "./_api/index";
 import {
   Accordion,
@@ -10,6 +9,7 @@ import {
 } from "@/components/ui/accordion";
 import { Link } from "@tanstack/react-router";
 import BudgetTable from "./budget-table";
+import TableContainer from "@/components/table-container";
 
 export function BudgetPage() {
   const { data, isLoading, isError } = useGetBudgets();
@@ -52,16 +52,12 @@ interface AllBudgetsProps {
 function AllBudgets({ budgets }: AllBudgetsProps) {
   return (
     <>
-      <h3 className="text-xl lg:text-xl font-semibold my-4 mt-8">
-        All Budgets
-      </h3>
-      <div className="bg-slate-100/40 border border-slate-200/40 rounded-2xl min-h-[100px] px-3 flex items-center">
-        {budgets && budgets.length > 0 ? (
-          <BudgetTable budgets={budgets} />
-        ) : (
-          <NoBudgetsFound />
-        )}
-      </div>
+      <h2 className="font-medium my-4 mt-8">All Budgets</h2>
+      {budgets && budgets.length > 0 ? (
+        <BudgetTable budgets={budgets} />
+      ) : (
+        <NoBudgetsFound />
+      )}
     </>
   );
 }
@@ -71,17 +67,15 @@ function FavoriteBudgets({ budgets }: AllBudgetsProps) {
     <div className="mt-2">
       <Accordion type="single" collapsible defaultValue="favorites">
         <AccordionItem value="favorites">
-          <AccordionTrigger className="max-w-fit">
-            <h3 className="text-xl lg:text-xl font-semibold">Favorites</h3>
+          <AccordionTrigger>
+            <h2>Favorited Budgets</h2>
           </AccordionTrigger>
           <AccordionContent>
-            <div className="bg-slate-100/40 border border-slate-200/40 rounded-2xl min-h-[100px] px-3 flex items-center">
-              {budgets && budgets.length > 0 ? (
-                <BudgetTable budgets={budgets} />
-              ) : (
-                <NoFavoritesFound />
-              )}
-            </div>
+            {budgets && budgets.length > 0 ? (
+              <BudgetTable budgets={budgets} />
+            ) : (
+              <NoFavoritesFound />
+            )}
           </AccordionContent>
         </AccordionItem>
       </Accordion>
@@ -103,11 +97,8 @@ function NoBudgetsFound() {
 function NoFavoritesFound() {
   return (
     <p className="text-gray-500 flex flex-row items-center text-sm font-medium justify-center">
-      You have not favorited any budgets. Press the{" "}
-      <span className="flex flex-row items-center">
-        <Star width={10} className="mx-1" /> on any budget in the list below to
-        favorite.
-      </span>
+      You have not favorited any budgets. Select the menu icon on any budget to
+      add it to your favorites.
     </p>
   );
 }
