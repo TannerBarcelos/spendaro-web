@@ -2,10 +2,12 @@ import { createFileRoute, Outlet, useNavigate } from "@tanstack/react-router";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Link } from "@tanstack/react-router";
-import { LogOut, Settings, User, Zap } from "lucide-react";
+import { LogOut, Moon, Settings, Sun, User, Zap } from "lucide-react";
 import { SVGProps } from "react";
 import { JSX } from "react/jsx-runtime";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useTheme } from "@/contexts/theme";
+
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -79,6 +81,8 @@ export function Navbar({
   userData?: UserData;
   isLoading: boolean;
 }) {
+  const { theme, toggleTheme } = useTheme();
+
   return (
     <nav className="py-4">
       <div className="container mx-auto flex items-center justify-between">
@@ -91,18 +95,6 @@ export function Navbar({
         {isSignedIn && (
           <>
             <NavMenu />
-            {/* <div className="flex space-x-4">
-              {navItems.map((item) => (
-                <Link
-                  key={item.to}
-                  to={item.to}
-                  className="font-medium text-gray-700 text-sm [&.active]:text-primary [&.active]:font-medium flex items-center p-3 hover:text-primary/90"
-                  activeOptions={{ exact: true }}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div> */}
             <div className="flex items-center">
               <div className="flex items-center justify-end space-x-4 p-3 rounded-full min-w-fit">
                 <div className="inline text-sm font-semibold text-gray-700 overflow-hidden whitespace-nowrap text-ellipsis text-right w-[100px]">
@@ -138,7 +130,14 @@ export function Navbar({
                       )}
                     </Avatar>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent sideOffset={10} className="w-40">
+                  <DropdownMenuContent sideOffset={10} className="">
+                    <DropdownMenuItem>
+                      {theme === "light" ? <Sun /> : <Moon />}
+                      <button onClick={toggleTheme}>
+                        Switch to {theme === "light" ? "dark" : "light"} mode
+                      </button>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <Link to="/profile">
