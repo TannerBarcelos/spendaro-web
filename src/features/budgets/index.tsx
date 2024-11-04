@@ -11,22 +11,13 @@ import BudgetTable from "./budget-table";
 import { EmptyBudgetState } from "@/features/budgets/empty-budget-state";
 import { ErrorBudgetState } from "@/features/budgets/error-budget-state";
 import { Budget } from "./_api";
+import { LoadingBudgetState } from "@/features/budgets/loading-budget-state";
 
-export function BudgetPage() {
+export function Page() {
   const { data, isLoading, isError, refetch } = useGetBudgets();
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (isError) {
-    return <ErrorBudgetState onRetry={refetch} />;
-  }
-
-  if (!data) {
-    return <EmptyBudgetState />;
-  }
-
+  if (isLoading) return <LoadingBudgetState />;
+  if (isError) return <ErrorBudgetState onRetry={refetch} />;
+  if (!data) return <EmptyBudgetState />;
   return <Budgets budgets={data.data} />;
 }
 
@@ -68,7 +59,7 @@ function Budgets({ budgets }: { budgets: Budget[] }) {
           )}
 
           <>
-            {(favoriteBudgets?.length ?? 0) > 0 && (
+            {(favoriteBudgets.length ?? 0) > 0 && (
               <h2 className="font-medium my-4 mt-8">All Budgets</h2>
             )}
             <BudgetTable budgets={budgets} />
