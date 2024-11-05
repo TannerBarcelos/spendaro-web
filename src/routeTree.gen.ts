@@ -14,28 +14,28 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as AuthIndexImport } from './routes/auth/index'
-import { Route as protectedAppImport } from './routes/(protected)/_app'
-import { Route as protectedAppTransactionsIndexImport } from './routes/(protected)/_app/transactions/index'
-import { Route as protectedAppReportingIndexImport } from './routes/(protected)/_app/reporting/index'
-import { Route as protectedAppProfileIndexImport } from './routes/(protected)/_app/profile/index'
-import { Route as protectedAppDashboardIndexImport } from './routes/(protected)/_app/dashboard/index'
-import { Route as protectedAppBudgetingIndexImport } from './routes/(protected)/_app/budgeting/index'
-import { Route as protectedAppTransactionsNewImport } from './routes/(protected)/_app/transactions/new'
-import { Route as protectedAppReportingNewImport } from './routes/(protected)/_app/reporting/new'
-import { Route as protectedAppReportingManageImport } from './routes/(protected)/_app/reporting/manage'
-import { Route as protectedAppBudgetingNewImport } from './routes/(protected)/_app/budgeting/new'
-import { Route as protectedAppBudgetingBudgetIdIndexImport } from './routes/(protected)/_app/budgeting/$budgetId/index'
-import { Route as protectedAppTransactionsTransactionIdEditImport } from './routes/(protected)/_app/transactions/$transactionId.edit'
-import { Route as protectedAppBudgetingBudgetIdCategoriesImport } from './routes/(protected)/_app/budgeting/$budgetId/categories'
+import { Route as appAppImport } from './routes/(app)/_app'
+import { Route as appAppTransactionsIndexImport } from './routes/(app)/_app/transactions/index'
+import { Route as appAppReportingIndexImport } from './routes/(app)/_app/reporting/index'
+import { Route as appAppProfileIndexImport } from './routes/(app)/_app/profile/index'
+import { Route as appAppDashboardIndexImport } from './routes/(app)/_app/dashboard/index'
+import { Route as appAppBudgetingIndexImport } from './routes/(app)/_app/budgeting/index'
+import { Route as appAppTransactionsNewImport } from './routes/(app)/_app/transactions/new'
+import { Route as appAppReportingNewImport } from './routes/(app)/_app/reporting/new'
+import { Route as appAppReportingManageImport } from './routes/(app)/_app/reporting/manage'
+import { Route as appAppBudgetingNewImport } from './routes/(app)/_app/budgeting/new'
+import { Route as appAppBudgetingBudgetIdIndexImport } from './routes/(app)/_app/budgeting/$budgetId/index'
+import { Route as appAppTransactionsTransactionIdEditImport } from './routes/(app)/_app/transactions/$transactionId.edit'
+import { Route as appAppBudgetingBudgetIdCategoriesImport } from './routes/(app)/_app/budgeting/$budgetId/categories'
 
 // Create Virtual Routes
 
-const protectedImport = createFileRoute('/(protected)')()
+const appImport = createFileRoute('/(app)')()
 
 // Create/Update Routes
 
-const protectedRoute = protectedImport.update({
-  id: '/(protected)',
+const appRoute = appImport.update({
+  id: '/(app)',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -44,100 +44,91 @@ const AuthIndexRoute = AuthIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const protectedAppRoute = protectedAppImport.update({
+const appAppRoute = appAppImport.update({
   id: '/_app',
-  getParentRoute: () => protectedRoute,
+  getParentRoute: () => appRoute,
 } as any)
 
-const protectedAppTransactionsIndexRoute =
-  protectedAppTransactionsIndexImport.update({
-    path: '/transactions/',
-    getParentRoute: () => protectedAppRoute,
-  } as any)
+const appAppTransactionsIndexRoute = appAppTransactionsIndexImport.update({
+  path: '/transactions/',
+  getParentRoute: () => appAppRoute,
+} as any)
 
-const protectedAppReportingIndexRoute = protectedAppReportingIndexImport.update(
-  {
-    path: '/reporting/',
-    getParentRoute: () => protectedAppRoute,
-  } as any,
-)
+const appAppReportingIndexRoute = appAppReportingIndexImport.update({
+  path: '/reporting/',
+  getParentRoute: () => appAppRoute,
+} as any)
 
-const protectedAppProfileIndexRoute = protectedAppProfileIndexImport.update({
+const appAppProfileIndexRoute = appAppProfileIndexImport.update({
   path: '/profile/',
-  getParentRoute: () => protectedAppRoute,
+  getParentRoute: () => appAppRoute,
 } as any)
 
-const protectedAppDashboardIndexRoute = protectedAppDashboardIndexImport.update(
-  {
-    path: '/dashboard/',
-    getParentRoute: () => protectedAppRoute,
-  } as any,
-)
+const appAppDashboardIndexRoute = appAppDashboardIndexImport.update({
+  path: '/dashboard/',
+  getParentRoute: () => appAppRoute,
+} as any)
 
-const protectedAppBudgetingIndexRoute = protectedAppBudgetingIndexImport.update(
-  {
-    path: '/budgeting/',
-    getParentRoute: () => protectedAppRoute,
-  } as any,
-)
+const appAppBudgetingIndexRoute = appAppBudgetingIndexImport.update({
+  path: '/budgeting/',
+  getParentRoute: () => appAppRoute,
+} as any)
 
-const protectedAppTransactionsNewRoute =
-  protectedAppTransactionsNewImport.update({
-    path: '/transactions/new',
-    getParentRoute: () => protectedAppRoute,
-  } as any)
+const appAppTransactionsNewRoute = appAppTransactionsNewImport.update({
+  path: '/transactions/new',
+  getParentRoute: () => appAppRoute,
+} as any)
 
-const protectedAppReportingNewRoute = protectedAppReportingNewImport.update({
+const appAppReportingNewRoute = appAppReportingNewImport.update({
   path: '/reporting/new',
-  getParentRoute: () => protectedAppRoute,
+  getParentRoute: () => appAppRoute,
 } as any)
 
-const protectedAppReportingManageRoute =
-  protectedAppReportingManageImport.update({
-    path: '/reporting/manage',
-    getParentRoute: () => protectedAppRoute,
-  } as any)
+const appAppReportingManageRoute = appAppReportingManageImport.update({
+  path: '/reporting/manage',
+  getParentRoute: () => appAppRoute,
+} as any)
 
-const protectedAppBudgetingNewRoute = protectedAppBudgetingNewImport.update({
+const appAppBudgetingNewRoute = appAppBudgetingNewImport.update({
   path: '/budgeting/new',
-  getParentRoute: () => protectedAppRoute,
+  getParentRoute: () => appAppRoute,
 } as any)
 
-const protectedAppBudgetingBudgetIdIndexRoute =
-  protectedAppBudgetingBudgetIdIndexImport.update({
+const appAppBudgetingBudgetIdIndexRoute =
+  appAppBudgetingBudgetIdIndexImport.update({
     path: '/budgeting/$budgetId/',
-    getParentRoute: () => protectedAppRoute,
+    getParentRoute: () => appAppRoute,
   } as any)
 
-const protectedAppTransactionsTransactionIdEditRoute =
-  protectedAppTransactionsTransactionIdEditImport.update({
+const appAppTransactionsTransactionIdEditRoute =
+  appAppTransactionsTransactionIdEditImport.update({
     path: '/transactions/$transactionId/edit',
-    getParentRoute: () => protectedAppRoute,
+    getParentRoute: () => appAppRoute,
   } as any)
 
-const protectedAppBudgetingBudgetIdCategoriesRoute =
-  protectedAppBudgetingBudgetIdCategoriesImport.update({
+const appAppBudgetingBudgetIdCategoriesRoute =
+  appAppBudgetingBudgetIdCategoriesImport.update({
     path: '/budgeting/$budgetId/categories',
-    getParentRoute: () => protectedAppRoute,
+    getParentRoute: () => appAppRoute,
   } as any)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/(protected)': {
-      id: '/(protected)'
+    '/(app)': {
+      id: '/(app)'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof protectedImport
+      preLoaderRoute: typeof appImport
       parentRoute: typeof rootRoute
     }
-    '/(protected)/_app': {
-      id: '/(protected)/_app'
+    '/(app)/_app': {
+      id: '/(app)/_app'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof protectedAppImport
-      parentRoute: typeof protectedRoute
+      preLoaderRoute: typeof appAppImport
+      parentRoute: typeof appRoute
     }
     '/auth/': {
       id: '/auth/'
@@ -146,195 +137,191 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthIndexImport
       parentRoute: typeof rootRoute
     }
-    '/(protected)/_app/budgeting/new': {
-      id: '/(protected)/_app/budgeting/new'
+    '/(app)/_app/budgeting/new': {
+      id: '/(app)/_app/budgeting/new'
       path: '/budgeting/new'
       fullPath: '/budgeting/new'
-      preLoaderRoute: typeof protectedAppBudgetingNewImport
-      parentRoute: typeof protectedAppImport
+      preLoaderRoute: typeof appAppBudgetingNewImport
+      parentRoute: typeof appAppImport
     }
-    '/(protected)/_app/reporting/manage': {
-      id: '/(protected)/_app/reporting/manage'
+    '/(app)/_app/reporting/manage': {
+      id: '/(app)/_app/reporting/manage'
       path: '/reporting/manage'
       fullPath: '/reporting/manage'
-      preLoaderRoute: typeof protectedAppReportingManageImport
-      parentRoute: typeof protectedAppImport
+      preLoaderRoute: typeof appAppReportingManageImport
+      parentRoute: typeof appAppImport
     }
-    '/(protected)/_app/reporting/new': {
-      id: '/(protected)/_app/reporting/new'
+    '/(app)/_app/reporting/new': {
+      id: '/(app)/_app/reporting/new'
       path: '/reporting/new'
       fullPath: '/reporting/new'
-      preLoaderRoute: typeof protectedAppReportingNewImport
-      parentRoute: typeof protectedAppImport
+      preLoaderRoute: typeof appAppReportingNewImport
+      parentRoute: typeof appAppImport
     }
-    '/(protected)/_app/transactions/new': {
-      id: '/(protected)/_app/transactions/new'
+    '/(app)/_app/transactions/new': {
+      id: '/(app)/_app/transactions/new'
       path: '/transactions/new'
       fullPath: '/transactions/new'
-      preLoaderRoute: typeof protectedAppTransactionsNewImport
-      parentRoute: typeof protectedAppImport
+      preLoaderRoute: typeof appAppTransactionsNewImport
+      parentRoute: typeof appAppImport
     }
-    '/(protected)/_app/budgeting/': {
-      id: '/(protected)/_app/budgeting/'
+    '/(app)/_app/budgeting/': {
+      id: '/(app)/_app/budgeting/'
       path: '/budgeting'
       fullPath: '/budgeting'
-      preLoaderRoute: typeof protectedAppBudgetingIndexImport
-      parentRoute: typeof protectedAppImport
+      preLoaderRoute: typeof appAppBudgetingIndexImport
+      parentRoute: typeof appAppImport
     }
-    '/(protected)/_app/dashboard/': {
-      id: '/(protected)/_app/dashboard/'
+    '/(app)/_app/dashboard/': {
+      id: '/(app)/_app/dashboard/'
       path: '/dashboard'
       fullPath: '/dashboard'
-      preLoaderRoute: typeof protectedAppDashboardIndexImport
-      parentRoute: typeof protectedAppImport
+      preLoaderRoute: typeof appAppDashboardIndexImport
+      parentRoute: typeof appAppImport
     }
-    '/(protected)/_app/profile/': {
-      id: '/(protected)/_app/profile/'
+    '/(app)/_app/profile/': {
+      id: '/(app)/_app/profile/'
       path: '/profile'
       fullPath: '/profile'
-      preLoaderRoute: typeof protectedAppProfileIndexImport
-      parentRoute: typeof protectedAppImport
+      preLoaderRoute: typeof appAppProfileIndexImport
+      parentRoute: typeof appAppImport
     }
-    '/(protected)/_app/reporting/': {
-      id: '/(protected)/_app/reporting/'
+    '/(app)/_app/reporting/': {
+      id: '/(app)/_app/reporting/'
       path: '/reporting'
       fullPath: '/reporting'
-      preLoaderRoute: typeof protectedAppReportingIndexImport
-      parentRoute: typeof protectedAppImport
+      preLoaderRoute: typeof appAppReportingIndexImport
+      parentRoute: typeof appAppImport
     }
-    '/(protected)/_app/transactions/': {
-      id: '/(protected)/_app/transactions/'
+    '/(app)/_app/transactions/': {
+      id: '/(app)/_app/transactions/'
       path: '/transactions'
       fullPath: '/transactions'
-      preLoaderRoute: typeof protectedAppTransactionsIndexImport
-      parentRoute: typeof protectedAppImport
+      preLoaderRoute: typeof appAppTransactionsIndexImport
+      parentRoute: typeof appAppImport
     }
-    '/(protected)/_app/budgeting/$budgetId/categories': {
-      id: '/(protected)/_app/budgeting/$budgetId/categories'
+    '/(app)/_app/budgeting/$budgetId/categories': {
+      id: '/(app)/_app/budgeting/$budgetId/categories'
       path: '/budgeting/$budgetId/categories'
       fullPath: '/budgeting/$budgetId/categories'
-      preLoaderRoute: typeof protectedAppBudgetingBudgetIdCategoriesImport
-      parentRoute: typeof protectedAppImport
+      preLoaderRoute: typeof appAppBudgetingBudgetIdCategoriesImport
+      parentRoute: typeof appAppImport
     }
-    '/(protected)/_app/transactions/$transactionId/edit': {
-      id: '/(protected)/_app/transactions/$transactionId/edit'
+    '/(app)/_app/transactions/$transactionId/edit': {
+      id: '/(app)/_app/transactions/$transactionId/edit'
       path: '/transactions/$transactionId/edit'
       fullPath: '/transactions/$transactionId/edit'
-      preLoaderRoute: typeof protectedAppTransactionsTransactionIdEditImport
-      parentRoute: typeof protectedAppImport
+      preLoaderRoute: typeof appAppTransactionsTransactionIdEditImport
+      parentRoute: typeof appAppImport
     }
-    '/(protected)/_app/budgeting/$budgetId/': {
-      id: '/(protected)/_app/budgeting/$budgetId/'
+    '/(app)/_app/budgeting/$budgetId/': {
+      id: '/(app)/_app/budgeting/$budgetId/'
       path: '/budgeting/$budgetId'
       fullPath: '/budgeting/$budgetId'
-      preLoaderRoute: typeof protectedAppBudgetingBudgetIdIndexImport
-      parentRoute: typeof protectedAppImport
+      preLoaderRoute: typeof appAppBudgetingBudgetIdIndexImport
+      parentRoute: typeof appAppImport
     }
   }
 }
 
 // Create and export the route tree
 
-interface protectedAppRouteChildren {
-  protectedAppBudgetingNewRoute: typeof protectedAppBudgetingNewRoute
-  protectedAppReportingManageRoute: typeof protectedAppReportingManageRoute
-  protectedAppReportingNewRoute: typeof protectedAppReportingNewRoute
-  protectedAppTransactionsNewRoute: typeof protectedAppTransactionsNewRoute
-  protectedAppBudgetingIndexRoute: typeof protectedAppBudgetingIndexRoute
-  protectedAppDashboardIndexRoute: typeof protectedAppDashboardIndexRoute
-  protectedAppProfileIndexRoute: typeof protectedAppProfileIndexRoute
-  protectedAppReportingIndexRoute: typeof protectedAppReportingIndexRoute
-  protectedAppTransactionsIndexRoute: typeof protectedAppTransactionsIndexRoute
-  protectedAppBudgetingBudgetIdCategoriesRoute: typeof protectedAppBudgetingBudgetIdCategoriesRoute
-  protectedAppTransactionsTransactionIdEditRoute: typeof protectedAppTransactionsTransactionIdEditRoute
-  protectedAppBudgetingBudgetIdIndexRoute: typeof protectedAppBudgetingBudgetIdIndexRoute
+interface appAppRouteChildren {
+  appAppBudgetingNewRoute: typeof appAppBudgetingNewRoute
+  appAppReportingManageRoute: typeof appAppReportingManageRoute
+  appAppReportingNewRoute: typeof appAppReportingNewRoute
+  appAppTransactionsNewRoute: typeof appAppTransactionsNewRoute
+  appAppBudgetingIndexRoute: typeof appAppBudgetingIndexRoute
+  appAppDashboardIndexRoute: typeof appAppDashboardIndexRoute
+  appAppProfileIndexRoute: typeof appAppProfileIndexRoute
+  appAppReportingIndexRoute: typeof appAppReportingIndexRoute
+  appAppTransactionsIndexRoute: typeof appAppTransactionsIndexRoute
+  appAppBudgetingBudgetIdCategoriesRoute: typeof appAppBudgetingBudgetIdCategoriesRoute
+  appAppTransactionsTransactionIdEditRoute: typeof appAppTransactionsTransactionIdEditRoute
+  appAppBudgetingBudgetIdIndexRoute: typeof appAppBudgetingBudgetIdIndexRoute
 }
 
-const protectedAppRouteChildren: protectedAppRouteChildren = {
-  protectedAppBudgetingNewRoute: protectedAppBudgetingNewRoute,
-  protectedAppReportingManageRoute: protectedAppReportingManageRoute,
-  protectedAppReportingNewRoute: protectedAppReportingNewRoute,
-  protectedAppTransactionsNewRoute: protectedAppTransactionsNewRoute,
-  protectedAppBudgetingIndexRoute: protectedAppBudgetingIndexRoute,
-  protectedAppDashboardIndexRoute: protectedAppDashboardIndexRoute,
-  protectedAppProfileIndexRoute: protectedAppProfileIndexRoute,
-  protectedAppReportingIndexRoute: protectedAppReportingIndexRoute,
-  protectedAppTransactionsIndexRoute: protectedAppTransactionsIndexRoute,
-  protectedAppBudgetingBudgetIdCategoriesRoute:
-    protectedAppBudgetingBudgetIdCategoriesRoute,
-  protectedAppTransactionsTransactionIdEditRoute:
-    protectedAppTransactionsTransactionIdEditRoute,
-  protectedAppBudgetingBudgetIdIndexRoute:
-    protectedAppBudgetingBudgetIdIndexRoute,
+const appAppRouteChildren: appAppRouteChildren = {
+  appAppBudgetingNewRoute: appAppBudgetingNewRoute,
+  appAppReportingManageRoute: appAppReportingManageRoute,
+  appAppReportingNewRoute: appAppReportingNewRoute,
+  appAppTransactionsNewRoute: appAppTransactionsNewRoute,
+  appAppBudgetingIndexRoute: appAppBudgetingIndexRoute,
+  appAppDashboardIndexRoute: appAppDashboardIndexRoute,
+  appAppProfileIndexRoute: appAppProfileIndexRoute,
+  appAppReportingIndexRoute: appAppReportingIndexRoute,
+  appAppTransactionsIndexRoute: appAppTransactionsIndexRoute,
+  appAppBudgetingBudgetIdCategoriesRoute:
+    appAppBudgetingBudgetIdCategoriesRoute,
+  appAppTransactionsTransactionIdEditRoute:
+    appAppTransactionsTransactionIdEditRoute,
+  appAppBudgetingBudgetIdIndexRoute: appAppBudgetingBudgetIdIndexRoute,
 }
 
-const protectedAppRouteWithChildren = protectedAppRoute._addFileChildren(
-  protectedAppRouteChildren,
-)
+const appAppRouteWithChildren =
+  appAppRoute._addFileChildren(appAppRouteChildren)
 
-interface protectedRouteChildren {
-  protectedAppRoute: typeof protectedAppRouteWithChildren
+interface appRouteChildren {
+  appAppRoute: typeof appAppRouteWithChildren
 }
 
-const protectedRouteChildren: protectedRouteChildren = {
-  protectedAppRoute: protectedAppRouteWithChildren,
+const appRouteChildren: appRouteChildren = {
+  appAppRoute: appAppRouteWithChildren,
 }
 
-const protectedRouteWithChildren = protectedRoute._addFileChildren(
-  protectedRouteChildren,
-)
+const appRouteWithChildren = appRoute._addFileChildren(appRouteChildren)
 
 export interface FileRoutesByFullPath {
-  '/': typeof protectedAppRouteWithChildren
+  '/': typeof appAppRouteWithChildren
   '/auth': typeof AuthIndexRoute
-  '/budgeting/new': typeof protectedAppBudgetingNewRoute
-  '/reporting/manage': typeof protectedAppReportingManageRoute
-  '/reporting/new': typeof protectedAppReportingNewRoute
-  '/transactions/new': typeof protectedAppTransactionsNewRoute
-  '/budgeting': typeof protectedAppBudgetingIndexRoute
-  '/dashboard': typeof protectedAppDashboardIndexRoute
-  '/profile': typeof protectedAppProfileIndexRoute
-  '/reporting': typeof protectedAppReportingIndexRoute
-  '/transactions': typeof protectedAppTransactionsIndexRoute
-  '/budgeting/$budgetId/categories': typeof protectedAppBudgetingBudgetIdCategoriesRoute
-  '/transactions/$transactionId/edit': typeof protectedAppTransactionsTransactionIdEditRoute
-  '/budgeting/$budgetId': typeof protectedAppBudgetingBudgetIdIndexRoute
+  '/budgeting/new': typeof appAppBudgetingNewRoute
+  '/reporting/manage': typeof appAppReportingManageRoute
+  '/reporting/new': typeof appAppReportingNewRoute
+  '/transactions/new': typeof appAppTransactionsNewRoute
+  '/budgeting': typeof appAppBudgetingIndexRoute
+  '/dashboard': typeof appAppDashboardIndexRoute
+  '/profile': typeof appAppProfileIndexRoute
+  '/reporting': typeof appAppReportingIndexRoute
+  '/transactions': typeof appAppTransactionsIndexRoute
+  '/budgeting/$budgetId/categories': typeof appAppBudgetingBudgetIdCategoriesRoute
+  '/transactions/$transactionId/edit': typeof appAppTransactionsTransactionIdEditRoute
+  '/budgeting/$budgetId': typeof appAppBudgetingBudgetIdIndexRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof protectedAppRouteWithChildren
+  '/': typeof appAppRouteWithChildren
   '/auth': typeof AuthIndexRoute
-  '/budgeting/new': typeof protectedAppBudgetingNewRoute
-  '/reporting/manage': typeof protectedAppReportingManageRoute
-  '/reporting/new': typeof protectedAppReportingNewRoute
-  '/transactions/new': typeof protectedAppTransactionsNewRoute
-  '/budgeting': typeof protectedAppBudgetingIndexRoute
-  '/dashboard': typeof protectedAppDashboardIndexRoute
-  '/profile': typeof protectedAppProfileIndexRoute
-  '/reporting': typeof protectedAppReportingIndexRoute
-  '/transactions': typeof protectedAppTransactionsIndexRoute
-  '/budgeting/$budgetId/categories': typeof protectedAppBudgetingBudgetIdCategoriesRoute
-  '/transactions/$transactionId/edit': typeof protectedAppTransactionsTransactionIdEditRoute
-  '/budgeting/$budgetId': typeof protectedAppBudgetingBudgetIdIndexRoute
+  '/budgeting/new': typeof appAppBudgetingNewRoute
+  '/reporting/manage': typeof appAppReportingManageRoute
+  '/reporting/new': typeof appAppReportingNewRoute
+  '/transactions/new': typeof appAppTransactionsNewRoute
+  '/budgeting': typeof appAppBudgetingIndexRoute
+  '/dashboard': typeof appAppDashboardIndexRoute
+  '/profile': typeof appAppProfileIndexRoute
+  '/reporting': typeof appAppReportingIndexRoute
+  '/transactions': typeof appAppTransactionsIndexRoute
+  '/budgeting/$budgetId/categories': typeof appAppBudgetingBudgetIdCategoriesRoute
+  '/transactions/$transactionId/edit': typeof appAppTransactionsTransactionIdEditRoute
+  '/budgeting/$budgetId': typeof appAppBudgetingBudgetIdIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/(protected)': typeof protectedRouteWithChildren
-  '/(protected)/_app': typeof protectedAppRouteWithChildren
+  '/(app)': typeof appRouteWithChildren
+  '/(app)/_app': typeof appAppRouteWithChildren
   '/auth/': typeof AuthIndexRoute
-  '/(protected)/_app/budgeting/new': typeof protectedAppBudgetingNewRoute
-  '/(protected)/_app/reporting/manage': typeof protectedAppReportingManageRoute
-  '/(protected)/_app/reporting/new': typeof protectedAppReportingNewRoute
-  '/(protected)/_app/transactions/new': typeof protectedAppTransactionsNewRoute
-  '/(protected)/_app/budgeting/': typeof protectedAppBudgetingIndexRoute
-  '/(protected)/_app/dashboard/': typeof protectedAppDashboardIndexRoute
-  '/(protected)/_app/profile/': typeof protectedAppProfileIndexRoute
-  '/(protected)/_app/reporting/': typeof protectedAppReportingIndexRoute
-  '/(protected)/_app/transactions/': typeof protectedAppTransactionsIndexRoute
-  '/(protected)/_app/budgeting/$budgetId/categories': typeof protectedAppBudgetingBudgetIdCategoriesRoute
-  '/(protected)/_app/transactions/$transactionId/edit': typeof protectedAppTransactionsTransactionIdEditRoute
-  '/(protected)/_app/budgeting/$budgetId/': typeof protectedAppBudgetingBudgetIdIndexRoute
+  '/(app)/_app/budgeting/new': typeof appAppBudgetingNewRoute
+  '/(app)/_app/reporting/manage': typeof appAppReportingManageRoute
+  '/(app)/_app/reporting/new': typeof appAppReportingNewRoute
+  '/(app)/_app/transactions/new': typeof appAppTransactionsNewRoute
+  '/(app)/_app/budgeting/': typeof appAppBudgetingIndexRoute
+  '/(app)/_app/dashboard/': typeof appAppDashboardIndexRoute
+  '/(app)/_app/profile/': typeof appAppProfileIndexRoute
+  '/(app)/_app/reporting/': typeof appAppReportingIndexRoute
+  '/(app)/_app/transactions/': typeof appAppTransactionsIndexRoute
+  '/(app)/_app/budgeting/$budgetId/categories': typeof appAppBudgetingBudgetIdCategoriesRoute
+  '/(app)/_app/transactions/$transactionId/edit': typeof appAppTransactionsTransactionIdEditRoute
+  '/(app)/_app/budgeting/$budgetId/': typeof appAppBudgetingBudgetIdIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -372,31 +359,31 @@ export interface FileRouteTypes {
     | '/budgeting/$budgetId'
   id:
     | '__root__'
-    | '/(protected)'
-    | '/(protected)/_app'
+    | '/(app)'
+    | '/(app)/_app'
     | '/auth/'
-    | '/(protected)/_app/budgeting/new'
-    | '/(protected)/_app/reporting/manage'
-    | '/(protected)/_app/reporting/new'
-    | '/(protected)/_app/transactions/new'
-    | '/(protected)/_app/budgeting/'
-    | '/(protected)/_app/dashboard/'
-    | '/(protected)/_app/profile/'
-    | '/(protected)/_app/reporting/'
-    | '/(protected)/_app/transactions/'
-    | '/(protected)/_app/budgeting/$budgetId/categories'
-    | '/(protected)/_app/transactions/$transactionId/edit'
-    | '/(protected)/_app/budgeting/$budgetId/'
+    | '/(app)/_app/budgeting/new'
+    | '/(app)/_app/reporting/manage'
+    | '/(app)/_app/reporting/new'
+    | '/(app)/_app/transactions/new'
+    | '/(app)/_app/budgeting/'
+    | '/(app)/_app/dashboard/'
+    | '/(app)/_app/profile/'
+    | '/(app)/_app/reporting/'
+    | '/(app)/_app/transactions/'
+    | '/(app)/_app/budgeting/$budgetId/categories'
+    | '/(app)/_app/transactions/$transactionId/edit'
+    | '/(app)/_app/budgeting/$budgetId/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  protectedRoute: typeof protectedRouteWithChildren
+  appRoute: typeof appRouteWithChildren
   AuthIndexRoute: typeof AuthIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  protectedRoute: protectedRouteWithChildren,
+  appRoute: appRouteWithChildren,
   AuthIndexRoute: AuthIndexRoute,
 }
 
@@ -412,84 +399,84 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/(protected)",
+        "/(app)",
         "/auth/"
       ]
     },
-    "/(protected)": {
-      "filePath": "(protected)",
+    "/(app)": {
+      "filePath": "(app)",
       "children": [
-        "/(protected)/_app"
+        "/(app)/_app"
       ]
     },
-    "/(protected)/_app": {
-      "filePath": "(protected)/_app.tsx",
-      "parent": "/(protected)",
+    "/(app)/_app": {
+      "filePath": "(app)/_app.tsx",
+      "parent": "/(app)",
       "children": [
-        "/(protected)/_app/budgeting/new",
-        "/(protected)/_app/reporting/manage",
-        "/(protected)/_app/reporting/new",
-        "/(protected)/_app/transactions/new",
-        "/(protected)/_app/budgeting/",
-        "/(protected)/_app/dashboard/",
-        "/(protected)/_app/profile/",
-        "/(protected)/_app/reporting/",
-        "/(protected)/_app/transactions/",
-        "/(protected)/_app/budgeting/$budgetId/categories",
-        "/(protected)/_app/transactions/$transactionId/edit",
-        "/(protected)/_app/budgeting/$budgetId/"
+        "/(app)/_app/budgeting/new",
+        "/(app)/_app/reporting/manage",
+        "/(app)/_app/reporting/new",
+        "/(app)/_app/transactions/new",
+        "/(app)/_app/budgeting/",
+        "/(app)/_app/dashboard/",
+        "/(app)/_app/profile/",
+        "/(app)/_app/reporting/",
+        "/(app)/_app/transactions/",
+        "/(app)/_app/budgeting/$budgetId/categories",
+        "/(app)/_app/transactions/$transactionId/edit",
+        "/(app)/_app/budgeting/$budgetId/"
       ]
     },
     "/auth/": {
       "filePath": "auth/index.tsx"
     },
-    "/(protected)/_app/budgeting/new": {
-      "filePath": "(protected)/_app/budgeting/new.tsx",
-      "parent": "/(protected)/_app"
+    "/(app)/_app/budgeting/new": {
+      "filePath": "(app)/_app/budgeting/new.tsx",
+      "parent": "/(app)/_app"
     },
-    "/(protected)/_app/reporting/manage": {
-      "filePath": "(protected)/_app/reporting/manage.tsx",
-      "parent": "/(protected)/_app"
+    "/(app)/_app/reporting/manage": {
+      "filePath": "(app)/_app/reporting/manage.tsx",
+      "parent": "/(app)/_app"
     },
-    "/(protected)/_app/reporting/new": {
-      "filePath": "(protected)/_app/reporting/new.tsx",
-      "parent": "/(protected)/_app"
+    "/(app)/_app/reporting/new": {
+      "filePath": "(app)/_app/reporting/new.tsx",
+      "parent": "/(app)/_app"
     },
-    "/(protected)/_app/transactions/new": {
-      "filePath": "(protected)/_app/transactions/new.tsx",
-      "parent": "/(protected)/_app"
+    "/(app)/_app/transactions/new": {
+      "filePath": "(app)/_app/transactions/new.tsx",
+      "parent": "/(app)/_app"
     },
-    "/(protected)/_app/budgeting/": {
-      "filePath": "(protected)/_app/budgeting/index.tsx",
-      "parent": "/(protected)/_app"
+    "/(app)/_app/budgeting/": {
+      "filePath": "(app)/_app/budgeting/index.tsx",
+      "parent": "/(app)/_app"
     },
-    "/(protected)/_app/dashboard/": {
-      "filePath": "(protected)/_app/dashboard/index.tsx",
-      "parent": "/(protected)/_app"
+    "/(app)/_app/dashboard/": {
+      "filePath": "(app)/_app/dashboard/index.tsx",
+      "parent": "/(app)/_app"
     },
-    "/(protected)/_app/profile/": {
-      "filePath": "(protected)/_app/profile/index.ts",
-      "parent": "/(protected)/_app"
+    "/(app)/_app/profile/": {
+      "filePath": "(app)/_app/profile/index.ts",
+      "parent": "/(app)/_app"
     },
-    "/(protected)/_app/reporting/": {
-      "filePath": "(protected)/_app/reporting/index.tsx",
-      "parent": "/(protected)/_app"
+    "/(app)/_app/reporting/": {
+      "filePath": "(app)/_app/reporting/index.tsx",
+      "parent": "/(app)/_app"
     },
-    "/(protected)/_app/transactions/": {
-      "filePath": "(protected)/_app/transactions/index.tsx",
-      "parent": "/(protected)/_app"
+    "/(app)/_app/transactions/": {
+      "filePath": "(app)/_app/transactions/index.tsx",
+      "parent": "/(app)/_app"
     },
-    "/(protected)/_app/budgeting/$budgetId/categories": {
-      "filePath": "(protected)/_app/budgeting/$budgetId/categories.tsx",
-      "parent": "/(protected)/_app"
+    "/(app)/_app/budgeting/$budgetId/categories": {
+      "filePath": "(app)/_app/budgeting/$budgetId/categories.tsx",
+      "parent": "/(app)/_app"
     },
-    "/(protected)/_app/transactions/$transactionId/edit": {
-      "filePath": "(protected)/_app/transactions/$transactionId.edit.tsx",
-      "parent": "/(protected)/_app"
+    "/(app)/_app/transactions/$transactionId/edit": {
+      "filePath": "(app)/_app/transactions/$transactionId.edit.tsx",
+      "parent": "/(app)/_app"
     },
-    "/(protected)/_app/budgeting/$budgetId/": {
-      "filePath": "(protected)/_app/budgeting/$budgetId/index.tsx",
-      "parent": "/(protected)/_app"
+    "/(app)/_app/budgeting/$budgetId/": {
+      "filePath": "(app)/_app/budgeting/$budgetId/index.tsx",
+      "parent": "/(app)/_app"
     }
   }
 }
