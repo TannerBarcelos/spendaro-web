@@ -1,12 +1,12 @@
-import { createFileRoute, Outlet, useNavigate } from '@tanstack/react-router'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Button } from '@/components/ui/button'
-import { Link } from '@tanstack/react-router'
-import { LogOut, Moon, Settings, Sun, User, Zap } from 'lucide-react'
-import { SVGProps } from 'react'
-import { JSX } from 'react/jsx-runtime'
-import { Skeleton } from '@/components/ui/skeleton'
-import { useTheme } from '@/contexts/theme'
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Link } from "@tanstack/react-router";
+import { LogOut, Moon, Settings, Sun, User, Zap } from "lucide-react";
+import { SVGProps } from "react";
+import { JSX } from "react/jsx-runtime";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useTheme } from "@/contexts/theme";
 
 import {
   NavigationMenu,
@@ -15,7 +15,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from '@/components/ui/navigation-menu'
+} from "@/components/ui/navigation-menu";
 
 import {
   DropdownMenu,
@@ -24,34 +24,39 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { useAuthStore } from '@/stores/auth-store'
-import { useQueryClient } from '@tanstack/react-query'
-import { useUserDetails } from '@/features/profile/_api/queries'
-import { UserData } from '@/features/profile/_api'
-import { toast } from 'sonner'
-import React from 'react'
-import { cn } from '@/lib/utils'
+} from "@/components/ui/dropdown-menu";
+import { useAuthStore } from "@/stores/auth-store";
+import { useQueryClient } from "@tanstack/react-query";
+import { useUserDetails } from "@/features/profile/_api/queries";
+import { UserData } from "@/features/profile/_api";
+import { toast } from "sonner";
+import React from "react";
+import { cn } from "@/lib/utils";
+import { queryClient } from "@/lib/client";
 
-export const Route = createFileRoute('/(app)/_app')({
+export const Route = createFileRoute("/(app)/_app")({
+  beforeLoad: async () => {
+    const access_token = useAuthStore.getState().accessToken;
+    if (!access_token) {
+      queryClient.clear();
+      throw redirect({
+        to: "/auth",
+        search: {
+          redirect: location.href,
+        },
+      });
+    }
+  },
   component: () => <Layout />,
-})
+});
 
 function Layout() {
-  const { isLoading, isError, data } = useUserDetails()
-  const qc = useQueryClient()
-  const navigate = useNavigate()
-  const auth_store = useAuthStore()
-
-  if (!auth_store.accessToken) {
-    qc.clear() // flush the cache
-    navigate({
-      to: '/auth',
-    })
-  }
+  const { isLoading, isError, data } = useUserDetails();
+  const qc = useQueryClient();
+  const auth_store = useAuthStore();
 
   if (isError) {
-    return toast.error('An error occurred while fetching user details')
+    return toast.error("An error occurred while fetching user details");
   }
 
   return (
@@ -60,14 +65,14 @@ function Layout() {
         isSignedIn={true}
         isLoading={isLoading}
         cb={() => {
-          qc.clear() // flush the cache
-          auth_store.clear() // clear the auth store (holds the access token)
+          qc.clear(); // flush the cache
+          auth_store.clear(); // clear the auth store (holds the access token)
         }}
         userData={data?.data.data}
       />
       <Outlet />
     </div>
-  )
+  );
 }
 
 export function Navbar({
@@ -76,12 +81,12 @@ export function Navbar({
   userData,
   isLoading,
 }: {
-  isSignedIn: boolean
-  cb: () => void
-  userData?: UserData
-  isLoading: boolean
+  isSignedIn: boolean;
+  cb: () => void;
+  userData?: UserData;
+  isLoading: boolean;
 }) {
-  const { theme, toggleTheme } = useTheme()
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <nav className="py-4">
@@ -104,7 +109,7 @@ export function Navbar({
                   {isLoading ? (
                     <Skeleton className="w-full h-[30px] rounded-xl bg-gray-200/70" />
                   ) : (
-                    (userData?.firstName?.charAt(0)?.toUpperCase() ?? '') +
+                    (userData?.firstName?.charAt(0)?.toUpperCase() ?? "") +
                     userData?.firstName?.slice(1)
                   )}
                 </div>
@@ -123,10 +128,10 @@ export function Navbar({
                             className="object-cover"
                           />
                           <AvatarFallback className="bg-primary/10">
-                            {`${userData?.firstName ?? ''} ${userData?.lastName ?? ''}`
-                              .split(' ')
+                            {`${userData?.firstName ?? ""} ${userData?.lastName ?? ""}`
+                              .split(" ")
                               .map((name) => name[0])
-                              .join('')
+                              .join("")
                               .toUpperCase()}
                           </AvatarFallback>
                         </>
@@ -135,9 +140,9 @@ export function Navbar({
                   </DropdownMenuTrigger>
                   <DropdownMenuContent sideOffset={10} className="">
                     <DropdownMenuItem>
-                      {theme === 'light' ? <Sun /> : <Moon />}
+                      {theme === "light" ? <Sun /> : <Moon />}
                       <button onClick={toggleTheme}>
-                        Switch to {theme === 'light' ? 'dark' : 'light'} mode
+                        Switch to {theme === "light" ? "dark" : "light"} mode
                       </button>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
@@ -171,7 +176,7 @@ export function Navbar({
         )}
       </div>
     </nav>
-  )
+  );
 }
 
 function MenuIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
@@ -192,46 +197,46 @@ function MenuIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
       <line x1="4" x2="20" y1="6" y2="6" />
       <line x1="4" x2="20" y1="18" y2="18" />
     </svg>
-  )
+  );
 }
 
 const components: { title: string; to: string; description: string }[] = [
   {
-    title: 'Alert Dialog',
-    to: '/docs/primitives/alert-dialog',
+    title: "Alert Dialog",
+    to: "/docs/primitives/alert-dialog",
     description:
-      'A modal dialog that interrupts the user with important content and expects a response.',
+      "A modal dialog that interrupts the user with important content and expects a response.",
   },
   {
-    title: 'Hover Card',
-    to: '/docs/primitives/hover-card',
+    title: "Hover Card",
+    to: "/docs/primitives/hover-card",
     description:
-      'For sighted users to preview content available behind a link.',
+      "For sighted users to preview content available behind a link.",
   },
   {
-    title: 'Progress',
-    to: '/docs/primitives/progress',
+    title: "Progress",
+    to: "/docs/primitives/progress",
     description:
-      'Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.',
+      "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
   },
   {
-    title: 'Scroll-area',
-    to: '/docs/primitives/scroll-area',
-    description: 'Visually or semantically separates content.',
+    title: "Scroll-area",
+    to: "/docs/primitives/scroll-area",
+    description: "Visually or semantically separates content.",
   },
   {
-    title: 'Tabs',
-    to: '/docs/primitives/tabs',
+    title: "Tabs",
+    to: "/docs/primitives/tabs",
     description:
-      'A set of layered sections of content—known as tab panels—that are displayed one at a time.',
+      "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
   },
   {
-    title: 'Tooltip',
-    to: '/docs/primitives/tooltip',
+    title: "Tooltip",
+    to: "/docs/primitives/tooltip",
     description:
-      'A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.',
+      "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
   },
-]
+];
 
 export function NavMenu() {
   return (
@@ -318,7 +323,7 @@ export function NavMenu() {
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
-  )
+  );
 }
 
 const ListItem = ({
@@ -326,16 +331,16 @@ const ListItem = ({
   title,
   children,
 }: {
-  to: string
-  title: string
-  children?: React.ReactNode
+  to: string;
+  title: string;
+  children?: React.ReactNode;
 }) => {
   return (
     <li>
       <Link
         to={to}
         className={cn(
-          'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+          "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
         )}
       >
         <div className="text-sm font-medium leading-none">{title}</div>
@@ -344,5 +349,5 @@ const ListItem = ({
         </p>
       </Link>
     </li>
-  )
-}
+  );
+};

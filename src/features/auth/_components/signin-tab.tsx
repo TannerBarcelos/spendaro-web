@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import { errorBuilder } from "@/lib/utils";
 import { useNavigate } from "@tanstack/react-router";
 import { useAuthStore } from "@/stores/auth-store";
+import { Route } from "@/routes/auth";
 
 const existingUserSchema = z.object({
   email: z.string().email("Invalid email address"),
