@@ -1,4 +1,4 @@
-import { Route as BudgetRoute } from "@/routes/(protected)/_app/budgeting/$budgetId";
+import { Route as BudgetRoute } from "@/routes/(app)/_app/budgeting/$budgetId";
 
 export function ViewBudget() {
   const { data } = BudgetRoute.useLoaderData();
