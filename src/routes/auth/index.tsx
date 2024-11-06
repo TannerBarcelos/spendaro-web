@@ -13,7 +13,7 @@ export const Route = createFileRoute("/auth/")({
       throw redirect({ to: "/dashboard" });
     }
   },
-  validateSearch: (search) => {
+  validateSearch: (search: z.infer<typeof searchParamsSchema>) => {
     return searchParamsSchema.parse(search);
   },
   component: AuthPage,

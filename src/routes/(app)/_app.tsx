@@ -46,10 +46,10 @@ export const Route = createFileRoute("/(app)/_app")({
       });
     }
   },
-  component: () => <Layout />,
+  component: App,
 });
 
-function Layout() {
+function App() {
   const { isLoading, isError, data } = useUserDetails();
   const qc = useQueryClient();
   const auth_store = authStore();
