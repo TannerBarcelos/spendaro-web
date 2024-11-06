@@ -82,7 +82,7 @@ function BudgetTableBody({ budgets }: BudgetTableProps) {
               <DropdownMenu>
                 <div className="flex flex-row items-center w-max gap-2">
                   <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="hover:bg-slate-200/50">
+                    <Button variant="ghost">
                       <MoreHorizontal size={16} />
                     </Button>
                   </DropdownMenuTrigger>

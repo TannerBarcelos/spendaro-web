@@ -26,13 +26,11 @@ function Budgets({ budgets }: { budgets: Budget[] }) {
   return (
     <div>
       <div className="w-full flex flex-row items-center justify-between">
-        <h1 className="text-xl lg:text-2xl font-semibold dark:text-indigo-300">
-          Budget List
-        </h1>
+        <h1 className="text-xl lg:text-2xl font-semibold">Budget List</h1>
         <Link to="/budgeting/new">
           <Button
             variant="link"
-            className="hover:no-underline dark:text-indigo-300 light:hover:bg-gray-100 hover:text-primary /80 dark:hover:bg-slate-800 dark:border dark:border-slate-800 rounded-xl"
+            className="hover:no-underline light:hover:bg-gray-100 rounded-xl"
           >
             Create Budget
           </Button>
@@ -51,7 +49,7 @@ function Budgets({ budgets }: { budgets: Budget[] }) {
             >
               <AccordionItem value="favorites">
                 <AccordionTrigger className="max-w-fit">
-                  <h2 className="dark:text-indigo-200/90">Favorited Budgets</h2>
+                  <h2>Favorited Budgets</h2>
                 </AccordionTrigger>
                 <AccordionContent>
                   <BudgetTable budgets={favoriteBudgets} />
@@ -61,9 +59,7 @@ function Budgets({ budgets }: { budgets: Budget[] }) {
           )}
           <>
             {(favoriteBudgets.length ?? 0) > 0 && (
-              <h2 className="font-medium my-4 mt-8 dark:text-indigo-200/90">
-                All Budgets
-              </h2>
+              <h2 className="font-medium my-4 mt-8">All Budgets</h2>
             )}
             <BudgetTable budgets={budgets} />
           </>

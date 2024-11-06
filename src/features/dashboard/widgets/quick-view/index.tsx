@@ -75,9 +75,7 @@ export function QuickViewBox({
   children: React.ReactNode;
 }) {
   return (
-    <div
-      className={`bg-slate-100 rounded-xl flex flex-col px-3 pt-2 ${cardColor}`}
-    >
+    <Card className={`rounded-xl flex flex-col px-3 pt-2`}>
       <div className="flex items-center justify-between">
         <h1 className="text-base font-medium text-slate-900">{title}</h1>
         <span className="bg-slate-200 w-8 h-8 flex items-center justify-center rounded-full text-primary ">
@@ -85,7 +83,7 @@ export function QuickViewBox({
         </span>
       </div>
       {children}
-    </div>
+    </Card>
   );
 }
 export default QuickViewBox;

@@ -86,16 +86,17 @@ export function Navbar({
   isLoading: boolean;
 }) {
   const { theme, toggleTheme } = useTheme();
-
   return (
     <nav className="py-4">
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex flex-row">
-          <Zap size={24} color="#006EFF" strokeWidth={2.5} className="mr-2" />
-          <Link
-            to="/dashboard"
-            className="text-xl font-semibold dark:text-indigo-100"
-          >
+          <Zap
+            size={24}
+            color="hsl(219deg, 60.9%, 64.9%)"
+            strokeWidth={2.5}
+            className="mr-2"
+          />
+          <Link to="/dashboard" className="text-xl font-semibold">
             Spendaro
           </Link>
         </div>
@@ -104,7 +105,7 @@ export function Navbar({
             <NavMenu />
             <div className="flex items-center">
               <div className="flex items-center justify-end space-x-4 p-3 rounded-full min-w-fit">
-                <div className="inline text-sm font-semibold text-gray-700 overflow-hidden whitespace-nowrap text-ellipsis text-right w-[100px] dark:text-indigo-300">
+                <div className="inline text-sm font-semibold text-gray-700 overflow-hidden whitespace-nowrap text-ellipsis text-right w-[100px]">
                   {isLoading ? (
                     <Skeleton className="w-full h-[30px] rounded-xl bg-gray-200/70" />
                   ) : (
