@@ -29,8 +29,8 @@ function Budgets({ budgets }: { budgets: Budget[] }) {
         <h1 className="text-xl lg:text-2xl font-semibold">Budget List</h1>
         <Link to="/budgeting/new">
           <Button
-            variant="link"
-            className="hover:no-underline light:hover:bg-gray-100 rounded-xl"
+            variant="secondary"
+            className="hover:no-underline light:hover:bg-gray-100 rounded-lg text-[13px]"
           >
             Create Budget
           </Button>
