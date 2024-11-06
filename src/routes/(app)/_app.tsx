@@ -35,14 +35,15 @@ import { cn } from "@/lib/utils";
 import { queryClient } from "@/lib/client";
 
 export const Route = createFileRoute("/(app)/_app")({
-  beforeLoad: async () => {
+  beforeLoad: async ({ location }) => {
     const access_token = useAuthStore.getState().accessToken;
     if (!access_token) {
       queryClient.clear();
       throw redirect({
-        to: "/auth",
+        to: "/auth", // redirect the user to sign in, but carry some state to the auth route for redirection after signing in
         search: {
-          redirect: location.href,
+          // send some state to the auth route containing the page the user was trying to access such that once signing in, the user is redirected back to the page they were trying to access
+          redirect_url: location.href,
         },
       });
     }
@@ -65,8 +66,8 @@ function Layout() {
         isSignedIn={true}
         isLoading={isLoading}
         cb={() => {
-          qc.clear(); // flush the cache
           auth_store.clear(); // clear the auth store (holds the access token)
+          qc.clear(); // flush the cache
         }}
         userData={data?.data.data}
       />

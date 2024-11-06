@@ -6,12 +6,13 @@ import { Mail, ArrowRight, Lock, CircleUser } from "lucide-react";
 import { useForm } from "@tanstack/react-form";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { z } from "zod";
+import { Route as AuthRoute } from "@/routes/auth";
 import ErrorFields from "@/components/form-error-field";
 import { useSignupUser } from "../_api/queries";
 import { toast } from "sonner";
 import { errorBuilder } from "@/lib/utils";
-import { useNavigate } from "@tanstack/react-router";
 import { useAuthStore } from "@/stores/auth-store";
+import { router } from "@/main";
 
 const newUserSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
@@ -24,8 +25,10 @@ export type NewUser = z.infer<typeof newUserSchema>;
 
 function SignupTab() {
   const authStore = useAuthStore();
-  const navigate = useNavigate();
   const signupMutation = useSignupUser();
+  const redirect_url = AuthRoute.useSearch({
+    select: (search) => search.redirect_url,
+  });
   const form = useForm({
     defaultValues: {
       firstName: "",
@@ -47,9 +50,7 @@ function SignupTab() {
           richColors: true,
           duration: 2_000,
         });
-        navigate({
-          to: "/dashboard",
-        });
+        router.history.push(redirect_url || "/dashboard");
       } catch (error) {
         const errorMessage = errorBuilder(error);
         toast.error(errorMessage, {

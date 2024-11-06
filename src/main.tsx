@@ -11,7 +11,7 @@ import { queryClient } from "./lib/client.ts";
 import { routeTree } from "./routeTree.gen.ts";
 
 // Create a new router instance
-const router = createRouter({
+export const router = createRouter({
   routeTree,
   context: {
     queryClient,

@@ -10,20 +10,22 @@ import ErrorFields from "@/components/form-error-field";
 import { useSigninUser } from "../_api/queries";
 import { toast } from "sonner";
 import { errorBuilder } from "@/lib/utils";
-import { useNavigate } from "@tanstack/react-router";
 import { useAuthStore } from "@/stores/auth-store";
-import { Route } from "@/routes/auth";
+import { Route as AuthRoute } from "@/routes/auth";
+import { router } from "@/main";
 
-const existingUserSchema = z.object({
+const userSchema = z.object({
   email: z.string().email("Invalid email address"),
   password: z.string().min(5, "Password must be at least 5 characters"),
 });
 
-export type User = z.infer<typeof existingUserSchema>;
+export type User = z.infer<typeof userSchema>;
 
 function SigninTab() {
+  const redirect_url = AuthRoute.useSearch({
+    select: (search) => search.redirect_url,
+  });
   const authStore = useAuthStore();
-  const navigate = useNavigate();
   const signInMutation = useSigninUser();
   const form = useForm({
     defaultValues: {
@@ -32,8 +34,8 @@ function SigninTab() {
     } as User,
     validatorAdapter: zodValidator(),
     validators: {
-      onChange: existingUserSchema,
-      onSubmit: existingUserSchema,
+      onChange: userSchema,
+      onSubmit: userSchema,
     },
     onSubmit: async ({ value: user }) => {
       try {
@@ -44,9 +46,7 @@ function SigninTab() {
           richColors: true,
           duration: 2_000,
         });
-        navigate({
-          to: "/dashboard",
-        });
+        router.history.push(redirect_url || "/dashboard");
       } catch (error) {
         const errorMessage = errorBuilder(error);
         toast.error(errorMessage, {
