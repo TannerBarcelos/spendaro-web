@@ -15,7 +15,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 
 function Root() {
   return (
-    <div className="min-h-screen px-4 md:px-0 mx-auto lg:mx-0 bg-[#FAFBFF] dark:bg-dark">
+    <div className="min-h-screen px-4 md:px-0 mx-auto lg:mx-0">
       <Outlet />
       <Toaster />
       <TanStackRouterDevtools />

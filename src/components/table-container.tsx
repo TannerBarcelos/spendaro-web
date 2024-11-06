@@ -22,7 +22,7 @@ function TableContainer({ children, className }: Props): JSX.Element {
   return (
     <div
       className={cn(
-        `light:bg-slate-100/40 border border-slate-200/40 dark:border-slate-700/30 rounded-2xl min-h-[100px] px-3 flex items-center ${className}`
+        `light:bg-slate-100/40 border rounded-2xl min-h-[100px] px-3 flex items-center ${className}`
       )}
     >
       {children}
