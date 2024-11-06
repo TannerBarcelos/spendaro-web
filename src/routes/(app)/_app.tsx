@@ -25,7 +25,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useAuthStore } from "@/stores/auth-store";
+import { authStore, isAuthenticated } from "@/stores/auth-store";
 import { useQueryClient } from "@tanstack/react-query";
 import { useUserDetails } from "@/features/profile/_api/queries";
 import { UserData } from "@/features/profile/_api";
@@ -36,13 +36,11 @@ import { queryClient } from "@/lib/client";
 
 export const Route = createFileRoute("/(app)/_app")({
   beforeLoad: async ({ location }) => {
-    const access_token = useAuthStore.getState().accessToken;
-    if (!access_token) {
+    if (!isAuthenticated()) {
       queryClient.clear();
       throw redirect({
-        to: "/auth", // redirect the user to sign in, but carry some state to the auth route for redirection after signing in
+        to: "/auth",
         search: {
-          // send some state to the auth route containing the page the user was trying to access such that once signing in, the user is redirected back to the page they were trying to access
           redirect_url: location.href,
         },
       });
@@ -54,7 +52,7 @@ export const Route = createFileRoute("/(app)/_app")({
 function Layout() {
   const { isLoading, isError, data } = useUserDetails();
   const qc = useQueryClient();
-  const auth_store = useAuthStore();
+  const auth_store = authStore();
 
   if (isError) {
     return toast.error("An error occurred while fetching user details");

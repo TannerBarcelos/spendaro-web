@@ -11,7 +11,7 @@ import ErrorFields from "@/components/form-error-field";
 import { useSignupUser } from "../_api/queries";
 import { toast } from "sonner";
 import { errorBuilder } from "@/lib/utils";
-import { useAuthStore } from "@/stores/auth-store";
+import { authStore } from "@/stores/auth-store";
 import { router } from "@/main";
 
 const newUserSchema = z.object({
@@ -24,7 +24,7 @@ const newUserSchema = z.object({
 export type NewUser = z.infer<typeof newUserSchema>;
 
 function SignupTab() {
-  const authStore = useAuthStore();
+  const auth = authStore();
   const signupMutation = useSignupUser();
   const redirect_url = AuthRoute.useSearch({
     select: (search) => search.redirect_url,
@@ -44,7 +44,7 @@ function SignupTab() {
     onSubmit: async ({ value: newUser }) => {
       try {
         const { data: tokens } = await signupMutation.mutateAsync(newUser);
-        authStore.setAccessTokens(tokens.accessToken, tokens.refreshToken);
+        auth.setAccessTokens(tokens.accessToken, tokens.refreshToken);
         toast.success("User signed in successfully", {
           position: "bottom-right",
           richColors: true,

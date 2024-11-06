@@ -10,7 +10,7 @@ import ErrorFields from "@/components/form-error-field";
 import { useSigninUser } from "../_api/queries";
 import { toast } from "sonner";
 import { errorBuilder } from "@/lib/utils";
-import { useAuthStore } from "@/stores/auth-store";
+import { authStore } from "@/stores/auth-store";
 import { Route as AuthRoute } from "@/routes/auth";
 import { router } from "@/main";
 
@@ -25,7 +25,7 @@ function SigninTab() {
   const redirect_url = AuthRoute.useSearch({
     select: (search) => search.redirect_url,
   });
-  const authStore = useAuthStore();
+  const auth = authStore();
   const signInMutation = useSigninUser();
   const form = useForm({
     defaultValues: {
@@ -40,7 +40,7 @@ function SigninTab() {
     onSubmit: async ({ value: user }) => {
       try {
         const { data: tokens } = await signInMutation.mutateAsync(user);
-        authStore.setAccessTokens(tokens.accessToken, tokens.refreshToken);
+        auth.setAccessTokens(tokens.accessToken, tokens.refreshToken);
         toast.success("User signed in successfully", {
           position: "bottom-right",
           richColors: true,

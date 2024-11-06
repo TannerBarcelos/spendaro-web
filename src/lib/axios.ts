@@ -1,4 +1,4 @@
-import { useAuthStore } from "@/stores/auth-store";
+import { authStore } from "@/stores/auth-store";
 import axios, { AxiosError } from "axios";
 
 export type CommonApiErrorResponse = AxiosError<{
@@ -50,12 +50,12 @@ axiosInstance.interceptors.response.use(
           {},
           {
             headers: {
-              Authorization: `Bearer ${useAuthStore.getState().refreshToken}`, // will override the default Authorization header
+              Authorization: `Bearer ${authStore.getState().refreshToken}`, // will override the default Authorization header
             },
           }
         );
 
-        const setAccessTokens = useAuthStore.getState().setAccessTokens
+        const setAccessTokens = authStore.getState().setAccessTokens
         setAccessTokens(response.data.accessToken, response.data.refreshToken)
 
         // If refresh is successful, retry the original request with the new token
@@ -64,7 +64,7 @@ axiosInstance.interceptors.response.use(
           return axiosInstance(originalRequest);
         }
       } catch (refreshError) {
-        const logout = useAuthStore.getState().clear;
+        const logout = authStore.getState().clear;
         localStorage.clear();
         logout();
         window.location.href = "/auth";

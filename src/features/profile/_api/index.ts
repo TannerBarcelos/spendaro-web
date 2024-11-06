@@ -1,5 +1,5 @@
 import axiosInstance from "@/lib/axios";
-import { useAuthStore } from "@/stores/auth-store";
+import { authStore } from "@/stores/auth-store";
 
 const USER_BASE_URL = "/user";
 
@@ -23,7 +23,7 @@ export interface UserData {
 }
 
 export const fetchUser = async () => {
-  const access_token = useAuthStore.getState().accessToken;
+  const access_token = authStore.getState().accessToken;
   const headers = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${access_token}`,

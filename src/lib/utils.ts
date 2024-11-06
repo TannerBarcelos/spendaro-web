@@ -1,3 +1,4 @@
+import { authStore } from "@/stores/auth-store";
 import { isAxiosError } from "axios";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -45,4 +46,4 @@ export const formatDate = (date: Date) => {
     month: "long",
     day: "numeric",
   });
-}
+};

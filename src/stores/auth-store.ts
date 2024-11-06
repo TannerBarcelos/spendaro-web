@@ -8,7 +8,7 @@ interface AuthStore {
   clear: () => void;
 }
 
-export const useAuthStore = create<AuthStore>()(
+export const authStore = create<AuthStore>()(
   persist<AuthStore>(
     (set) => ({
       accessToken: undefined,
@@ -24,3 +24,8 @@ export const useAuthStore = create<AuthStore>()(
     } as PersistOptions<AuthStore>
   )
 );
+
+export const isAuthenticated = () => {
+  const access_token = authStore.getState().accessToken;
+  return !!access_token;
+};
