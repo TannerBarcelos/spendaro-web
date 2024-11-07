@@ -37,9 +37,9 @@ function Budgets({ budgets }: { budgets: Budget[] }) {
         <Link to="/budgeting/new">
           <Button
             variant="secondary"
-            className="hover:no-underline light:hover:bg-gray-100 rounded-lg text-[13px]"
+            className="bg-gradient-to-br from-blue-300 to-secondary  hover:from-blue-400 hover:to-secondary hover:no-underline light:hover:bg-gray-100 text-[13px]"
           >
-            Create Budget
+            create budget
           </Button>
         </Link>
       </div>

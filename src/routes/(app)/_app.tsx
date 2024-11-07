@@ -2,7 +2,15 @@ import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Link } from "@tanstack/react-router";
-import { LogOut, Moon, Settings, Sun, User, Zap } from "lucide-react";
+import {
+  CirclePlus,
+  LogOut,
+  Moon,
+  Settings,
+  Sun,
+  User,
+  Zap,
+} from "lucide-react";
 import { SVGProps } from "react";
 import { JSX } from "react/jsx-runtime";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -256,28 +264,21 @@ export function NavMenu() {
         <NavigationMenuItem>
           <NavigationMenuTrigger>Budgets</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid gap-2 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-              <li className="row-span-3">
-                <Link
-                  className="flex h-full w-full select-none flex-col justify-center rounded-md border bg-slate-50 hover:bg-slate-100 p-6 no-underline outline-none focus:shadow-md"
-                  to="/budgeting/new"
-                >
-                  <div className="text-lg font-medium">Create Budget</div>
-                  <p className="text-sm leading-tight text-muted-foreground">
-                    Create a new budget and start tracking your expenses
-                  </p>
-                </Link>
-              </li>
+            <ul className="md:w-[400px] lg:w-[500px] flex flex-col">
+              <ListItem to="/budgeting/new" title="Create Budget">
+                <p className="text-xs leading-tight">
+                  Create a new budget and start tracking your expenses
+                </p>
+              </ListItem>
               <ListItem to="/budgeting" title="View Budgets">
-                <p className="text-sm leading-tight">
+                <p className="text-xs leading-tight">
                   View all your current and favorited budgets.
                 </p>
               </ListItem>
               <ListItem to="/categories" title="Category Management">
-                View and manage budget categories
-              </ListItem>
-              <ListItem to="/categories" title="Category Management">
-                View and manage budget categories
+                <p className="text-xs leading-tight">
+                  View and manage budget categories
+                </p>
               </ListItem>
             </ul>
           </NavigationMenuContent>
@@ -285,25 +286,21 @@ export function NavMenu() {
         <NavigationMenuItem>
           <NavigationMenuTrigger>Transactions</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid gap-2 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-              <li className="row-span-3">
-                <Link
-                  className="flex h-full w-full select-none flex-col justify-center rounded-md border bg-slate-50 hover:bg-slate-100  p-6 no-underline outline-none focus:shadow-md"
-                  to="/transactions/new"
-                >
-                  <div className="text-lg font-medium">Add Transaction</div>
-                  <p className="text-sm leading-tight text-muted-foreground">
-                    Add a new transaction to your budget
-                  </p>
-                </Link>
-              </li>
+            <ul className="md:w-[400px] lg:w-[500px] flex flex-col">
+              <ListItem to="/transactions/new" title="Add Transaction">
+                <p className="text-xs leading-tight">
+                  Log a new transaction in your budget
+                </p>
+              </ListItem>
               <ListItem to="/transactions" title="View All Transactions">
-                <p className="text-sm leading-tight">
-                  View all your transactions.
+                <p className="text-xs leading-tight">
+                  View all transactions in your budget
                 </p>
               </ListItem>
               <ListItem to="/categories" title="Manage Transactions">
-                Manage transactions and view transaction history
+                <p className="text-xs leading-tight">
+                  View all transactions across all budgets
+                </p>
               </ListItem>
             </ul>
           </NavigationMenuContent>
@@ -346,7 +343,9 @@ const ListItem = ({
           "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
         )}
       >
-        <div className="text-sm font-medium leading-none">{title}</div>
+        <div className="text-sm font-medium leading-none flex items-center">
+          {title}
+        </div>
         <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
           {children}
         </p>

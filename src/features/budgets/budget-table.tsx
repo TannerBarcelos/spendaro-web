@@ -108,7 +108,7 @@ function BudgetTableBody({ budgets }: BudgetTableProps) {
                   <DropdownMenuItem>
                     <Edit2 /> Edit budget
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
+                  <DropdownMenuItem className="text-destructive hover:bg-destructive">
                     <Trash2 /> Delete budget
                   </DropdownMenuItem>
                 </DropdownMenuContent>
