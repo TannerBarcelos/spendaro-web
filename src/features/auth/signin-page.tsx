@@ -61,7 +61,7 @@ function SigninPage() {
 
   return (
     <div className="flex items-center justify-between h-full">
-      <SplashImage src="/images/feel-good-illustration.svg" />
+      <SplashImage src="signin" />
       <div className="w-1/2">
         <div className="w-3/4 m-auto">
           <AuthHeader page="signin" />
