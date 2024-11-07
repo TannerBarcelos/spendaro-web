@@ -13,7 +13,9 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as AuthIndexImport } from './routes/auth/index'
+import { Route as AuthSignupImport } from './routes/auth/signup'
+import { Route as AuthSigninImport } from './routes/auth/signin'
+import { Route as AuthLayoutImport } from './routes/auth/_layout'
 import { Route as appAppImport } from './routes/(app)/_app'
 import { Route as appAppTransactionsIndexImport } from './routes/(app)/_app/transactions/index'
 import { Route as appAppReportingIndexImport } from './routes/(app)/_app/reporting/index'
@@ -30,18 +32,34 @@ import { Route as appAppBudgetingBudgetIdCategoriesImport } from './routes/(app)
 
 // Create Virtual Routes
 
+const AuthImport = createFileRoute('/auth')()
 const appImport = createFileRoute('/(app)')()
 
 // Create/Update Routes
+
+const AuthRoute = AuthImport.update({
+  path: '/auth',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const appRoute = appImport.update({
   id: '/(app)',
   getParentRoute: () => rootRoute,
 } as any)
 
-const AuthIndexRoute = AuthIndexImport.update({
-  path: '/auth/',
-  getParentRoute: () => rootRoute,
+const AuthSignupRoute = AuthSignupImport.update({
+  path: '/signup',
+  getParentRoute: () => AuthRoute,
+} as any)
+
+const AuthSigninRoute = AuthSigninImport.update({
+  path: '/signin',
+  getParentRoute: () => AuthRoute,
+} as any)
+
+const AuthLayoutRoute = AuthLayoutImport.update({
+  id: '/_layout',
+  getParentRoute: () => AuthRoute,
 } as any)
 
 const appAppRoute = appAppImport.update({
@@ -130,12 +148,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appAppImport
       parentRoute: typeof appRoute
     }
-    '/auth/': {
-      id: '/auth/'
+    '/auth': {
+      id: '/auth'
       path: '/auth'
       fullPath: '/auth'
-      preLoaderRoute: typeof AuthIndexImport
+      preLoaderRoute: typeof AuthImport
       parentRoute: typeof rootRoute
+    }
+    '/auth/_layout': {
+      id: '/auth/_layout'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthLayoutImport
+      parentRoute: typeof AuthRoute
+    }
+    '/auth/signin': {
+      id: '/auth/signin'
+      path: '/signin'
+      fullPath: '/auth/signin'
+      preLoaderRoute: typeof AuthSigninImport
+      parentRoute: typeof AuthImport
+    }
+    '/auth/signup': {
+      id: '/auth/signup'
+      path: '/signup'
+      fullPath: '/auth/signup'
+      preLoaderRoute: typeof AuthSignupImport
+      parentRoute: typeof AuthImport
     }
     '/(app)/_app/budgeting/new': {
       id: '/(app)/_app/budgeting/new'
@@ -271,9 +310,25 @@ const appRouteChildren: appRouteChildren = {
 
 const appRouteWithChildren = appRoute._addFileChildren(appRouteChildren)
 
+interface AuthRouteChildren {
+  AuthLayoutRoute: typeof AuthLayoutRoute
+  AuthSigninRoute: typeof AuthSigninRoute
+  AuthSignupRoute: typeof AuthSignupRoute
+}
+
+const AuthRouteChildren: AuthRouteChildren = {
+  AuthLayoutRoute: AuthLayoutRoute,
+  AuthSigninRoute: AuthSigninRoute,
+  AuthSignupRoute: AuthSignupRoute,
+}
+
+const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
+
 export interface FileRoutesByFullPath {
   '/': typeof appAppRouteWithChildren
-  '/auth': typeof AuthIndexRoute
+  '/auth': typeof AuthLayoutRoute
+  '/auth/signin': typeof AuthSigninRoute
+  '/auth/signup': typeof AuthSignupRoute
   '/budgeting/new': typeof appAppBudgetingNewRoute
   '/reporting/manage': typeof appAppReportingManageRoute
   '/reporting/new': typeof appAppReportingNewRoute
@@ -290,7 +345,9 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof appAppRouteWithChildren
-  '/auth': typeof AuthIndexRoute
+  '/auth': typeof AuthLayoutRoute
+  '/auth/signin': typeof AuthSigninRoute
+  '/auth/signup': typeof AuthSignupRoute
   '/budgeting/new': typeof appAppBudgetingNewRoute
   '/reporting/manage': typeof appAppReportingManageRoute
   '/reporting/new': typeof appAppReportingNewRoute
@@ -309,7 +366,10 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/(app)': typeof appRouteWithChildren
   '/(app)/_app': typeof appAppRouteWithChildren
-  '/auth/': typeof AuthIndexRoute
+  '/auth': typeof AuthRouteWithChildren
+  '/auth/_layout': typeof AuthLayoutRoute
+  '/auth/signin': typeof AuthSigninRoute
+  '/auth/signup': typeof AuthSignupRoute
   '/(app)/_app/budgeting/new': typeof appAppBudgetingNewRoute
   '/(app)/_app/reporting/manage': typeof appAppReportingManageRoute
   '/(app)/_app/reporting/new': typeof appAppReportingNewRoute
@@ -329,6 +389,8 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/auth/signin'
+    | '/auth/signup'
     | '/budgeting/new'
     | '/reporting/manage'
     | '/reporting/new'
@@ -345,6 +407,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/auth/signin'
+    | '/auth/signup'
     | '/budgeting/new'
     | '/reporting/manage'
     | '/reporting/new'
@@ -361,7 +425,10 @@ export interface FileRouteTypes {
     | '__root__'
     | '/(app)'
     | '/(app)/_app'
-    | '/auth/'
+    | '/auth'
+    | '/auth/_layout'
+    | '/auth/signin'
+    | '/auth/signup'
     | '/(app)/_app/budgeting/new'
     | '/(app)/_app/reporting/manage'
     | '/(app)/_app/reporting/new'
@@ -379,12 +446,12 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   appRoute: typeof appRouteWithChildren
-  AuthIndexRoute: typeof AuthIndexRoute
+  AuthRoute: typeof AuthRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
   appRoute: appRouteWithChildren,
-  AuthIndexRoute: AuthIndexRoute,
+  AuthRoute: AuthRouteWithChildren,
 }
 
 export const routeTree = rootRoute
@@ -400,7 +467,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/(app)",
-        "/auth/"
+        "/auth"
       ]
     },
     "/(app)": {
@@ -427,8 +494,25 @@ export const routeTree = rootRoute
         "/(app)/_app/budgeting/$budgetId/"
       ]
     },
-    "/auth/": {
-      "filePath": "auth/index.tsx"
+    "/auth": {
+      "filePath": "auth",
+      "children": [
+        "/auth/_layout",
+        "/auth/signin",
+        "/auth/signup"
+      ]
+    },
+    "/auth/_layout": {
+      "filePath": "auth/_layout.tsx",
+      "parent": "/auth"
+    },
+    "/auth/signin": {
+      "filePath": "auth/signin.tsx",
+      "parent": "/auth"
+    },
+    "/auth/signup": {
+      "filePath": "auth/signup.tsx",
+      "parent": "/auth"
     },
     "/(app)/_app/budgeting/new": {
       "filePath": "(app)/_app/budgeting/new.tsx",

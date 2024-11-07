@@ -2,48 +2,44 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import { TabsContent } from "@radix-ui/react-tabs";
-import { Mail, Lock, CircleUser } from "lucide-react";
+import { Mail, Lock } from "lucide-react";
 import { useForm } from "@tanstack/react-form";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { z } from "zod";
-import { Route as AuthRoute } from "@/routes/auth";
 import ErrorFields from "@/components/form-error-field";
-import { useSignupUser } from "../_api/queries";
+import { useSigninUser } from "./_api/queries";
 import { toast } from "sonner";
 import { errorBuilder } from "@/lib/utils";
 import { authStore } from "@/stores/auth-store";
+import { Route as AuthRoute } from "@/routes/auth/signin";
 import { router } from "@/main";
 
-const newUserSchema = z.object({
-  firstName: z.string().min(2, "First name must be at least 2 characters"),
-  lastName: z.string().min(2, "Last name must be at least 2 characters"),
+const userSchema = z.object({
   email: z.string().email("Invalid email address"),
   password: z.string().min(5, "Password must be at least 5 characters"),
 });
 
-export type NewUser = z.infer<typeof newUserSchema>;
+export type User = z.infer<typeof userSchema>;
 
-function SignupTab() {
-  const auth = authStore();
-  const signupMutation = useSignupUser();
+function SigninPage() {
   const redirect_url = AuthRoute.useSearch({
     select: (search) => search.redirect_url,
   });
+  const auth = authStore();
+  const signInMutation = useSigninUser();
   const form = useForm({
     defaultValues: {
-      firstName: "",
-      lastName: "",
       email: "",
       password: "",
-    } as NewUser,
+    } as User,
     validatorAdapter: zodValidator(),
     validators: {
-      onChange: newUserSchema,
-      onSubmit: newUserSchema,
+      onChange: userSchema,
+      onSubmit: userSchema,
     },
-    onSubmit: async ({ value: newUser }) => {
+    onSubmit: async ({ value: user }) => {
       try {
-        const { data: tokens } = await signupMutation.mutateAsync(newUser);
+        const { data: tokens } = await signInMutation.mutateAsync(user);
         auth.setAccessTokens(tokens.accessToken, tokens.refreshToken);
         toast.success("User signed in successfully", {
           position: "bottom-right",
@@ -62,75 +58,15 @@ function SignupTab() {
   });
 
   return (
-    <TabsContent value="signup">
+    <TabsContent value="signin">
       <form
         onSubmit={(e) => {
           e.preventDefault();
           e.stopPropagation();
           form.handleSubmit();
         }}
-        className="space-y-6"
+        className="space-y-4"
       >
-        <form.Field
-          name="firstName"
-          children={(field) => {
-            return (
-              <div className="space-y-2">
-                <Label
-                  htmlFor={field.name}
-                  className="text-xs font-normal text-gray-700"
-                >
-                  First Name
-                </Label>
-                <div className="relative">
-                  <CircleUser className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
-                  <Input
-                    type="text"
-                    id={field.name}
-                    name={field.name}
-                    placeholder="Warren"
-                    value={field.state.value}
-                    onBlur={field.handleBlur}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    className="pl-10 pr-4 py-2 w-full border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500"
-                    required
-                  />
-                </div>
-                <ErrorFields field={field} />
-              </div>
-            );
-          }}
-        />
-        <form.Field
-          name="lastName"
-          children={(field) => {
-            return (
-              <div className="space-y-2">
-                <Label
-                  htmlFor={field.name}
-                  className="text-xs font-normal text-gray-700"
-                >
-                  Last Name
-                </Label>
-                <div className="relative">
-                  <CircleUser className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
-                  <Input
-                    type="text"
-                    id={field.name}
-                    name={field.name}
-                    placeholder="Buffett"
-                    value={field.state.value}
-                    onBlur={field.handleBlur}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    className="pl-10 pr-4 py-2 w-full border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500"
-                    required
-                  />
-                </div>
-                <ErrorFields field={field} />
-              </div>
-            );
-          }}
-        />
         <form.Field
           name="email"
           children={(field) => {
@@ -197,14 +133,14 @@ function SignupTab() {
             <Button
               disabled={!canSubmit}
               type="submit"
-              className="w-full bg-primary hover:bg-primary/80 text-white text-sm font-medium py-2.5 px-2 rounded-lg transition duration-300 flex items-center justify-center"
+              className="w-full bg-primary hover:bg-primary/90 text-white text-sm font-normal p-6 rounded-lg transition duration-300 flex items-center justify-center"
             >
               <p>
                 {isSubmitting ? (
-                  <span>Signing Up...</span>
+                  <span>Signing In...</span>
                 ) : (
                   <span className="flex flex-row items-center w-20 justify-between">
-                    Sign Up
+                    Start saving
                   </span>
                 )}
               </p>
@@ -215,4 +151,4 @@ function SignupTab() {
     </TabsContent>
   );
 }
-export default SignupTab;
+export default SigninPage;

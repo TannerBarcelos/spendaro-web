@@ -1,6 +1,6 @@
 import axiosInstance from "@/lib/axios";
-import type { User } from "@/features/auth/_components/signin-tab";
-import type { NewUser } from "@/features/auth/_components/signup-tab";
+import type { User } from "@/features/auth/signin-page";
+import type { NewUser } from "@/features/auth/signup-page";
 
 const AUTH_BASE_URL = "/auth";
 

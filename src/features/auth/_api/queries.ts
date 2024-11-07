@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { signin, signup } from ".";
-import { User } from "@/features/auth/_components/signin-tab";
-import { NewUser } from "@/features/auth/_components/signup-tab";
+import { User } from "@/features/auth/signin-page";
+import { NewUser } from "@/features/auth/signup-page";
 
 export const useSigninUser = () => {
   return useMutation({
