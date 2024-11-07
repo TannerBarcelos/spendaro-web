@@ -199,17 +199,9 @@ function SignupPage() {
                 <Button
                   disabled={!canSubmit}
                   type="submit"
-                  className="w-full bg-primary hover:bg-primary/80 text-white text-sm font-medium py-2.5 px-2 rounded-lg transition duration-300 flex items-center justify-center"
+                  className="w-full bg-primary hover:bg-primary/90 text-white text-sm font-normal p-6 rounded-lg flex items-center justify-center"
                 >
-                  <p>
-                    {isSubmitting ? (
-                      <span>Signing Up...</span>
-                    ) : (
-                      <span className="flex flex-row items-center w-20 justify-between">
-                        Sign Up
-                      </span>
-                    )}
-                  </p>
+                  <span>{isSubmitting ? "Signing up..." : "Sign up"}</span>
                 </Button>
               )}
             />
