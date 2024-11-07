@@ -67,7 +67,7 @@ axiosInstance.interceptors.response.use(
         const logout = authStore.getState().clear;
         localStorage.clear();
         logout();
-        window.location.href = "/auth";
+        window.location.href = "/signin";
       }
     }
 

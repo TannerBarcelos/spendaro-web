@@ -39,7 +39,7 @@ export const Route = createFileRoute("/(app)/_app")({
     if (!isAuthenticated()) {
       queryClient.clear();
       throw redirect({
-        to: "/auth",
+        to: "/signin",
         search: {
           redirect_url: location.href,
         },

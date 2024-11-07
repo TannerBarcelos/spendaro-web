@@ -33,17 +33,3 @@ export function AuthPageLayout() {
     </div>
   );
 }
-
-// function SplashImage() {
-//   return (
-//     <div className="w-1/2 h-full bg-primary/[0.03] rounded-2xl">
-//       <div className="flex flex-col items-center justify-center h-full">
-//         <img
-//           src="/images/feel-good.svg"
-//           alt="Feel good illustration"
-//           className="w-2/3"
-//         />
-//       </div>
-//     </div>
-//   );
-// }
