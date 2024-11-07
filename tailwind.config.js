@@ -11,8 +11,6 @@ export default {
       },
       backgroundColor: {
         primary: "hsl(var(--primary))",
-        dark: "hsl(var(--dark-background))",
-        "nav-item-hover": "rgba(0,110,255,0.14)",
       },
       colors: {
         background: "hsl(var(--background))",
@@ -20,7 +18,6 @@ export default {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
-          dark: "hsl(var(--card-background))",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",

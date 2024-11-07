@@ -5,10 +5,10 @@ type AuthHeaderProps = {
 function AuthHeader({ selectedTab }: AuthHeaderProps) {
   return (
     <div className="text-center">
-      <h1 className="text-2xl font-semibold text-gray-900">
+      <h1 className="text-2xl font-semibold">
         {selectedTab === "signin" ? "Welcome Back!" : "Create Your Account"}
       </h1>
-      <p className="text-gray-500 mt-2 text-sm">
+      <p className="mt-2 text-sm">
         {selectedTab === "signin"
           ? "Continue your journey towards financial freedom."
           : "Enter to start your journey towards financial freedom."}

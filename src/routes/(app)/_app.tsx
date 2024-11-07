@@ -96,7 +96,10 @@ export function Navbar({
             strokeWidth={2.5}
             className="mr-2"
           />
-          <Link to="/dashboard" className="text-xl font-semibold">
+          <Link
+            to="/dashboard"
+            className="text-xl font-semibold text-primary/90"
+          >
             Spendaro
           </Link>
         </div>
@@ -105,7 +108,7 @@ export function Navbar({
             <NavMenu />
             <div className="flex items-center">
               <div className="flex items-center justify-end space-x-4 p-3 rounded-full min-w-fit">
-                <div className="inline text-sm font-semibold text-gray-700 overflow-hidden whitespace-nowrap text-ellipsis text-right w-[100px]">
+                <div className="inline text-xs font-medium overflow-hidden whitespace-nowrap text-ellipsis text-right w-[100px]">
                   {isLoading ? (
                     <Skeleton className="w-full h-[30px] rounded-xl bg-gray-200/70" />
                   ) : (
@@ -117,7 +120,7 @@ export function Navbar({
                   <DropdownMenuTrigger>
                     <Avatar>
                       {isLoading ? (
-                        <Skeleton className="w-16 h-16 rounded-full bg-gray-200/70" />
+                        <Skeleton className="w-16 h-16 rounded-full bg-border" />
                       ) : (
                         <>
                           <AvatarImage
@@ -245,7 +248,7 @@ export function NavMenu() {
         <NavigationMenuItem>
           <Link
             to="/dashboard"
-            className={`[&.active]:text-primary  [&.active]:font-medium ${navigationMenuTriggerStyle()}`}
+            className={`[&.active]:text-primary [&.active]:font-medium ${navigationMenuTriggerStyle()}`}
           >
             Dashboard
           </Link>

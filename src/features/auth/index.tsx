@@ -14,7 +14,7 @@ export function AuthPage() {
       <nav className="p-4">
         <div className="container mx-auto flex items-center justify-between">
           <div className="flex flex-row p-3">
-            <Zap size={24} color="#006EFF" strokeWidth={2.5} className="mr-2" />
+            <Zap size={24} strokeWidth={2.5} className="mr-2 text-secondary" />
             <Link to="/dashboard" className="text-xl font-semibold">
               Spendaro
             </Link>

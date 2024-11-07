@@ -1,4 +1,3 @@
-import { authStore } from "@/stores/auth-store";
 import { isAxiosError } from "axios";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -31,10 +30,8 @@ export const greetTimeOfDay = () => {
     greeting = "Good Morning";
   } else if (hours >= 12 && hours < 17) {
     greeting = "Good Afternoon";
-  } else if (hours >= 17 && hours < 20) {
+  } else if (hours >= 17 && hours < 24) {
     greeting = "Good Evening";
-  } else if (hours >= 20 && hours < 24) {
-    greeting = "Good Night";
   }
 
   return greeting;

@@ -26,7 +26,14 @@ function Budgets({ budgets }: { budgets: Budget[] }) {
   return (
     <div>
       <div className="w-full flex flex-row items-center justify-between">
-        <h1 className="text-xl lg:text-2xl font-semibold">Budget List</h1>
+        <div>
+          <h1 className="text-lg lg:text-2xl text-primary/90 font-normal">
+            All Budgets
+          </h1>
+          <p className="text-sm font-light pt-4 text-foreground mb-6">
+            View and manage your budgets
+          </p>
+        </div>
         <Link to="/budgeting/new">
           <Button
             variant="secondary"
@@ -49,7 +56,7 @@ function Budgets({ budgets }: { budgets: Budget[] }) {
             >
               <AccordionItem value="favorites">
                 <AccordionTrigger className="max-w-fit">
-                  <h2>Favorited Budgets</h2>
+                  <h2 className="text-sm">Favorited Budgets</h2>
                 </AccordionTrigger>
                 <AccordionContent>
                   <BudgetTable budgets={favoriteBudgets} />
@@ -59,7 +66,7 @@ function Budgets({ budgets }: { budgets: Budget[] }) {
           )}
           <>
             {(favoriteBudgets.length ?? 0) > 0 && (
-              <h2 className="font-medium my-4 mt-8">All Budgets</h2>
+              <h2 className="font-medium my-4 mt-8 text-sm">All Budgets</h2>
             )}
             <BudgetTable budgets={budgets} />
           </>
