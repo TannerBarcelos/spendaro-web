@@ -80,7 +80,7 @@ function SignupPage() {
                   <div className="space-y-2">
                     <Label
                       htmlFor={field.name}
-                      className="text-xs font-normal text-gray-700"
+                      className="text-xs font-normal text-gray-700 dark:text-foreground dark:text-foreground"
                     >
                       First Name
                     </Label>
@@ -94,7 +94,7 @@ function SignupPage() {
                         value={field.state.value}
                         onBlur={field.handleBlur}
                         onChange={(e) => field.handleChange(e.target.value)}
-                        className="pl-10 pr-4 py-2 w-full border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500"
+                        className="pl-10 pr-4 py-2 w-full border-gray-300 dark:border-foreground/50 rounded-lg dark:focus:ring-secondary dark:focus:border-secondary"
                         required
                       />
                     </div>
@@ -110,7 +110,7 @@ function SignupPage() {
                   <div className="space-y-2">
                     <Label
                       htmlFor={field.name}
-                      className="text-xs font-normal text-gray-700"
+                      className="text-xs font-normal text-gray-700 dark:text-foreground"
                     >
                       Last Name
                     </Label>
@@ -124,7 +124,7 @@ function SignupPage() {
                         value={field.state.value}
                         onBlur={field.handleBlur}
                         onChange={(e) => field.handleChange(e.target.value)}
-                        className="pl-10 pr-4 py-2 w-full border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500"
+                        className="pl-10 pr-4 py-2 w-full border-gray-300 dark:border-foreground/50 rounded-lg dark:focus:ring-secondary dark:focus:border-secondary"
                         required
                       />
                     </div>
@@ -140,7 +140,7 @@ function SignupPage() {
                   <div className="space-y-2">
                     <Label
                       htmlFor="email"
-                      className="text-xs font-normal text-gray-700"
+                      className="text-xs font-normal text-gray-700 dark:text-foreground"
                     >
                       Email
                     </Label>
@@ -154,7 +154,7 @@ function SignupPage() {
                         value={field.state.value}
                         onBlur={field.handleBlur}
                         onChange={(e) => field.handleChange(e.target.value)}
-                        className="pl-10 pr-4 py-2 w-full border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500"
+                        className="pl-10 pr-4 py-2 w-full border-gray-300 dark:border-foreground/50 rounded-lg dark:focus:ring-secondary dark:focus:border-secondary"
                         required
                       />
                     </div>
@@ -170,7 +170,7 @@ function SignupPage() {
                   <div className="space-y-2">
                     <Label
                       htmlFor="password"
-                      className="text-xs font-normal text-gray-700"
+                      className="text-xs font-normal text-gray-700 dark:text-foreground"
                     >
                       Password
                     </Label>
@@ -184,7 +184,7 @@ function SignupPage() {
                         value={field.state.value}
                         onBlur={field.handleBlur}
                         onChange={(e) => field.handleChange(e.target.value)}
-                        className="pl-10 pr-4 py-2 w-full border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500"
+                        className="pl-10 pr-4 py-2 w-full border-gray-300 dark:border-foreground/50 rounded-lg dark:focus:ring-secondary dark:focus:border-secondary"
                         required
                       />
                     </div>
@@ -199,7 +199,7 @@ function SignupPage() {
                 <Button
                   disabled={!canSubmit}
                   type="submit"
-                  className="w-full bg-primary hover:bg-primary/90 text-white text-sm font-normal p-6 rounded-lg flex items-center justify-center"
+                  className="w-full bg-primary dark:bg-secondary hover:bg-primary/90 text-white dark:text-background text-sm font-normal p-6 rounded-lg flex items-center justify-center"
                 >
                   <span>{isSubmitting ? "Signing up..." : "Sign up"}</span>
                 </Button>
@@ -210,7 +210,7 @@ function SignupPage() {
             Already have an account?{" "}
             <Link
               to="/signin"
-              className="text-primary hover:text-primary/90 ml-1"
+              className="text-primary hover:text-primary/90 ml-1 dark:text-secondary dark:hover:text-secondary/90"
             >
               Sign in
             </Link>
