@@ -14,6 +14,7 @@ import { Route as AuthRoute } from "@/routes/(auth)/_auth/signin";
 import { router } from "@/main";
 import SplashImage from "./_components/splash-image";
 import AuthHeader from "./_components/auth-header";
+import { Link } from "@tanstack/react-router";
 
 const userSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -70,6 +71,7 @@ function SigninPage() {
               e.stopPropagation();
               form.handleSubmit();
             }}
+            className="space-y-4"
           >
             <form.Field
               name="email"
@@ -137,16 +139,22 @@ function SigninPage() {
                 <Button
                   disabled={!canSubmit}
                   type="submit"
-                  className="w-full bg-primary hover:bg-primary/90 text-white text-sm font-normal p-6 rounded-lg transition duration-300 flex items-center justify-center"
+                  className="w-full bg-primary hover:bg-primary/90 text-white text-sm font-normal p-6 rounded-lg flex items-center justify-center"
                 >
-                  <span>
-                    {canSubmit ? "Sign In" : "Please fill all fields"}
-                    {isSubmitting && "..."}
-                  </span>
+                  <span>{isSubmitting ? "Signing in..." : "Sign in"}</span>
                 </Button>
               )}
             />
           </form>
+          <p className="text-xs pt-4 text-gray-500 font-normal">
+            Don&apos;t have an account?
+            <Link
+              to="/signup"
+              className="text-primary hover:text-primary/90 ml-1"
+            >
+              Sign up
+            </Link>
+          </p>
         </div>
       </div>
     </div>
