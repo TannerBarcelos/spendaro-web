@@ -2,15 +2,7 @@ import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Link } from "@tanstack/react-router";
-import {
-  CirclePlus,
-  LogOut,
-  Moon,
-  Settings,
-  Sun,
-  User,
-  Zap,
-} from "lucide-react";
+import { LogOut, Moon, Settings, Sun, User, Zap } from "lucide-react";
 import { SVGProps } from "react";
 import { JSX } from "react/jsx-runtime";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -340,7 +332,7 @@ const ListItem = ({
       <Link
         to={to}
         className={cn(
-          "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+          "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:rounded-xl hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
         )}
       >
         <div className="text-sm font-medium leading-none flex items-center">
