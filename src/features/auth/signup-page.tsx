@@ -6,7 +6,7 @@ import { Mail, Lock, CircleUser } from "lucide-react";
 import { useForm } from "@tanstack/react-form";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { z } from "zod";
-import { Route as AuthRoute } from "@/routes/auth/signin";
+import { Route as AuthRoute } from "@/routes/(auth)/_auth/signin";
 import ErrorFields from "@/components/form-error-field";
 import { useSignupUser } from "./_api/queries";
 import { toast } from "sonner";
@@ -62,157 +62,155 @@ function SignupPage() {
   });
 
   return (
-    <TabsContent value="signup">
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          form.handleSubmit();
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        form.handleSubmit();
+      }}
+      className="space-y-6"
+    >
+      <form.Field
+        name="firstName"
+        children={(field) => {
+          return (
+            <div className="space-y-2">
+              <Label
+                htmlFor={field.name}
+                className="text-xs font-normal text-gray-700"
+              >
+                First Name
+              </Label>
+              <div className="relative">
+                <CircleUser className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                <Input
+                  type="text"
+                  id={field.name}
+                  name={field.name}
+                  placeholder="Warren"
+                  value={field.state.value}
+                  onBlur={field.handleBlur}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  className="pl-10 pr-4 py-2 w-full border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500"
+                  required
+                />
+              </div>
+              <ErrorFields field={field} />
+            </div>
+          );
         }}
-        className="space-y-6"
-      >
-        <form.Field
-          name="firstName"
-          children={(field) => {
-            return (
-              <div className="space-y-2">
-                <Label
-                  htmlFor={field.name}
-                  className="text-xs font-normal text-gray-700"
-                >
-                  First Name
-                </Label>
-                <div className="relative">
-                  <CircleUser className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
-                  <Input
-                    type="text"
-                    id={field.name}
-                    name={field.name}
-                    placeholder="Warren"
-                    value={field.state.value}
-                    onBlur={field.handleBlur}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    className="pl-10 pr-4 py-2 w-full border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500"
-                    required
-                  />
-                </div>
-                <ErrorFields field={field} />
+      />
+      <form.Field
+        name="lastName"
+        children={(field) => {
+          return (
+            <div className="space-y-2">
+              <Label
+                htmlFor={field.name}
+                className="text-xs font-normal text-gray-700"
+              >
+                Last Name
+              </Label>
+              <div className="relative">
+                <CircleUser className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                <Input
+                  type="text"
+                  id={field.name}
+                  name={field.name}
+                  placeholder="Buffett"
+                  value={field.state.value}
+                  onBlur={field.handleBlur}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  className="pl-10 pr-4 py-2 w-full border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500"
+                  required
+                />
               </div>
-            );
-          }}
-        />
-        <form.Field
-          name="lastName"
-          children={(field) => {
-            return (
-              <div className="space-y-2">
-                <Label
-                  htmlFor={field.name}
-                  className="text-xs font-normal text-gray-700"
-                >
-                  Last Name
-                </Label>
-                <div className="relative">
-                  <CircleUser className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
-                  <Input
-                    type="text"
-                    id={field.name}
-                    name={field.name}
-                    placeholder="Buffett"
-                    value={field.state.value}
-                    onBlur={field.handleBlur}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    className="pl-10 pr-4 py-2 w-full border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500"
-                    required
-                  />
-                </div>
-                <ErrorFields field={field} />
+              <ErrorFields field={field} />
+            </div>
+          );
+        }}
+      />
+      <form.Field
+        name="email"
+        children={(field) => {
+          return (
+            <div className="space-y-2">
+              <Label
+                htmlFor="email"
+                className="text-xs font-normal text-gray-700"
+              >
+                Email
+              </Label>
+              <div className="relative">
+                <Mail className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                <Input
+                  type="email"
+                  id={field.name}
+                  name={field.name}
+                  placeholder="you@example.com"
+                  value={field.state.value}
+                  onBlur={field.handleBlur}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  className="pl-10 pr-4 py-2 w-full border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500"
+                  required
+                />
               </div>
-            );
-          }}
-        />
-        <form.Field
-          name="email"
-          children={(field) => {
-            return (
-              <div className="space-y-2">
-                <Label
-                  htmlFor="email"
-                  className="text-xs font-normal text-gray-700"
-                >
-                  Email
-                </Label>
-                <div className="relative">
-                  <Mail className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
-                  <Input
-                    type="email"
-                    id={field.name}
-                    name={field.name}
-                    placeholder="you@example.com"
-                    value={field.state.value}
-                    onBlur={field.handleBlur}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    className="pl-10 pr-4 py-2 w-full border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500"
-                    required
-                  />
-                </div>
-                <ErrorFields field={field} />
+              <ErrorFields field={field} />
+            </div>
+          );
+        }}
+      />
+      <form.Field
+        name="password"
+        children={(field) => {
+          return (
+            <div className="space-y-2">
+              <Label
+                htmlFor="password"
+                className="text-xs font-normal text-gray-700"
+              >
+                Password
+              </Label>
+              <div className="relative">
+                <Lock className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                <Input
+                  type="password"
+                  id={field.name}
+                  name={field.name}
+                  placeholder="Your password"
+                  value={field.state.value}
+                  onBlur={field.handleBlur}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  className="pl-10 pr-4 py-2 w-full border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500"
+                  required
+                />
               </div>
-            );
-          }}
-        />
-        <form.Field
-          name="password"
-          children={(field) => {
-            return (
-              <div className="space-y-2">
-                <Label
-                  htmlFor="password"
-                  className="text-xs font-normal text-gray-700"
-                >
-                  Password
-                </Label>
-                <div className="relative">
-                  <Lock className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
-                  <Input
-                    type="password"
-                    id={field.name}
-                    name={field.name}
-                    placeholder="Your password"
-                    value={field.state.value}
-                    onBlur={field.handleBlur}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    className="pl-10 pr-4 py-2 w-full border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500"
-                    required
-                  />
-                </div>
-                <ErrorFields field={field} />
-              </div>
-            );
-          }}
-        />
-        <form.Subscribe
-          selector={(state) => [state.canSubmit, state.isSubmitting]}
-          children={([canSubmit, isSubmitting]) => (
-            <Button
-              disabled={!canSubmit}
-              type="submit"
-              className="w-full bg-primary hover:bg-primary/80 text-white text-sm font-medium py-2.5 px-2 rounded-lg transition duration-300 flex items-center justify-center"
-            >
-              <p>
-                {isSubmitting ? (
-                  <span>Signing Up...</span>
-                ) : (
-                  <span className="flex flex-row items-center w-20 justify-between">
-                    Sign Up
-                  </span>
-                )}
-              </p>
-            </Button>
-          )}
-        />
-      </form>
-    </TabsContent>
+              <ErrorFields field={field} />
+            </div>
+          );
+        }}
+      />
+      <form.Subscribe
+        selector={(state) => [state.canSubmit, state.isSubmitting]}
+        children={([canSubmit, isSubmitting]) => (
+          <Button
+            disabled={!canSubmit}
+            type="submit"
+            className="w-full bg-primary hover:bg-primary/80 text-white text-sm font-medium py-2.5 px-2 rounded-lg transition duration-300 flex items-center justify-center"
+          >
+            <p>
+              {isSubmitting ? (
+                <span>Signing Up...</span>
+              ) : (
+                <span className="flex flex-row items-center w-20 justify-between">
+                  Sign Up
+                </span>
+              )}
+            </p>
+          </Button>
+        )}
+      />
+    </form>
   );
 }
 export default SignupPage;

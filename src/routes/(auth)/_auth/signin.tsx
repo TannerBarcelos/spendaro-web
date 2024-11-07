@@ -7,8 +7,7 @@ const searchParamsSchema = z.object({
   redirect_url: z.string().optional(), // Optional because it's not always present - e.g. when user directly visits /auth/signin or they logout and are redirected to /auth/signin which doesn't have a redirect_url as a full logout means signing in again takes us to the dashboard
 });
 
-export const Route = createFileRoute("/auth/signin")({
-  // Validate the search params
+export const Route = createFileRoute("/(auth)/_auth/signin")({
   validateSearch: (search: z.infer<typeof searchParamsSchema>) => {
     return searchParamsSchema.parse(search);
   },
