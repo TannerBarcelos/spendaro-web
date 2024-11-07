@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import { TabsContent } from "@radix-ui/react-tabs";
-import { Mail, ArrowRight, Lock, CircleUser } from "lucide-react";
+import { Mail, Lock, CircleUser } from "lucide-react";
 import { useForm } from "@tanstack/react-form";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { z } from "zod";
@@ -197,7 +197,7 @@ function SignupTab() {
             <Button
               disabled={!canSubmit}
               type="submit"
-              className="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-2.5 px-4 rounded-lg transition duration-300 flex items-center justify-center text-base"
+              className="w-full bg-primary hover:bg-primary/80 text-white text-sm font-medium py-2.5 px-2 rounded-lg transition duration-300 flex items-center justify-center"
             >
               <p>
                 {isSubmitting ? (
@@ -205,7 +205,6 @@ function SignupTab() {
                 ) : (
                   <span className="flex flex-row items-center w-20 justify-between">
                     Sign Up
-                    <ArrowRight />
                   </span>
                 )}
               </p>
