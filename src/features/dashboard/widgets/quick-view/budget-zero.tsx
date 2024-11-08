@@ -1,10 +1,9 @@
-import { BicepsFlexed, PartyPopper } from "lucide-react";
 import React from "react";
+import { BicepsFlexed, PartyPopper } from "lucide-react";
 
 const iconConfig = {
   width: 30,
   height: 30,
-  className: "text-gray-700/70",
 };
 
 function BudgetZero() {
@@ -14,12 +13,12 @@ function BudgetZero() {
   return (
     <div className="flex flex-col items-center justify-center mt-10">
       {hasMetBudgetZero ? (
-        <DisplayBudgetZero
+        <Message
           message="Congrats you've met budget zero!"
           icon={<PartyPopper {...iconConfig} />}
         />
       ) : (
-        <DisplayBudgetZero
+        <Message
           message={`$${currentBalance} to go! Keep up the great work!`}
           icon={<BicepsFlexed {...iconConfig} />}
         />
@@ -28,7 +27,7 @@ function BudgetZero() {
   );
 }
 
-function DisplayBudgetZero({
+function Message({
   message,
   icon,
 }: {
@@ -37,7 +36,7 @@ function DisplayBudgetZero({
 }) {
   return (
     <div className="flex items-center w-full justify-center gap-x-4">
-      <p className="text-medium font-medium text-gray-700">{message}</p>
+      <p className="text-medium font-medium">{message}</p>
       {icon}
     </div>
   );
