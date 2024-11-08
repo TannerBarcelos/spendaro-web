@@ -6,7 +6,6 @@ import {
 } from "@tanstack/react-router";
 import { isAuthenticated } from "@/stores/auth-store";
 import { Zap } from "lucide-react";
-import SplashImage from "@/features/auth/_components/splash-image";
 
 export const Route = createFileRoute("/(auth)/_auth")({
   beforeLoad: async () => {
@@ -33,7 +32,22 @@ export function AuthPageLayout() {
       </div>
       <div className="p-8 m-auto w-full h-[80%] rounded-2xl bg-white dark:bg-card shadow-sm">
         <div className="flex items-center justify-between h-full">
-          <SplashImage />
+          <div className="w-1/2 h-full bg-primary/[0.009] rounded-2xl relative">
+            <div className="flex flex-col items-center justify-center h-full">
+              <div className="flex flex-col items-center w-full">
+                <div className="flex flex-col items-start lg:w-[500px]">
+                  <Zap size={70} strokeWidth={1.5} className="text-logo" />
+                  <h1 className="lg:text-4xl font-bold text-primary my-4">
+                    Track, Save, Thrive.
+                  </h1>
+                  <p className="text-md  mt-2 text-foreground">
+                    Spendaro aims to help all users track their expenses, save
+                    money and thrive financially.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
           <div className="w-1/2">
             <Outlet />
           </div>
