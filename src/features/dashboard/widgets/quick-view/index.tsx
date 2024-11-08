@@ -7,7 +7,7 @@ import {
   PiggyBank,
 } from "lucide-react";
 
-import QuickViewBox from "./Box";
+import QuickViewBox from "./box";
 
 const iconConfig = {
   width: 17,
