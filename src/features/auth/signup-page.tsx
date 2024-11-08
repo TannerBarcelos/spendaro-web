@@ -11,7 +11,6 @@ import { toast } from "sonner";
 import { errorBuilder } from "@/lib/utils";
 import { authStore } from "@/stores/auth-store";
 import { router } from "@/main";
-import SplashImage from "./_components/splash-image";
 import AuthHeader from "./_components/auth-header";
 import { Link } from "@tanstack/react-router";
 
@@ -60,163 +59,158 @@ function SignupPage() {
   });
 
   return (
-    <div className="flex items-center justify-between h-full">
-      <SplashImage src="signup" />
-      <div className="w-1/2">
-        <div className="w-3/4 m-auto">
-          <AuthHeader page="signup" />
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              form.handleSubmit();
-            }}
-            className="space-y-4"
-          >
-            <form.Field
-              name="firstName"
-              children={(field) => {
-                return (
-                  <div className="space-y-2">
-                    <Label
-                      htmlFor={field.name}
-                      className="text-xs font-normal text-gray-700 dark:text-foreground dark:text-foreground"
-                    >
-                      First Name
-                    </Label>
-                    <div className="relative">
-                      <CircleUser className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
-                      <Input
-                        type="text"
-                        id={field.name}
-                        name={field.name}
-                        placeholder="Warren"
-                        value={field.state.value}
-                        onBlur={field.handleBlur}
-                        onChange={(e) => field.handleChange(e.target.value)}
-                        className="pl-10 pr-4 py-2 w-full border-gray-300 dark:border-foreground/50 rounded-lg dark:focus:ring-secondary dark:focus:border-secondary"
-                        required
-                      />
-                    </div>
-                    <ErrorFields field={field} />
-                  </div>
-                );
-              }}
-            />
-            <form.Field
-              name="lastName"
-              children={(field) => {
-                return (
-                  <div className="space-y-2">
-                    <Label
-                      htmlFor={field.name}
-                      className="text-xs font-normal text-gray-700 dark:text-foreground"
-                    >
-                      Last Name
-                    </Label>
-                    <div className="relative">
-                      <CircleUser className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
-                      <Input
-                        type="text"
-                        id={field.name}
-                        name={field.name}
-                        placeholder="Buffett"
-                        value={field.state.value}
-                        onBlur={field.handleBlur}
-                        onChange={(e) => field.handleChange(e.target.value)}
-                        className="pl-10 pr-4 py-2 w-full border-gray-300 dark:border-foreground/50 rounded-lg dark:focus:ring-secondary dark:focus:border-secondary"
-                        required
-                      />
-                    </div>
-                    <ErrorFields field={field} />
-                  </div>
-                );
-              }}
-            />
-            <form.Field
-              name="email"
-              children={(field) => {
-                return (
-                  <div className="space-y-2">
-                    <Label
-                      htmlFor="email"
-                      className="text-xs font-normal text-gray-700 dark:text-foreground"
-                    >
-                      Email
-                    </Label>
-                    <div className="relative">
-                      <Mail className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
-                      <Input
-                        type="email"
-                        id={field.name}
-                        name={field.name}
-                        placeholder="you@example.com"
-                        value={field.state.value}
-                        onBlur={field.handleBlur}
-                        onChange={(e) => field.handleChange(e.target.value)}
-                        className="pl-10 pr-4 py-2 w-full border-gray-300 dark:border-foreground/50 rounded-lg dark:focus:ring-secondary dark:focus:border-secondary"
-                        required
-                      />
-                    </div>
-                    <ErrorFields field={field} />
-                  </div>
-                );
-              }}
-            />
-            <form.Field
-              name="password"
-              children={(field) => {
-                return (
-                  <div className="space-y-2">
-                    <Label
-                      htmlFor="password"
-                      className="text-xs font-normal text-gray-700 dark:text-foreground"
-                    >
-                      Password
-                    </Label>
-                    <div className="relative">
-                      <Lock className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
-                      <Input
-                        type="password"
-                        id={field.name}
-                        name={field.name}
-                        placeholder="Your password"
-                        value={field.state.value}
-                        onBlur={field.handleBlur}
-                        onChange={(e) => field.handleChange(e.target.value)}
-                        className="pl-10 pr-4 py-2 w-full border-gray-300 dark:border-foreground/50 rounded-lg dark:focus:ring-secondary dark:focus:border-secondary"
-                        required
-                      />
-                    </div>
-                    <ErrorFields field={field} />
-                  </div>
-                );
-              }}
-            />
-            <form.Subscribe
-              selector={(state) => [state.canSubmit, state.isSubmitting]}
-              children={([canSubmit, isSubmitting]) => (
-                <Button
-                  disabled={!canSubmit}
-                  type="submit"
-                  className="w-full bg-primary dark:bg-secondary hover:bg-primary/90 text-white dark:text-background text-sm font-normal p-6 rounded-lg flex items-center justify-center"
+    <div className="w-3/4 m-auto">
+      <AuthHeader page="signup" />
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          form.handleSubmit();
+        }}
+        className="space-y-4"
+      >
+        <form.Field
+          name="firstName"
+          children={(field) => {
+            return (
+              <div className="space-y-2">
+                <Label
+                  htmlFor={field.name}
+                  className="text-xs font-normal text-gray-700 dark:text-foreground"
                 >
-                  <span>{isSubmitting ? "Signing up..." : "Sign up"}</span>
-                </Button>
-              )}
-            />
-          </form>
-          <p className="text-xs pt-4 text-gray-500 font-normal">
-            Already have an account?{" "}
-            <Link
-              to="/signin"
-              className="text-primary hover:text-primary/90 ml-1 dark:text-secondary dark:hover:text-secondary/90"
+                  First Name
+                </Label>
+                <div className="relative">
+                  <CircleUser className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                  <Input
+                    type="text"
+                    id={field.name}
+                    name={field.name}
+                    placeholder="Warren"
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    className="pl-10 pr-4 py-2 w-full border-gray-300 dark:border-foreground/50 rounded-lg dark:focus:ring-secondary dark:focus:border-secondary"
+                    required
+                  />
+                </div>
+                <ErrorFields field={field} />
+              </div>
+            );
+          }}
+        />
+        <form.Field
+          name="lastName"
+          children={(field) => {
+            return (
+              <div className="space-y-2">
+                <Label
+                  htmlFor={field.name}
+                  className="text-xs font-normal text-gray-700 dark:text-foreground"
+                >
+                  Last Name
+                </Label>
+                <div className="relative">
+                  <CircleUser className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                  <Input
+                    type="text"
+                    id={field.name}
+                    name={field.name}
+                    placeholder="Buffett"
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    className="pl-10 pr-4 py-2 w-full border-gray-300 dark:border-foreground/50 rounded-lg dark:focus:ring-secondary dark:focus:border-secondary"
+                    required
+                  />
+                </div>
+                <ErrorFields field={field} />
+              </div>
+            );
+          }}
+        />
+        <form.Field
+          name="email"
+          children={(field) => {
+            return (
+              <div className="space-y-2">
+                <Label
+                  htmlFor="email"
+                  className="text-xs font-normal text-gray-700 dark:text-foreground"
+                >
+                  Email
+                </Label>
+                <div className="relative">
+                  <Mail className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                  <Input
+                    type="email"
+                    id={field.name}
+                    name={field.name}
+                    placeholder="you@example.com"
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    className="pl-10 pr-4 py-2 w-full border-gray-300 dark:border-foreground/50 rounded-lg dark:focus:ring-secondary dark:focus:border-secondary"
+                    required
+                  />
+                </div>
+                <ErrorFields field={field} />
+              </div>
+            );
+          }}
+        />
+        <form.Field
+          name="password"
+          children={(field) => {
+            return (
+              <div className="space-y-2">
+                <Label
+                  htmlFor="password"
+                  className="text-xs font-normal text-gray-700 dark:text-foreground"
+                >
+                  Password
+                </Label>
+                <div className="relative">
+                  <Lock className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                  <Input
+                    type="password"
+                    id={field.name}
+                    name={field.name}
+                    placeholder="Your password"
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    className="pl-10 pr-4 py-2 w-full border-gray-300 dark:border-foreground/50 rounded-lg dark:focus:ring-secondary dark:focus:border-secondary"
+                    required
+                  />
+                </div>
+                <ErrorFields field={field} />
+              </div>
+            );
+          }}
+        />
+        <form.Subscribe
+          selector={(state) => [state.canSubmit, state.isSubmitting]}
+          children={([canSubmit, isSubmitting]) => (
+            <Button
+              disabled={!canSubmit}
+              type="submit"
+              className="w-full bg-primary dark:bg-secondary hover:bg-primary/90 text-white dark:text-background text-sm font-normal p-6 rounded-lg flex items-center justify-center"
             >
-              Sign in
-            </Link>
-          </p>
-        </div>
-      </div>
+              <span>{isSubmitting ? "Signing up..." : "Sign up"}</span>
+            </Button>
+          )}
+        />
+      </form>
+      <p className="text-xs pt-4 text-gray-500 font-normal">
+        Already have an account?{" "}
+        <Link
+          to="/signin"
+          className="text-primary hover:text-primary/90 ml-1 dark:text-secondary dark:hover:text-secondary/90"
+        >
+          Sign in
+        </Link>
+      </p>
     </div>
   );
 }

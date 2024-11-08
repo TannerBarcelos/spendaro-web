@@ -12,7 +12,6 @@ import { errorBuilder } from "@/lib/utils";
 import { authStore } from "@/stores/auth-store";
 import { Route as AuthRoute } from "@/routes/(auth)/_auth/signin";
 import { router } from "@/main";
-import SplashImage from "./_components/splash-image";
 import AuthHeader from "./_components/auth-header";
 import { Link } from "@tanstack/react-router";
 
@@ -60,103 +59,98 @@ function SigninPage() {
   });
 
   return (
-    <div className="flex items-center justify-between h-full">
-      <SplashImage src="signin" />
-      <div className="w-1/2">
-        <div className="w-3/4 m-auto">
-          <AuthHeader page="signin" />
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              form.handleSubmit();
-            }}
-            className="space-y-4"
-          >
-            <form.Field
-              name="email"
-              children={(field) => {
-                return (
-                  <div className="space-y-2">
-                    <Label
-                      htmlFor="email"
-                      className="text-xs font-normal text-gray-700 dark:text-foreground"
-                    >
-                      Email
-                    </Label>
-                    <div className="relative">
-                      <Mail className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
-                      <Input
-                        type="email"
-                        id={field.name}
-                        name={field.name}
-                        placeholder="you@example.com"
-                        value={field.state.value}
-                        onBlur={field.handleBlur}
-                        onChange={(e) => field.handleChange(e.target.value)}
-                        className="pl-10 pr-4 py-2 w-full border-gray-300 dark:border-foreground/50 rounded-lg dark:focus:ring-secondary dark:focus:border-secondary"
-                        required
-                      />
-                    </div>
-                    <ErrorFields field={field} />
-                  </div>
-                );
-              }}
-            />
-            <form.Field
-              name="password"
-              children={(field) => {
-                return (
-                  <div className="space-y-2">
-                    <Label
-                      htmlFor="password"
-                      className="text-xs font-normal text-gray-700 dark:text-foreground"
-                    >
-                      Password
-                    </Label>
-                    <div className="relative">
-                      <Lock className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
-                      <Input
-                        type="password"
-                        id={field.name}
-                        name={field.name}
-                        placeholder="Your password"
-                        value={field.state.value}
-                        onBlur={field.handleBlur}
-                        onChange={(e) => field.handleChange(e.target.value)}
-                        className="pl-10 pr-4 py-2 w-full border-gray-300 dark:border-foreground/50 rounded-lg dark:focus:ring-secondary dark:focus:border-secondary"
-                        required
-                      />
-                    </div>
-                    <ErrorFields field={field} />
-                  </div>
-                );
-              }}
-            />
-            <form.Subscribe
-              selector={(state) => [state.canSubmit, state.isSubmitting]}
-              children={([canSubmit, isSubmitting]) => (
-                <Button
-                  disabled={!canSubmit}
-                  type="submit"
-                  className="w-full bg-primary dark:bg-secondary hover:bg-primary/90 text-white dark:text-background text-sm font-normal p-6 rounded-lg flex items-center justify-center"
+    <div className="w-3/4 m-auto">
+      <AuthHeader page="signin" />
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          form.handleSubmit();
+        }}
+        className="space-y-4"
+      >
+        <form.Field
+          name="email"
+          children={(field) => {
+            return (
+              <div className="space-y-2">
+                <Label
+                  htmlFor="email"
+                  className="text-xs font-normal text-gray-700 dark:text-foreground"
                 >
-                  <span>{isSubmitting ? "Signing in..." : "Sign in"}</span>
-                </Button>
-              )}
-            />
-          </form>
-          <p className="text-xs pt-4 text-gray-500 font-normal">
-            Don&apos;t have an account?
-            <Link
-              to="/signup"
-              className="text-primary hover:text-primary/90 ml-1 dark:text-secondary dark:hover:text-secondary/90"
+                  Email
+                </Label>
+                <div className="relative">
+                  <Mail className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                  <Input
+                    type="email"
+                    id={field.name}
+                    name={field.name}
+                    placeholder="you@example.com"
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    className="pl-10 pr-4 py-2 w-full border-gray-300 dark:border-foreground/50 rounded-lg dark:focus:ring-secondary dark:focus:border-secondary"
+                    required
+                  />
+                </div>
+                <ErrorFields field={field} />
+              </div>
+            );
+          }}
+        />
+        <form.Field
+          name="password"
+          children={(field) => {
+            return (
+              <div className="space-y-2">
+                <Label
+                  htmlFor="password"
+                  className="text-xs font-normal text-gray-700 dark:text-foreground"
+                >
+                  Password
+                </Label>
+                <div className="relative">
+                  <Lock className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                  <Input
+                    type="password"
+                    id={field.name}
+                    name={field.name}
+                    placeholder="Your password"
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    className="pl-10 pr-4 py-2 w-full border-gray-300 dark:border-foreground/50 rounded-lg dark:focus:ring-secondary dark:focus:border-secondary"
+                    required
+                  />
+                </div>
+                <ErrorFields field={field} />
+              </div>
+            );
+          }}
+        />
+        <form.Subscribe
+          selector={(state) => [state.canSubmit, state.isSubmitting]}
+          children={([canSubmit, isSubmitting]) => (
+            <Button
+              disabled={!canSubmit}
+              type="submit"
+              className="w-full bg-primary dark:bg-secondary hover:bg-primary/90 text-white dark:text-background text-sm font-normal p-6 rounded-lg flex items-center justify-center"
             >
-              Sign up
-            </Link>
-          </p>
-        </div>
-      </div>
+              <span>{isSubmitting ? "Signing in..." : "Sign in"}</span>
+            </Button>
+          )}
+        />
+      </form>
+      <p className="text-xs pt-4 text-gray-500 font-normal">
+        Don&apos;t have an account?
+        <Link
+          to="/signup"
+          className="text-primary hover:text-primary/90 ml-1 dark:text-secondary dark:hover:text-secondary/90"
+        >
+          Sign up
+        </Link>
+      </p>
     </div>
   );
 }

@@ -6,6 +6,7 @@ import {
 } from "@tanstack/react-router";
 import { isAuthenticated } from "@/stores/auth-store";
 import { Zap } from "lucide-react";
+import SplashImage from "@/features/auth/_components/splash-image";
 
 export const Route = createFileRoute("/(auth)/_auth")({
   beforeLoad: async () => {
@@ -31,7 +32,12 @@ export function AuthPageLayout() {
         </div>
       </div>
       <div className="p-8 m-auto w-full h-[80%] rounded-2xl bg-white dark:bg-card shadow-sm">
-        <Outlet />
+        <div className="flex items-center justify-between h-full">
+          <SplashImage />
+          <div className="w-1/2">
+            <Outlet />
+          </div>
+        </div>
       </div>
     </div>
   );
