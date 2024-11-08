@@ -20,4 +20,3 @@ export type BudgetsResponse = {
   data:    Array<Budget>;
   message: string;
 }
-
