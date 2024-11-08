@@ -1,5 +1,4 @@
 import Info from "@/components/Info";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   DropdownMenu,
@@ -24,7 +23,7 @@ const WidgetTitle = () => {
     <CardHeader>
       <CardTitle className="flex flex-row items-center justify-between">
         <div className="flex items-center justify-between">
-          <h2 className="text-base lg:text-md font-medium text-slate-950">
+          <h2 className="text-base lg:text-md font-medium text-foreground">
             Latest Transactions
           </h2>
           <Info info="A list of all your latest transactions across all your accounts and budgets" />
