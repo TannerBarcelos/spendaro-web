@@ -27,11 +27,11 @@ function Budgets({ budgets }: { budgets: Budget[] }) {
     <div>
       <div className="w-full flex flex-row items-center justify-between">
         <div>
-          <h1 className="text-lg lg:text-2xl text-primary/90 font-normal">
+          <h1 className="text-xl lg:text-2xl font-semibold mr-4">
             All Budgets
           </h1>
           <p className="text-sm font-light pt-4 text-foreground mb-6">
-            View and manage your budgets
+            View and manage all of your budgets
           </p>
         </div>
         <Link to="/budgeting/new">
