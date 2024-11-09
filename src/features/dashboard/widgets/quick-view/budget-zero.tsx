@@ -17,7 +17,7 @@ export default function BudgetZeroCard() {
     savings: { amount: 0, progress: 100 },
   };
 
-  const currentBudget = budgetData[selectedBudget];
+  const currentBudget = budgetData[selectedBudget as keyof typeof budgetData];
 
   return (
     <Card className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">

@@ -1,7 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import BudgetZero from "./budget-zero";
 import {
-  BadgeDollarSign,
   CircleArrowOutDownLeft,
   CircleArrowOutUpRight,
   DollarSign,
@@ -18,7 +17,12 @@ const iconConfig = {
 export function QuickViewWidget() {
   return (
     <Card className="p-3 lg:col-span-2">
-      <CardContent className="p-0 h-[90%] grid grid-cols-2 grid-rows-2 gap-2">
+      <CardHeader className="flex flex-row items-center justify-between">
+        <CardTitle className="text-base lg:text-md font-medium text-foreground">
+          Today&apos;s Overview
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="p-0 h-[90%] mt-4 grid grid-cols-2 grid-rows-2 gap-2">
         <TodayCard
           dollar_amount={120.4}
           title="Todays Spend"

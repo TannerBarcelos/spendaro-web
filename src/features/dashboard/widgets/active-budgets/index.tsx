@@ -70,7 +70,9 @@ export function ActiveBudgetsWidget() {
 const ActiveBudget = (budget: Budget) => {
   const budget_zero = budget.amount === 0;
   return (
-    <div className="border-2 bg-card/30 min-h-20 grid grid-cols-2 mb-4 rounded-xl p-2 hover:cursor-pointer hover:bg-card/10">
+    <div
+      className={`border-2 min-h-20 grid grid-cols-2 mb-4 rounded-xl hover:cursor-pointer hover:bg-card/10 p-4 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 ${!budget_zero ? "bg-gradient-to-r from-transparent to-red-950/40" : "bg-gradient-to-r from-transparent to-green-950/20"}`}
+    >
       <div className="w-full flex flex-col justify-center">
         <p className="text-sm">{budget.budget_name}</p>
         <p className="text-xs text-foreground/70 truncate">
@@ -79,9 +81,9 @@ const ActiveBudget = (budget: Budget) => {
       </div>
       <div className={`items-center flex justify-center font-base text-[13px]`}>
         <p
-          className={`${!budget_zero ? "text-red-500 bg-red-500/30 dark:text-red-400 dark:bg-red-900/30 p-1 rounded-sm" : "text-green-600 bg-green-500/30 dark:text-green-500 dark:bg-green-900/20 p-1 rounded-sm"} text-xs`}
+          className={`${!budget_zero ? "text-red-500 dark:text-red-400 p-1 rounded-sm" : "text-green-600 dark:text-green-600/90 p-1 rounded-sm"} text-xs`}
         >
-          {!budget_zero ? `$${budget.amount}` : "Budget Zero!"}
+          {!budget_zero ? `$${budget.amount} util goal` : "Budget Zero!"}
         </p>
       </div>
     </div>
