@@ -1,7 +1,17 @@
-import axiosInstance from "@/lib/axios";
+import axiosInstance from "@/api/axios";
 import { useMutation } from "@tanstack/react-query";
-import { Budget, BudgetResponse } from "..";
-import { queryClient } from "@/lib/client";
+import { Budget, BudgetResponse } from "./types";
+import { queryClient } from "@/api/query-client";
+
+export const createBudget = async (budgetData: any) => {
+  const response = await axiosInstance.post('/budgets', budgetData);
+  return response.data;
+};
+
+export const deleteBudget = async (id: string) => {
+  const response = await axiosInstance.delete(`/budgets/${id}`);
+  return response.data;
+};
 
 const updateBudget = async (id: string, budgetData: any) => {
   const { data } = await axiosInstance.put<BudgetResponse>(`/budgets/${id}`, budgetData);

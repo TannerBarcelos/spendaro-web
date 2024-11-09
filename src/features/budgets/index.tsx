@@ -1,4 +1,3 @@
-import { useGetBudgets } from "./_api/queries/useGetBudgets";
 import { Button } from "@/components/ui/button";
 import {
   Accordion,
@@ -10,8 +9,9 @@ import { Link } from "@tanstack/react-router";
 import BudgetTable from "./budget-table";
 import { EmptyBudgetState } from "@/features/budgets/empty-budget-state";
 import { ErrorBudgetState } from "@/features/budgets/error-budget-state";
-import { Budget } from "./_api";
+import { Budget } from "@/api/budget-api/types";
 import { LoadingBudgetState } from "@/features/budgets/loading-budget-state";
+import { useGetBudgets } from "@/api/budget-api/queries/useGetBudgets";
 
 export function Page() {
   const { data, isLoading, isError, refetch } = useGetBudgets();
