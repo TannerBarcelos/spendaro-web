@@ -12,21 +12,17 @@ export type CommonApiErrorResponse = AxiosError<{
   };
 }>;
 
-const commonHeaders = {
-  "Content-Type": "application/json",
-  Accept: "application/json",
-};
-
-const commonAxionConfig = {
+const baseConf = {
   baseURL: "/api/v1",
   timeout: 5_000,
 };
 
 const axiosInstance = axios.create({
-  ...commonAxionConfig,
+  ...baseConf,
   headers: {
-    ...commonHeaders,
-  },
+  "Content-Type": "application/json",
+  Accept: "application/json",
+}
 });
 
 axiosInstance.interceptors.response.use(
@@ -65,7 +61,7 @@ axiosInstance.interceptors.response.use(
         }
       } catch (refreshError) {
         const logout = authStore.getState().clear;
-        localStorage.clear();
+        // localStorage.clear()
         logout();
         window.location.href = "/signin";
       }
