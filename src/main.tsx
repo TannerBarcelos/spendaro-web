@@ -5,9 +5,7 @@ import "@uploadthing/react/styles.css";
 import { ThemeProvider } from "@/contexts/theme";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { queryClient } from "./lib/client.ts";
-
-// Import the generated route tree
+import { queryClient } from "@/api/query-client.ts";
 import { routeTree } from "./routeTree.gen.ts";
 
 // Create a new router instance
