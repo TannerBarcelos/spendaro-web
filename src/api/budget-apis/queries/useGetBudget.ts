@@ -1,5 +1,5 @@
 import axiosInstance from "@/lib/axios";
-import { BudgetResponse } from "../";
+import { BudgetResponse } from "..";
 
 const getBudget = async (budget_id: string) => {
   const { data } = await axiosInstance.get<BudgetResponse>(`/budgets/${budget_id}`);

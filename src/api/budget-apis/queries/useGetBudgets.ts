@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { BudgetsResponse } from "../";
+import { BudgetsResponse } from "..";
 import axiosInstance from "@/lib/axios";
 
 const getBudgets = async () => {
