@@ -1,4 +1,4 @@
-import { queryClient } from "@/lib/client";
+import { queryClient } from "@/api/query-client";
 import { authStore } from "@/stores/auth-store";
 import { generateUploadDropzone } from "@uploadthing/react";
 import { useState } from "react";
@@ -13,7 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useUserDetails } from "./_api/queries";
+import { useUserDetails } from "@/api/user-api/queries";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";

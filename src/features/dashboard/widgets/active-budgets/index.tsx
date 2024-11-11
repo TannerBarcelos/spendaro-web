@@ -7,8 +7,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Budget } from "@/features/budgets/_api";
-import { useGetBudgets } from "@/features/budgets/_api/queries/useGetBudgets";
+import { Budget } from "@/api/budget-api/types";
+import { useGetBudgets } from "@/api/budget-api/queries";
 import { Link } from "@tanstack/react-router";
 import { EllipsisVertical, EyeIcon, Plus } from "lucide-react";
 

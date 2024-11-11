@@ -27,12 +27,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { authStore, isAuthenticated } from "@/stores/auth-store";
 import { useQueryClient } from "@tanstack/react-query";
-import { useUserDetails } from "@/features/profile/_api/queries";
-import { UserData } from "@/features/profile/_api";
+import { useUserDetails } from "@/api/user-api/queries";
+import { UserData } from "@/api/user-api";
 import { toast } from "sonner";
 import React from "react";
 import { cn } from "@/lib/utils";
-import { queryClient } from "@/lib/client";
+import { queryClient } from "@/api/query-client";
 
 export const Route = createFileRoute("/(app)/_app")({
   beforeLoad: async ({ location }) => {

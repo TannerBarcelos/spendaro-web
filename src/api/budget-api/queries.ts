@@ -2,10 +2,11 @@ import axiosInstance from "@/api/axios";
 import { BudgetResponse, BudgetsResponse } from "./types";
 import { useQuery } from "@tanstack/react-query";
 
-export const getBudgetOptions = (budget_id: string) => {
+export const getBudget = (budget_id: string) => {
   return {
     queryKey: ["budget", budget_id],
-    queryFn: async (budget_id: string) => {
+    queryFn: async (ctx: any) => {
+      console.log(ctx);
       const { data } = await axiosInstance.get<BudgetResponse>(
         `/budgets/${budget_id}`
       );

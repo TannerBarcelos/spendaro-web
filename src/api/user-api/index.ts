@@ -1,4 +1,4 @@
-import axiosInstance from "@/lib/axios";
+import axiosInstance from "@/api/axios";
 import { authStore } from "@/stores/auth-store";
 
 const USER_BASE_URL = "/user";

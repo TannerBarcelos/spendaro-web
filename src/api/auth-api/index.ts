@@ -1,4 +1,4 @@
-import axiosInstance from "@/lib/axios";
+import axiosInstance from "@/api/axios";
 import type { User } from "@/features/auth/signin-page";
 import type { NewUser } from "@/features/auth/signup-page";
 

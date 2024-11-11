@@ -11,7 +11,7 @@ import { EmptyBudgetState } from "@/features/budgets/empty-budget-state";
 import { ErrorBudgetState } from "@/features/budgets/error-budget-state";
 import { Budget } from "@/api/budget-api/types";
 import { LoadingBudgetState } from "@/features/budgets/loading-budget-state";
-import { useGetBudgets } from "@/api/budget-api/queries/useGetBudgets";
+import { useGetBudgets } from "@/api/budget-api/queries";
 
 export function Page() {
   const { data, isLoading, isError, refetch } = useGetBudgets();

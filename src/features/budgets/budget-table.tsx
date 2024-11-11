@@ -22,8 +22,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Budget } from "./_api/index";
-import { useUpdateBudget } from "./_api/mutations/useUpdateBudget";
+import { Budget } from "@/api/budget-api/types";
+import { useUpdateBudget } from "@/api/budget-api/mutations";
 import { toast } from "sonner";
 import { useNavigate } from "@tanstack/react-router";
 import { formatDate } from "@/lib/utils";
