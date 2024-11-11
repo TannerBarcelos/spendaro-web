@@ -1,20 +1,7 @@
 import axiosInstance from "@/api/axios";
-import { BudgetResponse, BudgetsResponse } from "./types";
+import { BudgetApiResponse, BudgetsApiResponse } from "./types";
 import { useQuery } from "@tanstack/react-query";
 
-export const getBudget = (budget_id: string) => {
-  return {
-    queryKey: ["budget", budget_id],
-    queryFn: async () => {
-      const { data } = await axiosInstance.get<BudgetResponse>(
-        `/budgets/${budget_id}`
-      );
-      return data;
-    },
-    retry: 3,
-    staleTime: 1000 * 60 * 5, // 5 minutes (do not refetch data within 5 minutes)
-  };
-};
 
 // Note that this "query hook" does not use useQuery from react-query. This is because
 // we are using the query via our context in the Tanstack Router Loader. This is a
@@ -26,15 +13,29 @@ export const getBudget = (budget_id: string) => {
 //     return queryClient.ensureQueryData(getBudgetOptions(budgetId));
 //   },
 // });
+export const getBudget = (budget_id: string) => {
+  return {
+    queryKey: ["budget", budget_id],
+    queryFn: async () => {
+      const { data } = await axiosInstance.get<BudgetApiResponse>(
+        `/budgets/${budget_id}`
+      );
+      return data;
+    },
+    retry: 3,
+    staleTime: 1000 * 60 * 5, // 5 minutes (do not refetch data within 5 minutes)
+  };
+};
+
 
 export const useGetBudgets = () => {
   return useQuery({
     queryKey: ["budgets"],
     queryFn: async () => {
-      const { data } = await axiosInstance.get<BudgetsResponse>("/budgets");
+      const { data } = await axiosInstance.get<BudgetsApiResponse>("/budgets");
       return data;
     },
     retry: 3,
-    staleTime: 1000 * 60 * 5, // 5 minutes (do not refetch data within 5 minutes unless explicitly told to)
+    staleTime: 1000 * 60 * 5,
   });
 };

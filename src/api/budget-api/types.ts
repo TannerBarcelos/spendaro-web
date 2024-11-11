@@ -1,4 +1,3 @@
-// Describes the shape of the data that the API will return for a budget
 export type Budget = {
   id:                 number;
   user_id:            number;
@@ -11,12 +10,12 @@ export type Budget = {
   updatedAt:          Date;
 }
 
-export type BudgetResponse = {
+export type BudgetApiResponse = {
   data:    Budget;
   message: string;
 }
 
-export type BudgetsResponse = {
+export type BudgetsApiResponse = {
   data:    Array<Budget>;
   message: string;
 }
