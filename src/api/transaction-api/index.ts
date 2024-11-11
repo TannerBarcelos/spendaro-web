@@ -1,4 +1,4 @@
-import axiosInstance from '@/lib/axios';
+import axiosInstance from '../axios';
 
 export const getTransactions = async () => {
   const response = await axiosInstance.get('/transactions');
