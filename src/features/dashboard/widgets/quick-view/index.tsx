@@ -9,11 +9,6 @@ import {
 
 import QuickViewBox from "./box";
 
-const iconConfig = {
-  width: 17,
-  height: 17,
-};
-
 export function QuickViewWidget() {
   return (
     <Card className="p-3 lg:col-span-2">
@@ -26,7 +21,13 @@ export function QuickViewWidget() {
         <TodayCard
           dollar_amount={120.4}
           title="Todays Spend"
-          icon={<DollarSign {...iconConfig} className="text-logo lg:size-6" />}
+          icon={
+            <DollarSign
+              width={16}
+              height={16}
+              className="text-logo lg:size-6"
+            />
+          }
         />
         <BudgetZero />
         <TodayCard
@@ -34,7 +35,8 @@ export function QuickViewWidget() {
           title="Todays Income"
           icon={
             <CircleArrowOutDownLeft
-              {...iconConfig}
+              width={16}
+              height={16}
               className="text-green-500 lg:size-6"
             />
           }
@@ -44,7 +46,8 @@ export function QuickViewWidget() {
           title="Todays Outcome"
           icon={
             <CircleArrowOutUpRight
-              {...iconConfig}
+              width={16}
+              height={16}
               className="text-red-300 lg:size-6"
             />
           }
