@@ -5,8 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 export const getBudget = (budget_id: string) => {
   return {
     queryKey: ["budget", budget_id],
-    queryFn: async (ctx: any) => {
-      console.log(ctx);
+    queryFn: async () => {
       const { data } = await axiosInstance.get<BudgetResponse>(
         `/budgets/${budget_id}`
       );

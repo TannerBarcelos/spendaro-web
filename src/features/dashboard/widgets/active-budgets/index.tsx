@@ -58,7 +58,7 @@ export function ActiveBudgetsWidget() {
         {isError && <p>Something went wrong</p>}
         {data &&
           data.data.map((budget) => (
-            <Link to={`/budgeting/${budget.id}`}>
+            <Link to={`/budgeting/${budget.id}`} key={budget.id}>
               <ActiveBudget key={budget.id} {...budget} />
             </Link>
           ))}
