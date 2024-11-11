@@ -3,32 +3,16 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import "@uploadthing/react/styles.css";
 import { ThemeProvider } from "@/contexts/theme";
-import { RouterProvider, createRouter } from "@tanstack/react-router";
+import { RouterProvider } from "@tanstack/react-router";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/api/query-client.ts";
-import { routeTree } from "./routeTree.gen.ts";
+import { router as routerInstance } from "./router.ts";
 
-// Create a new router instance
-export const router = createRouter({
-  routeTree,
-  context: {
-    queryClient,
-  },
-  defaultPreload: "intent",
-  // Since we're using React Query, we don't want loader calls to ever be stale
-  // This will ensure that the loader is always called when the route is preloaded or visited
-  defaultPreloadStaleTime: 0,
-});
+// we must export the router instance in main.tsx so that Tanstack Router can register properly (we could have also defined the router instance in this file, but I am separating concerns for better organization)
+export const router = routerInstance;
 
-// Register the router instance for type safety
-declare module "@tanstack/react-router" {
-  interface Register {
-    router: typeof router;
-  }
-}
-
-// Render the app
 const rootElement = document.getElementById("root")!;
+
 if (!rootElement.innerHTML) {
   const root = createRoot(rootElement);
   root.render(
