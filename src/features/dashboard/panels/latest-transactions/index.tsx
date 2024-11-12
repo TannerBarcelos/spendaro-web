@@ -23,7 +23,7 @@ export function LatestTransactionsWidget() {
       <CardHeader>
         <CardTitle className="flex flex-row items-center justify-between">
           <div className="flex items-center justify-between">
-            <h2 className="text-base lg:text-md font-medium text-foreground">
+            <h2 className="text-base md:text-md font-normal text-foreground">
               Latest Transactions
             </h2>
             <Info info="A list of all your latest transactions for the apps active budget" />

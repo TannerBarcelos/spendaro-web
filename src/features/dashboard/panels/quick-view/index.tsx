@@ -13,7 +13,7 @@ export function QuickViewWidget() {
   return (
     <Card className="p-3 lg:col-span-2">
       <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle className="text-base lg:text-md font-medium text-foreground">
+        <CardTitle className="text-base md:text-md font-normal text-foreground">
           Today&apos;s Overview
         </CardTitle>
       </CardHeader>

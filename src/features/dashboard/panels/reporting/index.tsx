@@ -38,7 +38,7 @@ const WidgetTitle = () => {
     <CardHeader>
       <CardTitle className="flex flex-row items-center justify-between">
         <div className="flex items-center justify-between">
-          <h2 className="text-base lg:text-md font-medium text-foreground">
+          <h2 className="text-base md:text-md font-normal text-foreground">
             Budget Performance
           </h2>
           <Info info="Detailed view over your budget performance" />
