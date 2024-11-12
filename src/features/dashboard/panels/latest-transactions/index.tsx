@@ -81,10 +81,13 @@ const TransactionList = ({ transactions }: { transactions: Transaction[] }) => {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: index * 0.2 }}
-        className="border border-foreground/5 justify-between flex items-center bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 p-2 rounded-xl hover:cursor-pointer"
+        className="border border-foreground/5 justify-between flex items-center bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 p-4 rounded-xl hover:cursor-pointer"
       >
-        <div className="flex items-center justify-between p-2 w-full">
-          <p className="text-xs text-foreground truncate flex-1">
+        <Link
+          className="flex items-center justify-between p-2 w-full"
+          to={`/transactions/${transaction.id}`}
+        >
+          <p className="text-foreground truncate flex-1 font-normal text-xs md:text-sm">
             {transaction.transaction_description}
           </p>
           <div className="flex items-center space-x-1 w-1/3 justify-end">
@@ -93,7 +96,7 @@ const TransactionList = ({ transactions }: { transactions: Transaction[] }) => {
             </p>
             <span className="text-[10px] text-muted-foreground">USD</span>
           </div>
-        </div>
+        </Link>
       </motion.li>
     );
   });
