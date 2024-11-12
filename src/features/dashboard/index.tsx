@@ -1,7 +1,7 @@
-import { QuickViewWidget } from "./widgets/quick-view";
-import { LatestTransactionsWidget } from "./widgets/latest-transactions";
-import { ActiveBudgetsWidget } from "./widgets/active-budgets";
-import { ReportingWidget } from "./widgets/reporting";
+import { QuickViewWidget } from "./panels/quick-view";
+import { LatestTransactionsWidget } from "./panels/latest-transactions";
+import { ActiveBudgetsWidget } from "./panels/active-budgets";
+import { ReportingWidget } from "./panels/reporting";
 import TopGreetingBar from "./_components/TopGreetingBar";
 
 export function DashboardPage() {
