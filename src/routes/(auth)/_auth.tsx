@@ -22,10 +22,7 @@ export function AuthPageLayout() {
       <div className="flex items-center justify-between py-4">
         <div className="flex flex-row py-3">
           <Zap size={24} strokeWidth={2.5} className="mr-2 text-logo" />
-          <Link
-            to="/dashboard"
-            className="text-xl font-semibold dark:text-primary"
-          >
+          <Link to="/dashboard" className="text-xl font-semibold">
             Spendaro
           </Link>
         </div>
