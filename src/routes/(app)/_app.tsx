@@ -3,7 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Link } from "@tanstack/react-router";
 import { LogOut, Moon, Settings, Sun, User, Zap } from "lucide-react";
-import { SVGProps } from "react";
+import { SVGProps, useEffect, useState } from "react";
 import { JSX } from "react/jsx-runtime";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTheme } from "@/contexts/theme";
@@ -33,6 +33,15 @@ import { toast } from "sonner";
 import React from "react";
 import { cn } from "@/lib/utils";
 import { queryClient } from "@/api/query-client";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useGetBudgets } from "@/api/budget-api/queries";
+import { useBudgetStore } from "@/stores/budget-store";
 
 export const Route = createFileRoute("/(app)/_app")({
   beforeLoad: async ({ location }) => {
@@ -86,6 +95,17 @@ export function Navbar({
   isLoading: boolean;
 }) {
   const { theme, toggleTheme } = useTheme();
+
+  const setActiveBudget = useBudgetStore((state) => state.setActiveBudget);
+  const { data, isLoading: isLoadingBudgets } = useGetBudgets();
+  const [selectedBudget, setSelectedBudget] = useState<string | undefined>();
+
+  useEffect(() => {
+    if (data?.data?.[0]) {
+      setSelectedBudget(data.data[0].id.toString());
+    }
+  }, [data]);
+
   return (
     <nav className="py-4">
       <div className="container mx-auto flex items-center justify-between">
@@ -107,6 +127,32 @@ export function Navbar({
           <>
             <NavMenu />
             <div className="flex items-center">
+              <Select
+                value={selectedBudget}
+                onValueChange={(value) => {
+                  setSelectedBudget(value);
+                  setActiveBudget(value);
+                }}
+                disabled={(data?.data?.length ?? 0) < 1}
+              >
+                <SelectTrigger
+                  className="w-[180px] rounded-xl text-foreground/90 translate-x-2"
+                  disabled={isLoadingBudgets}
+                >
+                  {isLoadingBudgets ? (
+                    <Skeleton className="w-full h-[20px] rounded-full" />
+                  ) : (
+                    <SelectValue placeholder="Select budget" />
+                  )}
+                </SelectTrigger>
+                <SelectContent className="text-foreground/90">
+                  {data?.data?.map((budget) => (
+                    <SelectItem key={budget.id} value={budget.id.toString()}>
+                      {budget.budget_name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               <div className="flex items-center justify-end space-x-4 p-3 rounded-full min-w-fit">
                 <div className="inline text-xs font-medium overflow-hidden whitespace-nowrap text-ellipsis text-right w-[100px]">
                   {isLoading ? (

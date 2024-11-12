@@ -1,3 +1,4 @@
+import { useGetTransactions } from "@/api/transaction-api/queries";
 import Info from "@/components/Info";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -10,6 +11,8 @@ import { Link } from "@tanstack/react-router";
 import { Edit, EllipsisVertical, EyeIcon, Plus } from "lucide-react";
 
 export function LatestTransactionsWidget() {
+  // const { data, isLoading } = useGetTransactions();
+  // console.log(data);
   return (
     <Card className="row-span-4">
       <WidgetTitle />

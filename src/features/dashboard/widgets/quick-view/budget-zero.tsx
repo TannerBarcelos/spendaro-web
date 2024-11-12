@@ -1,48 +1,32 @@
-import { useEffect, useState } from "react";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { useGetBudgets } from "@/api/budget-api/queries";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Budget } from "@/api/budget-api/types";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { useBudgetStore } from "@/stores/budget-store";
+import { GemIcon } from "lucide-react";
 
 export default function BudgetZeroCard() {
-  const { data, isLoading } = useGetBudgets();
-  const [selectedBudget, setSelectedBudget] = useState<string | undefined>();
-
-  // Set the first budget as the selected budget
-  useEffect(() => {
-    if (data?.data?.[0]) {
-      setSelectedBudget(data.data[0].budget_name);
-    }
-  }, [data]);
-
-  const currentBudget = data?.data?.find(
-    (budget) => budget.budget_name === selectedBudget
+  const selectedBudget = useBudgetStore((state) => state.active_budget);
+  const { data: result } = useGetBudgets();
+  const currentBudget = result?.data.find(
+    (budget) => budget.id.toString() === selectedBudget
   );
-
   return (
     <Card className="p-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <CardHeader className="flex flex-row items-center justify-between p-4">
-        <h3 className="text-sm font-medium text-muted-foreground">
-          Budget Zero
-        </h3>
-        <BudgetSelector
-          budgets={data?.data ?? []}
-          selectedBudget={selectedBudget}
-          onBudgetChange={setSelectedBudget}
-          isLoading={isLoading}
-        />
+      <CardHeader className="p-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <div className="rounded-full bg-blue-500/15 p-2">
+              <GemIcon color="orange" />
+            </div>
+            <h3 className="text-sm font-medium text-muted-foreground">
+              Budget Zero
+            </h3>
+          </div>
+        </div>
       </CardHeader>
       <CardContent>
         {!selectedBudget ? (
           <p className="text-foreground/70 text-center font-light text-xs bg-card/60 rounded-lg p-3 w-full">
-            {!data?.data?.length
+            {!result?.data?.length
               ? "No budgets found. Create a budget to track your progress towards budget zero!"
               : "Select a budget to track your progress towards budget zero!"}
           </p>
@@ -95,39 +79,3 @@ const BudgetStatus = ({ amount }: { amount: number }) => {
     </div>
   );
 };
-
-const BudgetSelector = ({
-  budgets,
-  selectedBudget,
-  onBudgetChange,
-  isLoading,
-}: {
-  budgets: Budget[];
-  selectedBudget: string | undefined;
-  onBudgetChange: (value: string) => void;
-  isLoading: boolean;
-}) => (
-  <Select
-    value={selectedBudget}
-    onValueChange={onBudgetChange}
-    disabled={budgets.length < 1}
-  >
-    <SelectTrigger
-      className="w-[180px] rounded-xl text-foreground/90 translate-x-2"
-      disabled={isLoading}
-    >
-      {isLoading ? (
-        <Skeleton className="w-full h-[20px] rounded-full" />
-      ) : (
-        <SelectValue placeholder="Select budget" />
-      )}
-    </SelectTrigger>
-    <SelectContent className="text-foreground/90">
-      {budgets.map((budget) => (
-        <SelectItem key={budget.id} value={budget.budget_name}>
-          {budget.budget_name}
-        </SelectItem>
-      ))}
-    </SelectContent>
-  </Select>
-);
