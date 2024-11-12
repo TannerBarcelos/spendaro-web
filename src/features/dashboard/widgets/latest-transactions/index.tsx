@@ -8,6 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { motion } from "framer-motion";
 import { useBudgetStore } from "@/stores/budget-store";
 import { Link } from "@tanstack/react-router";
 import { Edit, EllipsisVertical, EyeIcon, Plus } from "lucide-react";
@@ -74,11 +75,13 @@ const TransactionList = ({
 }: {
   transactions?: Transaction[];
 }) => {
-  console.log(transactions);
-  return transactions?.map((transaction) => {
+  return transactions?.map((transaction, index) => {
     return (
-      <div
+      <motion.li
         key={transaction.id}
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: index * 0.2 }}
         className="justify-between flex items-center bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 p-6 rounded-xl border"
       >
         <div>
@@ -92,7 +95,7 @@ const TransactionList = ({
           </p>
           <span className="text-[10px] text-muted-foreground">USD</span>
         </div>
-      </div>
+      </motion.li>
     );
   });
 };

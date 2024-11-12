@@ -42,7 +42,6 @@ import {
 } from "@/components/ui/select";
 import { useGetBudgets } from "@/api/budget-api/queries";
 import { useBudgetStore } from "@/stores/budget-store";
-import { Label } from "@/components/ui/label";
 
 export const Route = createFileRoute("/(app)/_app")({
   beforeLoad: async ({ location }) => {
@@ -111,8 +110,8 @@ export function Navbar({
 
   return (
     <nav className="py-4">
-      <div className="container mx-auto flex items-center justify-between">
-        <div className="flex flex-row">
+      <div className="container mx-auto flex items-center justify-between gap-4">
+        <div className="flex">
           <Zap
             size={24}
             color="hsl(219deg, 60.9%, 64.9%)"
@@ -126,107 +125,103 @@ export function Navbar({
             Spendaro
           </Link>
         </div>
+        {isSignedIn && <NavMenu />}
         {isSignedIn && (
-          <>
-            <NavMenu />
-            <div className="flex items-center">
-              <Label htmlFor="budget" className="text-xs font-normal">
-                Active Budget
-              </Label>
-              <Select
-                value={activeBudget}
-                onValueChange={(value) => {
-                  setActiveBudget(value);
-                }}
-                disabled={(data?.data?.length ?? 0) < 1}
+          <div className="flex items-center gap-4">
+            <Select
+              value={activeBudget}
+              onValueChange={(value) => {
+                setActiveBudget(value);
+              }}
+              disabled={(data?.data?.length ?? 0) < 1}
+            >
+              <SelectTrigger
+                title="Select a budget"
+                className="w-[180px] rounded-xl text-foreground/90 translate-x-2"
+                disabled={isLoadingBudgets}
               >
-                <SelectTrigger
-                  className="w-[180px] rounded-xl text-foreground/90 translate-x-2"
-                  disabled={isLoadingBudgets}
-                >
-                  {isLoadingBudgets ? (
-                    <Skeleton className="w-full h-[20px] rounded-full" />
-                  ) : (
-                    <SelectValue placeholder="Select budget" />
-                  )}
-                </SelectTrigger>
-                <SelectContent className="text-foreground/90">
-                  {data?.data?.map((budget) => (
-                    <SelectItem key={budget.id} value={budget.id.toString()}>
-                      {budget.budget_name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <div className="flex items-center justify-end space-x-4 p-3 rounded-full min-w-fit">
-                <div className="inline text-xs font-medium overflow-hidden whitespace-nowrap text-ellipsis text-right w-[100px]">
-                  {isLoading ? (
-                    <Skeleton className="w-full h-[30px] rounded-xl bg-gray-200/70" />
-                  ) : (
-                    (userData?.firstName?.charAt(0)?.toUpperCase() ?? "") +
-                    userData?.firstName?.slice(1)
-                  )}
-                </div>
-                <DropdownMenu>
-                  <DropdownMenuTrigger>
-                    <Avatar>
-                      {isLoading ? (
-                        <Skeleton className="w-16 h-16 rounded-full bg-border" />
-                      ) : (
-                        <>
-                          <AvatarImage
-                            src={userData?.profileImage}
-                            alt="users profile image"
-                            width={32}
-                            height={32}
-                            className="object-cover"
-                          />
-                          <AvatarFallback className="bg-primary/10">
-                            {`${userData?.firstName ?? ""} ${userData?.lastName ?? ""}`
-                              .split(" ")
-                              .map((name) => name[0])
-                              .join("")
-                              .toUpperCase()}
-                          </AvatarFallback>
-                        </>
-                      )}
-                    </Avatar>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent sideOffset={10} className="">
-                    <DropdownMenuItem>
-                      {theme === "light" ? <Sun /> : <Moon />}
-                      <button onClick={toggleTheme}>
-                        Switch to {theme === "light" ? "dark" : "light"} mode
-                      </button>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <Link to="/profile">
-                      <DropdownMenuItem>
-                        <User />
-                        Account
-                      </DropdownMenuItem>
-                    </Link>
-                    <Link to="/reporting/new">
-                      <DropdownMenuItem>
-                        <Settings />
-                        Settings
-                      </DropdownMenuItem>
-                    </Link>
-                    <DropdownMenuItem onClick={cb}>
-                      <LogOut />
-                      Sign Out
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-                <Button variant="ghost" size="icon" className="md:hidden">
-                  <MenuIcon className="h-6 w-6" />
-                  <span className="sr-only">Toggle menu</span>
-                </Button>
+                {isLoadingBudgets ? (
+                  <Skeleton className="w-full h-[20px] rounded-full" />
+                ) : (
+                  <SelectValue placeholder="Select budget" />
+                )}
+              </SelectTrigger>
+              <SelectContent className="text-foreground/90">
+                {data?.data?.map((budget) => (
+                  <SelectItem key={budget.id} value={budget.id.toString()}>
+                    {budget.budget_name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <div className="flex items-center justify-end gap-4 p-3 rounded-full min-w-fit">
+              <div className="inline text-xs font-medium overflow-hidden whitespace-nowrap text-ellipsis text-right w-[100px]">
+                {isLoading ? (
+                  <Skeleton className="w-full h-[30px] rounded-xl bg-gray-200/70" />
+                ) : (
+                  (userData?.firstName?.charAt(0)?.toUpperCase() ?? "") +
+                  userData?.firstName?.slice(1)
+                )}
               </div>
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <Avatar>
+                    {isLoading ? (
+                      <Skeleton className="w-16 h-16 rounded-full bg-border" />
+                    ) : (
+                      <>
+                        <AvatarImage
+                          src={userData?.profileImage}
+                          alt="users profile image"
+                          width={32}
+                          height={32}
+                          className="object-cover"
+                        />
+                        <AvatarFallback className="bg-primary/10">
+                          {`${userData?.firstName ?? ""} ${userData?.lastName ?? ""}`
+                            .split(" ")
+                            .map((name) => name[0])
+                            .join("")
+                            .toUpperCase()}
+                        </AvatarFallback>
+                      </>
+                    )}
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent sideOffset={10} className="">
+                  <DropdownMenuItem>
+                    {theme === "light" ? <Sun /> : <Moon />}
+                    <button onClick={toggleTheme}>
+                      Switch to {theme === "light" ? "dark" : "light"} mode
+                    </button>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <Link to="/profile">
+                    <DropdownMenuItem>
+                      <User />
+                      Account
+                    </DropdownMenuItem>
+                  </Link>
+                  <Link to="/reporting/new">
+                    <DropdownMenuItem>
+                      <Settings />
+                      Settings
+                    </DropdownMenuItem>
+                  </Link>
+                  <DropdownMenuItem onClick={cb}>
+                    <LogOut />
+                    Sign Out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+              <Button variant="ghost" size="icon" className="md:hidden">
+                <MenuIcon className="h-6 w-6" />
+                <span className="sr-only">Toggle menu</span>
+              </Button>
             </div>
-          </>
+          </div>
         )}
       </div>
     </nav>
