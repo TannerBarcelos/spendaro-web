@@ -7,10 +7,10 @@ import {
 } from "@/components/ui/accordion";
 import { Link } from "@tanstack/react-router";
 import BudgetTable from "./budget-table";
-import { EmptyBudgetState } from "@/features/budgets/empty-budget-state";
-import { ErrorBudgetState } from "@/features/budgets/error-budget-state";
+import { EmptyBudgetState } from "@/features/budgets/_components/fallbacks/empty-budget-state";
+import { ErrorBudgetState } from "@/features/budgets/_components/fallbacks/error-budget-state";
 import { Budget } from "@/api/budget-api/types";
-import { LoadingBudgetState } from "@/features/budgets/loading-budget-state";
+import { LoadingBudgetState } from "@/features/budgets/_components/fallbacks/loading-budget-state";
 import { useGetBudgets } from "@/api/budget-api/queries";
 
 export function Page() {
@@ -35,10 +35,7 @@ function Budgets({ budgets }: { budgets: Budget[] }) {
           </p>
         </div>
         <Link to="/budgeting/new">
-          <Button
-            variant="secondary"
-            className="bg-gradient-to-br from-blue-300 to-secondary  hover:from-blue-400 hover:to-secondary hover:no-underline light:hover:bg-gray-100 text-[13px]"
-          >
+          <Button className="light:hover:bg-gray-100 text-[13px]">
             create budget
           </Button>
         </Link>

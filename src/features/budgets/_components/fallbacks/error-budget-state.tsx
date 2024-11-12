@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 
 export function ErrorBudgetState({ onRetry }: { onRetry: () => void }) {
   return (
-    <div className="flex flex-col items-center justify-center min-h-[400px] p-8 text-center">
+    <div className="flex flex-col items-center justify-center min-h-[400px] p-8 text-center md:mt-20">
       <div className="mb-6 relative w-48 h-48">
         <svg
           className="w-full h-full"
@@ -50,11 +50,7 @@ export function ErrorBudgetState({ onRetry }: { onRetry: () => void }) {
         We encountered an error while loading your budget data. Please try again
         or contact support if the problem persists.
       </p>
-      <Button
-        onClick={onRetry}
-        variant="secondary"
-        className="hover:bg-primary/10"
-      >
+      <Button onClick={onRetry} className="hover:bg-primary/10">
         <RefreshCw className="mr-2 h-5 w-5" />
         Retry
       </Button>
