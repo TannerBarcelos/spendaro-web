@@ -15,9 +15,10 @@ import { useGetBudgets } from "@/api/budget-api/queries";
 
 export function Page() {
   const { data, isLoading, isError, refetch } = useGetBudgets();
+  console.log(data);
   if (isLoading) return <LoadingBudgetState />;
   if (isError) return <ErrorBudgetState onRetry={refetch} />;
-  if (!data) return <EmptyBudgetState />;
+  if (!data || data.data.length < 1) return <EmptyBudgetState />;
   return <Budgets budgets={data.data} />;
 }
 
