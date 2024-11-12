@@ -62,7 +62,7 @@ export function LatestTransactionsWidget() {
             className="border border-foreground/5 justify-between flex items-center bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 p-2 rounded-xl"
           />
         )}
-        {!data && !isLoading && (
+        {(!data || data.data.length < 1) && !isLoading && (
           <EmptyTransactionsState showAddButton={false} />
         )}
         {data && <TransactionList transactions={data.data} />}
@@ -72,6 +72,7 @@ export function LatestTransactionsWidget() {
 }
 
 const TransactionList = ({ transactions }: { transactions: Transaction[] }) => {
+  console.log(transactions);
   return transactions?.map((transaction, index) => {
     return (
       <motion.li
