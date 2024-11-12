@@ -23,6 +23,7 @@ export function Page() {
 
 function Budgets({ budgets }: { budgets: Budget[] }) {
   const favoriteBudgets = budgets.filter((budget) => budget.is_favorite);
+  const archivedBudgets = budgets.filter((budget) => !budget.is_active);
   return (
     <div>
       <div className="w-full flex flex-row items-center justify-between">
@@ -43,7 +44,13 @@ function Budgets({ budgets }: { budgets: Budget[] }) {
       {!budgets || budgets.length === 0 ? (
         <EmptyBudgetState />
       ) : (
-        <div className="mt-5">
+        <div className="space-y-8">
+          {(favoriteBudgets.length ?? 0) > 0 && (
+            <>
+              <h2 className="font-medium my-4 mt-4 text-sm">Active Budgets</h2>
+              <BudgetTable budgets={budgets} />
+            </>
+          )}
           {favoriteBudgets && favoriteBudgets.length > 0 && (
             <Accordion
               type="single"
@@ -61,12 +68,23 @@ function Budgets({ budgets }: { budgets: Budget[] }) {
               </AccordionItem>
             </Accordion>
           )}
-          <>
-            {(favoriteBudgets.length ?? 0) > 0 && (
-              <h2 className="font-medium my-4 mt-8 text-sm">All Budgets</h2>
-            )}
-            <BudgetTable budgets={budgets} />
-          </>
+          {archivedBudgets && archivedBudgets.length > 0 && (
+            <Accordion
+              type="single"
+              collapsible
+              defaultValue="favorites"
+              className="mt-2"
+            >
+              <AccordionItem value="favorites">
+                <AccordionTrigger className="max-w-fit">
+                  <h2 className="text-sm">Archived Budgets</h2>
+                </AccordionTrigger>
+                <AccordionContent>
+                  <BudgetTable budgets={archivedBudgets} />
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          )}
         </div>
       )}
     </div>

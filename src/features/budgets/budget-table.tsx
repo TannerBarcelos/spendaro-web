@@ -8,6 +8,8 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import {
+  ArchiveRestoreIcon,
+  ArchiveXIcon,
   ArrowUpRightFromCircleIcon,
   Edit2,
   MoreHorizontal,
@@ -27,6 +29,7 @@ import { useUpdateBudget } from "@/api/budget-api/mutations";
 import { toast } from "sonner";
 import { useNavigate } from "@tanstack/react-router";
 import { formatDate } from "@/lib/utils";
+import { queryClient } from "@/api/query-client";
 
 type BudgetTableProps = {
   budgets: Budget[];
@@ -52,7 +55,11 @@ function BudgetTable({ budgets }: BudgetTableProps) {
 function BudgetTableBody({ budgets }: BudgetTableProps) {
   const navigate = useNavigate();
   const updateBudget = useUpdateBudget();
-  const handleUpdateFavorite = async (budget_id: number, favorite: boolean) => {
+
+  const handleUpdateFavoriteStatus = async (
+    budget_id: number,
+    favorite: boolean
+  ) => {
     const updated_budget = await updateBudget.mutateAsync({
       budget_id: budget_id.toString(),
       budget_to_update: { is_favorite: !favorite },
@@ -62,6 +69,22 @@ function BudgetTableBody({ budgets }: BudgetTableProps) {
       : ("unfavorited" as const);
     toast.success(`Budget ${toast_message} successfully`);
   };
+
+  const handleUpdateArchivedStatus = async (
+    budget_id: number,
+    is_active: boolean
+  ) => {
+    const updated_budget = await updateBudget.mutateAsync({
+      budget_id: budget_id.toString(),
+      budget_to_update: { is_active: !is_active },
+    });
+    const toast_message = updated_budget.data.is_active
+      ? "restored"
+      : "archived";
+    toast.success(`Budget ${toast_message} successfully`);
+    queryClient.invalidateQueries({ queryKey: ["budgets"] });
+  };
+
   return (
     <TableBody>
       {budgets.map((budget) => {
@@ -96,14 +119,28 @@ function BudgetTableBody({ budgets }: BudgetTableProps) {
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
+                    disabled={!budget.is_active}
                     onClick={() =>
-                      handleUpdateFavorite(budget.id, budget.is_favorite)
+                      handleUpdateFavoriteStatus(budget.id, budget.is_favorite)
                     }
                   >
                     {budget.is_favorite ? <StarOffIcon /> : <StarIcon />}
                     {budget.is_favorite
                       ? "Unfavorite Budget"
                       : "Favorite Budget"}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    title="Restore this budget to favorite it"
+                    onClick={() =>
+                      handleUpdateArchivedStatus(budget.id, budget.is_active)
+                    }
+                  >
+                    {budget.is_active ? (
+                      <ArchiveXIcon />
+                    ) : (
+                      <ArchiveRestoreIcon />
+                    )}
+                    {budget.is_active ? "Archive Budget" : "Restore Budget"}
                   </DropdownMenuItem>
                   <DropdownMenuItem>
                     <Edit2 /> Edit budget

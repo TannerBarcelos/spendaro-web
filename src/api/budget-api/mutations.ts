@@ -1,6 +1,6 @@
 import axiosInstance from "@/api/axios";
 import { useMutation } from "@tanstack/react-query";
-import { Budget, BudgetResponse } from "./types";
+import { Budget, BudgetApiResponse } from "./types";
 import { queryClient } from "@/api/query-client";
 
 export const createBudget = async (budgetData: any) => {
@@ -14,7 +14,7 @@ export const deleteBudget = async (id: string) => {
 };
 
 const updateBudget = async (id: string, budgetData: any) => {
-  const { data } = await axiosInstance.put<BudgetResponse>(`/budgets/${id}`, budgetData);
+  const { data } = await axiosInstance.put<BudgetApiResponse>(`/budgets/${id}`, budgetData);
   return data
 };
 
