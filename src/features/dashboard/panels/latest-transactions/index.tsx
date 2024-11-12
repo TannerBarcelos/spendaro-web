@@ -72,7 +72,6 @@ export function LatestTransactionsWidget() {
 }
 
 const TransactionList = ({ transactions }: { transactions: Transaction[] }) => {
-  console.log(transactions);
   return transactions?.map((transaction, index) => {
     return (
       <motion.li
