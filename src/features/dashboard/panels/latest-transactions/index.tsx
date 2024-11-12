@@ -12,19 +12,28 @@ import { motion } from "framer-motion";
 import { useBudgetStore } from "@/stores/budget-store";
 import { Link } from "@tanstack/react-router";
 import { Edit, EllipsisVertical, EyeIcon, Plus } from "lucide-react";
+import LoadingSkeleton from "@/components/loading-skeleton";
 
 export function LatestTransactionsWidget() {
   const activeBudget = useBudgetStore((state) => state.active_budget);
   const { data: result, isLoading } = useGetTransactions(activeBudget);
   return (
-    <Card className="row-span-4">
+    <Card className="row-span-4 relative">
       <WidgetTitle />
       <CardContent className="p-0 space-y-3 mt-2">
-        {isLoading ? (
-          <p>loading</p>
-        ) : (
-          <TransactionList transactions={result?.data} />
+        {isLoading && (
+          <>
+            {Array(8)
+              .fill(0)
+              .map((_, i) => (
+                <LoadingSkeleton
+                  key={`skeleton-${i}`}
+                  className="border border-foreground/5 justify-between flex items-center bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 p-2 rounded-xl"
+                />
+              ))}
+          </>
         )}
+        {result && <TransactionList transactions={result.data} />}
       </CardContent>
     </Card>
   );
@@ -70,11 +79,7 @@ const WidgetTitle = () => {
   );
 };
 
-const TransactionList = ({
-  transactions,
-}: {
-  transactions?: Transaction[];
-}) => {
+const TransactionList = ({ transactions }: { transactions: Transaction[] }) => {
   return transactions?.map((transaction, index) => {
     return (
       <motion.li
@@ -82,18 +87,18 @@ const TransactionList = ({
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: index * 0.2 }}
-        className="justify-between flex items-center bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 p-6 rounded-xl border"
+        className="border border-foreground/5 justify-between flex items-center bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 p-2 rounded-xl hover:cursor-pointer"
       >
-        <div>
-          <p className="text-xs text-foreground">
+        <div className="flex items-center justify-between p-2 w-full">
+          <p className="text-xs text-foreground truncate flex-1">
             {transaction.transaction_description}
           </p>
-        </div>
-        <div className="flex items-center space-x-1">
-          <p className="text-md text-foreground">
-            ${transaction.transaction_amount}
-          </p>
-          <span className="text-[10px] text-muted-foreground">USD</span>
+          <div className="flex items-center space-x-1 w-1/3 justify-end">
+            <p className="text-md text-foreground">
+              ${transaction.transaction_amount}
+            </p>
+            <span className="text-[10px] text-muted-foreground">USD</span>
+          </div>
         </div>
       </motion.li>
     );

@@ -11,6 +11,7 @@ import { Budget } from "@/api/budget-api/types";
 import { useGetBudgets } from "@/api/budget-api/queries";
 import { Link } from "@tanstack/react-router";
 import { EllipsisVertical, EyeIcon, Plus } from "lucide-react";
+import { motion } from "framer-motion";
 
 export function ActiveBudgetsWidget() {
   const { data, isLoading, isError } = useGetBudgets();
@@ -45,7 +46,7 @@ export function ActiveBudgetsWidget() {
           </DropdownMenu>
         </CardTitle>
       </CardHeader>
-      <CardContent className="p-0 overflow-hidden">
+      <CardContent className="p-0 overflow-hidden mt-2 space-y-3">
         {isLoading && (
           <>
             {Array(4)
@@ -57,9 +58,17 @@ export function ActiveBudgetsWidget() {
         )}
         {isError && <p>Something went wrong</p>}
         {data &&
-          data.data.map((budget) => (
+          data.data.map((budget, index) => (
             <Link to={`/budgeting/${budget.id}`} key={budget.id}>
-              <ActiveBudget key={budget.id} {...budget} />
+              <motion.li
+                key={budget.id}
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+                className="mb-2 border border-foreground/5 justify-between flex items-center bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 rounded-xl list-none"
+              >
+                <ActiveBudget key={budget.id} {...budget} />
+              </motion.li>
             </Link>
           ))}
       </CardContent>
@@ -71,7 +80,7 @@ const ActiveBudget = (budget: Budget) => {
   const budget_zero = budget.amount === 0;
   return (
     <div
-      className={`border-2 min-h-20 grid grid-cols-2 mb-4 rounded-xl hover:cursor-pointer hover:bg-card/10 p-4 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 ${!budget_zero ? "bg-gradient-to-r from-transparent to-red-950/40" : "bg-gradient-to-r from-transparent to-green-950/20"}`}
+      className={`grid grid-cols-2 rounded-xl hover:cursor-pointer hover:bg-card/10 p-4 dark:bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 ${!budget_zero ? "dark:bg-gradient-to-r dark:from-transparent dark:to-red-950/40" : "dark:bg-gradient-to-r dark:from-transparent dark:to-green-950/20"}`}
     >
       <div className="w-full flex flex-col justify-center">
         <p className="text-sm">{budget.budget_name}</p>
