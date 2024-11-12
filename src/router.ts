@@ -1,9 +1,11 @@
 import { createRouter } from "@tanstack/react-router";
 import { queryClient } from "@/api/query-client.ts";
 import { routeTree } from "./routeTree.gen.ts";
+import NotFound from "./components/404.tsx";
 
 export const router = createRouter({
   routeTree,
+  defaultNotFoundComponent: NotFound,
   context: {
     queryClient,
   },
