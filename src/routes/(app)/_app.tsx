@@ -1,4 +1,9 @@
-import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import {
+  createFileRoute,
+  Outlet,
+  redirect,
+  useNavigate,
+} from "@tanstack/react-router";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Link } from "@tanstack/react-router";
@@ -26,7 +31,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { authStore, isAuthenticated } from "@/stores/auth-store";
-import { useQueryClient } from "@tanstack/react-query";
 import { useUserDetails } from "@/api/user-api/queries";
 import { UserData } from "@/api/user-api";
 import { toast } from "sonner";
@@ -60,9 +64,9 @@ export const Route = createFileRoute("/(app)/_app")({
 
 function App() {
   const { isLoading, isError, data } = useUserDetails();
-  const qc = useQueryClient();
   const auth_store = authStore();
   const budget_store = useBudgetStore();
+  const navigate = useNavigate();
 
   if (isError) {
     return toast.error("An error occurred while fetching user details");
@@ -75,8 +79,10 @@ function App() {
         isLoading={isLoading}
         cb={() => {
           auth_store.clear(); // clear the auth store (holds the access token)
-          budget_store.clearActiveBudget(); // clear the active budget
-          qc.clear(); // flush the cache
+          budget_store.clearActiveBudget(); // clear the active budget state
+          navigate({
+            to: "/signin",
+          });
         }}
         userData={data?.data.data}
       />
