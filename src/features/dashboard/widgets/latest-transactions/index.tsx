@@ -1,4 +1,5 @@
 import { useGetTransactions } from "@/api/transaction-api/queries";
+import { Transaction } from "@/api/transaction-api/types";
 import Info from "@/components/Info";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -7,16 +8,23 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useBudgetStore } from "@/stores/budget-store";
 import { Link } from "@tanstack/react-router";
 import { Edit, EllipsisVertical, EyeIcon, Plus } from "lucide-react";
 
 export function LatestTransactionsWidget() {
-  // const { data, isLoading } = useGetTransactions();
-  // console.log(data);
+  const activeBudget = useBudgetStore((state) => state.active_budget);
+  const { data: result, isLoading } = useGetTransactions(activeBudget);
   return (
     <Card className="row-span-4">
       <WidgetTitle />
-      <CardContent></CardContent>
+      <CardContent className="p-0 space-y-3 mt-2">
+        {isLoading ? (
+          <p>loading</p>
+        ) : (
+          <TransactionList transactions={result?.data} />
+        )}
+      </CardContent>
     </Card>
   );
 }
@@ -59,4 +67,32 @@ const WidgetTitle = () => {
       </CardTitle>
     </CardHeader>
   );
+};
+
+const TransactionList = ({
+  transactions,
+}: {
+  transactions?: Transaction[];
+}) => {
+  console.log(transactions);
+  return transactions?.map((transaction) => {
+    return (
+      <div
+        key={transaction.id}
+        className="justify-between flex items-center bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 p-6 rounded-xl border"
+      >
+        <div>
+          <p className="text-xs text-foreground">
+            {transaction.transaction_description}
+          </p>
+        </div>
+        <div className="flex items-center space-x-1">
+          <p className="text-md text-foreground">
+            ${transaction.transaction_amount}
+          </p>
+          <span className="text-[10px] text-muted-foreground">USD</span>
+        </div>
+      </div>
+    );
+  });
 };

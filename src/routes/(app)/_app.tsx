@@ -3,7 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Link } from "@tanstack/react-router";
 import { LogOut, Moon, Settings, Sun, User, Zap } from "lucide-react";
-import { SVGProps, useEffect, useState } from "react";
+import { SVGProps, useEffect } from "react";
 import { JSX } from "react/jsx-runtime";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTheme } from "@/contexts/theme";
@@ -42,6 +42,7 @@ import {
 } from "@/components/ui/select";
 import { useGetBudgets } from "@/api/budget-api/queries";
 import { useBudgetStore } from "@/stores/budget-store";
+import { Label } from "@/components/ui/label";
 
 export const Route = createFileRoute("/(app)/_app")({
   beforeLoad: async ({ location }) => {
@@ -96,13 +97,15 @@ export function Navbar({
 }) {
   const { theme, toggleTheme } = useTheme();
 
+  const activeBudget = useBudgetStore((state) => state.active_budget);
   const setActiveBudget = useBudgetStore((state) => state.setActiveBudget);
-  const { data, isLoading: isLoadingBudgets } = useGetBudgets();
-  const [selectedBudget, setSelectedBudget] = useState<string | undefined>();
 
+  const { data, isLoading: isLoadingBudgets } = useGetBudgets();
+
+  // If there is not a saved budget in local storage, set the first budget as the active budget from the list of budgets API
   useEffect(() => {
-    if (data?.data?.[0]) {
-      setSelectedBudget(data.data[0].id.toString());
+    if (data?.data?.[0] && !activeBudget) {
+      setActiveBudget(data.data[0].id.toString());
     }
   }, [data]);
 
@@ -127,10 +130,12 @@ export function Navbar({
           <>
             <NavMenu />
             <div className="flex items-center">
+              <Label htmlFor="budget" className="text-xs font-normal">
+                Active Budget
+              </Label>
               <Select
-                value={selectedBudget}
+                value={activeBudget}
                 onValueChange={(value) => {
-                  setSelectedBudget(value);
                   setActiveBudget(value);
                 }}
                 disabled={(data?.data?.length ?? 0) < 1}

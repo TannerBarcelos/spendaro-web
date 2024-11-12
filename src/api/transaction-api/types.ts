@@ -1,4 +1,21 @@
-export type Transaction = {}
+export interface Transaction {
+    id:                      number;
+    budget_id:               number;
+    transaction_amount:      number;
+    transaction_date:        string;
+    transaction_description: string;
+    transaction_type_id:     number;
+    createdAt:               Date;
+    updatedAt:               Date;
+}
 
-export type TransactionApiResponse = {}
-export type TransactionsApiResponse = {}
+
+export interface TransactionsAPIResponse {
+    data:    Transaction[];
+    message: string;
+}
+
+export interface TransactionAPIResponse {
+    data:    Transaction;
+    message: string;
+}
