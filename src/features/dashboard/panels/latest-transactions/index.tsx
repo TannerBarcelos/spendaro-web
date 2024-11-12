@@ -13,6 +13,7 @@ import { useBudgetStore } from "@/stores/budget-store";
 import { Link } from "@tanstack/react-router";
 import { Edit, EllipsisVertical, EyeIcon, Plus } from "lucide-react";
 import LoadingSkeleton from "@/components/loading-skeleton";
+import EmptyTransactionsState from "@/components/fallbacks/no-transactions";
 
 export function LatestTransactionsWidget() {
   const activeBudget = useBudgetStore((state) => state.active_budget);
@@ -60,6 +61,9 @@ export function LatestTransactionsWidget() {
             count={8}
             className="border border-foreground/5 justify-between flex items-center bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 p-2 rounded-xl"
           />
+        )}
+        {!data && !isLoading && (
+          <EmptyTransactionsState showAddButton={false} />
         )}
         {data && <TransactionList transactions={data.data} />}
       </CardContent>
