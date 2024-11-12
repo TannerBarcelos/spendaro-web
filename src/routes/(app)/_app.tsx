@@ -292,10 +292,7 @@ export function NavMenu() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <Link
-            to="/dashboard"
-            className={`[&.active]:text-primary [&.active]:font-medium ${navigationMenuTriggerStyle()}`}
-          >
+          <Link to="/dashboard" className={navigationMenuTriggerStyle()}>
             Dashboard
           </Link>
         </NavigationMenuItem>
