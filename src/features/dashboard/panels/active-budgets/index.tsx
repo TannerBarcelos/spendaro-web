@@ -12,6 +12,7 @@ import { useGetBudgets } from "@/api/budget-api/queries";
 import { Link } from "@tanstack/react-router";
 import { EllipsisVertical, EyeIcon, Plus } from "lucide-react";
 import { motion } from "framer-motion";
+import NoActiveBudgets from "@/features/dashboard/panels/active-budgets/no-active-budgets";
 
 export function ActiveBudgetsWidget() {
   const { data, isLoading, isError } = useGetBudgets();
@@ -57,6 +58,7 @@ export function ActiveBudgetsWidget() {
           </>
         )}
         {isError && <p>Something went wrong</p>}
+        {(!data || !data.data.length) && !isLoading && <NoActiveBudgets />}
         {data &&
           data.data.map((budget, index) => (
             <Link to={`/budgeting/${budget.id}`} key={budget.id}>

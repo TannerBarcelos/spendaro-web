@@ -55,7 +55,7 @@ export function LatestTransactionsWidget() {
           </DropdownMenu>
         </CardTitle>
       </CardHeader>
-      <CardContent className="p-0 space-y-3 mt-2">
+      <CardContent className="p-0 space-y-3">
         {isLoading && (
           <LoadingSkeleton
             count={8}
