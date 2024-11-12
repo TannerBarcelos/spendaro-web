@@ -1,7 +1,6 @@
 import { ToggleLeft } from "lucide-react";
 
 function NoActiveBudgets() {
-  console.log("runnng");
   return (
     <div className="flex flex-col items-center justify-center min-h-[400px] p-8 text-center">
       <div className="mb-6 relative w-48 h-48">
@@ -17,19 +16,19 @@ function NoActiveBudgets() {
             r="45"
             stroke="currentColor"
             strokeWidth="2"
-            className="text-muted"
+            className="text-foreground/10 dark:text-logo/10"
           />
           <path
             d="M30 50 H70 M30 35 H70 M30 65 H70"
             stroke="currentColor"
             strokeWidth="4"
             strokeLinecap="round"
-            className="text-primary"
+            className="text-foreground/10 dark:text-logo/40"
           />
         </svg>
-        <ToggleLeft className="absolute bottom-0 right-0 h-12 w-12 text-primary" />
+        <ToggleLeft className="absolute bottom-0 -right-3 h-12 w-12 text-[#E4E4E4] dark:text-[#103777]" />
       </div>
-      <h2 className="text-[18px] font-medium text-foreground/70">
+      <h2 className="text-[18px] font-medium text-foreground/70 dark:text-foreground">
         No Active Budgets
       </h2>
       <p className="text-muted-foreground/90 mb-6 max-w-sm text-sm mt-4">

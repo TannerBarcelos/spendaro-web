@@ -23,20 +23,20 @@ function EmptyTransactionsState({
             r="45"
             stroke="currentColor"
             strokeWidth="2"
-            className="text-muted"
+            className="text-foreground/10 dark:text-logo/10"
           />
           <path
             d="M35 50 L65 50 M50 35 L50 65"
             stroke="currentColor"
-            strokeWidth="4"
+            strokeWidth="2"
             strokeLinecap="round"
-            className="text-primary"
+            className="text-foreground/10 dark:text-logo/40"
           />
         </svg>
-        <PlusCircle className="absolute bottom-0 right-0 h-12 w-12 text-primary" />
+        <PlusCircle className="absolute bottom-0 -right-3 h-12 w-12 text-[#E4E4E4] dark:text-[#103777]" />
       </div>
       <h2
-        className={`text-2xl mb-3 ${showAddButton ? "font-semibold text-foreground" : "font-medium text-foreground/70 text-[18px]"}`}
+        className={`text-2xl mb-3 ${showAddButton ? "font-semibold text-foreground" : "font-medium text-foreground/70 text-[18px] dark:text-foreground"}`}
       >
         No Transactions Yet
       </h2>

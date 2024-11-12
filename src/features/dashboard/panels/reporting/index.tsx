@@ -28,9 +28,7 @@ export function ReportingWidget() {
   return (
     <Card className="col-span-3 row-span-2">
       <WidgetTitle />
-      <CardContent>
-        <Chart />
-      </CardContent>
+      <CardContent>{/* <Chart /> */}</CardContent>
     </Card>
   );
 }
