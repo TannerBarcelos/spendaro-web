@@ -62,6 +62,7 @@ function App() {
   const { isLoading, isError, data } = useUserDetails();
   const qc = useQueryClient();
   const auth_store = authStore();
+  const budget_store = useBudgetStore();
 
   if (isError) {
     return toast.error("An error occurred while fetching user details");
@@ -74,6 +75,7 @@ function App() {
         isLoading={isLoading}
         cb={() => {
           auth_store.clear(); // clear the auth store (holds the access token)
+          budget_store.clearActiveBudget(); // clear the active budget
           qc.clear(); // flush the cache
         }}
         userData={data?.data.data}

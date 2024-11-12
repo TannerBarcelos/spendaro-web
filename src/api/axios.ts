@@ -1,4 +1,5 @@
 import { authStore } from "@/stores/auth-store";
+import { useBudgetStore } from "@/stores/budget-store";
 import axios, { AxiosError } from "axios";
 
 export type CommonApiErrorResponse = AxiosError<{
@@ -61,8 +62,9 @@ axiosInstance.interceptors.response.use(
         }
       } catch (refreshError) {
         const logout = authStore.getState().clear;
-        // localStorage.clear()
+        const clearBudgetStorage = useBudgetStore.getState().clearActiveBudget;
         logout();
+        clearBudgetStorage();
         window.location.href = "/signin";
       }
     }
