@@ -16,24 +16,18 @@ import LoadingSkeleton from "@/components/loading-skeleton";
 
 export function LatestTransactionsWidget() {
   const activeBudget = useBudgetStore((state) => state.active_budget);
-  const { data: result, isLoading } = useGetTransactions(activeBudget);
+  const { data, isLoading } = useGetTransactions(activeBudget);
   return (
     <Card className="row-span-4 relative">
       <WidgetTitle />
       <CardContent className="p-0 space-y-3 mt-2">
         {isLoading && (
-          <>
-            {Array(8)
-              .fill(0)
-              .map((_, i) => (
-                <LoadingSkeleton
-                  key={`skeleton-${i}`}
-                  className="border border-foreground/5 justify-between flex items-center bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 p-2 rounded-xl"
-                />
-              ))}
-          </>
+          <LoadingSkeleton
+            count={8}
+            className="border border-foreground/5 justify-between flex items-center bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 p-2 rounded-xl"
+          />
         )}
-        {result && <TransactionList transactions={result.data} />}
+        {data && <TransactionList transactions={data.data} />}
       </CardContent>
     </Card>
   );
@@ -47,7 +41,7 @@ const WidgetTitle = () => {
           <h2 className="text-base lg:text-md font-medium text-foreground">
             Latest Transactions
           </h2>
-          <Info info="A list of all your latest transactions across all your accounts and budgets" />
+          <Info info="A list of all your latest transactions for the apps active budget" />
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger className="hover:text-primary  rounded-2xl">
