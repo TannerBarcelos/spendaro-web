@@ -37,7 +37,7 @@ const navItems = {
     },
     {
       title: "Budgets",
-      url: "#",
+      url: "/budgeting",
       icon: LandmarkIcon,
       isActive: true,
       items: [
@@ -53,7 +53,7 @@ const navItems = {
     },
     {
       title: "Transact",
-      url: "#",
+      url: "/transactions",
       icon: BanknoteIcon,
       items: [
         {
