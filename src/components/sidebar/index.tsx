@@ -4,6 +4,7 @@ import {
   ChartAreaIcon,
   LandmarkIcon,
   LayoutDashboardIcon,
+  Zap,
 } from "lucide-react";
 
 import MainSidebarItems from "@/components/sidebar/main-sidebar-items";
@@ -13,6 +14,9 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
   SidebarMenuSkeleton,
   SidebarRail,
   SidebarTrigger,
@@ -21,8 +25,8 @@ import BudgetSwitcher from "./budget-switcher";
 import { useUserDetails } from "@/api/user-api/queries";
 import { useBudgetStore } from "@/stores/budget-store";
 import { useGetBudgets } from "@/api/budget-api/queries";
+import { Link } from "@tanstack/react-router";
 
-// This is sample data.
 const navItems = {
   navMain: [
     {
@@ -139,30 +143,26 @@ function Sidebar({ ...props }: React.ComponentProps<typeof ShadCNSidebar>) {
 
   return (
     <ShadCNSidebar collapsible="icon" {...props}>
-      <SidebarHeader className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border">
-        {/* <div className="flex py-4 bg-none mb-2">
+      <SidebarHeader>
+        <SidebarMenuButton className="flex items-center py-8 leading-5 [&>svg]:size-6">
           <Zap
-            size={24}
+            size="40px"
             color="hsl(219deg, 60.9%, 64.9%)"
             strokeWidth={2.5}
-            className="mr-2"
           />
-          <Link
-            to="/dashboard"
-            className="text-xl font-semibold text-primary/90"
-          >
+          <Link to="/dashboard" className="text-xl font-semibold">
             Spendaro
           </Link>
-        </div> */}
+        </SidebarMenuButton>
         {isLoadingBudgets && <SidebarMenuSkeleton />}
         {budgets && <BudgetSwitcher budgets={budgets?.data} />}
       </SidebarHeader>
-      <SidebarContent className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <SidebarContent>
         <MainSidebarItems items={navItems.navMain} />
         {/* <NavProjects projects={data.projects} /> */}
+        <SidebarTrigger className="my-4 ml-2" />
       </SidebarContent>
-      <SidebarTrigger />
-      <SidebarFooter className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border">
+      <SidebarFooter>
         {isLoadingUserData && <SidebarMenuSkeleton />}
         {userData && <SidebarUserSelector user={userData.data} />}
       </SidebarFooter>
