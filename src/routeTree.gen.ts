@@ -18,6 +18,7 @@ import { Route as appAppImport } from './routes/(app)/_app'
 import { Route as authAuthSignupImport } from './routes/(auth)/_auth/signup'
 import { Route as authAuthSigninImport } from './routes/(auth)/_auth/signin'
 import { Route as appAppTransactionsIndexImport } from './routes/(app)/_app/transactions/index'
+import { Route as appAppSettingsIndexImport } from './routes/(app)/_app/settings/index'
 import { Route as appAppReportingIndexImport } from './routes/(app)/_app/reporting/index'
 import { Route as appAppProfileIndexImport } from './routes/(app)/_app/profile/index'
 import { Route as appAppDashboardIndexImport } from './routes/(app)/_app/dashboard/index'
@@ -70,6 +71,11 @@ const authAuthSigninRoute = authAuthSigninImport.update({
 
 const appAppTransactionsIndexRoute = appAppTransactionsIndexImport.update({
   path: '/transactions/',
+  getParentRoute: () => appAppRoute,
+} as any)
+
+const appAppSettingsIndexRoute = appAppSettingsIndexImport.update({
+  path: '/settings/',
   getParentRoute: () => appAppRoute,
 } as any)
 
@@ -239,6 +245,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appAppReportingIndexImport
       parentRoute: typeof appAppImport
     }
+    '/(app)/_app/settings/': {
+      id: '/(app)/_app/settings/'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof appAppSettingsIndexImport
+      parentRoute: typeof appAppImport
+    }
     '/(app)/_app/transactions/': {
       id: '/(app)/_app/transactions/'
       path: '/transactions'
@@ -288,6 +301,7 @@ interface appAppRouteChildren {
   appAppDashboardIndexRoute: typeof appAppDashboardIndexRoute
   appAppProfileIndexRoute: typeof appAppProfileIndexRoute
   appAppReportingIndexRoute: typeof appAppReportingIndexRoute
+  appAppSettingsIndexRoute: typeof appAppSettingsIndexRoute
   appAppTransactionsIndexRoute: typeof appAppTransactionsIndexRoute
   appAppBudgetingBudgetIdCategoriesRoute: typeof appAppBudgetingBudgetIdCategoriesRoute
   appAppTransactionsTransactionIdEditRoute: typeof appAppTransactionsTransactionIdEditRoute
@@ -304,6 +318,7 @@ const appAppRouteChildren: appAppRouteChildren = {
   appAppDashboardIndexRoute: appAppDashboardIndexRoute,
   appAppProfileIndexRoute: appAppProfileIndexRoute,
   appAppReportingIndexRoute: appAppReportingIndexRoute,
+  appAppSettingsIndexRoute: appAppSettingsIndexRoute,
   appAppTransactionsIndexRoute: appAppTransactionsIndexRoute,
   appAppBudgetingBudgetIdCategoriesRoute:
     appAppBudgetingBudgetIdCategoriesRoute,
@@ -363,6 +378,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof appAppDashboardIndexRoute
   '/profile': typeof appAppProfileIndexRoute
   '/reporting': typeof appAppReportingIndexRoute
+  '/settings': typeof appAppSettingsIndexRoute
   '/transactions': typeof appAppTransactionsIndexRoute
   '/budgeting/$budgetId/categories': typeof appAppBudgetingBudgetIdCategoriesRoute
   '/transactions/$transactionId/edit': typeof appAppTransactionsTransactionIdEditRoute
@@ -382,6 +398,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof appAppDashboardIndexRoute
   '/profile': typeof appAppProfileIndexRoute
   '/reporting': typeof appAppReportingIndexRoute
+  '/settings': typeof appAppSettingsIndexRoute
   '/transactions': typeof appAppTransactionsIndexRoute
   '/budgeting/$budgetId/categories': typeof appAppBudgetingBudgetIdCategoriesRoute
   '/transactions/$transactionId/edit': typeof appAppTransactionsTransactionIdEditRoute
@@ -405,6 +422,7 @@ export interface FileRoutesById {
   '/(app)/_app/dashboard/': typeof appAppDashboardIndexRoute
   '/(app)/_app/profile/': typeof appAppProfileIndexRoute
   '/(app)/_app/reporting/': typeof appAppReportingIndexRoute
+  '/(app)/_app/settings/': typeof appAppSettingsIndexRoute
   '/(app)/_app/transactions/': typeof appAppTransactionsIndexRoute
   '/(app)/_app/budgeting/$budgetId/categories': typeof appAppBudgetingBudgetIdCategoriesRoute
   '/(app)/_app/transactions/$transactionId/edit': typeof appAppTransactionsTransactionIdEditRoute
@@ -426,6 +444,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/profile'
     | '/reporting'
+    | '/settings'
     | '/transactions'
     | '/budgeting/$budgetId/categories'
     | '/transactions/$transactionId/edit'
@@ -444,6 +463,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/profile'
     | '/reporting'
+    | '/settings'
     | '/transactions'
     | '/budgeting/$budgetId/categories'
     | '/transactions/$transactionId/edit'
@@ -465,6 +485,7 @@ export interface FileRouteTypes {
     | '/(app)/_app/dashboard/'
     | '/(app)/_app/profile/'
     | '/(app)/_app/reporting/'
+    | '/(app)/_app/settings/'
     | '/(app)/_app/transactions/'
     | '/(app)/_app/budgeting/$budgetId/categories'
     | '/(app)/_app/transactions/$transactionId/edit'
@@ -517,6 +538,7 @@ export const routeTree = rootRoute
         "/(app)/_app/dashboard/",
         "/(app)/_app/profile/",
         "/(app)/_app/reporting/",
+        "/(app)/_app/settings/",
         "/(app)/_app/transactions/",
         "/(app)/_app/budgeting/$budgetId/categories",
         "/(app)/_app/transactions/$transactionId/edit",
@@ -576,6 +598,10 @@ export const routeTree = rootRoute
     },
     "/(app)/_app/reporting/": {
       "filePath": "(app)/_app/reporting/index.tsx",
+      "parent": "/(app)/_app"
+    },
+    "/(app)/_app/settings/": {
+      "filePath": "(app)/_app/settings/index.ts",
       "parent": "/(app)/_app"
     },
     "/(app)/_app/transactions/": {

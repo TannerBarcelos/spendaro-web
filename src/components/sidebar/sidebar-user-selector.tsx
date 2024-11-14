@@ -6,7 +6,11 @@ import {
   ChevronsUpDown,
   CreditCard,
   LogOut,
+  Moon,
+  SettingsIcon,
   Sparkles,
+  Sun,
+  User,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -26,6 +30,10 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { UserData } from "@/api/user-api";
+import { useTheme } from "@/contexts/theme";
+import { Link } from "@tanstack/react-router";
+import { authStore } from "@/stores/auth-store";
+import { useBudgetStore } from "@/stores/budget-store";
 
 type SidebarUserSelectorProps = {
   user: UserData;
@@ -33,7 +41,8 @@ type SidebarUserSelectorProps = {
 
 function SidebarUserSelector({ user }: SidebarUserSelectorProps) {
   const { isMobile } = useSidebar();
-
+  const { theme, toggleTheme } = useTheme();
+  const budgetStore = useBudgetStore();
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -48,7 +57,10 @@ function SidebarUserSelector({ user }: SidebarUserSelectorProps) {
                 <AvatarFallback className="rounded-lg">CN</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">{user.firstName}</span>
+                <p className="space-x-1 font-medium truncate">
+                  <span>{user.firstName}</span>
+                  <span>{user.lastName}</span>
+                </p>
                 <span className="truncate text-xs">{user.email}</span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
@@ -64,7 +76,13 @@ function SidebarUserSelector({ user }: SidebarUserSelectorProps) {
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage src={user.profileImage} alt={user.firstName} />
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                  <AvatarFallback className="bg-primary/10">
+                    {`${user?.firstName ?? ""} ${user?.lastName ?? ""}`
+                      .split(" ")
+                      .map((name) => name[0])
+                      .join("")
+                      .toUpperCase()}
+                  </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">
@@ -77,27 +95,34 @@ function SidebarUserSelector({ user }: SidebarUserSelectorProps) {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <Sparkles />
-                Upgrade to Pro
+                {theme === "light" ? <Sun /> : <Moon />}
+                <button onClick={toggleTheme}>
+                  Switch to {theme === "light" ? "dark" : "light"} mode
+                </button>
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <BadgeCheck />
-                Account
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <CreditCard />
-                Billing
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Bell />
-                Notifications
-              </DropdownMenuItem>
+              <Link to="/profile">
+                <DropdownMenuItem>
+                  <User />
+                  Manage Account
+                </DropdownMenuItem>
+              </Link>
+              <Link to="/settings">
+                <DropdownMenuItem>
+                  <SettingsIcon />
+                  Manage Account
+                </DropdownMenuItem>
+              </Link>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                budgetStore.clearActiveBudget();
+                authStore.getState().clear();
+              }}
+            >
               <LogOut />
               Log out
             </DropdownMenuItem>
