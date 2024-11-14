@@ -18,18 +18,30 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { Budget } from "@/api/budget-api/types";
+import { useBudgetStore } from "@/stores/budget-store";
 
 type BudgetSwitcherProps = {
   budgets: Budget[];
-  activeBudget?: string;
 };
 
-function BudgetSwitcher({
-  budgets,
-  activeBudget: active,
-}: BudgetSwitcherProps) {
+function BudgetSwitcher({ budgets }: BudgetSwitcherProps) {
   const { isMobile } = useSidebar();
-  const [activeBudget, setActiveBudget] = React.useState(active ?? budgets[0]);
+  const activeBudget = useBudgetStore((state) => state.active_budget);
+  const setActiveBudget = useBudgetStore((state) => state.setActiveBudget);
+
+  const activeBudgetIndex = budgets.findIndex(
+    (budget) => budget.id === Number(activeBudget)
+  );
+
+  const activeBudgetName =
+    activeBudgetIndex !== -1
+      ? budgets[activeBudgetIndex].budget_name
+      : "Select Budget";
+  const activeBudgetIcon =
+    activeBudgetIndex !== -1 ? budgets[activeBudgetIndex].budget_icon : "";
+  const activeBudgetAmount =
+    activeBudgetIndex !== -1 ? budgets[activeBudgetIndex].amount : 0;
+
   return (
     <>
       <SidebarGroupLabel className="font-normal text-xs">
@@ -44,20 +56,20 @@ function BudgetSwitcher({
                 className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
               >
                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary">
-                  <img src={activeBudget.budget_icon} />
+                  <img src={activeBudgetIcon} />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-normal dark:text-primary/90">
-                    {activeBudget.budget_name}
+                    {activeBudgetName}
                   </span>
                   <span className="truncate text-xs text-foreground/70 pt-1">
-                    {activeBudget.amount === 0 ? (
+                    {activeBudgetAmount === 0 ? (
                       <span className="flex items-center gap-1">
                         <SparklesIcon className="size-3 text-yellow-600/80" />{" "}
                         Budget Zero!
                       </span>
                     ) : (
-                      `$${activeBudget.amount}`
+                      `$${activeBudgetAmount}`
                     )}
                   </span>
                 </div>
@@ -76,7 +88,7 @@ function BudgetSwitcher({
               {budgets.map((budget, index) => (
                 <DropdownMenuItem
                   key={budget.budget_name}
-                  onClick={() => setActiveBudget(budget)}
+                  onClick={() => setActiveBudget(budget.id.toString())}
                   className="gap-2 p-2"
                 >
                   <div className="flex size-6 items-center justify-center rounded-sm border">
