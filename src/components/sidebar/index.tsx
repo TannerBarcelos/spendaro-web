@@ -31,6 +31,7 @@ const navItems = {
       url: "/dashboard",
       icon: LayoutDashboardIcon,
       isActive: true,
+      isRoot: true,
     },
     {
       title: "Budgets",
