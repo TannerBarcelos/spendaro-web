@@ -25,7 +25,7 @@ function Budgets({ budgets }: { budgets: Budget[] }) {
   const favoriteBudgets = budgets.filter((budget) => budget.is_favorite);
   const archivedBudgets = budgets.filter((budget) => !budget.is_active);
   return (
-    <div>
+    <div className="">
       <div className="w-full flex flex-row items-center justify-between">
         <div>
           <h1 className="text-xl lg:text-2xl font-semibold mr-4">

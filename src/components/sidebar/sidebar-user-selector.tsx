@@ -1,14 +1,8 @@
-"use client";
-
 import {
-  BadgeCheck,
-  Bell,
   ChevronsUpDown,
-  CreditCard,
   LogOut,
   Moon,
   SettingsIcon,
-  Sparkles,
   Sun,
   User,
 } from "lucide-react";
@@ -31,7 +25,7 @@ import {
 } from "@/components/ui/sidebar";
 import { UserData } from "@/api/user-api";
 import { useTheme } from "@/contexts/theme";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { authStore } from "@/stores/auth-store";
 import { useBudgetStore } from "@/stores/budget-store";
 
@@ -43,6 +37,7 @@ function SidebarUserSelector({ user }: SidebarUserSelectorProps) {
   const { isMobile } = useSidebar();
   const { theme, toggleTheme } = useTheme();
   const budgetStore = useBudgetStore();
+  const navigate = useNavigate();
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -121,6 +116,9 @@ function SidebarUserSelector({ user }: SidebarUserSelectorProps) {
               onClick={() => {
                 budgetStore.clearActiveBudget();
                 authStore.getState().clear();
+                navigate({
+                  to: "/signin",
+                });
               }}
             >
               <LogOut />

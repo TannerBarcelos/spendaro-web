@@ -39,12 +39,12 @@ function MainSidebarItems({
         {items.map((item) =>
           item.isRoot ? (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton>
-                <Link to={item.url} className="flex items-center gap-2">
+              <Link to={item.url} className="flex items-center gap-2">
+                <SidebarMenuButton>
                   {item.icon && <item.icon className="size-4" />}
                   <span className="text-[13px]">{item.title}</span>
-                </Link>
-              </SidebarMenuButton>
+                </SidebarMenuButton>
+              </Link>
             </SidebarMenuItem>
           ) : (
             <Collapsible

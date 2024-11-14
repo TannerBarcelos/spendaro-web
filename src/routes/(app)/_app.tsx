@@ -26,9 +26,6 @@ export const Route = createFileRoute("/(app)/_app")({
 
 function App() {
   // const { isLoading, isError, data } = useUserDetails();
-  // const auth_store = authStore();
-  // const budget_store = useBudgetStore();
-  // const navigate = useNavigate();
 
   // if (isError) {
   //   return toast.error("An error occurred while fetching user details");
