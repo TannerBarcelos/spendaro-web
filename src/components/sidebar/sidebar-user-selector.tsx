@@ -28,6 +28,7 @@ import { useTheme } from "@/contexts/theme";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { authStore } from "@/stores/auth-store";
 import { useBudgetStore } from "@/stores/budget-store";
+import { truncateUsername } from "@/lib/utils";
 
 type SidebarUserSelectorProps = {
   user: UserData;
@@ -49,7 +50,9 @@ function SidebarUserSelector({ user }: SidebarUserSelectorProps) {
             >
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage src={user.profileImage} alt={user.firstName} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                <AvatarFallback className="bg-primary/10">
+                  {truncateUsername(user.firstName, user.lastName)}
+                </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight text-primary/90">
                 <p className="space-x-1 font-medium truncate">
@@ -74,11 +77,7 @@ function SidebarUserSelector({ user }: SidebarUserSelectorProps) {
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage src={user.profileImage} alt={user.firstName} />
                   <AvatarFallback className="bg-primary/10">
-                    {`${user?.firstName ?? ""} ${user?.lastName ?? ""}`
-                      .split(" ")
-                      .map((name) => name[0])
-                      .join("")
-                      .toUpperCase()}
+                    {truncateUsername(user.firstName, user.lastName)}
                   </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">

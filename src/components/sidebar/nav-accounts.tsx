@@ -22,23 +22,19 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { Budget } from "@/api/budget-api/types";
 
-export function NavProjects({
-  projects,
-}: {
-  projects: {
-    name: string;
-    url: string;
-    icon: LucideIcon;
-  }[];
-}) {
+type AccountsProps = {
+  accounts: Budget[];
+};
+
+function Accounts({ accounts }: AccountsProps) {
   const { isMobile } = useSidebar();
-
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-      <SidebarGroupLabel>Projects</SidebarGroupLabel>
-      <SidebarMenu>
-        {projects.map((item) => (
+      <SidebarGroupLabel>Accounts</SidebarGroupLabel>
+      {/* <SidebarMenu>
+        {accounts?.map((item) => (
           <SidebarMenuItem key={item.name}>
             <SidebarMenuButton asChild>
               <a href={item.url}>
@@ -81,7 +77,9 @@ export function NavProjects({
             <span>More</span>
           </SidebarMenuButton>
         </SidebarMenuItem>
-      </SidebarMenu>
+      </SidebarMenu> */}
     </SidebarGroup>
   );
 }
+
+export default Accounts;

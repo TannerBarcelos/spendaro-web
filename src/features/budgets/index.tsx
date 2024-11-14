@@ -25,7 +25,7 @@ function Budgets({ budgets }: { budgets: Budget[] }) {
   const favoriteBudgets = budgets.filter((budget) => budget.is_favorite);
   const archivedBudgets = budgets.filter((budget) => !budget.is_active);
   return (
-    <div className="">
+    <div>
       <div className="w-full flex flex-row items-center justify-between">
         <div>
           <h1 className="text-xl lg:text-2xl font-semibold mr-4">
@@ -46,10 +46,10 @@ function Budgets({ budgets }: { budgets: Budget[] }) {
       ) : (
         <div className="space-y-8">
           {(favoriteBudgets.length ?? 0) > 0 && (
-            <>
-              <h2 className="font-medium my-4 mt-4 text-sm">Active Budgets</h2>
+            <div>
+              <h2 className="font-medium text-sm my-4">Active Budgets</h2>
               <BudgetTable budgets={budgets} />
-            </>
+            </div>
           )}
           {favoriteBudgets && favoriteBudgets.length > 0 && (
             <Accordion

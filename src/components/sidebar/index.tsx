@@ -14,9 +14,7 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-  SidebarMenu,
   SidebarMenuButton,
-  SidebarMenuItem,
   SidebarMenuSkeleton,
   SidebarRail,
   SidebarTrigger,
@@ -26,6 +24,7 @@ import { useUserDetails } from "@/api/user-api/queries";
 import { useBudgetStore } from "@/stores/budget-store";
 import { useGetBudgets } from "@/api/budget-api/queries";
 import { Link } from "@tanstack/react-router";
+import Accounts from "./nav-accounts";
 
 const navItems = {
   navMain: [
@@ -43,12 +42,12 @@ const navItems = {
       isActive: true,
       items: [
         {
-          title: "View budgets",
-          url: "/budgeting",
-        },
-        {
           title: "Create a budget",
           url: "/budgeting/new",
+        },
+        {
+          title: "View all budgets",
+          url: "/budgeting",
         },
       ],
     },
@@ -82,47 +81,7 @@ const navItems = {
         },
       ],
     },
-    // {
-    //   title: "Settings",
-    //   url: "#",
-    //   icon: Settings2,
-    //   items: [
-    //     {
-    //       title: "General",
-    //       url: "#",
-    //     },
-    //     {
-    //       title: "Team",
-    //       url: "#",
-    //     },
-    //     {
-    //       title: "Billing",
-    //       url: "#",
-    //     },
-    //     {
-    //       title: "Limits",
-    //       url: "#",
-    //     },
-    //   ],
-    // },
   ],
-  //   projects: [
-  //     {
-  //       name: "Design Engineering",
-  //       url: "#",
-  //       icon: Frame,
-  //     },
-  //     {
-  //       name: "Sales & Marketing",
-  //       url: "#",
-  //       icon: PieChart,
-  //     },
-  //     {
-  //       name: "Travel",
-  //       url: "#",
-  //       icon: Map,
-  //     },
-  //   ],
 };
 
 function Sidebar({ ...props }: React.ComponentProps<typeof ShadCNSidebar>) {
@@ -159,7 +118,7 @@ function Sidebar({ ...props }: React.ComponentProps<typeof ShadCNSidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <MainSidebarItems items={navItems.navMain} />
-        {/* <NavProjects projects={data.projects} /> */}
+        {budgets && <Accounts accounts={budgets?.data} />}
         <SidebarTrigger className="my-4 ml-2" />
       </SidebarContent>
       <SidebarFooter>

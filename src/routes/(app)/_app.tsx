@@ -38,7 +38,7 @@ function App() {
 function Main() {
   return (
     <SidebarInset>
-      <main className="flex flex-1 flex-col px-4">
+      <main className="flex flex-1 flex-col px-4 container mx-auto my-6">
         <Outlet />
       </main>
     </SidebarInset>

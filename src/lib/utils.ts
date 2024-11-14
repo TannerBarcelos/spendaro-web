@@ -44,3 +44,11 @@ export const formatDate = (date: Date) => {
     day: "numeric",
   });
 };
+
+export const truncateUsername = (firstName?: string, lastName?: string) => {
+  return `${firstName ?? ""} ${lastName ?? ""}`
+    .split(" ")
+    .map((name) => name[0])
+    .join("")
+    .toUpperCase();
+};
