@@ -15,12 +15,11 @@ import {
   SidebarHeader,
   SidebarMenuSkeleton,
   SidebarRail,
+  SidebarTrigger,
 } from "@/components/ui/sidebar";
 import BudgetSwitcher from "./budget-switcher";
 import { useUserDetails } from "@/api/user-api/queries";
-import { authStore } from "@/stores/auth-store";
 import { useBudgetStore } from "@/stores/budget-store";
-import { useNavigate } from "@tanstack/react-router";
 import { useGetBudgets } from "@/api/budget-api/queries";
 
 // This is sample data.
@@ -132,11 +131,6 @@ function Sidebar({ ...props }: React.ComponentProps<typeof ShadCNSidebar>) {
   const setActiveBudget = useBudgetStore((state) => state.setActiveBudget);
   const { data: budgets, isLoading: isLoadingBudgets } = useGetBudgets();
 
-  const auth_store = authStore();
-  const budget_store = useBudgetStore();
-  const navigate = useNavigate();
-  // If there is not a saved budget in local storage, set the first budget as the active budget from the list of budgets API
-
   React.useEffect(() => {
     if (budgets?.data?.[0] && !activeBudget) {
       setActiveBudget(budgets.data[0].id.toString());
@@ -167,6 +161,7 @@ function Sidebar({ ...props }: React.ComponentProps<typeof ShadCNSidebar>) {
         <MainSidebarItems items={navItems.navMain} />
         {/* <NavProjects projects={data.projects} /> */}
       </SidebarContent>
+      <SidebarTrigger />
       <SidebarFooter className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border">
         {isLoadingUserData && <SidebarMenuSkeleton />}
         {userData && <SidebarUserSelector user={userData.data} />}

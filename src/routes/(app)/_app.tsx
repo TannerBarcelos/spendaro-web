@@ -2,11 +2,7 @@ import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
 import { isAuthenticated } from "@/stores/auth-store";
 import { queryClient } from "@/api/query-client";
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import Sidebar from "@/components/sidebar";
 
 export const Route = createFileRoute("/(app)/_app")({
@@ -42,8 +38,7 @@ function App() {
 function Main() {
   return (
     <SidebarInset>
-      <main className="flex flex-1 flex-col gap-4 p-4 pt-0">
-        <SidebarTrigger className="-ml-1" />
+      <main className="flex flex-1 flex-col px-4">
         <Outlet />
       </main>
     </SidebarInset>
