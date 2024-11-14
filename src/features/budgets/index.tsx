@@ -26,14 +26,11 @@ function Budgets({ budgets }: { budgets: Budget[] }) {
   const archivedBudgets = budgets.filter((budget) => !budget.is_active);
   return (
     <div>
-      <div className="w-full flex flex-row items-center justify-between">
+      <div className="w-full flex flex-row items-center justify-between h-16">
         <div>
           <h1 className="text-xl lg:text-2xl font-semibold mr-4">
-            All Budgets
+            Budget List
           </h1>
-          <p className="text-sm font-light pt-4 text-foreground mb-6">
-            View and manage all of your budgets
-          </p>
         </div>
         <Link to="/budgeting/new">
           <Button className="light:hover:bg-gray-100 text-[13px]">
