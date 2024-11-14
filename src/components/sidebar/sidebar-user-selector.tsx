@@ -51,12 +51,14 @@ function SidebarUserSelector({ user }: SidebarUserSelectorProps) {
                 <AvatarImage src={user.profileImage} alt={user.firstName} />
                 <AvatarFallback className="rounded-lg">CN</AvatarFallback>
               </Avatar>
-              <div className="grid flex-1 text-left text-sm leading-tight">
+              <div className="grid flex-1 text-left text-sm leading-tight text-primary/90">
                 <p className="space-x-1 font-medium truncate">
                   <span>{user.firstName}</span>
                   <span>{user.lastName}</span>
                 </p>
-                <span className="truncate text-xs">{user.email}</span>
+                <span className="truncate text-xs text-foreground/80">
+                  {user.email}
+                </span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
