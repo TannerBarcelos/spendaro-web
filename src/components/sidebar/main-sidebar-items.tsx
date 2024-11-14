@@ -18,7 +18,7 @@ import {
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 
-export function NavMain({
+function MainSidebarItems({
   items,
 }: {
   items: {
@@ -71,3 +71,5 @@ export function NavMain({
     </SidebarGroup>
   );
 }
+
+export default MainSidebarItems;

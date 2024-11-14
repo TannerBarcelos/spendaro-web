@@ -26,7 +26,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 
-export function NavUser({
+function SidebarUserSelector({
   user,
 }: {
   user: {
@@ -108,3 +108,5 @@ export function NavUser({
     </SidebarMenu>
   );
 }
+
+export default SidebarUserSelector;

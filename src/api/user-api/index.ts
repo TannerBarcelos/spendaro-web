@@ -28,11 +28,11 @@ export const fetchUser = async () => {
     "Content-Type": "application/json",
     Authorization: `Bearer ${access_token}`,
   };
-  const response = await axiosInstance.get<UserDetailsResponse>(
+  const { data } = await axiosInstance.get<UserDetailsResponse>(
     USER_URLS.userDetails,
     {
       headers,
     }
   );
-  return response;
+  return data;
 };

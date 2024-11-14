@@ -1,51 +1,7 @@
-import {
-  createFileRoute,
-  Outlet,
-  redirect,
-  useNavigate,
-} from "@tanstack/react-router";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import { Link } from "@tanstack/react-router";
-import { LogOut, Moon, Settings, Sun, User, Zap } from "lucide-react";
-import { SVGProps, useEffect } from "react";
-import { JSX } from "react/jsx-runtime";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useTheme } from "@/contexts/theme";
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
-
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { authStore, isAuthenticated } from "@/stores/auth-store";
-import { useUserDetails } from "@/api/user-api/queries";
-import { UserData } from "@/api/user-api";
-import { toast } from "sonner";
-import React from "react";
-import { cn } from "@/lib/utils";
+import { isAuthenticated } from "@/stores/auth-store";
 import { queryClient } from "@/api/query-client";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { useGetBudgets } from "@/api/budget-api/queries";
-import { useBudgetStore } from "@/stores/budget-store";
 import {
   SidebarInset,
   SidebarProvider,
@@ -69,14 +25,14 @@ export const Route = createFileRoute("/(app)/_app")({
 });
 
 function App() {
-  const { isLoading, isError, data } = useUserDetails();
-  const auth_store = authStore();
-  const budget_store = useBudgetStore();
-  const navigate = useNavigate();
+  // const { isLoading, isError, data } = useUserDetails();
+  // const auth_store = authStore();
+  // const budget_store = useBudgetStore();
+  // const navigate = useNavigate();
 
-  if (isError) {
-    return toast.error("An error occurred while fetching user details");
-  }
+  // if (isError) {
+  //   return toast.error("An error occurred while fetching user details");
+  // }
 
   return (
     <SidebarProvider>

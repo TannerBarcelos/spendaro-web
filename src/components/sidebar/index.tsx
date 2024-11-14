@@ -1,24 +1,13 @@
-"use client";
-
 import * as React from "react";
 import {
-  AudioWaveform,
-  BookOpen,
-  Bot,
-  Command,
-  Frame,
-  GalleryVerticalEnd,
-  Map,
-  PieChart,
-  Settings2,
-  SquareTerminal,
-  Zap,
+  BanknoteIcon,
+  ChartAreaIcon,
+  LandmarkIcon,
+  LayoutDashboardIcon,
 } from "lucide-react";
 
-import { NavMain } from "@/components/nav-main";
-import { NavProjects } from "@/components/nav-projects";
-import { NavUser } from "@/components/nav-user";
-import { TeamSwitcher } from "@/components/team-switcher";
+import MainSidebarItems from "@/components/sidebar/main-sidebar-items";
+import SidebarUserSelector from "@/components/sidebar/sidebar-user-selector";
 import {
   Sidebar as ShadCNSidebar,
   SidebarContent,
@@ -26,139 +15,116 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { Link } from "@tanstack/react-router";
+import BudgetSwitcher from "./budget-switcher";
+import { useUserDetails } from "@/api/user-api/queries";
+import { authStore } from "@/stores/auth-store";
+import { useBudgetStore } from "@/stores/budget-store";
+import { useNavigate } from "@tanstack/react-router";
 
 // This is sample data.
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  teams: [
-    {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
-  ],
+const navItems = {
   navMain: [
     {
-      title: "Playground",
+      title: "Dashboard",
+      url: "/dashboard",
+      icon: LayoutDashboardIcon,
+      isActive: true,
+    },
+    {
+      title: "Budgets",
       url: "#",
-      icon: SquareTerminal,
+      icon: LandmarkIcon,
       isActive: true,
       items: [
         {
-          title: "History",
-          url: "#",
+          title: "View budgets",
+          url: "/budgeting",
         },
         {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
-          url: "#",
+          title: "Create a budget",
+          url: "/budgeting/new",
         },
       ],
     },
     {
-      title: "Models",
+      title: "Transact",
       url: "#",
-      icon: Bot,
+      icon: BanknoteIcon,
       items: [
         {
-          title: "Genesis",
-          url: "#",
+          title: "View all transactions",
+          url: "/transactions",
         },
         {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
+          title: "Add a transaction",
+          url: "/transactions/new",
         },
       ],
     },
     {
-      title: "Documentation",
+      title: "Reporting",
       url: "#",
-      icon: BookOpen,
+      icon: ChartAreaIcon,
       items: [
         {
-          title: "Introduction",
+          title: "View all reports",
           url: "#",
         },
         {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
+          title: "Create a report",
           url: "#",
         },
       ],
     },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
+    // {
+    //   title: "Settings",
+    //   url: "#",
+    //   icon: Settings2,
+    //   items: [
+    //     {
+    //       title: "General",
+    //       url: "#",
+    //     },
+    //     {
+    //       title: "Team",
+    //       url: "#",
+    //     },
+    //     {
+    //       title: "Billing",
+    //       url: "#",
+    //     },
+    //     {
+    //       title: "Limits",
+    //       url: "#",
+    //     },
+    //   ],
+    // },
   ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
-  ],
+  //   projects: [
+  //     {
+  //       name: "Design Engineering",
+  //       url: "#",
+  //       icon: Frame,
+  //     },
+  //     {
+  //       name: "Sales & Marketing",
+  //       url: "#",
+  //       icon: PieChart,
+  //     },
+  //     {
+  //       name: "Travel",
+  //       url: "#",
+  //       icon: Map,
+  //     },
+  //   ],
 };
 
 function Sidebar({ ...props }: React.ComponentProps<typeof ShadCNSidebar>) {
+  const { isLoading, isError, data } = useUserDetails();
+  console.log(data?.data);
+  const auth_store = authStore();
+  const budget_store = useBudgetStore();
+  const navigate = useNavigate();
   return (
     <ShadCNSidebar collapsible="icon" {...props}>
       <SidebarHeader className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border">
@@ -176,14 +142,14 @@ function Sidebar({ ...props }: React.ComponentProps<typeof ShadCNSidebar>) {
             Spendaro
           </Link>
         </div> */}
-        <TeamSwitcher teams={data.teams} />
+        <BudgetSwitcher budgets={[]} />
       </SidebarHeader>
       <SidebarContent className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+        <MainSidebarItems items={navItems.navMain} />
+        {/* <NavProjects projects={data.projects} /> */}
       </SidebarContent>
       <SidebarFooter className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border">
-        <NavUser user={data.user} />
+        {/* <SidebarUserSelector user={data.user} /> */}
       </SidebarFooter>
       <SidebarRail />
     </ShadCNSidebar>
