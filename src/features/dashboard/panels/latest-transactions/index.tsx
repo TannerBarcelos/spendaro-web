@@ -1,6 +1,6 @@
 import { useGetTransactions } from "@/api/transaction-api/queries";
 import { Transaction } from "@/api/transaction-api/types";
-import Info from "@/components/Info";
+import Info from "@/components/more-info";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   DropdownMenu,

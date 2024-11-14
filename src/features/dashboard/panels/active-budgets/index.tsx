@@ -1,4 +1,4 @@
-import Info from "@/components/Info";
+import Info from "@/components/more-info";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   DropdownMenu,
