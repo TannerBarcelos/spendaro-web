@@ -11,7 +11,14 @@ import {
 import { motion } from "framer-motion";
 import { useBudgetStore } from "@/stores/budget-store";
 import { Link } from "@tanstack/react-router";
-import { Edit, EllipsisVertical, EyeIcon, Plus } from "lucide-react";
+import {
+  ArrowUpIcon,
+  Edit,
+  EllipsisVertical,
+  EyeIcon,
+  LandmarkIcon,
+  Plus,
+} from "lucide-react";
 import LoadingSkeleton from "@/components/loading-skeleton";
 import EmptyTransactionsState from "@/components/fallbacks/no-transactions";
 
@@ -55,11 +62,11 @@ export function LatestTransactionsWidget() {
           </DropdownMenu>
         </CardTitle>
       </CardHeader>
-      <CardContent className="p-0 space-y-3">
+      <CardContent className="p-0 space-y-2 mt-3">
         {isLoading && (
           <LoadingSkeleton
             count={8}
-            className="border border-foreground/5 justify-between flex items-center bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 p-2 rounded-xl"
+            className="border border-foreground/5 justify-between flex items-center bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 p-2 rounded-md"
           />
         )}
         {(!data || data.data.length < 1) && !isLoading && (
@@ -79,16 +86,19 @@ const TransactionList = ({ transactions }: { transactions: Transaction[] }) => {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: index * 0.2 }}
-        className="border border-foreground/5 justify-between flex items-center bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 p-4 rounded-xl hover:cursor-pointer"
+        className="border border-foreground/5 justify-between flex items-center bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 p-2 rounded-xl hover:cursor-pointer"
       >
         <Link
-          className="flex items-center justify-between p-2 w-full"
+          className="flex items-center p-2 w-full"
           to={`/transactions/${transaction.id}`}
         >
-          <p className="text-foreground truncate flex-1 font-normal text-xs md:text-sm">
+          <div className="rounded-full bg-blue-500/5 p-2 mr-4">
+            <LandmarkIcon className="size-4" />
+          </div>
+          <h3 className="text-xs font-normal text-muted-foreground truncate">
             {transaction.transaction_description}
-          </p>
-          <div className="flex items-center space-x-1 w-1/3 justify-end">
+          </h3>
+          <div className="flex items-center space-x-1 w-1/3 flex-1 justify-end ml-2">
             <p className="text-md text-foreground">
               ${transaction.transaction_amount}
             </p>
