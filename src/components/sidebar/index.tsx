@@ -13,6 +13,7 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
+  SidebarMenuSkeleton,
   SidebarRail,
 } from "@/components/ui/sidebar";
 import BudgetSwitcher from "./budget-switcher";
@@ -121,20 +122,26 @@ const navItems = {
 };
 
 function Sidebar({ ...props }: React.ComponentProps<typeof ShadCNSidebar>) {
-  const { isLoading, isError, data } = useUserDetails();
+  const {
+    isLoading: isLoadingUserData,
+    isError,
+    data: userData,
+  } = useUserDetails();
   const activeBudget = useBudgetStore((state) => state.active_budget);
   const setActiveBudget = useBudgetStore((state) => state.setActiveBudget);
   const { data: budgets, isLoading: isLoadingBudgets } = useGetBudgets();
-  console.log(data?.data);
+
   const auth_store = authStore();
   const budget_store = useBudgetStore();
   const navigate = useNavigate();
   // If there is not a saved budget in local storage, set the first budget as the active budget from the list of budgets API
+
   React.useEffect(() => {
     if (budgets?.data?.[0] && !activeBudget) {
       setActiveBudget(budgets.data[0].id.toString());
     }
-  }, [data]);
+  }, [budgets]);
+
   return (
     <ShadCNSidebar collapsible="icon" {...props}>
       <SidebarHeader className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border">
@@ -152,6 +159,7 @@ function Sidebar({ ...props }: React.ComponentProps<typeof ShadCNSidebar>) {
             Spendaro
           </Link>
         </div> */}
+        {isLoadingBudgets && <SidebarMenuSkeleton />}
         {budgets && <BudgetSwitcher budgets={budgets?.data} />}
       </SidebarHeader>
       <SidebarContent className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -159,7 +167,8 @@ function Sidebar({ ...props }: React.ComponentProps<typeof ShadCNSidebar>) {
         {/* <NavProjects projects={data.projects} /> */}
       </SidebarContent>
       <SidebarFooter className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border">
-        {/* <SidebarUserSelector user={data.user} /> */}
+        {isLoadingUserData && <SidebarMenuSkeleton />}
+        {userData && <SidebarUserSelector user={userData.data} />}
       </SidebarFooter>
       <SidebarRail />
     </ShadCNSidebar>

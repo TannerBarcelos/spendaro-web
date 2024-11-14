@@ -20,11 +20,15 @@ import { Budget } from "@/api/budget-api/types";
 
 type BudgetSwitcherProps = {
   budgets: Budget[];
+  activeBudget?: string;
 };
 
-function BudgetSwitcher({ budgets }: BudgetSwitcherProps) {
+function BudgetSwitcher({
+  budgets,
+  activeBudget: active,
+}: BudgetSwitcherProps) {
   const { isMobile } = useSidebar();
-  const [activeBudget, setActiveBudget] = React.useState(budgets[0]);
+  const [activeBudget, setActiveBudget] = React.useState(active ?? budgets[0]);
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -34,14 +38,16 @@ function BudgetSwitcher({ budgets }: BudgetSwitcherProps) {
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+              <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-red-500">
                 <img src={activeBudget.budget_icon} />
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">
                   {activeBudget.budget_name}
                 </span>
-                <span className="truncate text-xs">${activeBudget.amount}</span>
+                <span className="truncate text-xs text-foreground/70 pt-1">
+                  ${activeBudget.amount} until budget zero
+                </span>
               </div>
               <ChevronsUpDown className="ml-auto" />
             </SidebarMenuButton>
@@ -53,7 +59,7 @@ function BudgetSwitcher({ budgets }: BudgetSwitcherProps) {
             sideOffset={4}
           >
             <DropdownMenuLabel className="text-xs text-muted-foreground">
-              Teams
+              Budgets
             </DropdownMenuLabel>
             {budgets.map((budget, index) => (
               <DropdownMenuItem
@@ -64,7 +70,7 @@ function BudgetSwitcher({ budgets }: BudgetSwitcherProps) {
                 <div className="flex size-6 items-center justify-center rounded-sm border">
                   <img src={budget.budget_icon} />
                 </div>
-                {budget.budget_description}
+                <span className="text-xs">{budget.budget_name}</span>
                 <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
               </DropdownMenuItem>
             ))}
