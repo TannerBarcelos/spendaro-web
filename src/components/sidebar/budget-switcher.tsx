@@ -1,4 +1,3 @@
-import * as React from "react";
 import { ChevronsUpDown, Plus, SparklesIcon } from "lucide-react";
 
 import {
@@ -36,7 +35,7 @@ function BudgetSwitcher({ budgets }: BudgetSwitcherProps) {
   const activeBudgetName =
     activeBudgetIndex !== -1
       ? budgets[activeBudgetIndex].budget_name
-      : "Select Budget";
+      : "Select budget";
   const activeBudgetIcon =
     activeBudgetIndex !== -1 ? budgets[activeBudgetIndex].budget_icon : "";
   const activeBudgetAmount =
@@ -44,9 +43,11 @@ function BudgetSwitcher({ budgets }: BudgetSwitcherProps) {
 
   return (
     <>
-      <SidebarGroupLabel className="font-normal text-xs">
-        Active Budget
-      </SidebarGroupLabel>
+      {activeBudgetIndex != -1 && (
+        <SidebarGroupLabel className="font-normal text-xs">
+          Active Budget
+        </SidebarGroupLabel>
+      )}
       <SidebarMenu className="border dark:border-2 rounded-xl bg-logo/5">
         <SidebarMenuItem>
           <DropdownMenu>
@@ -55,21 +56,25 @@ function BudgetSwitcher({ budgets }: BudgetSwitcherProps) {
                 size="lg"
                 className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
               >
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary">
-                  <img src={activeBudgetIcon} />
-                </div>
-                <div className="grid flex-1 text-left text-sm leading-tight">
+                {activeBudgetIcon !== "" && (
+                  <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary">
+                    <img src={activeBudgetIcon} />
+                  </div>
+                )}
+                <div className="grid flex-1 text-left text-xs text-foreground/90 leading-tight">
                   <span className="truncate font-normal dark:text-primary/90">
                     {activeBudgetName}
                   </span>
                   <span className="truncate text-xs text-foreground/70 pt-1">
-                    {activeBudgetAmount === 0 ? (
+                    {activeBudgetIndex > -1 && activeBudgetAmount === 0 ? (
                       <span className="flex items-center gap-1">
                         <SparklesIcon className="size-3 text-yellow-600/80" />{" "}
                         Budget Zero!
                       </span>
                     ) : (
-                      `$${activeBudgetAmount}`
+                      <span>
+                        {activeBudgetAmount ? `$${activeBudgetAmount}` : ""}
+                      </span>
                     )}
                   </span>
                 </div>
