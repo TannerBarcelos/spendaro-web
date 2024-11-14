@@ -66,17 +66,17 @@ function Main() {
 // }) {
 //   const { theme, toggleTheme } = useTheme();
 
-//   const activeBudget = useBudgetStore((state) => state.active_budget);
-//   const setActiveBudget = useBudgetStore((state) => state.setActiveBudget);
+// const activeBudget = useBudgetStore((state) => state.active_budget);
+// const setActiveBudget = useBudgetStore((state) => state.setActiveBudget);
 
-//   const { data, isLoading: isLoadingBudgets } = useGetBudgets();
+// const { data, isLoading: isLoadingBudgets } = useGetBudgets();
 
-//   // If there is not a saved budget in local storage, set the first budget as the active budget from the list of budgets API
-//   useEffect(() => {
-//     if (data?.data?.[0] && !activeBudget) {
-//       setActiveBudget(data.data[0].id.toString());
-//     }
-//   }, [data]);
+// // If there is not a saved budget in local storage, set the first budget as the active budget from the list of budgets API
+// useEffect(() => {
+//   if (data?.data?.[0] && !activeBudget) {
+//     setActiveBudget(data.data[0].id.toString());
+//   }
+// }, [data]);
 
 //   return (
 //     <nav className="py-4">

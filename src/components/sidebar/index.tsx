@@ -20,6 +20,7 @@ import { useUserDetails } from "@/api/user-api/queries";
 import { authStore } from "@/stores/auth-store";
 import { useBudgetStore } from "@/stores/budget-store";
 import { useNavigate } from "@tanstack/react-router";
+import { useGetBudgets } from "@/api/budget-api/queries";
 
 // This is sample data.
 const navItems = {
@@ -121,10 +122,19 @@ const navItems = {
 
 function Sidebar({ ...props }: React.ComponentProps<typeof ShadCNSidebar>) {
   const { isLoading, isError, data } = useUserDetails();
+  const activeBudget = useBudgetStore((state) => state.active_budget);
+  const setActiveBudget = useBudgetStore((state) => state.setActiveBudget);
+  const { data: budgets, isLoading: isLoadingBudgets } = useGetBudgets();
   console.log(data?.data);
   const auth_store = authStore();
   const budget_store = useBudgetStore();
   const navigate = useNavigate();
+  // If there is not a saved budget in local storage, set the first budget as the active budget from the list of budgets API
+  React.useEffect(() => {
+    if (budgets?.data?.[0] && !activeBudget) {
+      setActiveBudget(budgets.data[0].id.toString());
+    }
+  }, [data]);
   return (
     <ShadCNSidebar collapsible="icon" {...props}>
       <SidebarHeader className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border">
@@ -142,7 +152,7 @@ function Sidebar({ ...props }: React.ComponentProps<typeof ShadCNSidebar>) {
             Spendaro
           </Link>
         </div> */}
-        <BudgetSwitcher budgets={[]} />
+        {budgets && <BudgetSwitcher budgets={budgets?.data} />}
       </SidebarHeader>
       <SidebarContent className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <MainSidebarItems items={navItems.navMain} />
