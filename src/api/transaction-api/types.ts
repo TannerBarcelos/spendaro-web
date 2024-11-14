@@ -2,7 +2,7 @@ export interface Transaction {
     id:                      number;
     budget_id:               number;
     transaction_amount:      number;
-    transaction_date:        string;
+    transaction_date:        Date;
     transaction_description: string;
     transaction_type_id:     number;
     createdAt:               Date;
