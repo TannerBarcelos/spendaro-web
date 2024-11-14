@@ -32,14 +32,14 @@ const navItems = {
       title: "Dashboard",
       url: "/dashboard",
       icon: LayoutDashboardIcon,
-      isActive: true,
+      isActive: false,
       isRoot: true,
     },
     {
       title: "Budgets",
       url: "/budgeting",
       icon: LandmarkIcon,
-      isActive: true,
+      isActive: false,
       items: [
         {
           title: "Create a budget",
