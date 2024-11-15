@@ -2,7 +2,7 @@ import axiosInstance from "@/api/axios";
 import { useMutation } from "@tanstack/react-query";
 import { Budget, BudgetApiResponse } from "./types";
 import { queryClient } from "@/api/query-client";
-import { BudgetToCreate } from "@/features/budgets/create-budget";
+import { BudgetToCreate } from "@/features/budgets/_components/budget-form";
 
 export const deleteBudget = async (id: string) => {
   const response = await axiosInstance.delete(`/budgets/${id}`);

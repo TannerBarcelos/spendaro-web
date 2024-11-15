@@ -20,7 +20,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import CreateBudgetForm from "./create-budget";
+import CreateBudgetForm from "./_components/budget-form";
 import { Route as BudgetRoute } from "@/routes/(app)/_app/budgeting";
 
 export function Page() {
@@ -52,8 +52,8 @@ function Budgets({ budgets }: { budgets: Budget[] }) {
             <DialogHeader>
               <DialogTitle className="mb-4">Create a new budget</DialogTitle>
               <DialogDescription className="border border-foreground/5 justify-between flex items-center bg-card p-4 text-xs rounded-xl">
-                Financial freedom begins with creating a budget! Create one
-                below and get one step closer to budget zero!
+                Create a new budget to start tracking your expenses and income
+                and be one step closer to financial freedom!
               </DialogDescription>
             </DialogHeader>
             <CreateBudgetForm />

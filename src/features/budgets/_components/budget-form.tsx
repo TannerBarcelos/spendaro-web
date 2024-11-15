@@ -21,7 +21,7 @@ export const budgetToCreateSchema = z.object({
 
 export type BudgetToCreate = z.infer<typeof budgetToCreateSchema>;
 
-function CreateBudgetForm() {
+function BudgetForm() {
   const navigate = useNavigate();
   const createBudgetMutation = useCreateBudget();
   const form = useForm({
@@ -174,4 +174,4 @@ function CreateBudgetForm() {
     </div>
   );
 }
-export default CreateBudgetForm;
+export default BudgetForm;
