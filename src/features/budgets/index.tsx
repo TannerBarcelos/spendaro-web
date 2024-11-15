@@ -6,7 +6,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Link } from "@tanstack/react-router";
-import BudgetTable from "./budget-table";
+import BudgetTable from "./_components/budget-table";
 import { EmptyBudgetState } from "@/features/budgets/_components/fallbacks/empty-budget-state";
 import { ErrorBudgetState } from "@/features/budgets/_components/fallbacks/error-budget-state";
 import { Budget } from "@/api/budget-api/types";

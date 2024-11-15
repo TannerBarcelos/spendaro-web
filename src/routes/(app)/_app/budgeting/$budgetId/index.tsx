@@ -1,5 +1,5 @@
 import { getBudget } from "@/api/budget-api/queries";
-import { ViewBudget } from "@/features/budgets/budget/view-budget";
+import { ViewBudget } from "@/features/budgets/view-budget/view-budget";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/(app)/_app/budgeting/$budgetId/")({
