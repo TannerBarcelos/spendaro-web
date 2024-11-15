@@ -43,7 +43,7 @@ const navItems = {
       items: [
         {
           title: "Create a budget",
-          url: "/budgeting/new",
+          url: "/budgeting",
         },
         {
           title: "View all budgets",
