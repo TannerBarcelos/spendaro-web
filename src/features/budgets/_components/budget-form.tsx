@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import { useCreateBudget } from "@/api/budget-api/mutations";
 import { z } from "zod";
 import { useNavigate } from "@tanstack/react-router";
+import { Textarea } from "@/components/ui/textarea";
 
 export const budgetToCreateSchema = z.object({
   budget_name: z.string().min(3, "Budget name must be at least 3 characters"),
@@ -108,16 +109,14 @@ function BudgetForm() {
                   Budget Description
                 </Label>
                 <div className="relative">
-                  <CogIcon className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
-                  <Input
-                    type="text"
+                  <Textarea
                     id={field.name}
                     name={field.name}
                     placeholder="Short description of the budget"
                     value={field.state.value}
                     onBlur={field.handleBlur}
                     onChange={(e) => field.handleChange(e.target.value)}
-                    className="pl-10 pr-4 py-2 w-full border-gray-300 dark:border-foreground/50 rounded-lg dark:focus:ring-secondary dark:focus:border-secondary"
+                    className="pr-4 py-2 w-full border-gray-300 dark:border-foreground/50 rounded-lg dark:focus:ring-secondary dark:focus:border-secondary"
                     required
                   />
                 </div>
