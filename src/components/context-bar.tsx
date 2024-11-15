@@ -6,14 +6,14 @@ import { Skeleton } from "./ui/skeleton";
 import { Button } from "./ui/button";
 import { ArrowRightCircle } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import PageHeader from "./page-header";
 
 function TopContextBar() {
   const active_budget = useBudgetStore((state) => state.active_budget);
   return (
-    <div className="flex flex-row items-center justify-between w-full mb-6 h-16">
-      <h1 className="text-xl lg:text-2xl font-semibold">{greet()}</h1>
+    <PageHeader text={greet()} className="mb-6">
       {active_budget && <ReadyToAssign budget_id={active_budget} />}
-    </div>
+    </PageHeader>
   );
 }
 

@@ -12,6 +12,7 @@ import { ErrorBudgetState } from "@/features/budgets/_components/fallbacks/error
 import { Budget } from "@/api/budget-api/types";
 import { LoadingBudgetState } from "@/features/budgets/_components/fallbacks/loading-budget-state";
 import { useGetBudgets } from "@/api/budget-api/queries";
+import PageHeader from "@/components/page-header";
 
 export function Page() {
   const { data, isLoading, isError, refetch } = useGetBudgets();
@@ -26,18 +27,13 @@ function Budgets({ budgets }: { budgets: Budget[] }) {
   const archivedBudgets = budgets.filter((budget) => !budget.is_active);
   return (
     <div>
-      <div className="w-full flex flex-row items-center justify-between h-16">
-        <div>
-          <h1 className="text-xl lg:text-2xl font-semibold mr-4">
-            Budget List
-          </h1>
-        </div>
+      <PageHeader text="Budget List">
         <Link to="/budgeting/new">
           <Button className="light:hover:bg-gray-100 text-[13px]">
             create budget
           </Button>
         </Link>
-      </div>
+      </PageHeader>
       {!budgets || budgets.length === 0 ? (
         <EmptyBudgetState />
       ) : (
