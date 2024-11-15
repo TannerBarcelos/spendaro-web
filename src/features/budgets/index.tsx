@@ -21,6 +21,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import CreateBudgetForm from "./create-budget";
+import { Route as BudgetRoute } from "@/routes/(app)/_app/budgeting";
 
 export function Page() {
   const { data, isLoading, isError, refetch } = useGetBudgets();
@@ -31,12 +32,17 @@ export function Page() {
 }
 
 function Budgets({ budgets }: { budgets: Budget[] }) {
+  // Since budget creation happens within the same page, we can use a search param to determine if the create dialog should be open or not
+  // when navigating here from the 'create budget' button in the sidebar nav
+  const auto_open_create = BudgetRoute.useSearch({
+    select: (search) => search.create,
+  });
   const favoriteBudgets = budgets.filter((budget) => budget.is_favorite);
   const archivedBudgets = budgets.filter((budget) => !budget.is_active);
   return (
     <div>
       <PageHeader text="Budget List">
-        <Dialog>
+        <Dialog defaultOpen={auto_open_create}>
           <DialogTrigger>
             <Button className="light:hover:bg-gray-100 text-[13px]">
               create budget
@@ -44,10 +50,10 @@ function Budgets({ budgets }: { budgets: Budget[] }) {
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Create a new budget</DialogTitle>
-              <DialogDescription>
-                {/* This action cannot be undone. This will permanently delete your
-                account and remove your data from our servers. */}
+              <DialogTitle className="mb-4">Create a new budget</DialogTitle>
+              <DialogDescription className="border border-foreground/5 justify-between flex items-center bg-card p-4 text-xs rounded-xl">
+                Financial freedom begins with creating a budget! Create one
+                below and get one step closer to budget zero!
               </DialogDescription>
             </DialogHeader>
             <CreateBudgetForm />
