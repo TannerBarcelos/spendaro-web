@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { errorBuilder } from "@/lib/utils";
 import { useForm } from "@tanstack/react-form";
 import { zodValidator } from "@tanstack/zod-form-adapter";
-import { BadgeDollarSignIcon, CogIcon, PencilIcon } from "lucide-react";
+import { BadgeDollarSignIcon, PencilIcon } from "lucide-react";
 import { Label } from "@radix-ui/react-label";
 import { toast } from "sonner";
 import { useCreateBudget } from "@/api/budget-api/mutations";
@@ -13,11 +13,14 @@ import { useNavigate } from "@tanstack/react-router";
 import { Textarea } from "@/components/ui/textarea";
 
 export const budgetToCreateSchema = z.object({
-  budget_name: z.string().min(3, "Budget name must be at least 3 characters"),
+  budget_name: z
+    .string()
+    .min(3, "A budget name of at least 3 characters is required"),
   budget_description: z
     .string()
-    .min(5, "Budget description must be at least 5 characters"),
-  amount: z.number().min(0, "Budget must be at least 0 dollars"),
+    .min(5, "A budget description of at least 5 characters is required"),
+  budget_color: z.string().optional(),
+  amount: z.number().min(0, "Starting budget amount must be greater than 0"),
 });
 
 export type BudgetToCreate = z.infer<typeof budgetToCreateSchema>;
@@ -30,15 +33,16 @@ function BudgetForm() {
       budget_name: "",
       budget_description: "",
       amount: 0,
+      budget_color: "#006eff",
     } as BudgetToCreate,
     validatorAdapter: zodValidator(),
     validators: {
       onChange: budgetToCreateSchema,
       onSubmit: budgetToCreateSchema,
     },
-    onSubmit: async ({ value: budgetToCreate }) => {
+    onSubmit: async ({ value }) => {
       try {
-        const { data } = await createBudgetMutation.mutateAsync(budgetToCreate);
+        const { data } = await createBudgetMutation.mutateAsync(value);
         toast.success("Budget created successfully!", {
           position: "bottom-right",
           duration: 2_000,
@@ -58,7 +62,6 @@ function BudgetForm() {
   });
   return (
     <div>
-      {/* <PageHeader text="Create Budget" /> */}
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -150,6 +153,32 @@ function BudgetForm() {
                     required
                   />
                 </div>
+                <ErrorFields field={field} />
+              </div>
+            );
+          }}
+        />
+        <form.Field
+          name="budget_color"
+          children={(field) => {
+            return (
+              <div className="space-y-2">
+                <Label
+                  htmlFor={field.name}
+                  className="text-xs font-normal text-gray-700 dark:text-foreground"
+                >
+                  Budget color (optional)
+                </Label>
+                <Input
+                  type="color"
+                  id={field.name}
+                  name={field.name}
+                  placeholder="Starting budget amount"
+                  value={field.state.value}
+                  onBlur={field.handleBlur}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  className="w-20 border-none p-0"
+                />
                 <ErrorFields field={field} />
               </div>
             );

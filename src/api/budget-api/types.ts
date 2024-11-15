@@ -6,7 +6,7 @@ export type Budget = {
   amount:             number;
   is_favorite:        boolean;
   is_active:          boolean;
-  budget_icon:        string;
+  budget_color:       string;
   createdAt:          Date;
   updatedAt:          Date;
 }
