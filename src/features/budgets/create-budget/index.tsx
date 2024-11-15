@@ -1,5 +1,4 @@
 import ErrorFields from "@/components/form-error-field";
-import PageHeader from "@/components/page-header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { errorBuilder } from "@/lib/utils";
@@ -22,7 +21,7 @@ export const budgetToCreateSchema = z.object({
 
 export type BudgetToCreate = z.infer<typeof budgetToCreateSchema>;
 
-function CreateBudgetPage() {
+function CreateBudgetForm() {
   const navigate = useNavigate();
   const createBudgetMutation = useCreateBudget();
   const form = useForm({
@@ -58,14 +57,14 @@ function CreateBudgetPage() {
   });
   return (
     <div>
-      <PageHeader text="Create Budget" />
+      {/* <PageHeader text="Create Budget" /> */}
       <form
         onSubmit={(e) => {
           e.preventDefault();
           e.stopPropagation();
           form.handleSubmit();
         }}
-        className="space-y-4 w-1/2 border-2 p-8 rounded-lg bg-card dark:bg-card/50 dark:border-card/50"
+        className="space-y-6 w-full"
       >
         <form.Field
           name="budget_name"
@@ -175,4 +174,4 @@ function CreateBudgetPage() {
     </div>
   );
 }
-export default CreateBudgetPage;
+export default CreateBudgetForm;

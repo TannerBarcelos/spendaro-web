@@ -5,7 +5,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Link } from "@tanstack/react-router";
 import BudgetTable from "./_components/budget-table";
 import { EmptyBudgetState } from "@/features/budgets/_components/fallbacks/empty-budget-state";
 import { ErrorBudgetState } from "@/features/budgets/_components/fallbacks/error-budget-state";
@@ -13,6 +12,15 @@ import { Budget } from "@/api/budget-api/types";
 import { LoadingBudgetState } from "@/features/budgets/_components/fallbacks/loading-budget-state";
 import { useGetBudgets } from "@/api/budget-api/queries";
 import PageHeader from "@/components/page-header";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import CreateBudgetForm from "./create-budget";
 
 export function Page() {
   const { data, isLoading, isError, refetch } = useGetBudgets();
@@ -28,11 +36,23 @@ function Budgets({ budgets }: { budgets: Budget[] }) {
   return (
     <div>
       <PageHeader text="Budget List">
-        <Link to="/budgeting/new">
-          <Button className="light:hover:bg-gray-100 text-[13px]">
-            create budget
-          </Button>
-        </Link>
+        <Dialog>
+          <DialogTrigger>
+            <Button className="light:hover:bg-gray-100 text-[13px]">
+              create budget
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Create a new budget</DialogTitle>
+              <DialogDescription>
+                {/* This action cannot be undone. This will permanently delete your
+                account and remove your data from our servers. */}
+              </DialogDescription>
+            </DialogHeader>
+            <CreateBudgetForm />
+          </DialogContent>
+        </Dialog>
       </PageHeader>
       {!budgets || budgets.length === 0 ? (
         <EmptyBudgetState />
