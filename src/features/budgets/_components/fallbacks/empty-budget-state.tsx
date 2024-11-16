@@ -11,7 +11,13 @@ export function EmptyBudgetState() {
       <p className="text-muted-foreground mb-6 max-w-sm">
         Add your first budget by clicking below to start tracking your expenses.
       </p>
-      <Link to="/budgeting/new">
+      <Link
+        to="/budgeting"
+        // invoke the create budget form using the search query
+        search={{
+          create: true,
+        }}
+      >
         <Button>
           <Plus className="mr-2 h-5 w-5" />
           Create budget

@@ -27,7 +27,7 @@ export function Page() {
   const { data, isLoading, isError, refetch } = useGetBudgets();
   if (isLoading) return <LoadingBudgetState />;
   if (isError) return <ErrorBudgetState onRetry={refetch} />;
-  if (!data || data.data.length < 1) return <EmptyBudgetState />;
+  if (!data) return <EmptyBudgetState />;
   return <Budgets budgets={data.data} />;
 }
 
@@ -37,17 +37,25 @@ function Budgets({ budgets }: { budgets: Budget[] }) {
   const auto_open_create = BudgetRoute.useSearch({
     select: (search) => search.create,
   });
-  const favoriteBudgets = budgets.filter((budget) => budget.is_favorite);
+
+  const active_budgets = budgets.filter((budget) => budget.is_active);
+
+  const favoriteBudgets = budgets.filter(
+    (budget) => budget.is_favorite && budget.is_active
+  );
   const archivedBudgets = budgets.filter((budget) => !budget.is_active);
+
   return (
     <div>
-      <PageHeader text="Budget List">
-        <Dialog defaultOpen={auto_open_create ?? false}>
-          <DialogTrigger>
-            <Button className="light:hover:bg-gray-100 text-[13px]">
-              create budget
-            </Button>
-          </DialogTrigger>
+      <PageHeader text={budgets.length > 0 ? "Budget List" : ""}>
+        <Dialog defaultOpen={auto_open_create}>
+          {budgets.length > 0 && (
+            <DialogTrigger>
+              <Button className="light:hover:bg-gray-100 text-[13px]">
+                create budget
+              </Button>
+            </DialogTrigger>
+          )}
           <DialogContent>
             <DialogHeader>
               <DialogTitle className="mb-4">Create a new budget</DialogTitle>
@@ -64,12 +72,10 @@ function Budgets({ budgets }: { budgets: Budget[] }) {
         <EmptyBudgetState />
       ) : (
         <div className="space-y-8">
-          {(favoriteBudgets.length ?? 0) > 0 && (
-            <div>
-              <h2 className="font-medium text-sm my-4">Active Budgets</h2>
-              <BudgetTable budgets={budgets} />
-            </div>
-          )}
+          <div>
+            <h2 className="font-medium text-sm my-4">Active Budgets</h2>
+            <BudgetTable budgets={active_budgets} />
+          </div>
           {favoriteBudgets && favoriteBudgets.length > 0 && (
             <Accordion
               type="single"
