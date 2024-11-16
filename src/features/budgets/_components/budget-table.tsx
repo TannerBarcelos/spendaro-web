@@ -30,6 +30,7 @@ import { toast } from "sonner";
 import { useNavigate } from "@tanstack/react-router";
 import { formatDate } from "@/lib/utils";
 import { queryClient } from "@/api/query-client";
+import { useBudgetStore } from "@/stores/budget-store";
 
 type BudgetTableProps = {
   budgets: Budget[];
@@ -53,6 +54,7 @@ function BudgetTable({ budgets }: BudgetTableProps) {
 }
 
 function BudgetTableBody({ budgets }: BudgetTableProps) {
+  const setActiveBudget = useBudgetStore((state) => state.setActiveBudget);
   const navigate = useNavigate();
   const updateBudget = useUpdateBudget();
 
@@ -110,6 +112,7 @@ function BudgetTableBody({ budgets }: BudgetTableProps) {
                 <DropdownMenuContent>
                   <DropdownMenuItem
                     onClick={() => {
+                      setActiveBudget(budget.id.toString());
                       navigate({
                         to: `/budgeting/${budget.id}`,
                       });
