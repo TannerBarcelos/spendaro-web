@@ -1,28 +1,11 @@
-import { Plus } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
-import { Link } from "@tanstack/react-router";
-
 export function EmptyBudgetState() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-[400px] p-8 text-center mt-10">
+    <div className="flex flex-col items-center justify-center min-h-[400px] p-8 text-center mt-20">
       <CardStack />
       <h2 className="text-2xl font-semibold mb-3">No budgets</h2>
-      <p className="text-muted-foreground mb-6 max-w-sm">
-        Add your first budget by clicking below to start tracking your expenses.
+      <p className="text-muted-foreground mb-6 text-sm">
+        Add your first budget by clicking the Create budget button above
       </p>
-      <Link
-        to="/budgeting"
-        // invoke the create budget form using the search query
-        search={{
-          create: true,
-        }}
-      >
-        <Button>
-          <Plus className="mr-2 h-5 w-5" />
-          Create budget
-        </Button>
-      </Link>
     </div>
   );
 }

@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/sidebar";
 import { Budget } from "@/api/budget-api/types";
 import { useBudgetStore } from "@/stores/budget-store";
+import { Link } from "@tanstack/react-router";
 
 type BudgetSwitcherProps = {
   budgets: Budget[];
@@ -125,9 +126,13 @@ function BudgetSwitcher({ budgets }: BudgetSwitcherProps) {
                 <div className="flex size-6 items-center justify-center rounded-md border bg-background">
                   <Plus className="size-4" />
                 </div>
-                <div className="font-medium text-muted-foreground">
+                <Link
+                  to="/budgeting"
+                  search={{ create: true }}
+                  className="text-xs text-foreground"
+                >
                   Add Budget
-                </div>
+                </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

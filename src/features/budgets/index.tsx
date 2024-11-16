@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/dialog";
 import CreateBudgetForm from "./_components/budget-form";
 import { Route as BudgetRoute } from "@/routes/(app)/_app/budgeting";
+import { Plus } from "lucide-react";
 
 export function Page() {
   const { data, isLoading, isError, refetch } = useGetBudgets();
@@ -47,15 +48,14 @@ function Budgets({ budgets }: { budgets: Budget[] }) {
 
   return (
     <div>
-      <PageHeader text={budgets.length > 0 ? "Budget List" : ""}>
+      <PageHeader text="Budget List">
         <Dialog defaultOpen={auto_open_create}>
-          {budgets.length > 0 && (
-            <DialogTrigger>
-              <Button className="light:hover:bg-gray-100 text-[13px]">
-                create budget
-              </Button>
-            </DialogTrigger>
-          )}
+          <DialogTrigger>
+            <Button>
+              <Plus />
+              Create budget
+            </Button>
+          </DialogTrigger>
           <DialogContent>
             <DialogHeader>
               <DialogTitle className="mb-4">Create a new budget</DialogTitle>
