@@ -24,7 +24,7 @@ export function UserProfilePage() {
   const UploadImageDropzone = generateUploadDropzone({
     url: "http://localhost:8010/api/uploadthing",
   });
-  const [uploadedImage, setUploadedImage] = useState<string>();
+  const [dialogOpen, setDialogOpen] = useState(false);
   return (
     <div>
       <h1 className="text-xl lg:text-2xl font-semibold">Account</h1>
@@ -32,11 +32,16 @@ export function UserProfilePage() {
         <h3 className="text-lg font-medium mt-4 mb-2">Profile Photo</h3>
         <div className="flex items-center w-auto">
           <img
-            src={data.data?.data.data.profileImage}
+            src={data.data?.data.profileImage}
             alt="User profile image"
             className="w-[80px] h-[80px] object-cover rounded-full"
           />
-          <Dialog>
+          <Dialog
+            open={dialogOpen}
+            onOpenChange={(isOpen) => {
+              setDialogOpen(isOpen);
+            }}
+          >
             <div className="mx-4">
               <DialogTrigger>
                 <Button className="bg-gray-200/60 text-gray-900 hover:bg-gray-200/90">
@@ -48,13 +53,6 @@ export function UserProfilePage() {
               <DialogHeader>
                 <DialogTitle>Upload a new profile photo</DialogTitle>
               </DialogHeader>
-              {uploadedImage && (
-                <img
-                  src={uploadedImage}
-                  alt="User profile photo"
-                  className="w-[200px] h-[200px] object-cover"
-                />
-              )}
               <UploadImageDropzone
                 endpoint="profileImageUploader"
                 config={{ cn: twMerge, mode: "manual" }}
@@ -65,9 +63,6 @@ export function UserProfilePage() {
                   };
                 }}
                 onChange={(file) => {
-                  const [profileImage] = file;
-                  const objectURL = URL.createObjectURL(profileImage);
-                  setUploadedImage(objectURL);
                   return file;
                 }}
                 onClientUploadComplete={(res) => {
@@ -78,6 +73,7 @@ export function UserProfilePage() {
                     duration: 2_000,
                   });
                   queryClient.invalidateQueries({ queryKey: ["userDetails"] });
+                  setDialogOpen(false);
                 }}
               />
             </DialogContent>
@@ -112,7 +108,7 @@ export function UserProfilePage() {
             <Label>First Name</Label>
             <Input
               type="text"
-              placeholder={data.data?.data.data.firstName ?? "name"}
+              placeholder={data.data?.data.firstName ?? "name"}
               className="w-[400px]"
             />
           </div>
@@ -120,7 +116,7 @@ export function UserProfilePage() {
             <Label>Last Name</Label>
             <Input
               type="text"
-              placeholder={data.data?.data.data.firstName ?? "name"}
+              placeholder={data.data?.data.firstName ?? "name"}
               className="w-[400px]"
             />
           </div>

@@ -21,9 +21,10 @@ const baseConf = {
 const axiosInstance = axios.create({
   ...baseConf,
   headers: {
-  "Content-Type": "application/json",
-  Accept: "application/json",
-}
+    "Content-Type": "application/json",
+    Accept: "application/json",
+  },
+  withCredentials: true, // This will send cookies with requests
 });
 
 axiosInstance.interceptors.response.use(
