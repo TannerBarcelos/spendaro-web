@@ -11,6 +11,7 @@ import { useCreateBudget } from "@/api/budget-api/mutations";
 import { z } from "zod";
 import { useNavigate } from "@tanstack/react-router";
 import { Textarea } from "@/components/ui/textarea";
+import { useBudgetStore } from "@/stores/budget-store";
 
 export const budgetToCreateSchema = z.object({
   budget_name: z
@@ -26,6 +27,7 @@ export const budgetToCreateSchema = z.object({
 export type BudgetToCreate = z.infer<typeof budgetToCreateSchema>;
 
 function BudgetForm() {
+  const setActiveBudget = useBudgetStore((state) => state.setActiveBudget);
   const navigate = useNavigate();
   const createBudgetMutation = useCreateBudget();
   const form = useForm({
@@ -48,6 +50,7 @@ function BudgetForm() {
           duration: 2_000,
         });
         form.reset();
+        setActiveBudget(data.id.toString());
         navigate({
           to: `/budgeting/${data.id}`,
         });
@@ -177,7 +180,7 @@ function BudgetForm() {
                   value={field.state.value}
                   onBlur={field.handleBlur}
                   onChange={(e) => field.handleChange(e.target.value)}
-                  className="w-20 border-none p-0"
+                  className="w-32 p-0 rounded-lg border-none"
                 />
                 <ErrorFields field={field} />
               </div>

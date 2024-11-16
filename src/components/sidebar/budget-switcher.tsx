@@ -44,7 +44,9 @@ function BudgetSwitcher({ budgets }: BudgetSwitcherProps) {
   const activeBudgetAmount =
     activeBudgetIndex !== -1 ? budgets[activeBudgetIndex].amount : 0;
   const activeBudgetColor =
-    activeBudgetIndex !== -1 ? budgets[activeBudgetIndex].budget_color : "";
+    activeBudgetIndex !== -1
+      ? budgets[activeBudgetIndex].budget_color
+      : "#B4B4B8";
 
   return (
     <>
@@ -66,7 +68,7 @@ function BudgetSwitcher({ budgets }: BudgetSwitcherProps) {
                   style={{
                     backgroundColor: activeBudgetColor,
                     border: activeBudgetColor === "" ? "1px solid #B4B4B8" : "",
-                    color: "#B4B4B8",
+                    color: "#000",
                   }}
                 >
                   <LayoutListIcon className="size-3" />

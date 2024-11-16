@@ -42,7 +42,7 @@ function Budgets({ budgets }: { budgets: Budget[] }) {
   return (
     <div>
       <PageHeader text="Budget List">
-        <Dialog defaultOpen={auto_open_create}>
+        <Dialog defaultOpen={auto_open_create ?? false}>
           <DialogTrigger>
             <Button className="light:hover:bg-gray-100 text-[13px]">
               create budget
