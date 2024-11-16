@@ -55,21 +55,17 @@ export function UserProfilePage() {
               </DialogHeader>
               <UploadImageDropzone
                 endpoint="profileImageUploader"
-                config={{ cn: twMerge, mode: "manual" }}
+                config={{ cn: twMerge, mode: "auto" }}
                 className="w-full"
                 headers={() => {
                   return {
                     Authorization: `Bearer ${accessToken}`,
                   };
                 }}
-                onChange={(file) => {
-                  return file;
-                }}
                 onClientUploadComplete={(res) => {
                   const responseMessage = res[0].serverData.message as string;
                   toast.success(responseMessage, {
                     position: "bottom-right",
-                    richColors: true,
                     duration: 2_000,
                   });
                   queryClient.invalidateQueries({ queryKey: ["userDetails"] });
