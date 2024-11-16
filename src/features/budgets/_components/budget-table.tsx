@@ -70,6 +70,7 @@ function BudgetTableBody({ budgets }: BudgetTableProps) {
       ? "favorited"
       : ("unfavorited" as const);
     toast.success(`Budget ${toast_message} successfully`);
+    queryClient.invalidateQueries({ queryKey: ["budgets"] });
   };
 
   const handleUpdateArchivedStatus = async (
