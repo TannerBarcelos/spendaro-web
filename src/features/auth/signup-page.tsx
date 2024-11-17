@@ -6,7 +6,7 @@ function SignupPage() {
   return (
     <div className="w-3/4 m-auto">
       <AuthHeader page="signup" />
-      <SignUp />
+      <SignUp fallbackRedirectUrl="/dashboard" />
       <p className="text-xs pt-4 text-gray-500 font-normal">
         Already have an account?{" "}
         <Link
