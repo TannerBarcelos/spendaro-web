@@ -6,7 +6,6 @@ import {
   Sun,
   User,
 } from "lucide-react";
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -23,15 +22,15 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { UserData } from "@/api/user-api";
 import { useTheme } from "@/contexts/theme";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { authStore } from "@/stores/auth-store";
 import { useBudgetStore } from "@/stores/budget-store";
 import { truncateUsername } from "@/lib/utils";
+import { type UserResource } from "@clerk/types";
 
 type SidebarUserSelectorProps = {
-  user: UserData;
+  user: UserResource;
 };
 
 function SidebarUserSelector({ user }: SidebarUserSelectorProps) {
@@ -49,7 +48,10 @@ function SidebarUserSelector({ user }: SidebarUserSelectorProps) {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage src={user.profileImage} alt={user.firstName} />
+                <AvatarImage
+                  src={user.imageUrl}
+                  alt={user.firstName ?? "users first name"}
+                />
                 <AvatarFallback className="bg-primary/10">
                   {truncateUsername(user.firstName, user.lastName)}
                 </AvatarFallback>
@@ -59,9 +61,11 @@ function SidebarUserSelector({ user }: SidebarUserSelectorProps) {
                   <span>{user.firstName}</span>
                   <span>{user.lastName}</span>
                 </p>
-                <span className="truncate text-xs text-foreground/80">
-                  {user.email}
-                </span>
+                {
+                  <span className="truncate text-xs text-foreground/80">
+                    {user.primaryEmailAddress?.emailAddress ?? ""}
+                  </span>
+                }
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
@@ -75,7 +79,10 @@ function SidebarUserSelector({ user }: SidebarUserSelectorProps) {
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={user.profileImage} alt={user.firstName} />
+                  <AvatarImage
+                    src={user.imageUrl}
+                    alt={user.firstName ?? "Users profile image"}
+                  />
                   <AvatarFallback className="bg-primary/10">
                     {truncateUsername(user.firstName, user.lastName)}
                   </AvatarFallback>
@@ -84,7 +91,9 @@ function SidebarUserSelector({ user }: SidebarUserSelectorProps) {
                   <span className="truncate font-semibold">
                     {user.firstName}
                   </span>
-                  <span className="truncate text-xs">{user.email}</span>
+                  <span className="truncate text-xs">
+                    {user.primaryEmailAddress?.emailAddress ?? ""}
+                  </span>
                 </div>
               </div>
             </DropdownMenuLabel>
