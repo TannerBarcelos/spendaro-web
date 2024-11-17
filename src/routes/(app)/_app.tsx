@@ -10,9 +10,15 @@ export const Route = createFileRoute("/(app)/_app")({
 
 function App() {
   const navigate = useNavigate();
-  const user = useUser();
+  const { user, isSignedIn, isLoaded } = useUser();
+  console.log(isSignedIn);
+  console.log(user);
 
-  if (!user.isSignedIn) {
+  if (!isLoaded) {
+    return null;
+  }
+
+  if (!isSignedIn) {
     navigate({
       to: "/signin",
       search: {
