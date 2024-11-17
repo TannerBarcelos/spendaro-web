@@ -4,6 +4,7 @@ import { isAuthenticated } from "@/stores/auth-store";
 import { queryClient } from "@/api/query-client";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import Sidebar from "@/components/sidebar";
+import { SignedIn } from "@clerk/clerk-react";
 
 export const Route = createFileRoute("/(app)/_app")({
   beforeLoad: async ({ location }) => {
@@ -29,12 +30,14 @@ function App() {
 
   return (
     <SidebarProvider>
-      <Sidebar />
-      <SidebarInset>
-        <main className="flex flex-1 flex-col px-4 container mx-auto my-6">
-          <Outlet />
-        </main>
-      </SidebarInset>
+      <SignedIn>
+        <Sidebar />
+        <SidebarInset>
+          <main className="flex flex-1 flex-col px-4 container mx-auto my-6">
+            <Outlet />
+          </main>
+        </SidebarInset>
+      </SignedIn>
     </SidebarProvider>
   );
 }

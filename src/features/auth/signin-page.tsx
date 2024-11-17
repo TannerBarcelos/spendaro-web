@@ -61,11 +61,8 @@ function SigninPage() {
 
   return (
     <div className="w-3/4 m-auto">
-      <SignedIn>
-        <UserButton />
-      </SignedIn>
       <SignedOut>
-        <AuthHeader page="signin" />
+        {/* <AuthHeader page="signin" />
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -155,7 +152,7 @@ function SigninPage() {
           >
             Sign up
           </Link>
-        </p>
+        </p> */}
       </SignedOut>
     </div>
   );

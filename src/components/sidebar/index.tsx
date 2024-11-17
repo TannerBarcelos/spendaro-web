@@ -25,6 +25,7 @@ import { useBudgetStore } from "@/stores/budget-store";
 import { useGetBudgets } from "@/api/budget-api/queries";
 import { Link } from "@tanstack/react-router";
 import Accounts from "./nav-accounts";
+import { UserButton } from "@clerk/clerk-react";
 
 const navItems = {
   navMain: [
@@ -122,6 +123,7 @@ function Sidebar({ ...props }: React.ComponentProps<typeof ShadCNSidebar>) {
         <SidebarTrigger className="my-4 ml-2" />
       </SidebarContent>
       <SidebarFooter>
+        <UserButton />
         {isLoadingUserData && <SidebarMenuSkeleton />}
         {userData && <SidebarUserSelector user={userData.data} />}
       </SidebarFooter>
