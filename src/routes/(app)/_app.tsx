@@ -10,9 +10,7 @@ export const Route = createFileRoute("/(app)/_app")({
 
 function App() {
   const navigate = useNavigate();
-  const { user, isSignedIn, isLoaded } = useUser();
-  console.log(isSignedIn);
-  console.log(user);
+  const { isSignedIn, isLoaded } = useUser();
 
   if (!isLoaded) {
     return null;
