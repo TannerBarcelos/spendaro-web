@@ -23,21 +23,21 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { useTheme } from "@/contexts/theme";
-import { Link, useNavigate } from "@tanstack/react-router";
-import { authStore } from "@/stores/auth-store";
+import { Link } from "@tanstack/react-router";
 import { useBudgetStore } from "@/stores/budget-store";
 import { truncateUsername } from "@/lib/utils";
 import { type UserResource } from "@clerk/types";
+import { useClerk } from "@clerk/clerk-react";
 
 type SidebarUserSelectorProps = {
   user: UserResource;
 };
 
 function SidebarUserSelector({ user }: SidebarUserSelectorProps) {
+  const { signOut } = useClerk();
   const { isMobile } = useSidebar();
   const { theme, toggleTheme } = useTheme();
   const budgetStore = useBudgetStore();
-  const navigate = useNavigate();
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -125,9 +125,8 @@ function SidebarUserSelector({ user }: SidebarUserSelectorProps) {
             <DropdownMenuItem
               onClick={() => {
                 budgetStore.clearActiveBudget();
-                authStore.getState().clear();
-                navigate({
-                  to: "/signin",
+                signOut({
+                  redirectUrl: "/signin",
                 });
               }}
             >
