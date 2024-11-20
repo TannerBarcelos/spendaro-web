@@ -1,7 +1,7 @@
 export { }
 
 declare global {
-    interface CustomJwtSessionClaims {
+    interface UserResource {
         metadata: {
             onboardingComplete?: boolean
         }

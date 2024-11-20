@@ -10,7 +10,7 @@ export const Route = createFileRoute("/(app)/_app")({
 
 function App() {
   const navigate = useNavigate();
-  const { isSignedIn, isLoaded } = useUser();
+  const { user, isLoaded, isSignedIn } = useUser();
 
   if (!isLoaded) {
     return null;
@@ -22,6 +22,12 @@ function App() {
       search: {
         redirect_url: window.location.href,
       },
+    });
+  }
+
+  if (user?.id && user?.publicMetadata) {
+    navigate({
+      to: "/onboarding",
     });
   }
 
