@@ -20,11 +20,11 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import BudgetSwitcher from "./budget-switcher";
-import { useUserDetails } from "@/api/user-api/queries";
 import { useBudgetStore } from "@/stores/budget-store";
 import { useGetBudgets } from "@/api/budget-api/queries";
 import { Link } from "@tanstack/react-router";
 import Accounts from "./nav-accounts";
+import { UserButton, useUser } from "@clerk/clerk-react";
 
 const navItems = {
   navMain: [
@@ -85,20 +85,13 @@ const navItems = {
 };
 
 function Sidebar({ ...props }: React.ComponentProps<typeof ShadCNSidebar>) {
-  const {
-    isLoading: isLoadingUserData,
-    isError,
-    data: userData,
-  } = useUserDetails();
+  const { user, isLoaded } = useUser();
+
+  if (!isLoaded || !user) return null;
+
   const activeBudget = useBudgetStore((state) => state.active_budget);
   const setActiveBudget = useBudgetStore((state) => state.setActiveBudget);
   const { data: budgets, isLoading: isLoadingBudgets } = useGetBudgets();
-
-  React.useEffect(() => {
-    if (budgets?.data?.[0] && !activeBudget) {
-      setActiveBudget(budgets.data[0].id.toString());
-    }
-  }, [budgets]);
 
   return (
     <ShadCNSidebar collapsible="icon" {...props}>
@@ -122,8 +115,9 @@ function Sidebar({ ...props }: React.ComponentProps<typeof ShadCNSidebar>) {
         <SidebarTrigger className="my-4 ml-2" />
       </SidebarContent>
       <SidebarFooter>
-        {isLoadingUserData && <SidebarMenuSkeleton />}
-        {userData && <SidebarUserSelector user={userData.data} />}
+        {/* <UserButton /> */}
+        {!isLoaded && <SidebarMenuSkeleton />}
+        {user && <SidebarUserSelector user={user} />}
       </SidebarFooter>
       <SidebarRail />
     </ShadCNSidebar>

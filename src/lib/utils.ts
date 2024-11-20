@@ -45,7 +45,12 @@ export const formatDate = (date: Date) => {
   });
 };
 
-export const truncateUsername = (firstName?: string, lastName?: string) => {
+export const truncateUsername = (firstName?: string | null, lastName?: string | null) => {
+
+  if (!firstName || !lastName) {
+    return "";
+  }
+
   return `${firstName ?? ""} ${lastName ?? ""}`
     .split(" ")
     .map((name) => name[0])

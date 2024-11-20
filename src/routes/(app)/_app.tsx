@@ -1,40 +1,40 @@
-import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { createFileRoute, Outlet, useNavigate } from "@tanstack/react-router";
 
-import { isAuthenticated } from "@/stores/auth-store";
-import { queryClient } from "@/api/query-client";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import Sidebar from "@/components/sidebar";
+import { SignedIn, useUser } from "@clerk/clerk-react";
 
 export const Route = createFileRoute("/(app)/_app")({
-  beforeLoad: async ({ location }) => {
-    if (!isAuthenticated()) {
-      queryClient.clear();
-      throw redirect({
-        to: "/signin",
-        search: {
-          redirect_url: location.href,
-        },
-      });
-    }
-  },
   component: App,
 });
 
 function App() {
-  // const { isLoading, isError, data } = useUserDetails();
+  const navigate = useNavigate();
+  const { isSignedIn, isLoaded } = useUser();
 
-  // if (isError) {
-  //   return toast.error("An error occurred while fetching user details");
-  // }
+  if (!isLoaded) {
+    return null;
+  }
+
+  if (!isSignedIn) {
+    navigate({
+      to: "/signin",
+      search: {
+        redirect_url: window.location.href,
+      },
+    });
+  }
 
   return (
     <SidebarProvider>
-      <Sidebar />
-      <SidebarInset>
-        <main className="flex flex-1 flex-col px-4 container mx-auto my-6">
-          <Outlet />
-        </main>
-      </SidebarInset>
+      <SignedIn>
+        <Sidebar />
+        <SidebarInset>
+          <main className="flex flex-1 flex-col px-4 container mx-auto my-6">
+            <Outlet />
+          </main>
+        </SidebarInset>
+      </SignedIn>
     </SidebarProvider>
   );
 }
