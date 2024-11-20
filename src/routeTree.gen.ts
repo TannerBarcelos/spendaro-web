@@ -21,6 +21,7 @@ import { Route as appAppTransactionsIndexImport } from './routes/(app)/_app/tran
 import { Route as appAppSettingsIndexImport } from './routes/(app)/_app/settings/index'
 import { Route as appAppReportingIndexImport } from './routes/(app)/_app/reporting/index'
 import { Route as appAppProfileIndexImport } from './routes/(app)/_app/profile/index'
+import { Route as appAppOnboardingIndexImport } from './routes/(app)/_app/onboarding/index'
 import { Route as appAppDashboardIndexImport } from './routes/(app)/_app/dashboard/index'
 import { Route as appAppBudgetingIndexImport } from './routes/(app)/_app/budgeting/index'
 import { Route as appAppTransactionsNewImport } from './routes/(app)/_app/transactions/new'
@@ -85,6 +86,11 @@ const appAppReportingIndexRoute = appAppReportingIndexImport.update({
 
 const appAppProfileIndexRoute = appAppProfileIndexImport.update({
   path: '/profile/',
+  getParentRoute: () => appAppRoute,
+} as any)
+
+const appAppOnboardingIndexRoute = appAppOnboardingIndexImport.update({
+  path: '/onboarding/',
   getParentRoute: () => appAppRoute,
 } as any)
 
@@ -218,6 +224,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appAppDashboardIndexImport
       parentRoute: typeof appAppImport
     }
+    '/(app)/_app/onboarding/': {
+      id: '/(app)/_app/onboarding/'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof appAppOnboardingIndexImport
+      parentRoute: typeof appAppImport
+    }
     '/(app)/_app/profile/': {
       id: '/(app)/_app/profile/'
       path: '/profile'
@@ -285,6 +298,7 @@ interface appAppRouteChildren {
   appAppTransactionsNewRoute: typeof appAppTransactionsNewRoute
   appAppBudgetingIndexRoute: typeof appAppBudgetingIndexRoute
   appAppDashboardIndexRoute: typeof appAppDashboardIndexRoute
+  appAppOnboardingIndexRoute: typeof appAppOnboardingIndexRoute
   appAppProfileIndexRoute: typeof appAppProfileIndexRoute
   appAppReportingIndexRoute: typeof appAppReportingIndexRoute
   appAppSettingsIndexRoute: typeof appAppSettingsIndexRoute
@@ -301,6 +315,7 @@ const appAppRouteChildren: appAppRouteChildren = {
   appAppTransactionsNewRoute: appAppTransactionsNewRoute,
   appAppBudgetingIndexRoute: appAppBudgetingIndexRoute,
   appAppDashboardIndexRoute: appAppDashboardIndexRoute,
+  appAppOnboardingIndexRoute: appAppOnboardingIndexRoute,
   appAppProfileIndexRoute: appAppProfileIndexRoute,
   appAppReportingIndexRoute: appAppReportingIndexRoute,
   appAppSettingsIndexRoute: appAppSettingsIndexRoute,
@@ -360,6 +375,7 @@ export interface FileRoutesByFullPath {
   '/transactions/new': typeof appAppTransactionsNewRoute
   '/budgeting': typeof appAppBudgetingIndexRoute
   '/dashboard': typeof appAppDashboardIndexRoute
+  '/onboarding': typeof appAppOnboardingIndexRoute
   '/profile': typeof appAppProfileIndexRoute
   '/reporting': typeof appAppReportingIndexRoute
   '/settings': typeof appAppSettingsIndexRoute
@@ -379,6 +395,7 @@ export interface FileRoutesByTo {
   '/transactions/new': typeof appAppTransactionsNewRoute
   '/budgeting': typeof appAppBudgetingIndexRoute
   '/dashboard': typeof appAppDashboardIndexRoute
+  '/onboarding': typeof appAppOnboardingIndexRoute
   '/profile': typeof appAppProfileIndexRoute
   '/reporting': typeof appAppReportingIndexRoute
   '/settings': typeof appAppSettingsIndexRoute
@@ -402,6 +419,7 @@ export interface FileRoutesById {
   '/(app)/_app/transactions/new': typeof appAppTransactionsNewRoute
   '/(app)/_app/budgeting/': typeof appAppBudgetingIndexRoute
   '/(app)/_app/dashboard/': typeof appAppDashboardIndexRoute
+  '/(app)/_app/onboarding/': typeof appAppOnboardingIndexRoute
   '/(app)/_app/profile/': typeof appAppProfileIndexRoute
   '/(app)/_app/reporting/': typeof appAppReportingIndexRoute
   '/(app)/_app/settings/': typeof appAppSettingsIndexRoute
@@ -423,6 +441,7 @@ export interface FileRouteTypes {
     | '/transactions/new'
     | '/budgeting'
     | '/dashboard'
+    | '/onboarding'
     | '/profile'
     | '/reporting'
     | '/settings'
@@ -441,6 +460,7 @@ export interface FileRouteTypes {
     | '/transactions/new'
     | '/budgeting'
     | '/dashboard'
+    | '/onboarding'
     | '/profile'
     | '/reporting'
     | '/settings'
@@ -462,6 +482,7 @@ export interface FileRouteTypes {
     | '/(app)/_app/transactions/new'
     | '/(app)/_app/budgeting/'
     | '/(app)/_app/dashboard/'
+    | '/(app)/_app/onboarding/'
     | '/(app)/_app/profile/'
     | '/(app)/_app/reporting/'
     | '/(app)/_app/settings/'
@@ -514,6 +535,7 @@ export const routeTree = rootRoute
         "/(app)/_app/transactions/new",
         "/(app)/_app/budgeting/",
         "/(app)/_app/dashboard/",
+        "/(app)/_app/onboarding/",
         "/(app)/_app/profile/",
         "/(app)/_app/reporting/",
         "/(app)/_app/settings/",
@@ -564,6 +586,10 @@ export const routeTree = rootRoute
     },
     "/(app)/_app/dashboard/": {
       "filePath": "(app)/_app/dashboard/index.tsx",
+      "parent": "/(app)/_app"
+    },
+    "/(app)/_app/onboarding/": {
+      "filePath": "(app)/_app/onboarding/index.tsx",
       "parent": "/(app)/_app"
     },
     "/(app)/_app/profile/": {
