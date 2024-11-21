@@ -1,6 +1,6 @@
 import { createFileRoute, Outlet, useNavigate } from "@tanstack/react-router";
 
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import Sidebar from "@/components/sidebar";
 import { SignedIn, useUser } from "@clerk/clerk-react";
 
@@ -35,11 +35,9 @@ function App() {
     <SidebarProvider>
       <SignedIn>
         <Sidebar />
-        <SidebarInset>
-          <main className="flex flex-1 flex-col px-4 container mx-auto my-6">
-            <Outlet />
-          </main>
-        </SidebarInset>
+        <main className="flex flex-1 flex-col px-4 container mx-auto my-6">
+          <Outlet />
+        </main>
       </SignedIn>
     </SidebarProvider>
   );
