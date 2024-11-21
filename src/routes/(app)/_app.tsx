@@ -2,7 +2,7 @@ import { createFileRoute, Outlet, useNavigate } from "@tanstack/react-router";
 
 import { SidebarProvider } from "@/components/ui/sidebar";
 import Sidebar from "@/components/sidebar";
-import { SignedIn, useUser } from "@clerk/clerk-react";
+import { SignedIn, useAuth, useUser } from "@clerk/clerk-react";
 
 export const Route = createFileRoute("/(app)/_app")({
   component: App,
@@ -11,6 +11,7 @@ export const Route = createFileRoute("/(app)/_app")({
 function App() {
   const navigate = useNavigate();
   const { user, isLoaded, isSignedIn } = useUser();
+  const auth = useAuth();
 
   if (!isLoaded) {
     return null;
