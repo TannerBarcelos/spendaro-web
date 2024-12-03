@@ -1,12 +1,13 @@
-import { createFileRoute, redirect } from '@tanstack/react-router'
-import SignupPage from '@/features/auth/signup-page'
-import { isAuthenticated } from '@/stores/auth-store'
+import { createFileRoute, redirect } from "@tanstack/react-router";
+import SignupPage from "@/features/auth/signup-page";
+import { useAuth } from "@clerk/clerk-react";
 
-export const Route = createFileRoute('/(auth)/_auth/signup')({
+export const Route = createFileRoute("/(auth)/_auth/signup")({
   beforeLoad: async () => {
-    if (isAuthenticated()) {
-      throw redirect({ to: '/dashboard' })
+    const { isSignedIn } = useAuth();
+    if (isSignedIn) {
+      throw redirect({ to: "/dashboard" });
     }
   },
   component: SignupPage,
-})
+});

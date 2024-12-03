@@ -1,15 +1,16 @@
+import { useAuth } from "@clerk/clerk-react";
 import {
   createFileRoute,
   Link,
   Outlet,
   redirect,
 } from "@tanstack/react-router";
-import { isAuthenticated } from "@/stores/auth-store";
 import { Zap } from "lucide-react";
 
 export const Route = createFileRoute("/(auth)/_auth")({
   beforeLoad: async () => {
-    if (isAuthenticated()) {
+    const { isSignedIn } = useAuth();
+    if (isSignedIn) {
       throw redirect({ to: "/dashboard" });
     }
   },
