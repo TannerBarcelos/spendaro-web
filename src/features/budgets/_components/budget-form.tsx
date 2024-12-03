@@ -33,10 +33,10 @@ type BudgetFormProps = {
    * @param budget The created budget
    * @returns void
    */
-  onSubmitCallback?: (budget: Budget) => void; // if not provided, default behavior is to navigate to the created budget
+  onSubmit?: (budget: Budget) => void; // if not provided, default behavior is to navigate to the created budget
 };
 
-function BudgetForm({ onSubmitCallback }: BudgetFormProps) {
+function BudgetForm({ onSubmit }: BudgetFormProps) {
   const setActiveBudget = useBudgetStore((state) => state.setActiveBudget);
   const navigate = useNavigate();
   const createBudgetMutation = useCreateBudget();
@@ -61,8 +61,8 @@ function BudgetForm({ onSubmitCallback }: BudgetFormProps) {
         });
         form.reset();
         setActiveBudget(data.id.toString());
-        if (onSubmitCallback) {
-          onSubmitCallback(data);
+        if (onSubmit) {
+          onSubmit(data);
         } else {
           navigate({
             to: `/budgeting/${data.id}`,
