@@ -21,7 +21,7 @@ function App() {
     navigate({
       to: "/signin",
       search: {
-        redirect_url: window.location.href,
+        redirect_url: window.location.href, // include the current url as a query param so that Clerk can redirect back to it after sign in
       },
     });
   }
@@ -32,10 +32,13 @@ function App() {
     });
   }
 
+  // else, show the app
+
   return (
     <SidebarProvider>
       <SignedIn>
-        {isOnboarded && <Sidebar />}
+        {/* {isOnboarded && <Sidebar />} */}
+        <Sidebar />
         <main className="flex flex-1 flex-col px-4 container mx-auto my-6">
           <Outlet />
         </main>
