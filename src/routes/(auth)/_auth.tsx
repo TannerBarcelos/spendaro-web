@@ -3,21 +3,20 @@ import {
   createFileRoute,
   Link,
   Outlet,
-  redirect,
+  useNavigate,
 } from "@tanstack/react-router";
 import { Zap } from "lucide-react";
 
 export const Route = createFileRoute("/(auth)/_auth")({
-  beforeLoad: async () => {
-    const { isSignedIn } = useAuth();
-    if (isSignedIn) {
-      throw redirect({ to: "/dashboard" });
-    }
-  },
   component: AuthPageLayout,
 });
 
 export function AuthPageLayout() {
+  const { isSignedIn } = useAuth();
+  const navigate = useNavigate();
+  if (isSignedIn) {
+    navigate({ to: "/dashboard" });
+  }
   return (
     <div className="container m-auto h-screen ">
       <div className="flex items-center justify-between py-4">

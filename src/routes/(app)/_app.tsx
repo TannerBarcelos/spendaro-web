@@ -13,6 +13,7 @@ function App() {
   const { user, isLoaded, isSignedIn } = useUser();
 
   const isOnboarded = user?.publicMetadata?.isOnboarded || false;
+  console.log(user?.publicMetadata);
 
   if (!isLoaded) {
     return null;
