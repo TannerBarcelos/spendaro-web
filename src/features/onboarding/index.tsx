@@ -5,7 +5,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -85,15 +84,12 @@ export default function Component() {
                 a budget. Select the button below to get started.
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
-              {/* Your existing budget creation form will go here */}
-            </CardContent>
-            <CardFooter className="justify-center">
-              <Button className="group">
+            <div className="w-full items-center justify-center flex p-4">
+              <Button onClick={() => console.log("first")} className="z-0">
                 Create Budget
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
-            </CardFooter>
+            </div>
           </Card>
         </motion.div>
 
