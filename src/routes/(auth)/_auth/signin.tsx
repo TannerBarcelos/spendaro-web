@@ -6,8 +6,10 @@ const searchParamsSchema = z.object({
   redirect_url: z.string().optional(),
 });
 
+type SearchParams = z.infer<typeof searchParamsSchema>;
+
 export const Route = createFileRoute("/(auth)/_auth/signin")({
-  validateSearch: (searchValues: z.infer<typeof searchParamsSchema>) => {
+  validateSearch: (searchValues: SearchParams) => {
     return searchParamsSchema.parse(searchValues);
   },
   component: SigninPage,
