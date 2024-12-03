@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useNavigate } from "@tanstack/react-router";
 
 const onboardingCards = [
   {
@@ -28,6 +29,7 @@ const onboardingCards = [
 ];
 
 export default function Component() {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-background">
       {/* Gradient Orbs */}
@@ -85,7 +87,14 @@ export default function Component() {
               </CardDescription>
             </CardHeader>
             <div className="w-full items-center justify-center flex p-4">
-              <Button onClick={() => console.log("first")} className="z-0">
+              <Button
+                className="z-0"
+                onClick={() => {
+                  navigate({
+                    to: "/onboarding/create-first-budget",
+                  });
+                }}
+              >
                 Create Budget
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>

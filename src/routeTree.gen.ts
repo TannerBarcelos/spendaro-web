@@ -27,6 +27,7 @@ import { Route as appAppBudgetingIndexImport } from './routes/(app)/_app/budgeti
 import { Route as appAppTransactionsNewImport } from './routes/(app)/_app/transactions/new'
 import { Route as appAppReportingNewImport } from './routes/(app)/_app/reporting/new'
 import { Route as appAppReportingManageImport } from './routes/(app)/_app/reporting/manage'
+import { Route as appAppOnboardingCreateFirstBudgetImport } from './routes/(app)/_app/onboarding/create-first-budget'
 import { Route as appAppTransactionsTransactionIdIndexImport } from './routes/(app)/_app/transactions/$transactionId/index'
 import { Route as appAppBudgetingBudgetIdIndexImport } from './routes/(app)/_app/budgeting/$budgetId/index'
 import { Route as appAppTransactionsTransactionIdEditImport } from './routes/(app)/_app/transactions/$transactionId/edit'
@@ -119,6 +120,12 @@ const appAppReportingManageRoute = appAppReportingManageImport.update({
   getParentRoute: () => appAppRoute,
 } as any)
 
+const appAppOnboardingCreateFirstBudgetRoute =
+  appAppOnboardingCreateFirstBudgetImport.update({
+    path: '/onboarding/create-first-budget',
+    getParentRoute: () => appAppRoute,
+  } as any)
+
 const appAppTransactionsTransactionIdIndexRoute =
   appAppTransactionsTransactionIdIndexImport.update({
     path: '/transactions/$transactionId/',
@@ -188,6 +195,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/signup'
       preLoaderRoute: typeof authAuthSignupImport
       parentRoute: typeof authAuthImport
+    }
+    '/(app)/_app/onboarding/create-first-budget': {
+      id: '/(app)/_app/onboarding/create-first-budget'
+      path: '/onboarding/create-first-budget'
+      fullPath: '/onboarding/create-first-budget'
+      preLoaderRoute: typeof appAppOnboardingCreateFirstBudgetImport
+      parentRoute: typeof appAppImport
     }
     '/(app)/_app/reporting/manage': {
       id: '/(app)/_app/reporting/manage'
@@ -293,6 +307,7 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface appAppRouteChildren {
+  appAppOnboardingCreateFirstBudgetRoute: typeof appAppOnboardingCreateFirstBudgetRoute
   appAppReportingManageRoute: typeof appAppReportingManageRoute
   appAppReportingNewRoute: typeof appAppReportingNewRoute
   appAppTransactionsNewRoute: typeof appAppTransactionsNewRoute
@@ -310,6 +325,8 @@ interface appAppRouteChildren {
 }
 
 const appAppRouteChildren: appAppRouteChildren = {
+  appAppOnboardingCreateFirstBudgetRoute:
+    appAppOnboardingCreateFirstBudgetRoute,
   appAppReportingManageRoute: appAppReportingManageRoute,
   appAppReportingNewRoute: appAppReportingNewRoute,
   appAppTransactionsNewRoute: appAppTransactionsNewRoute,
@@ -370,6 +387,7 @@ export interface FileRoutesByFullPath {
   '/': typeof authAuthRouteWithChildren
   '/signin': typeof authAuthSigninRoute
   '/signup': typeof authAuthSignupRoute
+  '/onboarding/create-first-budget': typeof appAppOnboardingCreateFirstBudgetRoute
   '/reporting/manage': typeof appAppReportingManageRoute
   '/reporting/new': typeof appAppReportingNewRoute
   '/transactions/new': typeof appAppTransactionsNewRoute
@@ -390,6 +408,7 @@ export interface FileRoutesByTo {
   '/': typeof authAuthRouteWithChildren
   '/signin': typeof authAuthSigninRoute
   '/signup': typeof authAuthSignupRoute
+  '/onboarding/create-first-budget': typeof appAppOnboardingCreateFirstBudgetRoute
   '/reporting/manage': typeof appAppReportingManageRoute
   '/reporting/new': typeof appAppReportingNewRoute
   '/transactions/new': typeof appAppTransactionsNewRoute
@@ -414,6 +433,7 @@ export interface FileRoutesById {
   '/(auth)/_auth': typeof authAuthRouteWithChildren
   '/(auth)/_auth/signin': typeof authAuthSigninRoute
   '/(auth)/_auth/signup': typeof authAuthSignupRoute
+  '/(app)/_app/onboarding/create-first-budget': typeof appAppOnboardingCreateFirstBudgetRoute
   '/(app)/_app/reporting/manage': typeof appAppReportingManageRoute
   '/(app)/_app/reporting/new': typeof appAppReportingNewRoute
   '/(app)/_app/transactions/new': typeof appAppTransactionsNewRoute
@@ -436,6 +456,7 @@ export interface FileRouteTypes {
     | '/'
     | '/signin'
     | '/signup'
+    | '/onboarding/create-first-budget'
     | '/reporting/manage'
     | '/reporting/new'
     | '/transactions/new'
@@ -455,6 +476,7 @@ export interface FileRouteTypes {
     | '/'
     | '/signin'
     | '/signup'
+    | '/onboarding/create-first-budget'
     | '/reporting/manage'
     | '/reporting/new'
     | '/transactions/new'
@@ -477,6 +499,7 @@ export interface FileRouteTypes {
     | '/(auth)/_auth'
     | '/(auth)/_auth/signin'
     | '/(auth)/_auth/signup'
+    | '/(app)/_app/onboarding/create-first-budget'
     | '/(app)/_app/reporting/manage'
     | '/(app)/_app/reporting/new'
     | '/(app)/_app/transactions/new'
@@ -530,6 +553,7 @@ export const routeTree = rootRoute
       "filePath": "(app)/_app.tsx",
       "parent": "/(app)",
       "children": [
+        "/(app)/_app/onboarding/create-first-budget",
         "/(app)/_app/reporting/manage",
         "/(app)/_app/reporting/new",
         "/(app)/_app/transactions/new",
@@ -567,6 +591,10 @@ export const routeTree = rootRoute
     "/(auth)/_auth/signup": {
       "filePath": "(auth)/_auth/signup.tsx",
       "parent": "/(auth)/_auth"
+    },
+    "/(app)/_app/onboarding/create-first-budget": {
+      "filePath": "(app)/_app/onboarding/create-first-budget.tsx",
+      "parent": "/(app)/_app"
     },
     "/(app)/_app/reporting/manage": {
       "filePath": "(app)/_app/reporting/manage.tsx",

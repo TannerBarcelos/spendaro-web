@@ -12,6 +12,7 @@ import { z } from "zod";
 import { useNavigate } from "@tanstack/react-router";
 import { Textarea } from "@/components/ui/textarea";
 import { useBudgetStore } from "@/stores/budget-store";
+import { Budget } from "@/api/budget-api/types";
 
 export const budgetToCreateSchema = z.object({
   budget_name: z
@@ -26,7 +27,16 @@ export const budgetToCreateSchema = z.object({
 
 export type BudgetToCreate = z.infer<typeof budgetToCreateSchema>;
 
-function BudgetForm() {
+type BudgetFormProps = {
+  /**
+   * Callback function to be called after the budget has been created successfully
+   * @param budget The created budget
+   * @returns void
+   */
+  onSubmitCallback?: (budget: Budget) => void; // if not provided, default behavior is to navigate to the created budget
+};
+
+function BudgetForm({ onSubmitCallback }: BudgetFormProps) {
   const setActiveBudget = useBudgetStore((state) => state.setActiveBudget);
   const navigate = useNavigate();
   const createBudgetMutation = useCreateBudget();
@@ -51,9 +61,13 @@ function BudgetForm() {
         });
         form.reset();
         setActiveBudget(data.id.toString());
-        navigate({
-          to: `/budgeting/${data.id}`,
-        });
+        if (onSubmitCallback) {
+          onSubmitCallback(data);
+        } else {
+          navigate({
+            to: `/budgeting/${data.id}`,
+          });
+        }
       } catch (error) {
         const errorMessage = errorBuilder(error);
         toast.error(errorMessage, {
