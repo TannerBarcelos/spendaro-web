@@ -7,11 +7,12 @@ function SigninPage() {
   const redirect_url = AuthRoute.useSearch({
     select: (search) => search.redirect_url,
   });
+  const fallbackRedirectUrl = redirect_url ?? "/dashboard";
   return (
     <div className="w-3/4 m-auto">
       <SignedOut>
         <AuthHeader page="signin" />
-        <SignIn fallbackRedirectUrl={redirect_url ?? "/dashboard"} />
+        <SignIn fallbackRedirectUrl={fallbackRedirectUrl} />
         <p className="text-xs pt-4 text-gray-500 font-normal">
           Don&apos;t have an account?
           <Link
