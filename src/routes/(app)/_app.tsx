@@ -2,7 +2,7 @@ import { createFileRoute, Outlet, useNavigate } from "@tanstack/react-router";
 
 import { SidebarProvider } from "@/components/ui/sidebar";
 import Sidebar from "@/components/sidebar";
-import { SignedIn, useAuth, useUser } from "@clerk/clerk-react";
+import { SignedIn, useUser } from "@clerk/clerk-react";
 
 export const Route = createFileRoute("/(app)/_app")({
   component: App,
@@ -11,7 +11,8 @@ export const Route = createFileRoute("/(app)/_app")({
 function App() {
   const navigate = useNavigate();
   const { user, isLoaded, isSignedIn } = useUser();
-  const auth = useAuth();
+
+  const isOnboarded = user?.publicMetadata?.isOnboarded || false;
 
   if (!isLoaded) {
     return null;
@@ -21,12 +22,12 @@ function App() {
     navigate({
       to: "/signin",
       search: {
-        redirect_url: window.location.href,
+        redirect_url: isOnboarded ? window.location.href : "/onboarding",
       },
     });
   }
 
-  if (user?.id && user?.publicMetadata) {
+  if (user?.id && !isOnboarded) {
     navigate({
       to: "/onboarding",
     });
@@ -35,7 +36,8 @@ function App() {
   return (
     <SidebarProvider>
       <SignedIn>
-        <Sidebar />
+        {/* only show sidebar if onboarding is done */}
+        {isOnboarded && <Sidebar />}
         <main className="flex flex-1 flex-col px-4 container mx-auto my-6">
           <Outlet />
         </main>
