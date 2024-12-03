@@ -1,5 +1,3 @@
-"use client";
-
 import { motion } from "framer-motion";
 import { ArrowRight, BarChart3, PiggyBank, Wallet } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -11,6 +9,24 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
+const onboardingCards = [
+  {
+    icon: PiggyBank,
+    title: "Track Expenses",
+    description: "Monitor your spending habits with ease and precision",
+  },
+  {
+    icon: Wallet,
+    title: "Budget Wisely",
+    description: "Create and manage budgets that work for you",
+  },
+  {
+    icon: BarChart3,
+    title: "Visualize Growth",
+    description: "See your financial progress through intuitive charts",
+  },
+];
 
 export default function Component() {
   return (
@@ -42,38 +58,16 @@ export default function Component() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="grid w-full max-w-5xl gap-6 sm:grid-cols-3"
         >
-          <Card className="relative overflow-hidden p-8">
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-transparent" />
-            <CardHeader>
-              <PiggyBank className="h-12 w-12 text-purple-500" />
-              <CardTitle>Track Expenses</CardTitle>
-              <CardDescription>
-                Monitor your spending habits with ease and precision
-              </CardDescription>
-            </CardHeader>
-          </Card>
-
-          <Card className="relative overflow-hidden p-8">
-            <div className="absolute inset-0 bg-gradient-to-br from-pink-500/10 via-transparent to-transparent" />
-            <CardHeader>
-              <Wallet className="h-12 w-12 text-pink-500" />
-              <CardTitle>Budget Wisely</CardTitle>
-              <CardDescription>
-                Create and manage budgets that work for you
-              </CardDescription>
-            </CardHeader>
-          </Card>
-
-          <Card className="relative overflow-hidden p-8">
-            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-transparent" />
-            <CardHeader>
-              <BarChart3 className="h-12 w-12 text-cyan-500" />
-              <CardTitle>Visualize Growth</CardTitle>
-              <CardDescription>
-                See your financial progress through intuitive charts
-              </CardDescription>
-            </CardHeader>
-          </Card>
+          {onboardingCards.map((card, index) => (
+            <Card className="relative overflow-hidden p-8" key={index}>
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-transparent space-y-4" />
+              <CardContent className="space-y-2 p-0">
+                <card.icon className="h-12 w-12 text-purple-500" />
+                <CardTitle>{card.title}</CardTitle>
+                <CardDescription>{card.description}</CardDescription>
+              </CardContent>
+            </Card>
+          ))}
         </motion.div>
 
         <motion.div
@@ -84,7 +78,7 @@ export default function Component() {
         >
           <Card className="relative overflow-hidden p-8">
             <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-transparent" />
-            <CardHeader className="text-center">
+            <CardHeader className="text-center space-y-4">
               <CardTitle className="text-2xl">Let's Get Started</CardTitle>
               <CardDescription>
                 Before you can start tracking your expenses, you need to create
@@ -94,8 +88,8 @@ export default function Component() {
             <CardContent className="space-y-4">
               {/* Your existing budget creation form will go here */}
             </CardContent>
-            <CardFooter className="justify-end">
-              <Button size="lg" className="group">
+            <CardFooter className="justify-center">
+              <Button className="group">
                 Create Budget
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
