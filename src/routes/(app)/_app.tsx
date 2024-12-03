@@ -11,7 +11,6 @@ export const Route = createFileRoute("/(app)/_app")({
 function App() {
   const navigate = useNavigate();
   const { user, isLoaded, isSignedIn } = useUser();
-  console.log(isSignedIn);
   const isOnboarded = user?.publicMetadata?.isOnboarded || false;
 
   if (!isLoaded) {
@@ -19,7 +18,6 @@ function App() {
   }
 
   if (!isSignedIn) {
-    console.log(window.location.href);
     navigate({
       to: "/signin",
       search: {
