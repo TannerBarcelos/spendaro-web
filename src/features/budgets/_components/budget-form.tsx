@@ -12,7 +12,6 @@ import { z } from "zod";
 import { useNavigate } from "@tanstack/react-router";
 import { Textarea } from "@/components/ui/textarea";
 import { useBudgetStore } from "@/stores/budget-store";
-import { Budget } from "@/api/budget-api/types";
 
 export const budgetToCreateSchema = z.object({
   budget_name: z
@@ -33,7 +32,7 @@ type BudgetFormProps = {
    * @param budget The created budget
    * @returns void
    */
-  onSubmit?: (budget: Budget) => void; // if not provided, default behavior is to navigate to the created budget
+  onSubmit?: (budget: BudgetToCreate) => void; // if not provided, default behavior is to navigate to the created budget
 };
 
 function BudgetForm({ onSubmit }: BudgetFormProps) {
@@ -54,16 +53,16 @@ function BudgetForm({ onSubmit }: BudgetFormProps) {
     },
     onSubmit: async ({ value }) => {
       try {
-        const { data } = await createBudgetMutation.mutateAsync(value);
-        toast.success("Budget created successfully!", {
-          position: "bottom-right",
-          duration: 2_000,
-        });
         form.reset();
-        setActiveBudget(data.id.toString());
         if (onSubmit) {
-          onSubmit(data);
+          onSubmit(value);
         } else {
+          const { data } = await createBudgetMutation.mutateAsync(value);
+          toast.success("Budget created successfully!", {
+            position: "bottom-right",
+            duration: 2_000,
+          });
+          setActiveBudget(data.id.toString());
           navigate({
             to: `/budgeting/${data.id}`,
           });

@@ -1,9 +1,11 @@
 import { motion } from "framer-motion";
 import BudgetForm from "../budgets/_components/budget-form";
 import { useNavigate } from "@tanstack/react-router";
+import { useOnboardingStore } from "@/stores/onboarding-store";
 
 function CreateInitialBudget() {
   const navigate = useNavigate();
+  const { setBudget } = useOnboardingStore();
   return (
     <div className="container relative mx-auto flex min-h-screen flex-col items-center justify-center px-4">
       <motion.div
@@ -21,18 +23,13 @@ function CreateInitialBudget() {
         <div className="p-4 shadow-sm">
           <BudgetForm
             onSubmit={(budget) => {
-              const {
-                budget_name,
-                budget_description,
-                amount: budget_amount,
-              } = budget;
+              setBudget(
+                budget.budget_name,
+                budget.budget_description,
+                budget.amount
+              );
               navigate({
                 to: "/onboarding/create-initial-categories",
-                search: {
-                  budget_name,
-                  budget_description,
-                  budget_amount,
-                },
               });
             }}
           />
