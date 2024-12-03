@@ -11,24 +11,24 @@ export const Route = createFileRoute("/(app)/_app")({
 function App() {
   const navigate = useNavigate();
   const { user, isLoaded, isSignedIn } = useUser();
-
+  console.log(isSignedIn);
   const isOnboarded = user?.publicMetadata?.isOnboarded || false;
-  console.log(user?.publicMetadata);
 
   if (!isLoaded) {
     return null;
   }
 
   if (!isSignedIn) {
+    console.log(window.location.href);
     navigate({
       to: "/signin",
       search: {
-        redirect_url: isOnboarded ? window.location.href : "/onboarding",
+        redirect_url: window.location.href,
       },
     });
   }
 
-  if (user?.id && !isOnboarded) {
+  if (isSignedIn && !isOnboarded) {
     navigate({
       to: "/onboarding",
     });
@@ -37,7 +37,6 @@ function App() {
   return (
     <SidebarProvider>
       <SignedIn>
-        {/* only show sidebar if onboarding is done */}
         {isOnboarded && <Sidebar />}
         <main className="flex flex-1 flex-col px-4 container mx-auto my-6">
           <Outlet />
