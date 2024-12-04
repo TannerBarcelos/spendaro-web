@@ -7,7 +7,7 @@ function SignupPage() {
     <div className="w-3/4 m-auto">
       <AuthHeader page="signup" />
       {/* Signing up always puts a user through onboarding first */}
-      <SignUp fallbackRedirectUrl="/onboarding" />
+      <SignUp routing="hash" fallbackRedirectUrl="/onboarding" />
       <p className="text-xs pt-4 text-gray-500 font-normal">
         Already have an account?{" "}
         <Link
@@ -20,4 +20,5 @@ function SignupPage() {
     </div>
   );
 }
+
 export default SignupPage;

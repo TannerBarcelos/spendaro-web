@@ -100,9 +100,10 @@ function SetInitialCategories() {
                   </ul>
                   <Button
                     className="z-0"
-                    onClick={() =>
-                      handleSelection(option as "template" | "custom")
-                    }
+                    onClick={() => {
+                      handleSelection(option as "template" | "custom");
+                      console.log("clicked");
+                    }}
                   >
                     {option === "template"
                       ? "Use Template"
