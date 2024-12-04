@@ -6,8 +6,7 @@ function SignupPage() {
   return (
     <div className="w-3/4 m-auto">
       <AuthHeader page="signup" />
-      {/* Signing up always puts a user through onboarding first */}
-      <SignUp routing="hash" fallbackRedirectUrl="/onboarding" />
+      <SignUp routing="hash" forceRedirectUrl="/onboarding" />
       <p className="text-xs pt-4 text-gray-500 font-normal">
         Already have an account?{" "}
         <Link
