@@ -31,7 +31,12 @@ export function ActiveBudgetsWidget() {
               <EllipsisVertical className="ml-auto size-4" />
             </DropdownMenuTrigger>
             <DropdownMenuContent sideOffset={3}>
-              <Link to={"/budgeting/new"}>
+              <Link
+                to={"/budgeting"}
+                search={{
+                  create: true,
+                }}
+              >
                 <DropdownMenuItem>
                   <Plus />
                   Create a Budget

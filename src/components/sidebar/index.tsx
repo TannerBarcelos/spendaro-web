@@ -23,7 +23,7 @@ import BudgetSwitcher from "./budget-switcher";
 import { useBudgetStore } from "@/stores/budget-store";
 import { useGetBudgets } from "@/api/budget-api/queries";
 import { Link } from "@tanstack/react-router";
-import Accounts from "./nav-accounts";
+// import Accounts from "./nav-accounts";
 import { useUser } from "@clerk/clerk-react";
 
 const navItems = {
@@ -111,7 +111,7 @@ function Sidebar({ ...props }: React.ComponentProps<typeof ShadCNSidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <MainSidebarItems items={navItems.navMain} />
-        {budgets && <Accounts accounts={budgets?.data} />}
+        {/* {budgets && <Accounts accounts={budgets?.data} />} */}
         <SidebarTrigger className="my-4 ml-2" />
       </SidebarContent>
       <SidebarFooter>
