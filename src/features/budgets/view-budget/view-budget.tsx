@@ -1,12 +1,16 @@
 import PageHeader from "@/components/page-header";
-import { Route as BudgetRoute } from "@/routes/(app)/_app/budgeting/$budgetId";
 import { useBudgetStore } from "@/stores/budget-store";
 import { useNavigate } from "@tanstack/react-router";
+import { getRouteApi } from "@tanstack/react-router";
 
 export function ViewBudget() {
-  const active_budget_id = useBudgetStore((state) => state.active_budget);
   const navigate = useNavigate();
-  const current_budget_id = BudgetRoute.useParams().budgetId;
+  // const { data } = BudgetRoute.useLoaderData();
+  const thisRoute = getRouteApi("/(app)/_app/budgeting/$budgetId/"); // this is the preferred way to get the data from the route as importing the route config directly can cause circular dependencies. See https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#consuming-data-from-loaders
+  const { data } = thisRoute.useLoaderData();
+  const { budgetId: current_budget_id } = thisRoute.useParams();
+
+  const active_budget_id = useBudgetStore((state) => state.active_budget);
 
   // If a user switches the app-wide active budget while viewing a budget that's not the same, redirect to the new active budget
   if (active_budget_id !== current_budget_id) {
@@ -14,13 +18,6 @@ export function ViewBudget() {
       to: `/budgeting/${active_budget_id}`,
     });
   }
-
-  const { data } = BudgetRoute.useLoaderData();
-
-  // Another way to get the data - all router apis have the select mechanism
-  // const budget = BudgetRoute.useLoaderData({
-  //   select: (data) => data.data,
-  // });
 
   return (
     <div>
