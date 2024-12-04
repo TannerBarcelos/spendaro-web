@@ -1,35 +1,18 @@
 import {
-  Folder,
-  Forward,
-  MoreHorizontal,
-  Trash2,
-  type LucideIcon,
-} from "lucide-react";
-
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
   SidebarGroup,
   SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuAction,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  useSidebar,
+  // useSidebar,
 } from "@/components/ui/sidebar";
-import { Budget } from "@/api/budget-api/types";
+// import { Budget } from "@/api/budget-api/types";
 
-type AccountsProps = {
-  accounts: Budget[];
-};
+// type AccountsProps = {
+//   accounts: Budget[];
+// };
 
-function Accounts({ accounts }: AccountsProps) {
-  const { isMobile } = useSidebar();
+//TODO: Uncomment the following line when accounts are available
+// function Accounts({ accounts }: AccountsProps)
+function Accounts() {
+  // const { isMobile } = useSidebar();
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
       <SidebarGroupLabel>Accounts</SidebarGroupLabel>

@@ -23,13 +23,15 @@ import {
 } from "@/components/ui/sidebar";
 import { Budget } from "@/api/budget-api/types";
 import { useBudgetStore } from "@/stores/budget-store";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { Button } from "../ui/button";
 
 type BudgetSwitcherProps = {
   budgets: Budget[];
 };
 
 function BudgetSwitcher({ budgets }: BudgetSwitcherProps) {
+  const navigate = useNavigate();
   const { isMobile } = useSidebar();
   const activeBudget = useBudgetStore((state) => state.active_budget);
   const setActiveBudget = useBudgetStore((state) => state.setActiveBudget);
@@ -103,7 +105,7 @@ function BudgetSwitcher({ budgets }: BudgetSwitcherProps) {
               <DropdownMenuLabel className="text-xs text-muted-foreground">
                 Budgets
               </DropdownMenuLabel>
-              {budgets.map((budget, index) => (
+              {budgets.map((budget) => (
                 <DropdownMenuItem
                   key={budget.budget_name}
                   onClick={() => setActiveBudget(budget.id.toString())}
@@ -118,7 +120,21 @@ function BudgetSwitcher({ budgets }: BudgetSwitcherProps) {
                     <LayoutListIcon className="size-2" />
                   </div>
                   <span className="text-xs">{budget.budget_name}</span>
-                  <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
+                  <DropdownMenuShortcut>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="text-xs"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate({
+                          to: `/budgeting/${budget.id}`,
+                        });
+                      }}
+                    >
+                      view
+                    </Button>
+                  </DropdownMenuShortcut>
                 </DropdownMenuItem>
               ))}
               <DropdownMenuSeparator />

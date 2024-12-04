@@ -8,7 +8,5 @@ const searchParamsSchema = z.object({
 
 export const Route = createFileRoute("/(app)/_app/budgeting/")({
   component: BudgetPage,
-  validateSearch: (searchValues: z.infer<typeof searchParamsSchema>) => {
-    return searchParamsSchema.parse(searchValues);
-  },
+  validateSearch: searchParamsSchema,
 });

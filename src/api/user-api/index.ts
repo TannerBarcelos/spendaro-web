@@ -1,5 +1,4 @@
 import axiosInstance from "@/api/axios";
-import { authStore } from "@/stores/auth-store";
 
 const USER_BASE_URL = "/user";
 
@@ -23,10 +22,9 @@ export interface UserData {
 }
 
 export const fetchUser = async () => {
-  const access_token = authStore.getState().accessToken;
   const headers = {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${access_token}`,
+    // Authorization: `Bearer ${access_token}`, no need to send this header as Clerk handles it for us via cookies and session management in the api server
   };
   const { data } = await axiosInstance.get<UserDetailsResponse>(
     USER_URLS.userDetails,

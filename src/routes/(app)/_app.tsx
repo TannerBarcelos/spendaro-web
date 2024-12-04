@@ -1,6 +1,6 @@
 import { createFileRoute, Outlet, useNavigate } from "@tanstack/react-router";
 
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import Sidebar from "@/components/sidebar";
 import { SignedIn, useUser } from "@clerk/clerk-react";
 
@@ -10,7 +10,9 @@ export const Route = createFileRoute("/(app)/_app")({
 
 function App() {
   const navigate = useNavigate();
-  const { isSignedIn, isLoaded } = useUser();
+  const { user, isLoaded, isSignedIn } = useUser();
+
+  const isOnboarded = user?.publicMetadata?.isOnboarded || false;
 
   if (!isLoaded) {
     return null;
@@ -20,21 +22,26 @@ function App() {
     navigate({
       to: "/signin",
       search: {
-        redirect_url: window.location.href,
+        redirect_url: window.location.href, // include the current url as a query param so that Clerk can redirect back to it after sign in
       },
     });
   }
 
+  if (isSignedIn && !isOnboarded) {
+    navigate({
+      to: "/onboarding",
+    });
+  }
+
   return (
-    <SidebarProvider>
-      <SignedIn>
+    <SignedIn>
+      <SidebarProvider>
+        {/* {isOnboarded && <Sidebar />} */}
         <Sidebar />
-        <SidebarInset>
-          <main className="flex flex-1 flex-col px-4 container mx-auto my-6">
-            <Outlet />
-          </main>
-        </SidebarInset>
-      </SignedIn>
-    </SidebarProvider>
+        <main className="flex flex-1 flex-col px-4 container mx-auto my-6">
+          <Outlet />
+        </main>
+      </SidebarProvider>
+    </SignedIn>
   );
 }

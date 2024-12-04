@@ -1,5 +1,4 @@
 import { queryClient } from "@/api/query-client";
-import { authStore } from "@/stores/auth-store";
 import { generateUploadDropzone } from "@uploadthing/react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -20,7 +19,6 @@ import { Label } from "@/components/ui/label";
 
 export function UserProfilePage() {
   const data = useUserDetails();
-  const accessToken = authStore((state) => state.accessToken);
   const UploadImageDropzone = generateUploadDropzone({
     url: "http://localhost:8010/api/uploadthing",
   });
@@ -57,11 +55,11 @@ export function UserProfilePage() {
                 endpoint="profileImageUploader"
                 config={{ cn: twMerge, mode: "auto" }}
                 className="w-full"
-                headers={() => {
-                  return {
-                    Authorization: `Bearer ${accessToken}`,
-                  };
-                }}
+                // headers={() => {
+                //   return {
+                //     Authorization: `Bearer ${accessToken}`,
+                //   };
+                // }}
                 onClientUploadComplete={(res) => {
                   const responseMessage = res[0].serverData.message as string;
                   toast.success(responseMessage, {

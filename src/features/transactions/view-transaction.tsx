@@ -1,10 +1,11 @@
-import { Route as TransactionRoute } from "@/routes/(app)/_app/transactions/$transactionId";
+import { getRouteApi } from "@tanstack/react-router";
 
 function TransactionPage() {
-  const transaction = TransactionRoute.useLoaderData();
+  const thisRoute = getRouteApi("/(app)/_app/transactions/$transactionId/");
+  const { data: transaction } = thisRoute.useLoaderData();
   return (
     <div>
-      <h1>{transaction.data.transaction_description}</h1>
+      <h1>{transaction.transaction_description}</h1>
     </div>
   );
 }

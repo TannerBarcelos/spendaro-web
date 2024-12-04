@@ -26,7 +26,16 @@ export const budgetToCreateSchema = z.object({
 
 export type BudgetToCreate = z.infer<typeof budgetToCreateSchema>;
 
-function BudgetForm() {
+type BudgetFormProps = {
+  /**
+   * Callback function to be called after the budget has been created successfully
+   * @param budget The created budget
+   * @returns void
+   */
+  onSubmit?: (budget: BudgetToCreate) => void; // if not provided, default behavior is to navigate to the created budget
+};
+
+function BudgetForm({ onSubmit }: BudgetFormProps) {
   const setActiveBudget = useBudgetStore((state) => state.setActiveBudget);
   const navigate = useNavigate();
   const createBudgetMutation = useCreateBudget();
@@ -44,16 +53,20 @@ function BudgetForm() {
     },
     onSubmit: async ({ value }) => {
       try {
-        const { data } = await createBudgetMutation.mutateAsync(value);
-        toast.success("Budget created successfully!", {
-          position: "bottom-right",
-          duration: 2_000,
-        });
         form.reset();
-        setActiveBudget(data.id.toString());
-        navigate({
-          to: `/budgeting/${data.id}`,
-        });
+        if (onSubmit) {
+          onSubmit(value);
+        } else {
+          const { data } = await createBudgetMutation.mutateAsync(value);
+          toast.success("Budget created successfully!", {
+            position: "bottom-right",
+            duration: 2_000,
+          });
+          setActiveBudget(data.id.toString());
+          navigate({
+            to: `/budgeting/${data.id}`,
+          });
+        }
       } catch (error) {
         const errorMessage = errorBuilder(error);
         toast.error(errorMessage, {

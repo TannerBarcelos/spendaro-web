@@ -1,22 +1,26 @@
-export type Budget = {
-  id:                 number;
-  user_id:            number;
-  budget_name:        string;
-  budget_description: string;
-  amount:             number;
-  is_favorite:        boolean;
-  is_active:          boolean;
-  budget_color:       string;
-  createdAt:          Date;
-  updatedAt:          Date;
-}
+import { z } from 'zod';
+
+export const BudgetSchema = z.object({
+  id: z.number(),
+  user_id: z.number(),
+  budget_name: z.string(),
+  budget_description: z.string(),
+  amount: z.number(),
+  is_favorite: z.boolean(),
+  is_active: z.boolean(),
+  budget_color: z.string(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+});
+
+export type Budget = z.infer<typeof BudgetSchema>;
 
 export type BudgetApiResponse = {
-  data:    Budget;
+  data: Budget;
   message: string;
 }
 
 export type BudgetsApiResponse = {
-  data:    Array<Budget>;
+  data: Array<Budget>;
   message: string;
 }

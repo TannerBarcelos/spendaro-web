@@ -6,7 +6,7 @@ import { ThemeProvider } from "@/contexts/theme";
 import { RouterProvider } from "@tanstack/react-router";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/api/query-client.ts";
-import { router as routerInstance } from "./router.ts";
+import { router as routerInstance } from "./router.tsx";
 import { ClerkProvider } from "@clerk/clerk-react";
 
 // Clerk
@@ -25,7 +25,12 @@ if (!rootElement.innerHTML) {
   const root = createRoot(rootElement);
   root.render(
     <StrictMode>
-      <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/signin">
+      <ClerkProvider
+        publishableKey={PUBLISHABLE_KEY}
+        afterSignOutUrl="/signin"
+        signInFallbackRedirectUrl="/dashboard"
+        signUpFallbackRedirectUrl="/dashboard"
+      >
         <ThemeProvider>
           <QueryClientProvider client={queryClient}>
             <RouterProvider router={router} />

@@ -1,6 +1,6 @@
 import { EllipsisVertical } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "./ui/card";
-import Info from "./Info";
+
 import { Button } from "./ui/button";
 import {
   DropdownMenu,
@@ -10,7 +10,6 @@ import {
 
 type SpendaroCardProps = {
   title: string;
-  info?: string;
   className?: string;
   ellipsisMenuItems?: React.ReactNode;
   children?: React.ReactNode;
@@ -18,7 +17,6 @@ type SpendaroCardProps = {
 
 export function SpendaroCard({
   title,
-  info,
   children,
   ellipsisMenuItems,
   className,
@@ -31,7 +29,6 @@ export function SpendaroCard({
             <h2 className="text-base md:text-md font-medium text-slate-950">
               {title}
             </h2>
-            {info && <Info info={info} />}
           </div>
           <DropdownMenu>
             <DropdownMenuTrigger>

@@ -1,4 +1,8 @@
-import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
+import {
+  createRootRouteWithContext,
+  Outlet,
+  ScrollRestoration,
+} from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { Toaster } from "@/components/ui/sonner";
 import { QueryClient } from "@tanstack/react-query";
@@ -18,6 +22,7 @@ function Root() {
     <div className="min-h-screen px-4 md:px-0 mx-auto lg:mx-0">
       <Outlet />
       <Toaster />
+      <ScrollRestoration />
       <TanStackRouterDevtools />
       <ReactQueryDevtools buttonPosition="bottom-right" />
     </div>
