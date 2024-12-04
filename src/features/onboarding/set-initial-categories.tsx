@@ -22,10 +22,13 @@ function SetInitialCategories() {
     "template" | "custom" | null
   >(null);
 
+  console.log(selectedOption);
+
   const handleSelection = (option: "template" | "custom") => {
     setSelectedOption(option);
   };
   console.log(budget_description, budget_name, budget_amount);
+
   return (
     <div className="container relative mx-auto flex min-h-screen flex-col items-center justify-center px-4">
       <motion.div

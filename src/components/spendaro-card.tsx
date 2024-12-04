@@ -10,7 +10,6 @@ import {
 
 type SpendaroCardProps = {
   title: string;
-  info?: string;
   className?: string;
   ellipsisMenuItems?: React.ReactNode;
   children?: React.ReactNode;
@@ -18,7 +17,6 @@ type SpendaroCardProps = {
 
 export function SpendaroCard({
   title,
-  info,
   children,
   ellipsisMenuItems,
   className,

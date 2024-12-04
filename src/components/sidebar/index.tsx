@@ -20,7 +20,6 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import BudgetSwitcher from "./budget-switcher";
-import { useBudgetStore } from "@/stores/budget-store";
 import { useGetBudgets } from "@/api/budget-api/queries";
 import { Link } from "@tanstack/react-router";
 // import Accounts from "./nav-accounts";
@@ -89,8 +88,6 @@ function Sidebar({ ...props }: React.ComponentProps<typeof ShadCNSidebar>) {
 
   if (!isLoaded || !user) return null;
 
-  const activeBudget = useBudgetStore((state) => state.active_budget);
-  const setActiveBudget = useBudgetStore((state) => state.setActiveBudget);
   const { data: budgets, isLoading: isLoadingBudgets } = useGetBudgets();
 
   return (
