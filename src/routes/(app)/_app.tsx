@@ -11,6 +11,7 @@ export const Route = createFileRoute("/(app)/_app")({
 function App() {
   const navigate = useNavigate();
   const { user, isLoaded, isSignedIn } = useUser();
+
   const isOnboarded = user?.publicMetadata?.isOnboarded || false;
 
   if (!isLoaded) {
@@ -32,17 +33,15 @@ function App() {
     });
   }
 
-  // else, show the app
-
   return (
-    <SidebarProvider>
-      <SignedIn>
+    <SignedIn>
+      <SidebarProvider>
         {/* {isOnboarded && <Sidebar />} */}
         <Sidebar />
         <main className="flex flex-1 flex-col px-4 container mx-auto my-6">
           <Outlet />
         </main>
-      </SignedIn>
-    </SidebarProvider>
+      </SidebarProvider>
+    </SignedIn>
   );
 }

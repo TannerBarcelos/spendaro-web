@@ -6,7 +6,7 @@ import { ThemeProvider } from "@/contexts/theme";
 import { RouterProvider } from "@tanstack/react-router";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/api/query-client.ts";
-import { router as routerInstance } from "./router.ts";
+import { router as routerInstance } from "./router.tsx";
 import { ClerkProvider } from "@clerk/clerk-react";
 
 // Clerk
