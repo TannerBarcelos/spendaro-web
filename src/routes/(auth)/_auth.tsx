@@ -1,4 +1,4 @@
-import { SignedOut, useAuth } from "@clerk/clerk-react";
+import { SignedOut, useUser } from "@clerk/clerk-react";
 import {
   createFileRoute,
   Link,
@@ -12,11 +12,14 @@ export const Route = createFileRoute("/(auth)/_auth")({
 });
 
 export function AuthPageLayout() {
-  const { isSignedIn } = useAuth();
+  const { isSignedIn } = useUser();
+
   const navigate = useNavigate();
+
   if (isSignedIn) {
     navigate({ to: "/dashboard" });
   }
+
   return (
     <SignedOut>
       <div className="container m-auto h-screen ">
