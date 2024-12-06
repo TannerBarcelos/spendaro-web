@@ -14,14 +14,6 @@ export default defineConfig(({ mode }) => {
       alias: {
         "@": path.resolve(__dirname, "./src"),
       },
-    },
-    server: {
-      proxy: {
-        "/api/v1": {
-          target: env.VITE_API_URL || "http://localhost:8080",
-          changeOrigin: true,
-        },
-      },
-    },
+    }
   };
 });
