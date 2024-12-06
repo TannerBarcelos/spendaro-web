@@ -104,7 +104,7 @@ function Sidebar({ ...props }: React.ComponentProps<typeof ShadCNSidebar>) {
           </Link>
         </SidebarMenuButton>
         {isLoadingBudgets && <SidebarMenuSkeleton />}
-        {budgets && <BudgetSwitcher budgets={budgets?.data} />}
+        {budgets && <BudgetSwitcher budgets={budgets?.data ?? []} />}
       </SidebarHeader>
       <SidebarContent>
         <MainSidebarItems items={navItems.navMain} />
