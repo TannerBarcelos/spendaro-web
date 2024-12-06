@@ -5,7 +5,6 @@ import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "VITE_");
-  console.log(env)
   return {
     define: {
       __APP_ENV__: JSON.stringify(env.APP_ENV),
