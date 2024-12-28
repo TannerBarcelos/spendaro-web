@@ -9,18 +9,13 @@ export const deleteBudget = async (id: string) => {
   return response.data;
 };
 
-const updateBudget = async (id: string, budgetData: any) => {
-  const { data } = await axiosInstance.put<BudgetApiResponse>(
-    `/budgets/${id}`,
-    budgetData
-  );
-  return data;
-};
-
 export const useCreateBudget = () => {
-  return useMutation({
-    mutationFn: async (budgetToCreate: BudgetToCreate) => {
-      const { data } = await axiosInstance.post<BudgetApiResponse>("/budgets", budgetToCreate);
+  return useMutation<BudgetApiResponse, Error, BudgetToCreate>({
+    mutationFn: async (budgetToCreate) => {
+      const { data } = await axiosInstance.post<BudgetApiResponse>(
+        "/budgets",
+        budgetToCreate
+      );
       return data;
     },
     onSettled: async () =>
@@ -29,12 +24,17 @@ export const useCreateBudget = () => {
   });
 };
 
-type UpdateArgs = { budget_id: string; budget_to_update: Partial<Budget> };
+type TUpdateBudgetArgs = { budget_id: string; budget_to_update: Partial<Budget> };
 
 export const useUpdateBudget = () => {
-  return useMutation({
-    mutationFn: ({ budget_id, budget_to_update }: UpdateArgs) =>
-      updateBudget(budget_id, budget_to_update),
+  return useMutation<BudgetApiResponse, Error, TUpdateBudgetArgs>({
+    mutationFn: async ({ budget_id, budget_to_update }) => {
+      const { data } = await axiosInstance.put<BudgetApiResponse>(
+        `/budgets/${budget_id}`,
+        budget_to_update
+      );
+      return data;
+    },
     onSettled: async () =>
       await queryClient.invalidateQueries({ queryKey: ["budgets"] }),
   });
